@@ -32,4 +32,4 @@ You can obtain and use a `Link` like this
 ```
 
 # Documentation
-For more info please use the [example](https://github.com/DRSchlaubi/Lavakord/blob/master/example) or [Dokka docs](https://p.mik.wtf/lavakord/)
+For more info please use the [example](https://github.com/DRSchlaubi/Lavakord/blob/master/example) or [Dokka docs](https://l.mik.wtf/lavakord/)
