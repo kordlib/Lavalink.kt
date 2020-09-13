@@ -6,6 +6,7 @@ import com.gitlab.kordlib.core.entity.Guild
 import com.gitlab.kordlib.core.entity.channel.VoiceChannel
 import lavalink.client.io.Lavalink
 import lavalink.client.io.Link
+import me.schlaubi.lavakord.audio.KordLink
 
 /**
  * Creates or returns an existing [Link] for the guild with the specified [guildId].
@@ -41,4 +42,6 @@ suspend fun Link.connect(voiceChannelId: String): Unit = connect(voiceChannelId.
  * @throws NullPointerException If the [voiceChannelId] does not resolve to a valid voice channel
  */
 suspend fun Link.connect(voiceChannelId: Long): Unit =
-    (this as? KordLink)?.connect(voiceChannelId, true) ?: error("This cannot be used on non kord links")
+    asKordLink().connect(voiceChannelId, true)
+
+internal fun Link.asKordLink(): KordLink = (this as? KordLink) ?: error("This cannot be used on non kord links")

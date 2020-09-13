@@ -1,4 +1,4 @@
-package me.schlaubi.lavakord
+package me.schlaubi.lavakord.audio
 
 import com.gitlab.kordlib.common.entity.Permission
 import com.gitlab.kordlib.common.entity.Snowflake
@@ -9,8 +9,9 @@ import com.gitlab.kordlib.gateway.UpdateVoiceStatus
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.launch
 import lavalink.client.io.Link
+import me.schlaubi.lavakord.InsufficientPermissionException
 
-internal class KordLink(private val lavalink: KordLavaLink, guildId: String?) : Link(lavalink, guildId) {
+internal class KordLink(internal val lavalink: KordLavaLink, guildId: String?) : Link(lavalink, guildId) {
 
     public override fun removeConnection() {
         // JDA handles this for us without even being in class path

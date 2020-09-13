@@ -3,6 +3,7 @@ package me.schlaubi.lavakord
 import com.gitlab.kordlib.core.Kord
 import lavalink.client.io.Lavalink
 import lavalink.client.io.Link
+import me.schlaubi.lavakord.audio.KordLavaLink
 
 /**
  * Creates a [Lavalink] instance for this [Kord] instance.

@@ -28,6 +28,7 @@ import lavalink.client.io.Link
 import me.schlaubi.lavakord.connect
 import me.schlaubi.lavakord.getLink
 import me.schlaubi.lavakord.lavalink
+import me.schlaubi.lavakord.rest.loadItem
 import java.net.URI
 
 lateinit var lavalink: Lavalink<out Link>
@@ -37,7 +38,7 @@ suspend fun main(): Unit = bot(System.getenv("token")) {
     lavalink = kord.lavalink {
         autoReconnect = false
     }
-    lavalink.addNode(URI.create("ws://localhost:8080"), "youshallnotpass")
+    lavalink.addNode(URI.create("wss://58eaa547dfe9.ngrok.io"), "youshallnotpass")
 }
 
 val prefix: PrefixConfiguration = prefix {
@@ -45,8 +46,6 @@ val prefix: PrefixConfiguration = prefix {
 }
 
 fun testModule(): ModuleModifier = module("music-test") {
-    val playerManager = DefaultAudioPlayerManager()
-    AudioSourceManagers.registerRemoteSources(playerManager)
     command("connect") {
         invoke {
             val guild = guild ?: return@invoke
@@ -94,7 +93,7 @@ fun testModule(): ModuleModifier = module("music-test") {
 
             val player = link.player
 
-            playerManager.loadItem(search, object : AudioLoadResultHandler {
+            link.loadItem(search, object : AudioLoadResultHandler {
                 override fun trackLoaded(track: AudioTrack) {
                     player.playTrack(track)
                 }

@@ -1,4 +1,4 @@
-package me.schlaubi.lavakord
+package me.schlaubi.lavakord.audio
 
 import com.gitlab.kordlib.core.event.VoiceServerUpdateEvent
 import com.gitlab.kordlib.core.event.VoiceStateUpdateEvent

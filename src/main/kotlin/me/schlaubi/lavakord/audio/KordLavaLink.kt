@@ -1,4 +1,4 @@
-package me.schlaubi.lavakord
+package me.schlaubi.lavakord.audio
 
 import com.gitlab.kordlib.common.entity.Snowflake
 import com.gitlab.kordlib.core.Kord
@@ -8,6 +8,7 @@ import com.gitlab.kordlib.core.event.guild.GuildDeleteEvent
 import com.gitlab.kordlib.core.on
 import kotlinx.coroutines.launch
 import lavalink.client.io.Lavalink
+import me.schlaubi.lavakord.KordLinkOptions
 
 internal class KordLavaLink(
     internal val client: Kord,

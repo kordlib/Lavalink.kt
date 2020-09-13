@@ -4,6 +4,7 @@ import java.net.URL
 
 plugins {
     kotlin("jvm") version "1.4.10"
+    kotlin("plugin.serialization") version "1.4.0"
     id("com.jfrog.bintray") version "1.8.5"
     id("org.jetbrains.dokka") version "1.4.0"
     `maven-publish`
@@ -20,8 +21,10 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-core", "1.0.0-RC") // JVM dependency
+    implementation("com.gitlab.kordlib.kord", "kord-core", "0.6.3")
+
     api("com.github.FredBoat", "Lavalink-Client", "4.0")
-    api("com.gitlab.kordlib.kord", "kord-core", "0.6.3")
     testImplementation(kotlin("test-junit"))
 }
 
@@ -53,7 +56,10 @@ tasks {
     }
 
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+        }
     }
 
     dokkaHtml {
