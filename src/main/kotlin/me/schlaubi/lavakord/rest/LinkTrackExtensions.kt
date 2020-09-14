@@ -14,8 +14,7 @@ import me.schlaubi.lavakord.asKordLink
 import me.schlaubi.lavakord.audio.KordLink
 
 private val client = HttpClient {
-    install(JsonFeature) {
-    }
+    install(JsonFeature)
 }
 
 /**
@@ -81,7 +80,6 @@ private suspend fun KordLink.loadItem(query: String): TrackResponse {
 
     return client.get(url.build()) {
         headers["Authorization"] = node.password
-        println(headers)
     }
 }
 

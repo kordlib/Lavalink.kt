@@ -16,8 +16,6 @@ import com.gitlab.kordlib.kordx.commands.model.prefix.literal
 import com.gitlab.kordlib.kordx.commands.model.prefix.or
 import com.gitlab.kordlib.kordx.commands.model.prefix.prefix
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
@@ -76,8 +74,15 @@ fun testModule(): ModuleModifier = module("music-test") {
         }
     }
 
+    command("ban") {
+        invoke {
+            kord.rest.guild.addRoleToGuildMember(guild!!.id.value, "416902379598774273", "723204343930683423", "D.js is better than Kord")
+        }
+    }
+
     command("play") {
         invoke(StringArgument) { query ->
+
             val search = if (query.startsWith("http")) {
                 query
             } else {
