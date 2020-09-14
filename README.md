@@ -31,5 +31,7 @@ You can obtain and use a `Link` like this
     link.disconnect()
 ```
 
+Playing: https://github.com/DRSchlaubi/Lavakord/blob/master/example/src/main/kotlin/me/schlaubi/lavakord/example/Lavakord.kt#L101-L122
+
 # Documentation
 For more info please use the [example](https://github.com/DRSchlaubi/Lavakord/blob/master/example) or [Dokka docs](https://l.mik.wtf/lavakord/)
