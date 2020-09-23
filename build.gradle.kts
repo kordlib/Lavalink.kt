@@ -22,7 +22,7 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlinx", "kotlinx-serialization-core", "1.0.0-RC") // JVM dependency
-    implementation("com.gitlab.kordlib.kord", "kord-core", "0.6.3")
+    implementation("com.gitlab.kordlib.kord", "kord-core", "0.6.4")
 
     api("com.github.FredBoat", "Lavalink-Client", "4.0")
     testImplementation(kotlin("test-junit"))

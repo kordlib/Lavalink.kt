@@ -13,10 +13,6 @@ import lavalink.client.io.Link
 import me.schlaubi.lavakord.asKordLink
 import me.schlaubi.lavakord.audio.KordLink
 
-private val client = HttpClient {
-    install(JsonFeature)
-}
-
 /**
  * Loads an audio item from this [Link] and calls the [callback] when the request succeeded.
  *
@@ -72,20 +68,10 @@ fun List<TrackResponse.Track>.mapToAudioTrack(): List<AudioTrack> = map(TrackRes
 
 private suspend fun KordLink.loadItem(query: String): TrackResponse {
     val node = this.getNode(true) ?: error("No node available")
-    val url = URLBuilder(node.remoteUri.toString()).apply {
-        protocol = if (protocol.isSecure()) protocol.copy(name = "https") else protocol.copy(name = "http")
+    val url = node.buildUrl {
         path("loadtracks")
         parameters.append("identifier", query)
     }
 
-    return client.get(url.build()) {
-        headers["Authorization"] = node.password
-    }
+    return node.get(url)
 }
-
-private val LavalinkSocket.password: String
-    get() = (this.javaClass.superclass.getDeclaredField("headers").apply {
-        isAccessible = true
-    }
-        .get(this) as Map<*, *>)["Authorization"] as? String
-        ?: error("Could not get password for node")
