@@ -51,8 +51,8 @@ internal class KordLavaLink(
     }
 
     private fun onChannelDeletion(event: VoiceChannelDeleteEvent) {
-        val link = linksMap[event.channel.guildId.value] ?: return
-        if (event.channel.id.value == link.lastChannel) {
+        val link = linksMap[event.channel.guildId.value]
+        if (event.channel.id.value == link?.lastChannel) {
             link.removeConnection()
         }
     }

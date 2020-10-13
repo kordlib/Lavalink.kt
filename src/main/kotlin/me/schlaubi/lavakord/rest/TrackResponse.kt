@@ -15,7 +15,7 @@ import me.schlaubi.lavakord.rest.TrackResponse.*
  * @property exception the [Error] if present
  */
 @Serializable
-data class TrackResponse(
+public data class TrackResponse(
     val loadType: LoadType,
     @get:JvmName("getNullablePlaylistInfo")
     val playlistInfo: NullablePlaylistInfo,
@@ -30,7 +30,7 @@ data class TrackResponse(
      * @see playlistInfo
      * @throws IllegalStateException when the [loadType] is not [LoadType.PLAYLIST_LOADED]
      */
-    fun getPlaylistInfo(): PlaylistInfo =
+    public fun getPlaylistInfo(): PlaylistInfo =
         if (loadType == LoadType.PLAYLIST_LOADED) playlistInfo.notNull() else error("Playlist info is only available for LoadType.PLAYLIST_LOADED")
 
     /**
@@ -39,13 +39,13 @@ data class TrackResponse(
      * @see exception
      * @throws IllegalStateException when the [loadType] is not [LoadType.LOAD_FAILED]
      */
-    fun getException(): Error =
+    public fun getException(): Error =
         if (loadType == LoadType.LOAD_FAILED) exception!! else error("Exception is only available for LoadType.LOAD_FAILED")
 
     /**
      * The type of the response.
      */
-    enum class LoadType {
+    public enum class LoadType {
         /**
          * Returned when a single track is loaded.
          */
@@ -87,14 +87,14 @@ data class TrackResponse(
      * @see LoadType.LOAD_FAILED
      */
     @Serializable
-    data class Error(
+    public data class Error(
         val message: String,
         val severity: FriendlyException.Severity
     ) {
         /**
          * Converts the error into a [FriendlyException].
          */
-        fun toFriendlyException(): FriendlyException = FriendlyException(message, severity, null)
+        public fun toFriendlyException(): FriendlyException = FriendlyException(message, severity, null)
     }
 
     /**
@@ -104,7 +104,7 @@ data class TrackResponse(
      * @property selectedTrack the index of the selected track
      */
     @Serializable
-    data class NullablePlaylistInfo(
+    public data class NullablePlaylistInfo(
         val name: String? = null,
         val selectedTrack: Int? = null
     ) {
@@ -117,7 +117,7 @@ data class TrackResponse(
      * @property name the name of the playlist
      * @property selectedTrack the index of the selected track
      */
-    data class PlaylistInfo(
+    public data class PlaylistInfo(
         val name: String,
         val selectedTrack: Int
     )
@@ -129,7 +129,7 @@ data class TrackResponse(
      * @property info the parsed [Info]
      */
     @Serializable
-    data class Track(
+    public data class Track(
         val track: String,
         val info: Info
     ) {
@@ -137,7 +137,7 @@ data class TrackResponse(
         /**
          * Converts this track to an [AudioTrack].
          */
-        fun toAudioTrack(): AudioTrack = LavalinkUtil.toAudioTrack(track)
+        public fun toAudioTrack(): AudioTrack = LavalinkUtil.toAudioTrack(track)
 
         /**
          * The track information.
@@ -152,7 +152,7 @@ data class TrackResponse(
          * @property uri the uri to the track
          */
         @Serializable
-        data class Info(
+        public data class Info(
             val identifier: String,
             val isSeekable: Boolean,
             val author: String,

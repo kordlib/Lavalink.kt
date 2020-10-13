@@ -1,12 +1,10 @@
 package me.schlaubi.lavakord.rest
 
 import io.ktor.client.*
-import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import lavalink.client.io.LavalinkSocket
-import me.schlaubi.lavakord.audio.KordLink
 
 internal val client = HttpClient {
     install(JsonFeature)

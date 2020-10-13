@@ -22,7 +22,7 @@ import me.schlaubi.lavakord.audio.KordLink
  * @see com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager.loadItem
  * @see AudioLoadResultHandler
  */
-fun Link.loadItem(query: String, callback: AudioLoadResultHandler) {
+public fun Link.loadItem(query: String, callback: AudioLoadResultHandler) {
     val kordLink = asKordLink()
     fun loadPlaylist(response: TrackResponse, isSearch: Boolean) {
         val playlistInfo = response.getPlaylistInfo()
@@ -57,14 +57,14 @@ fun Link.loadItem(query: String, callback: AudioLoadResultHandler) {
  * @see TrackResponse
  * @see com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager.loadItem
  */
-suspend fun Link.loadItem(query: String): TrackResponse = asKordLink().loadItem(query)
+public suspend fun Link.loadItem(query: String): TrackResponse = asKordLink().loadItem(query)
 
 /**
  * Maps a [List] of [TrackResponse.Track]s to a List of [AudioTrack]s.
  *
  * @see TrackResponse.Track.toAudioTrack
  */
-fun List<TrackResponse.Track>.mapToAudioTrack(): List<AudioTrack> = map(TrackResponse.Track::toAudioTrack)
+public fun List<TrackResponse.Track>.mapToAudioTrack(): List<AudioTrack> = map(TrackResponse.Track::toAudioTrack)
 
 private suspend fun KordLink.loadItem(query: String): TrackResponse {
     val node = this.getNode(true) ?: error("No node available")

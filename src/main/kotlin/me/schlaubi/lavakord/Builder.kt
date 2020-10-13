@@ -11,7 +11,7 @@ import me.schlaubi.lavakord.audio.KordLavaLink
  * @param configure a receiver configuring the [KordLinkOptions] instance used for configuration of this instance
  */
 @Suppress("unused")
-fun Kord.lavalink(configure: MutableKordLinkOptions.() -> Unit = {}): Lavalink<out Link> {
+public fun Kord.lavalink(configure: MutableKordLinkOptions.() -> Unit = {}): Lavalink<out Link> {
     val options = MutableKordLinkOptions().apply(configure).seal()
     return KordLavaLink(
         this,
@@ -26,14 +26,14 @@ fun Kord.lavalink(configure: MutableKordLinkOptions.() -> Unit = {}): Lavalink<o
  *
  * @property autoReconnect Whether to auto-reconnect links or not
  */
-interface KordLinkOptions {
-    val autoReconnect: Boolean
+public interface KordLinkOptions {
+    public val autoReconnect: Boolean
 }
 
 /**
  * Mutable implementation of [KordLinkOptions].
  */
-data class MutableKordLinkOptions(override var autoReconnect: Boolean = true) : KordLinkOptions {
+public data class MutableKordLinkOptions(override var autoReconnect: Boolean = true) : KordLinkOptions {
     internal fun seal() = ImmutableKordLinkOptions(autoReconnect)
 }
 

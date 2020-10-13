@@ -7,5 +7,5 @@ import com.gitlab.kordlib.common.entity.Permission
  *
  * @property permission the required but missing permission
  */
-class InsufficientPermissionException(@Suppress("MemberVisibilityCanBePrivate") val permission: Permission) :
+public class InsufficientPermissionException(@Suppress("MemberVisibilityCanBePrivate") public val permission: Permission) :
     RuntimeException("Action cannot be performed due to lack of $permission")
