@@ -1,12 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.jfrog.bintray.gradle.BintrayExtension
-import java.net.URL
 
 plugins {
     kotlin("jvm") version "1.4.10"
     kotlin("plugin.serialization") version "1.4.0"
     id("com.jfrog.bintray") version "1.8.5"
-    id("org.jetbrains.dokka") version "1.4.0"
+    id("org.jetbrains.dokka") version "1.4.10"
     `maven-publish`
 }
 
@@ -22,7 +21,9 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.0.0")
-    compileOnly("com.gitlab.kordlib.kord", "kord-core", "0.6.4")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.4.1")
+
+    compileOnly("com.gitlab.kordlib.kord", "kord-core", "0.6.7")
 
     api("com.github.FredBoat", "Lavalink-Client", "4.0")
     testImplementation(kotlin("test-junit"))

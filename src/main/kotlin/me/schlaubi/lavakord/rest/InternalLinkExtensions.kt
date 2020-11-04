@@ -2,12 +2,19 @@ package me.schlaubi.lavakord.rest
 
 import io.ktor.client.*
 import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import lavalink.client.io.LavalinkSocket
 
 internal val client = HttpClient {
-    install(JsonFeature)
+    Json {
+        val json = kotlinx.serialization.json.Json {
+            serializersModule = RoutePlannerModule
+        }
+
+        serializer = KotlinxSerializer(json)
+    }
 }
 
 internal suspend inline fun <reified T> LavalinkSocket.get(urlBuilder: URLBuilder) =

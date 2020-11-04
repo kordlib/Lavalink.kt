@@ -1,17 +1,25 @@
 package me.schlaubi.lavakord.rest
 
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
+import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.BasicAudioPlaylist
-import io.ktor.client.*
-import io.ktor.client.features.json.*
-import io.ktor.client.request.*
-import io.ktor.http.*
 import kotlinx.coroutines.launch
-import lavalink.client.io.LavalinkSocket
 import lavalink.client.io.Link
 import me.schlaubi.lavakord.asKordLink
 import me.schlaubi.lavakord.audio.KordLink
+
+internal class SearchAudioPlaylist(private val tracks: List<AudioTrack>) : AudioPlaylist {
+    override fun getName(): String =
+        throw UnsupportedOperationException("This method is not supported on search playlists")
+
+    override fun getTracks(): List<AudioTrack> = tracks
+
+    override fun getSelectedTrack(): AudioTrack =
+        throw UnsupportedOperationException("This method is not supported on search playlists")
+
+    override fun isSearchResult(): Boolean = true
+}
 
 /**
  * Loads an audio item from this [Link] and calls the [callback] when the request succeeded.
@@ -25,16 +33,20 @@ import me.schlaubi.lavakord.audio.KordLink
 public fun Link.loadItem(query: String, callback: AudioLoadResultHandler) {
     val kordLink = asKordLink()
     fun loadPlaylist(response: TrackResponse, isSearch: Boolean) {
-        val playlistInfo = response.getPlaylistInfo()
         val tracks = response.tracks.mapToAudioTrack()
-        callback.playlistLoaded(
+        val playlist = if (isSearch) {
+            SearchAudioPlaylist(tracks)
+        } else {
+            val playlistInfo = response.getPlaylistInfo()
             BasicAudioPlaylist(
                 playlistInfo.name,
                 tracks,
                 tracks[playlistInfo.selectedTrack],
                 isSearch
             )
-        )
+        }
+
+        callback.playlistLoaded(playlist)
     }
 
     kordLink.lavalink.client.launch {

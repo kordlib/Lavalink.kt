@@ -19,10 +19,13 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo
 import kapt.kotlin.generated.configure
 import kotlinx.coroutines.launch
 import lavalink.client.io.Lavalink
 import lavalink.client.io.Link
+import lavalink.client.player.event.TrackStartEvent
+import me.schlaubi.lavakord.audio.on
 import me.schlaubi.lavakord.connect
 import me.schlaubi.lavakord.getLink
 import me.schlaubi.lavakord.lavalink
@@ -36,7 +39,7 @@ suspend fun main(): Unit = bot(System.getenv("token")) {
     lavalink = kord.lavalink {
         autoReconnect = false
     }
-    lavalink.addNode(URI.create("wss://58eaa547dfe9.ngrok.io"), "youshallnotpass")
+    lavalink.addNode(URI.create("ws://localhost:8080"), "youshallnotpass")
 }
 
 val prefix: PrefixConfiguration = prefix {
@@ -74,12 +77,6 @@ fun testModule(): ModuleModifier = module("music-test") {
         }
     }
 
-    command("ban") {
-        invoke {
-            kord.rest.guild.addRoleToGuildMember(guild!!.id.value, "416902379598774273", "723204343930683423", "D.js is better than Kord")
-        }
-    }
-
     command("play") {
         invoke(StringArgument) { query ->
 
@@ -97,6 +94,10 @@ fun testModule(): ModuleModifier = module("music-test") {
             }
 
             val player = link.player
+
+            player.on<TrackStartEvent> {
+                channel.createMessage(track.info.asString())
+            }
 
             link.loadItem(search, object : AudioLoadResultHandler {
                 override fun trackLoaded(track: AudioTrack) {
@@ -122,4 +123,15 @@ fun testModule(): ModuleModifier = module("music-test") {
             })
         }
     }
+}
+
+fun AudioTrackInfo.asString(): String {
+    return "AudioTrackInfo{" +
+            "title='" + title + '\'' +
+            ", author='" + author + '\'' +
+            ", length=" + length +
+            ", identifier='" + identifier + '\'' +
+            ", isStream=" + isStream +
+            ", uri='" + uri + '\'' +
+            '}'
 }

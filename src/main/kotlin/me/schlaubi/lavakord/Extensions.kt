@@ -44,4 +44,5 @@ public suspend fun Link.connect(voiceChannelId: String): Unit = connect(voiceCha
 public suspend fun Link.connect(voiceChannelId: Long): Unit =
     asKordLink().connect(voiceChannelId, true)
 
-internal fun Link.asKordLink(): KordLink = (this as? KordLink) ?: error("This cannot be used on non kord links")
+@PublishedApi
+internal fun Link.asKordLink(): KordLink = (this as? KordLink) ?: error("This cannot be used on non Kord links")

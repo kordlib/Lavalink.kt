@@ -2,16 +2,56 @@ package me.schlaubi.lavakord.audio
 
 import com.gitlab.kordlib.common.entity.Permission
 import com.gitlab.kordlib.common.entity.Snowflake
+import com.gitlab.kordlib.core.Kord
 import com.gitlab.kordlib.core.entity.Guild
 import com.gitlab.kordlib.core.entity.channel.VoiceChannel
 import com.gitlab.kordlib.gateway.Gateway
 import com.gitlab.kordlib.gateway.UpdateVoiceStatus
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.launch
 import lavalink.client.io.Link
+import lavalink.client.player.LavalinkPlayer
+import lavalink.client.player.event.IPlayerEventListener
+import lavalink.client.player.event.PlayerEvent
 import me.schlaubi.lavakord.InsufficientPermissionException
 
-internal class KordLink(internal val lavalink: KordLavaLink, guildId: String?) : Link(lavalink, guildId) {
+@PublishedApi
+internal val KordLink.client: Kord
+    get() = lavalink.client
+
+@OptIn(ExperimentalCoroutinesApi::class)
+internal class KordLink(internal val lavalink: KordLavaLink, guildId: String?) : Link(lavalink, guildId),
+    IPlayerEventListener {
+
+
+    private var _player: LavalinkPlayer? = null
+
+    private var eventPublisher: BroadcastChannel<PlayerEvent> = BroadcastChannel(1)
+
+    @OptIn(FlowPreview::class)
+    internal val events: Flow<PlayerEvent>
+        get() = eventPublisher.asFlow().buffer(Channel.UNLIMITED)
+
+    override fun getPlayer(): LavalinkPlayer {
+        if (_player == null) {
+            _player = super.getPlayer()
+            _player!!.addListener(this)
+        }
+        return _player!!
+    }
+
+    override fun resetPlayer() {
+        super.resetPlayer()
+        _player = null
+        eventPublisher.close()
+    }
 
     public override fun removeConnection() {
         // JDA handles this for us without even being in class path
@@ -72,6 +112,10 @@ internal class KordLink(internal val lavalink: KordLavaLink, guildId: String?) :
 
         state = State.CONNECTING
         queueAudioConnect(channelId)
+    }
+
+    override fun onEvent(event: PlayerEvent) {
+        lavalink.client.launch { eventPublisher.send(event) }
     }
 }
 

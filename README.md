@@ -33,5 +33,23 @@ You can obtain and use a `Link` like this
 
 Playing: https://github.com/DRSchlaubi/Lavakord/blob/master/example/src/main/kotlin/me/schlaubi/lavakord/example/Lavakord.kt#L101-L122
 
+# Track loading
+Lavakord provides a wrapper for the Lavalink [Track loading API](https://github.com/Frederikam/Lavalink/blob/master/IMPLEMENTATION.md#track-loading-api)
+
+You can load a Track by using `Link.loadItem(query: String)` for a couroutine based aproach or `Link.loadItem(query: String, callback: AudioLoadResultHandler)` for a callback based approach like Lavaplayer
+
+# Events
+Since 0.3 Lavakord provides a [Flow based](https://kotlinlang.org/docs/reference/coroutines/flow.html) way to listen for events.
+
+```kotlin
+val link: KordLink // = .../
+
+val player = link.player
+
+player.on<TrackStartEvent> {
+    channel.createMessage(track.info.asString())
+}
+```
+
 # Documentation
 For more info please use the [example](https://github.com/DRSchlaubi/Lavakord/blob/master/example) or [Dokka docs](https://l.mik.wtf/lavakord/)
