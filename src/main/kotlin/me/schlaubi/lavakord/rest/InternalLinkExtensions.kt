@@ -3,9 +3,13 @@ package me.schlaubi.lavakord.rest
 import io.ktor.client.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import lavalink.client.io.LavalinkSocket
+import me.schlaubi.lavakord.audio.Node
+import mu.KotlinLogging
+
+private val LOG = KotlinLogging.logger {}
 
 internal val client = HttpClient {
     Json {
@@ -13,32 +17,33 @@ internal val client = HttpClient {
             serializersModule = RoutePlannerModule
         }
 
+
         serializer = KotlinxSerializer(json)
+    }
+
+    install(Logging) {
+        level = LogLevel.ALL
+        logger = object : Logger {
+            override fun log(message: String) = LOG.debug(message)
+        }
     }
 }
 
-internal suspend inline fun <reified T> LavalinkSocket.get(urlBuilder: URLBuilder) =
+internal suspend inline fun <reified T> Node.get(urlBuilder: URLBuilder) =
     client.get<T>(urlBuilder.build()) { addHeader(this@get) }
 
-internal suspend inline fun <reified T> LavalinkSocket.post(
+internal suspend inline fun <reified T> Node.post(
     urlBuilder: URLBuilder,
     block: HttpRequestBuilder.() -> Unit
 ) =
     client.get<T>(urlBuilder.build()) { addHeader(this@post); block(this) }
 
-private fun HttpRequestBuilder.addHeader(socket: LavalinkSocket) {
-    headers["Authorization"] = socket.password
+private fun HttpRequestBuilder.addHeader(socket: Node) {
+    headers["Authorization"] = socket.authenticationHeader
 }
 
-internal fun LavalinkSocket.buildUrl(block: URLBuilder.() -> Unit) = URLBuilder(remoteUri.toString())
+internal fun Node.buildUrl(block: URLBuilder.() -> Unit) = URLBuilder(host)
     .apply {
         protocol = if (protocol.isSecure()) protocol.copy(name = "https") else protocol.copy(name = "http")
     }
     .apply(block)
-
-internal val LavalinkSocket.password: String
-    get() = (this.javaClass.superclass.getDeclaredField("headers").apply {
-        isAccessible = true
-    }
-        .get(this) as Map<*, *>)["Authorization"] as? String
-        ?: error("Could not get password for node")

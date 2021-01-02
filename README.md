@@ -11,12 +11,14 @@ You can get Lavakord from here: [https://package-search.jetbrains.com/package?id
 # Usage
 You can create a `Lavalink` object like this
 ```kotlin
-    val lavalink = kord.lavalink()
+    val lavalink = kord.lavakord()
 
     // or    
 
     val lavalink = kord.lavalink {
+        link {
             autoReconnect = false
+        }
     }
 ```
 
@@ -31,7 +33,7 @@ You can obtain and use a `Link` like this
     link.disconnect()
 ```
 
-Playing: https://github.com/DRSchlaubi/Lavakord/blob/master/example/src/main/kotlin/me/schlaubi/lavakord/example/Lavakord.kt#L101-L122
+Playing: https://github.com/DRSchlaubi/Lavakord/blob/master/example/src/main/kotlin/me/schlaubi/lavakord/example/Lavakord.kt#L99-124
 
 # Track loading
 Lavakord provides a wrapper for the Lavalink [Track loading API](https://github.com/Frederikam/Lavalink/blob/master/IMPLEMENTATION.md#track-loading-api)
@@ -53,3 +55,9 @@ player.on<TrackStartEvent> {
 
 # Documentation
 For more info please use the [example](https://github.com/DRSchlaubi/Lavakord/blob/master/example) or [Dokka docs](https://l.mik.wtf/lavakord/)
+
+# Multiplatform
+Since Lavakord 1.0 we use only Multiplatform Kotlin libraries but Ktor doesn't support Websockets when using Kotlin native yet see [kordlib/kord#69](https://github.com/kordlib/kord/issues/69) and [ktorio/ktor#1215](https://github.com/ktorio/ktor/issues/1215) for reference. Kord doesn't support Multiplatform because of the same issue as well
+
+# Other Discord API wrappers
+Since 1.0 it should be possible to implement your own version of lavakord by implementing your own versions of the LavaKord and Link classes you can see a reference implementation [in the kord package](https://github.com/DRSchlaubi/Lavakord/blob/master/src/main/kotlin/me/schlaubi/lavakord/kord)

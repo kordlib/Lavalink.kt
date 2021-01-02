@@ -2,9 +2,13 @@ package me.schlaubi.lavakord.rest
 
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
 import lavalink.client.LavalinkUtil
 import me.schlaubi.lavakord.rest.TrackResponse.*
+import me.schlaubi.lavakord.rest.TrackResponse.Error.Severity
+import me.schlaubi.lavakord.rest.TrackResponse.PartialTrack.Info
+import me.schlaubi.lavakord.audio.Track as NewTrack
 
 /**
  * A Response from the Lavalink [Track Loading API](https://github.com/Frederikam/Lavalink/blob/master/IMPLEMENTATION.md#track-loading-api)
@@ -19,10 +23,23 @@ public data class TrackResponse(
     val loadType: LoadType,
     @get:JvmName("getNullablePlaylistInfo")
     val playlistInfo: NullablePlaylistInfo,
-    val tracks: List<Track>,
+    val tracks: List<PartialTrack>,
     @get:JvmName("getPlaylistInfoOrNull")
     val exception: Error? = null
 ) {
+
+    /**
+     * Get's the track that was loaded when providing a link.
+     * @throws IllegalStateException when the [loadType] is not [LoadType.TRACK_LOADED]
+     */
+    val track: PartialTrack
+        get() {
+            return if (loadType == LoadType.TRACK_LOADED) {
+                tracks.first()
+            } else {
+                error("Playlist info is only available for LoadType.TRACK_LOADED")
+            }
+        }
 
     /**
      * Returns the [PlaylistInfo] if present.
@@ -82,19 +99,51 @@ public data class TrackResponse(
      * An Error reported from lavalink/lavaplayer.
      *
      * @property message the message of the error
-     * @property severity the [FriendlyException.Severity] of the error.
+     * @property severity the [Severity] of the error.
      *
      * @see LoadType.LOAD_FAILED
      */
     @Serializable
     public data class Error(
         val message: String,
-        val severity: FriendlyException.Severity
+        val severity: Severity
     ) {
+
         /**
-         * Converts the error into a [FriendlyException].
+         * @see FriendlyException
          */
-        public fun toFriendlyException(): FriendlyException = FriendlyException(message, severity, null)
+        @Suppress("DeprecatedCallableAddReplaceWith")
+        @Deprecated("FriendlyExceptionSupport is being discontinued as of removal of all JVM dependencies")
+        public fun toFriendlyException(): FriendlyException = FriendlyException(
+            message, FriendlyException.Severity.valueOf(severity.toString()), null
+        )
+
+        /**
+         * Severity levels for FriendlyException
+         *
+         * Credit: https://github.com/sedmelluq/lavaplayer/blob/master/main/src/main/java/com/sedmelluq/discord/lavaplayer/tools/FriendlyException.java
+         */
+        @Serializable
+        @Suppress("unused")
+        public enum class Severity {
+            /**
+             * The cause is known and expected, indicates that there is nothing wrong with the library itself.
+             */
+            COMMON,
+
+            /**
+             * The cause might not be exactly known, but is possibly caused by outside factors. For example when an outside
+             * service responds in a format that we do not expect.
+             */
+            SUSPICIOUS,
+
+            /**
+             * If the probable cause is an issue with the library or when there is no way to tell what the cause might be.
+             * This is the default level and other levels are used in cases where the thrower has more in-depth knowledge
+             * about the error.
+             */
+            FAULT
+        }
     }
 
     /**
@@ -129,7 +178,7 @@ public data class TrackResponse(
      * @property info the parsed [Info]
      */
     @Serializable
-    public data class Track(
+    public data class PartialTrack(
         val track: String,
         val info: Info
     ) {
@@ -137,13 +186,19 @@ public data class TrackResponse(
         /**
          * Converts this track to an [AudioTrack].
          */
+        @Deprecated("Replaced with toTrack() as LavaPlayer is being removed", ReplaceWith("toTrack"))
         public fun toAudioTrack(): AudioTrack = LavalinkUtil.toAudioTrack(track)
+
+        /**
+         * Converts this track to an [NewTrack].
+         */
+        public fun toTrack(): NewTrack = runBlocking { NewTrack.fromLavalink(track) }
 
         /**
          * The track information.
          *
          * @property identifier the identifier created by the tracks source
-         * @property isSeekable whether you can use [AudioTrack.setPosition] I think lavadoc does not tell me
+         * @property isSeekable whether you can seek to a specific position or not
          * @property author the author of the track
          * @property length the length of the track in ms
          * @property isStream whether the track is a stream or not

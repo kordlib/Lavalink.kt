@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.jfrog.bintray.gradle.BintrayExtension
 
 plugins {
-    kotlin("jvm") version "1.4.10"
-    kotlin("plugin.serialization") version "1.4.0"
+    kotlin("jvm") version "1.4.21"
+    kotlin("plugin.serialization") version "1.4.21"
     id("com.jfrog.bintray") version "1.8.5"
     id("org.jetbrains.dokka") version "1.4.10"
     `maven-publish`
@@ -16,16 +16,27 @@ repositories {
     mavenCentral()
     maven("https://jitpack.io")
     maven("https://dl.bintray.com/kordlib/Kord")
+    maven("https://kotlin.bintray.com/kotlinx/")
     jcenter()
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.0.0")
-    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.4.1")
+    implementation(kotlin("reflect"))
 
-    compileOnly("com.gitlab.kordlib.kord", "kord-core", "0.6.7")
+    api("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.0.0")
+    api("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.4.1")
 
+    api("io.ktor", "ktor-io", "1.4.1")
+    api("io.ktor", "ktor-utils", "1.4.1")
+    api("io.ktor", "ktor-client-websockets", "1.4.1")
+    api("io.ktor", "ktor-client", "1.4.1")
+    api("io.ktor", "ktor-client-logging", "1.4.1")
+
+    compileOnly("dev.kord", "kord-core", "0.7.0-RC")
     api("com.github.FredBoat", "Lavalink-Client", "4.0")
+
+    api("io.github.microutils", "kotlin-logging", "2.0.4")
+
     testImplementation(kotlin("test-junit"))
 }
 

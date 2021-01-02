@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm")
-    kotlin("kapt")
+//    kotlin("kapt")
 }
 
 group = "me.schlaubi.lavakord"
@@ -17,8 +17,10 @@ dependencies {
     implementation(project(":"))
     implementation("org.slf4j", "slf4j-simple", "1.7.30")
 
-    implementation("com.gitlab.kordlib.kordx", "kordx-commands-runtime-kord", "0.3.3")
-    kapt("com.gitlab.kordlib.kordx", "kordx-commands-processor", "0.3.3")
+    implementation("dev.kord", "kord-core", "0.7.0-RC")
+
+//    implementation("com.gitlab.kordlib.kordx", "kordx-commands-runtime-kord", "0.3.3")
+//    kapt("com.gitlab.kordlib.kordx", "kordx-commands-processor", "0.3.3")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
