@@ -7,6 +7,11 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 /**
+ * The default gain of all bands
+ */
+public const val DEFAULT_GAIN: Float = 0F
+
+/**
  * Builder for equalizer settings.
  *
  * ```kotlin
@@ -36,6 +41,13 @@ public class EqualizerBuilder internal constructor(private val guildId: Long) {
         return BandConfigurator(band, this)
     }
 
+    /**
+     * Sets the gain of the band with this int as it's id to [gain].
+     *
+     * @throws IllegalArgumentException if [gain] is not in -0.25..1
+     */
+    public infix fun Int.gain(gain: Float): Unit = band(this).gain(gain)
+
 
     /**
      * Configurator class for band gains.
@@ -51,7 +63,7 @@ public class EqualizerBuilder internal constructor(private val guildId: Long) {
  * Resets the gain of this band to default.
  */
 public fun EqualizerBuilder.BandConfigurator.reset() {
-    gain(0F)
+    gain(DEFAULT_GAIN)
 }
 
 /**

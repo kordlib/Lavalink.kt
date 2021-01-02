@@ -86,6 +86,9 @@ suspend fun main() {
 
                 player.applyEqualizer {
                     band(band) gain gain
+
+                    // you can also do
+                    2 gain 1F
                 }
             }
 //            "!speed" -> {
