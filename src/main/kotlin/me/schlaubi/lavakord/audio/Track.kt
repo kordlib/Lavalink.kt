@@ -68,7 +68,7 @@ public data class Track constructor(
                 author,
                 length.toDuration(DurationUnit.MILLISECONDS),
                 identifier,
-                isSeekable,
+                isStream,
                 isSeekable,
                 uri,
                 source,
