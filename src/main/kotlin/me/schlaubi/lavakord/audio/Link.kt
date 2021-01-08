@@ -32,6 +32,11 @@ public interface Link {
     public suspend fun connectAudio(voiceChannelId: Long)
 
     /**
+     * Connects this link to the voice channel with the specified [voiceChannelId].
+     */
+    public suspend fun Link.connect(voiceChannelId: String): Unit = connectAudio(voiceChannelId.toLong())
+
+    /**
      * Disconnects from the currently connected voice channel.
      */
     public suspend fun disconnectAudio()
@@ -76,7 +81,7 @@ public interface Link {
         DESTROYING,
 
         /**
-         * This [Link] has been destroyed and will soon (if not already) be unmapped from [Lavalink]
+         * This [Link] has been destroyed and will soon (if not already) be unmapped from [LavaKord]
          */
         DESTROYED
     }

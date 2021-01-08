@@ -33,11 +33,6 @@ public suspend fun Link.connectAudio(voiceChannel: VoiceChannel): Unit = connect
 public suspend fun Link.connectAudio(snowflake: Snowflake): Unit = connectAudio(snowflake.value)
 
 /**
- * Connects this link to the voice channel with the specified [voiceChannelId].
- */
-public suspend fun Link.connectAudio(voiceChannelId: String): Unit = connectAudio(voiceChannelId.toLong())
-
-/**
  * The [Permissions] that were missing.
  */
 public val InsufficientPermissionException.kordPermission: Permissions

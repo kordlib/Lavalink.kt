@@ -12,15 +12,6 @@ import kotlin.contracts.contract
  *
  * @param configure a receiver configuring the [LavaKordOptions] instance used for configuration of this instance
  */
-@Suppress("unused")
-@Deprecated("This is being renamed in favor of new LavaKord api", ReplaceWith("lavakord"))
-public fun Kord.lavalink(configure: MutableLavaKordOptions.() -> Unit = {}): LavaKord = lavakord(configure)
-
-/**
- * Creates a [LavaKord] instance for this [Kord] instance.
- *
- * @param configure a receiver configuring the [LavaKordOptions] instance used for configuration of this instance
- */
 public fun Kord.lavakord(configure: MutableLavaKordOptions.() -> Unit = {}): LavaKord {
     val options = MutableLavaKordOptions().apply(configure).seal()
     return KordLavaKord(
@@ -41,6 +32,22 @@ public interface LavaKordOptions {
 
     public val loadBalancer: LoadBalancingConfig
     public val link: LinkConfig
+
+    /**
+     * @see LinkConfig.autoReconnect
+     */
+    @Deprecated("Use link { autoReconnect = false } instead", ReplaceWith("link"))
+    public var autoReconnect: Boolean
+        get() = link.autoReconnect
+        set(value) {
+            when (link) {
+                is ImmutableLavaKordOptions.LinkConfig -> throw UnsupportedOperationException("This options object has already been sealed")
+                is MutableLavaKordOptions.LinkConfig -> {
+                    (link as MutableLavaKordOptions.LinkConfig).autoReconnect = value
+                }
+                else -> error("Unknown implementation")
+            }
+        }
 
     /**
      * Configuration for the load balancer.

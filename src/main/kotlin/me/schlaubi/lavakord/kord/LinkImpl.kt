@@ -69,21 +69,19 @@ internal class KordLink(
     }
 
     override suspend fun disconnectAudio() {
-        error("The kord people broke disconecting from voice channels so you just have to kick the member")
-//        state = Link.State.DISCONNECTING
-//        val guild = lavakord.kord.getGuild(Snowflake(guildId)) ?: error("Could not find Guild $guildId")
-//        val channel = guild.getChannel(Snowflake(lastChannel!!)) as VoiceChannel
-//        lastChannel = null
-//        // Hope broke the UpdateVoiceStatus command
-//        val command = UpdateVoiceStatus(
-//            Snowflake(guildId),
-//            Snowflake(0),
-//            selfMute = false,
-//            selfDeaf = false
-//        )
-//
-//        command.javaClass.getDeclaredField("channelId").apply { isAccessible = true }
-//            .set(command, null)
-//        guild.gateway!!.send(command        )
+        state = Link.State.DISCONNECTING
+        val guild = lavakord.kord.getGuild(Snowflake(guildId)) ?: error("Could not find Guild $guildId")
+        lastChannelId = null
+        // Hope broke the UpdateVoiceStatus command
+        val command = UpdateVoiceStatus(
+            Snowflake(guildId),
+            null,
+            selfMute = false,
+            selfDeaf = false
+        )
+
+        command.javaClass.getDeclaredField("channelId").apply { isAccessible = true }
+            .set(command, null)
+        guild.gateway!!.send(command)
     }
 }
