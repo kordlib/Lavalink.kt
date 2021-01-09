@@ -7,11 +7,14 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
-import me.schlaubi.lavakord.LavaKord
-import me.schlaubi.lavakord.audio.*
-import me.schlaubi.lavakord.kord.lavakord
-import me.schlaubi.lavakord.rest.TrackResponse
-import me.schlaubi.lavakord.rest.loadItem
+import dev.kord.extensions.lavalink.audio.Link
+import dev.kord.extensions.lavalink.audio.on
+import dev.kord.extensions.lavalink.LavaKord
+import dev.kord.extensions.lavalink.audio.player.applyEqualizer
+import dev.kord.extensions.lavalink.audio.player.gain
+import dev.kord.extensions.lavalink.kord.lavakord
+import dev.kord.extensions.lavalink.rest.TrackResponse
+import dev.kord.extensions.lavalink.rest.loadItem
 import kotlin.time.ExperimentalTime
 
 lateinit var lavalink: LavaKord

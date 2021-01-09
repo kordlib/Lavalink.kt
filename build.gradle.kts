@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "me.schlaubi"
-version = "0.3"
+version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -34,7 +34,6 @@ dependencies {
     api("io.ktor", "ktor-client-logging", "1.4.1")
 
     compileOnly("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
-    compileOnly("com.gitlab.kordlib.kord:kord-core:0.6.10") // legacy
     api("com.github.FredBoat", "Lavalink-Client", "4.0") // legacy
 
     api("io.github.microutils", "kotlin-logging", "2.0.4")

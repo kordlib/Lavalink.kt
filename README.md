@@ -1,7 +1,7 @@
-# Lavakord
-Extension of the [official LavaLink-Client](https://github.com/FredBoat/Lavalink-Client) to work with [Kord](https://github.com/kordlib/kord)
+# kordx.lavalink
+Lavakord is a coroutine based client for [LavaLink](https://github.com/Fredikaram/Lavalink) mainly designed to work with [Kord](https://github.com/kordlib/kord)
 
-**Both Kord and Lavakord is still in an experimental stage, as such we can't guarantee API stability between releases. While we'd love for you to try out our library, we don't recommend you use this in production just yet.**
+**Both Kord and kordx.lavalink is still in an experimental stage, as such we can't guarantee API stability between releases. While we'd love for you to try out our library, we don't recommend you use this in production just yet.**
 
 Lavalink download: [https://github.com/Frederikam/Lavalink](https://github.com/Frederikam/Lavalink#server-configuration)
 
@@ -15,7 +15,7 @@ You can create a `Lavalink` object like this
 
     // or    
 
-    val lavalink = kord.lavalink {
+    val lavalink = kord.lavakord {
         link {
             autoReconnect = false
         }
@@ -38,7 +38,7 @@ Playing: https://github.com/DRSchlaubi/Lavakord/blob/master/example/src/main/kot
 # Track loading
 Lavakord provides a wrapper for the Lavalink [Track loading API](https://github.com/Frederikam/Lavalink/blob/master/IMPLEMENTATION.md#track-loading-api)
 
-You can load a Track by using `Link.loadItem(query: String)` for a couroutine based aproach or `Link.loadItem(query: String, callback: AudioLoadResultHandler)` for a callback based approach like Lavaplayer
+You can load a Track by using `Link.loadItem(query: String)`
 
 # Events
 Since 0.3 Lavakord provides a [Flow based](https://kotlinlang.org/docs/reference/coroutines/flow.html) way to listen for events.

@@ -1,7 +1,11 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 
+dev.kord.extensions.lavalink
+dev.kord.extensions.lavalink.audio
+dev.kord.extensions.lavalink.audio.internal
+dev.kord.extensions.lavalink.audio.player
+dev.kord.extensions.lavalink.kord
+dev.kord.extensions.lavalink.rest
 me.schlaubi.lavakord
-me.schlaubi.lavakord.audio
-me.schlaubi.lavakord.rest
 
