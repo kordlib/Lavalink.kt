@@ -5,7 +5,7 @@ plugins {
     kotlin("multiplatform") version "1.4.21"
     kotlin("plugin.serialization") version "1.4.21"
     id("com.jfrog.bintray") version "1.8.5"
-    id("org.jetbrains.dokka") version "1.4.10"
+    id("org.jetbrains.dokka") version "1.4.20"
     `maven-publish`
 }
 
@@ -22,14 +22,6 @@ repositories {
 }
 
 kotlin {
-    metadata {
-       compilations.all {
-           kotlinOptions {
-               freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-           }
-       }
-    }
-
     jvm {
         compilations.all {
             kotlinOptions {
@@ -37,22 +29,26 @@ kotlin {
             }
         }
 
-        tasks {
+    }
 
-        }
+    js {
+        nodejs()
     }
 
     sourceSets {
+        all {
+            languageSettings.useExperimentalAnnotation("kotlin.RequiresOptIn")
+        }
+
         commonMain {
             dependencies {
                 api("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.4.2")
                 api("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.0.1")
-                api("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.4.1")
 
                 implementation("io.ktor", "ktor-io", "1.4.1")
                 implementation("io.ktor", "ktor-utils", "1.4.1")
                 implementation("io.ktor", "ktor-client-websockets", "1.4.1")
-                implementation("io.ktor", "ktor-client", "1.4.1")
+                implementation("io.ktor", "ktor-client-core", "1.4.1")
                 implementation("io.ktor", "ktor-client-serialization", "1.4.1")
                 implementation("io.ktor", "ktor-client-logging", "1.4.1")
 
@@ -61,8 +57,13 @@ kotlin {
         }
 
         val jvmMain by getting {
+            repositories {
+                maven("https://jitpack.io")
+            }
+
             dependencies {
-                api("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
+                implementation("io.ktor", "ktor-client-cio", "1.4.1")
+                compileOnly("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
                 api("com.github.FredBoat", "Lavalink-Client", "4.0") // legacy
             }
         }
@@ -73,6 +74,11 @@ kotlin {
             }
         }
 
+        val jsMain by getting {
+            dependencies {
+                implementation("io.ktor", "ktor-client-js", "1.4.1")
+            }
+        }
     }
 }
 
@@ -130,26 +136,33 @@ kotlin {
 //            }
 //        }
 //    }
-//
-//    withType<KotlinCompile> {
-//        kotlinOptions {
-//            jvmTarget = "1.8"
-//            freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-//        }
-//    }
-//
-//    dokkaHtml {
-//        outputDirectory.set(file("docs/"))
-//
-//        dokkaSourceSets {
-//            configureEach {
-//                includeNonPublic.set(false)
-//
-//                jdkVersion.set(8)
-//            }
-//        }
-//    }
 //}
+
+tasks {
+    withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+        outputDirectory.set(file("docs/"))
+
+        dokkaSourceSets {
+            configureEach {
+                includeNonPublic.set(false)
+
+                perPackageOption {
+                    matchingRegex.set(".*\\.internal.*") // will match all .internal packages and sub-packages
+                    suppress.set(true)
+                }
+            }
+
+            named("jsMain") {
+                displayName.set("JS")
+            }
+
+            named("jvmMain") {
+                jdkVersion.set(8)
+                displayName.set("JVM")
+            }
+        }
+    }
+}
 
 kotlin {
     explicitApi()

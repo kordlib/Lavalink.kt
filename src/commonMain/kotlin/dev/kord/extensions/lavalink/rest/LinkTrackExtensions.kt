@@ -8,8 +8,7 @@ import dev.kord.extensions.lavalink.audio.player.Track
  *
  * @see TrackResponse.PartialTrack.toTrack
  */
-public fun List<TrackResponse.PartialTrack>.mapToTrack(): List<Track> =
-    map(TrackResponse.PartialTrack::toTrack)
+public suspend fun List<TrackResponse.PartialTrack>.mapToTrack(): List<Track> = map { it.toTrack() }
 
 /**
  * Loads an audio item from this [Link].

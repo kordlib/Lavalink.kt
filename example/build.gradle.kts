@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":"))
+    implementation(project(":kord"))
     implementation("org.slf4j", "slf4j-simple", "1.7.30")
 
     implementation("dev.kord", "kord-core", "0.7.0-SNAPSHOT")

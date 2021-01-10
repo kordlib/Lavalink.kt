@@ -1,7 +1,9 @@
 package dev.kord.extensions.lavalink.audio.internal
 
+import dev.kord.extensions.lavalink.LavaKord
 import dev.kord.extensions.lavalink.audio.*
 import io.ktor.client.*
+import io.ktor.client.engine.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
@@ -20,14 +22,14 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import dev.kord.extensions.lavalink.LavaKord
-import me.schlaubi.lavakord.audio.*
 import mu.KotlinLogging
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.toDuration
 
 private val LOG = KotlinLogging.logger { }
+
+public expect object HttpEngine : HttpClientEngineFactory<HttpClientEngineConfig>
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class NodeImpl(
@@ -41,8 +43,7 @@ internal class NodeImpl(
 
     private var tries: Int = 0
 
-    @OptIn(KtorExperimentalAPI::class)
-    private val resumeKey = generateNonce()
+    private val resumeKey = generateResumeKey()
     override var available: Boolean = true
     override var lastStatsEvent: GatewayPayload.StatsEvent? = null
     private var eventPublisher: BroadcastChannel<TrackEvent> = BroadcastChannel(1)
@@ -88,6 +89,8 @@ internal class NodeImpl(
         }
         available = true
         tries = 0
+
+        LOG.debug { "Succesfully connected to node: $name ($host)" }
 
         send(GatewayPayload.ConfigureResumingCommand(resumeKey, resumeTimeout))
 
@@ -148,30 +151,33 @@ internal class NodeImpl(
                 lastStatsEvent = event
             }
             is GatewayPayload.EmittedEvent -> {
-                when (event.type) {
+                val emittedEvent = when (event.type) {
                     GatewayPayload.EmittedEvent.Type.TRACK_START_EVENT ->
-                        eventPublisher.send(TrackStartEvent(event))
+                        TrackStartEvent(event)
                     GatewayPayload.EmittedEvent.Type.TRACK_END_EVENT ->
-                        eventPublisher.send(TrackEndEvent(event))
+                        TrackEndEvent(event)
                     GatewayPayload.EmittedEvent.Type.TRACK_EXCEPTION_EVENT ->
-                        eventPublisher.send(TrackExceptionEvent(event))
+                        TrackExceptionEvent(event)
                     GatewayPayload.EmittedEvent.Type.TRACK_STUCK_EVENT ->
-                        eventPublisher.send(TrackStuckEvent(event))
+                        TrackStuckEvent(event)
+                    GatewayPayload.EmittedEvent.Type.WEBSOCKET_CLOSED_EVENT -> WebsocketClosedEvent(event)
                 }
+
+                eventPublisher.send(emittedEvent)
             }
             else -> LOG.warn { "Received unexpected event: $event" }
         }
     }
 
     override fun close() {
-        runBlocking {
+        lavaKord.launch {
             session.close(CloseReason(CloseReason.Codes.NORMAL, "Close requested by client"))
         }
     }
 
     internal companion object {
         @OptIn(KtorExperimentalAPI::class)
-        private val client = HttpClient {
+        private val client = HttpClient(HttpEngine) {
             val json = kotlinx.serialization.json.Json {
                 encodeDefaults = false
                 classDiscriminator = "op"
@@ -181,6 +187,13 @@ internal class NodeImpl(
             install(JsonFeature) {
                 serializer = KotlinxSerializer(json)
             }
+        }
+
+        private fun generateResumeKey(): String {
+            val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+            return (1..25)
+                .map { allowedChars.random() }
+                .joinToString("")
         }
     }
 }

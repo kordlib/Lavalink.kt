@@ -6,6 +6,7 @@ import dev.kord.core.event.gateway.DisconnectEvent
 import dev.kord.core.event.guild.VoiceServerUpdateEvent
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.on
+import dev.kord.extensions.lavalink.LavaKordOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

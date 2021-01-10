@@ -197,7 +197,9 @@ internal sealed class GatewayPayload {
         val track: String,
         val reason: String? = null,
         val error: String? = null,
-        val thresholdMs: Long? = null
+        val thresholdMs: Long? = null,
+        val code: Int? = null,
+        val byRemote: Boolean? = null
     ) : GatewayPayload() {
 
         @Serializable
@@ -212,7 +214,10 @@ internal sealed class GatewayPayload {
             TRACK_EXCEPTION_EVENT,
 
             @SerialName("TrackStuckEvent")
-            TRACK_STUCK_EVENT
+            TRACK_STUCK_EVENT,
+
+            @SerialName("WebsocketClosedEvent")
+            WEBSOCKET_CLOSED_EVENT
         }
     }
 }

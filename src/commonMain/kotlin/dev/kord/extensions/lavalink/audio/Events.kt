@@ -153,6 +153,36 @@ public data class TrackStuckEvent(
 }
 
 /**
+ * Event fired when Discord closes the websocket connection.
+ *
+ * @property code the websocket close code
+ * @property reason the detailed reason why the connection was closed
+ * @property byRemote whether the connection was closed by the remote or not
+ */
+public data class WebsocketClosedEvent(
+    override val guildId: Long,
+    public val code: Int,
+    public val reason: String,
+    public val byRemote: Boolean
+) : TrackEvent() {
+    override val track: Nothing
+        get() = throw UnsupportedOperationException("Not supported by this event")
+
+    internal companion object {
+        operator fun invoke(event: GatewayPayload.EmittedEvent): WebsocketClosedEvent {
+            require(event.type == GatewayPayload.EmittedEvent.Type.WEBSOCKET_CLOSED_EVENT && event.code != null && event.reason != null && event.byRemote != null) { "Event has to be track stuck event" }
+            return WebsocketClosedEvent(
+                event.guildId.toLong(),
+                event.code,
+                event.reason,
+                event.byRemote
+            )
+        }
+    }
+
+}
+
+/**
  * Event received regularly from [nodes][Node] to update node stats.
  *
  * @property players amount of players on this node

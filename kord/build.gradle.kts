@@ -10,6 +10,8 @@ repositories {
 }
 
 kotlin {
+    explicitApi()
+
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
@@ -17,13 +19,19 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-//                api(project(":"))
+                api(project(":"))
             }
         }
-        val commonTest by getting {
+        commonTest  {
+            repositories {
+                maven("https://jitpack.io")
+                maven("https://oss.sonatype.org/content/repositories/snapshots")
+                jcenter()
+            }
+
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -31,7 +39,11 @@ kotlin {
         }
 
         val jvmMain by getting {
-//            compileOnly("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
+            dependencies {
+                implementation("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
+            }
         }
     }
 }
+
+fun org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler.implementation(groupId: String, artifactId: String, version: String) = implementation("$groupId:$artifactId:$version")

@@ -5,6 +5,7 @@ package me.schlaubi.lavakord.example
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
+import dev.kord.core.entity.channel.TextChannel
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
 import dev.kord.extensions.lavalink.audio.Link
@@ -27,7 +28,7 @@ suspend fun main() {
 
     }
 
-    lavalink.addNode("ws://127.0.0.1:8080/", "youshallnotpass")
+    lavalink.addNode("wss://staging-automator-cloud.ngrok.io", "youshallnotpass")
 
     kord.on<MessageCreateEvent> {
         val args = message.content.split(" ")

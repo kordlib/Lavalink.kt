@@ -3,13 +3,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Player</title>
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
-    <link href="../../../styles/style.css" rel="Stylesheet">
-    <script type="text/javascript" src="../../../scripts/navigationLoader.js" async="async"></script>
-    <script type="text/javascript" src="../../../scripts/platformContentHandler.js" async="async"></script>
-    <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
-    <script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
-    <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
     <script>var pathToRoot = "../../../";</script>
+    <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+    <link href="../../../styles/style.css" rel="Stylesheet">
+    <link href="../../../styles/logo-styles.css" rel="Stylesheet">
+    <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+    <link href="../../../styles/main.css" rel="Stylesheet">
+    <script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/main.js" async="async"></script>
   </head>
   <body>
     <div id="container">
@@ -20,465 +23,367 @@
       </div>
       <div id="main">
         <div id="leftToggler"><span class="icon-toggler"></span></div>
-        <div id="searchBar"></div>
         <script type="text/javascript" src="../../../scripts/pages.js"></script>
         <script type="text/javascript" src="../../../scripts/main.js"></script>
-        <div id="content" pageIds="dev.kord.extensions.lavalink.audio.player/Player///PointingToDeclaration/">
-          <div class="breadcrumbs"><a href="../../index.html">lavakord</a>/<a href="../index.html">dev.kord.extensions.lavalink.audio.player</a>/<a href="index.html">Player</a></div>
+        <div class="main-content" id="content" pageIds="dev.kord.extensions.lavalink.audio.player/Player///PointingToDeclaration//1187879487">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../index.html">lavakord</a>/<a href="../index.html">dev.kord.extensions.lavalink.audio.player</a>/<a href="index.html">Player</a></div>
+            <div class="pull-right d-flex">
+              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button></div>
+              <div id="searchBar"></div>
+            </div>
+          </div>
           <div class="cover ">
-            <h1 class="cover"><a data-name="player"></a><span>Player</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><p class="paragraph">Interface allowing interaction with Lavalink player.</p><div class="symbol monospace">interface <a href="index.html">Player</a> : <a href="../../dev.kord.extensions.lavalink.audio/-event-source/index.html">EventSource</a>&lt;<a href="../../dev.kord.extensions.lavalink.audio/-track-event/index.html">TrackEvent</a>&gt; <span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+            <h1 class="cover"><span>Player</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="index.html">Player</a> : <a href="../../dev.kord.extensions.lavalink.audio/-event-source/index.html">EventSource</a>&lt;<a href="../../dev.kord.extensions.lavalink.audio/-track-event/index.html">TrackEvent</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Interface allowing interaction with Lavalink player.</p></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button></div>
             <div class="tabs-section-body">
-              <h2 class=""><a data-name="functions"></a>Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/">equals</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"></div>
-<span class="pull-right"></span></div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="equals" id="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487">equals</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open operator override fun <a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#kotlin/Any/equals/#kotlin.Any?/PointingToDeclaration/">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open operator fun <a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
 </div>
 </div>
-                  </div>
-                </div>
-<a data-name="kotlin/Any/hashCode/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#kotlin/Any/hashCode/#/PointingToDeclaration/">hashCode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="kotlin/Any/hashCode/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open override fun <a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#kotlin/Any/hashCode/#/PointingToDeclaration/">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                  </div>
-                </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/pause/#kotlin.Boolean/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="pause.html">pause</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/pause/#kotlin.Boolean/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"><div class="brief "><p class="paragraph">Pauses/unpauses playback of the current track.</p></div></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">abstract suspend fun <a href="pause.html">pause</a>(doPause: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                  </div>
-                </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/playTrack/#com.sedmelluq.discord.lavaplayer.track.AudioTrack/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="play-track.html">playTrack</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/playTrack/#com.sedmelluq.discord.lavaplayer.track.AudioTrack/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"><div class="brief "><p class="paragraph">Changes the currently playing track to <span data-unresolved-link="dev.kord.extensions.lavalink.audio.player/Player/track/#/PointingToCallableParameters(-1)/">track</span>.</p></div></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace strikethrough">open suspend fun <a href="play-track.html">playTrack</a>(track: <span data-unresolved-link="com.sedmelluq.discord.lavaplayer.track/AudioTrack///PointingToDeclaration/">AudioTrack</span>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">open suspend fun <a href="play-track.html">playTrack</a>(track: <a href="../-track/index.html">Track</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">open suspend fun <a href="play-track.html">playTrack</a>(track: <a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/index.html">TrackResponse.PartialTrack</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">abstract suspend fun <a href="play-track.html">playTrack</a>(track: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                  </div>
-                </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/seekTo/#kotlin.Long/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="seek-to.html">seekTo</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/seekTo/#kotlin.Long/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"><div class="brief "><p class="paragraph">Seeks to a specific <a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/position/#/PointingToDeclaration/">position</a> in the current playback.</p></div></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">abstract suspend fun <a href="seek-to.html">seekTo</a>(position: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">open suspend fun <a href="seek-to.html">seekTo</a>(position: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                  </div>
-                </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/setVolume/#kotlin.Int/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="set-volume.html">setVolume</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/setVolume/#kotlin.Int/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"><div class="brief "><p class="paragraph">Changes the volume of the current player.</p></div></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">abstract suspend fun <a href="set-volume.html">setVolume</a>(volume: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                  </div>
-                </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/stopTrack/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="stop-track.html">stopTrack</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/stopTrack/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"><div class="brief "><p class="paragraph">Stops playback of the currently playing track.</p></div></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">abstract suspend fun <a href="stop-track.html">stopTrack</a>()<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                  </div>
-                </div>
-<a data-name="kotlin/Any/toString/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#kotlin/Any/toString/#/PointingToDeclaration/">toString</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="kotlin/Any/toString/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open override fun <a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#kotlin/Any/toString/#/PointingToDeclaration/">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                  </div>
-                </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/unPause/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="un-pause.html">unPause</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/unPause/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"><div class="brief "><p class="paragraph">Unpauses the playback</p></div></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open suspend fun <a href="un-pause.html">unPause</a>()<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                  </div>
-                </div>
-              </div>
-              <h2 class=""><a data-name="properties"></a>Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="dev.kord.extensions.lavalink.audio.player/Player/coroutineScope/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/coroutineScope/#/PointingToDeclaration/">coroutineScope</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/coroutineScope/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title">
-                      <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="brief "><p class="paragraph">the default CoroutineScope to launch listeners in</p></div><div class="symbol monospace">abstract override val <a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/coroutineScope/#/PointingToDeclaration/">coroutineScope</a>: <span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
                     </div>
                   </div>
                 </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/events/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/events/#/PointingToDeclaration/">events</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/events/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title">
-                      <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="brief "><p class="paragraph">a Flow of events</p></div><div class="symbol monospace">abstract override val <a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/events/#/PointingToDeclaration/">events</a>: <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>&lt;<a href="../../dev.kord.extensions.lavalink.audio/-track-event/index.html">TrackEvent</a>&gt;<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+<a data-name="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="hashCode" id="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487">hashCode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
                     </div>
                   </div>
                 </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/paused/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/paused/#/PointingToDeclaration/">paused</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/paused/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title">
-                      <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="brief "><p class="paragraph">whether the playback is currently paused or not</p></div><div class="symbol monospace">abstract val <a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/paused/#/PointingToDeclaration/">paused</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpause%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="pause" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpause%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="pause.html">pause</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpause%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="pause.html">pause</a>(doPause: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpause%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="pause" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpause%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpause%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="pause" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpause%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Pauses/unpauses playback of the current track.</div></div>
+</div>
                     </div>
                   </div>
                 </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/playingTrack/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/playingTrack/#/PointingToDeclaration/">playingTrack</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/playingTrack/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title">
-                      <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="brief "><p class="paragraph">the currently playing <a href="../-track/index.html">Track</a></p></div><div class="symbol monospace">abstract val <a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/playingTrack/#/PointingToDeclaration/">playingTrack</a>: <a href="../-track/index.html">Track</a>?<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.audio.player.Track%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.rest.TrackResponse.PartialTrack%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="playTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.audio.player.Track%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.rest.TrackResponse.PartialTrack%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="play-track.html">playTrack</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.audio.player.Track%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.rest.TrackResponse.PartialTrack%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open suspend fun <a href="play-track.html">playTrack</a>(track: <a href="../-track/index.html">Track</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.audio.player.Track%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="playTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.audio.player.Track%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.audio.player.Track%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="playTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.audio.player.Track%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Changes the currently playing track to <span data-unresolved-link="dev.kord.extensions.lavalink.audio.player/Player/track/#/PointingToCallableParameters(-1)/">track</span>.</div></div>
+<div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open suspend fun <a href="play-track.html">playTrack</a>(track: <a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/index.html">TrackResponse.PartialTrack</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.rest.TrackResponse.PartialTrack%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="playTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.rest.TrackResponse.PartialTrack%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.rest.TrackResponse.PartialTrack%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="playTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23dev.kord.extensions.lavalink.rest.TrackResponse.PartialTrack%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Changes the currently playing track to <span data-unresolved-link="dev.kord.extensions.lavalink.audio.player/Player/track/#/PointingToCallableParameters(-1)/">track</span>.</div></div>
+<div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="play-track.html">playTrack</a>(track: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="playTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="playTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayTrack%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Changes the currently playing track to <span data-unresolved-link="dev.kord.extensions.lavalink.audio.player/Player/track/#/PointingToCallableParameters(-1)/">track</span>.</div></div>
+</div>
                     </div>
                   </div>
                 </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/position/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/position/#/PointingToDeclaration/">position</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/position/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title">
-                      <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="brief "><p class="paragraph">the position of the current song the player is at (-1 if <a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/playingTrack/#/PointingToDeclaration/">playingTrack</a> is null)</p></div><div class="symbol monospace">abstract val <a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/position/#/PointingToDeclaration/">position</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.Long%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.time.Duration%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="seekTo" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.Long%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.time.Duration%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="seek-to.html">seekTo</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.Long%2FPointingToDeclaration%2F%2C+dev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.time.Duration%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="seek-to.html">seekTo</a>(position: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.Long%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="seekTo" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.Long%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.Long%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="seekTo" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.Long%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Seeks to a specific <a href="position.html">position</a> in the current playback.</div></div>
+<div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open suspend fun <a href="seek-to.html">seekTo</a>(position: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.time.Duration%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="seekTo" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.time.Duration%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.time.Duration%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="seekTo" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FseekTo%2F%23kotlin.time.Duration%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Seeks to a specific <a href="position.html">position</a> in the current playback.</div></div>
+</div>
                     </div>
                   </div>
                 </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player/Player/volume/#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/volume/#/PointingToDeclaration/">volume</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player/Player/volume/#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title">
-                      <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="brief "><p class="paragraph">the current volume of this player</p></div><div class="symbol monospace">abstract val <a href="index.html#dev.kord.extensions.lavalink.audio.player/Player/volume/#/PointingToDeclaration/">volume</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FsetVolume%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="setVolume" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FsetVolume%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="set-volume.html">setVolume</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FsetVolume%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="set-volume.html">setVolume</a>(volume: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FsetVolume%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="setVolume" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FsetVolume%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FsetVolume%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="setVolume" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FsetVolume%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Changes the volume of the current player.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FstopTrack%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="stopTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FstopTrack%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="stop-track.html">stopTrack</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FstopTrack%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract suspend fun <a href="stop-track.html">stopTrack</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FstopTrack%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="stopTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FstopTrack%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FstopTrack%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="stopTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FstopTrack%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Stops playback of the currently playing track.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="toString" id="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487">toString</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="../../dev.kord.extensions.lavalink.rest/-track-response/-partial-track/-info/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FunPause%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="unPause" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FunPause%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="un-pause.html">unPause</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FunPause%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open suspend fun <a href="un-pause.html">unPause</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FunPause%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="unPause" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FunPause%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FunPause%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" anchor-label="unPause" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FunPause%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Unpauses the playback</div></div>
+</div>
                     </div>
                   </div>
                 </div>
               </div>
-              <h2 class="tabbedcontent"><a data-name="extensions"></a>Extensions</h2>
-              <div class="table" data-togglable="Extensions"><a data-name="dev.kord.extensions.lavalink.audio.player//applyEqualizer/dev.kord.extensions.lavalink.audio.player.Player#kotlin.Function1[dev.kord.extensions.lavalink.audio.player.EqualizerBuilder,kotlin.Unit]/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="../apply-equalizer.html">applyEqualizer</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player//applyEqualizer/dev.kord.extensions.lavalink.audio.player.Player#kotlin.Function1[dev.kord.extensions.lavalink.audio.player.EqualizerBuilder,kotlin.Unit]/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"><div class="brief "><p class="paragraph">Applies the <a href="../-equalizer-builder/index.html">EqualizerBuilder</a> to this player.</p></div></div>
-<span class="pull-right"></span></div>
-
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">suspend fun <a href="index.html">Player</a>.<a href="../apply-equalizer.html">applyEqualizer</a>(builder: <a href="../-equalizer-builder/index.html">EqualizerBuilder</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="coroutineScope" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487">coroutineScope</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="coroutineScope" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="index.html#%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487">coroutineScope</a>: <span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="coroutineScope" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FcoroutineScope%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>the default <span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span> to launch listeners in</div></div></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-<a data-name="dev.kord.extensions.lavalink.audio.player//resetEqualizer/dev.kord.extensions.lavalink.audio.player.Player#/PointingToDeclaration/"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow "><span><a href="../reset-equalizer.html">resetEqualizer</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="dev.kord.extensions.lavalink.audio.player//resetEqualizer/dev.kord.extensions.lavalink.audio.player.Player#/PointingToDeclaration/"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21.2496 5.3C20.3496 4.5 19.2496 4 18.0496 4C16.8496 4 15.6496 4.5 14.8496 5.3L10.3496 9.8L11.7496 11.2L16.2496 6.7C17.2496 5.7 18.8496 5.7 19.8496 6.7C20.8496 7.7 20.8496 9.3 19.8496 10.3L15.3496 14.8L16.7496 16.2L21.2496 11.7C22.1496 10.8 22.5496 9.7 22.5496 8.5C22.5496 7.3 22.1496 6.2 21.2496 5.3Z"/>
-    <path d="M8.35 16.7998C7.35 17.7998 5.75 17.7998 4.75 16.7998C3.75 15.7998 3.75 14.1998 4.75 13.1998L9.25 8.6998L7.85 7.2998L3.35 11.7998C1.55 13.5998 1.55 16.3998 3.35 18.1998C4.25 19.0998 5.35 19.4998 6.55 19.4998C7.75 19.4998 8.85 19.0998 9.75 18.1998L14.25 13.6998L12.85 12.2998L8.35 16.7998Z"/>
-</svg></span>
-                        <div class="copy-popup-wrapper "><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Link copied to clipboard</span></div>
-                      </span></span></div>
-                  <div class="platform-dependent-row keyValue">
-                    <div></div>
-                    <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="brief-with-platform-tags"><div class="inner-brief-with-platform-tags"><div class="brief "><p class="paragraph">Resets all Bands of this player.</p></div></div>
-<span class="pull-right"></span></div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="events" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="index.html#%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487">events</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="events" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="index.html#%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487">events</a>: <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span>&lt;<a href="../../dev.kord.extensions.lavalink.audio/-track-event/index.html">TrackEvent</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="events" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fevents%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>a <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span> of events</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpaused%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="paused" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpaused%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="paused.html">paused</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpaused%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpaused%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="paused" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpaused%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="paused.html">paused</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpaused%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="paused" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fpaused%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>whether the playback is currently paused or not</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayingTrack%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="playingTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayingTrack%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="playing-track.html">playingTrack</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayingTrack%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayingTrack%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="playingTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayingTrack%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="playing-track.html">playingTrack</a>: <a href="../-track/index.html">Track</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayingTrack%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="playingTrack" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2FplayingTrack%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>the currently playing <a href="../-track/index.html">Track</a></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fposition%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="position" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fposition%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="position.html">position</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fposition%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fposition%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="position" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fposition%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="position.html">position</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fposition%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="position" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fposition%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>the position of the current song the player is at (-1 if <a href="playing-track.html">playingTrack</a> is null)</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fvolume%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="volume" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fvolume%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="volume.html">volume</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fvolume%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fvolume%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="volume" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fvolume%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="volume.html">volume</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fvolume%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" anchor-label="volume" id="%5Bdev.kord.extensions.lavalink.audio.player%2FPlayer%2Fvolume%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>the current volume of this player</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="tabbedcontent">Extensions</h2>
+              <div class="table" data-togglable="Extensions"><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FapplyEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23kotlin.Function1%5Bdev.kord.extensions.lavalink.audio.player.EqualizerBuilder%2Ckotlin.Unit%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" anchor-label="applyEqualizer" id="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FapplyEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23kotlin.Function1%5Bdev.kord.extensions.lavalink.audio.player.EqualizerBuilder%2Ckotlin.Unit%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../apply-equalizer.html">applyEqualizer</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FapplyEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23kotlin.Function1%5Bdev.kord.extensions.lavalink.audio.player.EqualizerBuilder%2Ckotlin.Unit%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
 
-  <div class="main-subrow">
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">suspend fun <a href="index.html">Player</a>.<a href="../reset-equalizer.html">resetEqualizer</a>()<span class="top-right-position"><span class="copy-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 4H15V16H5V4ZM17 7H19V18V20H17H8V18H17V7Z" fill="black"/>
-                       </svg></span><div class="copy-popup-wrapper popup-to-left"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M18 9C18 14 14 18 9 18C4 18 0 14 0 9C0 4 4 0 9 0C14 0 18 4 18 9ZM14.2 6.2L12.8 4.8L7.5 10.1L5.3 7.8L3.8 9.2L7.5 13L14.2 6.2Z" fill="#4DBB5F"/>
-</svg><span>Content copied to clipboard</span></div></span></div></div></div>
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">suspend fun <a href="index.html">Player</a>.<a href="../apply-equalizer.html">applyEqualizer</a>(builder: <a href="../-equalizer-builder/index.html">EqualizerBuilder</a>.() -&gt; <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
   </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FapplyEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23kotlin.Function1%5Bdev.kord.extensions.lavalink.audio.player.EqualizerBuilder%2Ckotlin.Unit%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" anchor-label="applyEqualizer" id="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FapplyEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23kotlin.Function1%5Bdev.kord.extensions.lavalink.audio.player.EqualizerBuilder%2Ckotlin.Unit%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FapplyEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23kotlin.Function1%5Bdev.kord.extensions.lavalink.audio.player.EqualizerBuilder%2Ckotlin.Unit%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" anchor-label="applyEqualizer" id="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FapplyEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23kotlin.Function1%5Bdev.kord.extensions.lavalink.audio.player.EqualizerBuilder%2Ckotlin.Unit%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Applies the <a href="../-equalizer-builder/index.html">EqualizerBuilder</a> to this player.</div></div>
 </div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FresetEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" anchor-label="resetEqualizer" id="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FresetEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../reset-equalizer.html">resetEqualizer</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FresetEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="platform-tags ">
+                        <div class="platform-tag common-like">common</div>
+                      </div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">suspend fun <a href="index.html">Player</a>.<a href="../reset-equalizer.html">resetEqualizer</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FresetEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" anchor-label="resetEqualizer" id="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FresetEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FresetEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" anchor-label="resetEqualizer" id="%5Bdev.kord.extensions.lavalink.audio.player%2F%2FresetEqualizer%2Fdev.kord.extensions.lavalink.audio.player.Player%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F1187879487" data-filterable-set=":dokkaHtml/commonMain"></a>Resets all Bands of this player.</div></div>
 </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#container"><svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11.3337 9.66683H0.666992L6.00033 3.66683L11.3337 9.66683Z" fill="black"/>
-    <path d="M0.666992 0.333496H11.3337V1.66683H0.666992V0.333496Z" fill="black"/>
-</svg></a></span><span>© 2020 Copyright</span><span class="pull-right"><span>Sponsored and developed by dokka</span><a href="https://github.com/Kotlin/dokka"><span class="padded-icon"><svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8 0H2.3949L4.84076 2.44586L0 7.28662L0.713376 8L5.55414 3.15924L8 5.6051V0Z" fill="black"/>
-</svg></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2020 Copyright</span><span class="pull-right"><span>Sponsored and developed by dokka</span><a href="https://github.com/Kotlin/dokka"><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   </body>

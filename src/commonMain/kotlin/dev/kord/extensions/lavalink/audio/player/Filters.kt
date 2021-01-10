@@ -6,9 +6,27 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 /**
+ * Marker for not yet supported filters API.
+ */
+@RequiresOptIn(
+    level = RequiresOptIn.Level.WARNING,
+    message = "This API is not yet documented or supported by Lavalink and has been copied from the official client"
+)
+@Target(
+    AnnotationTarget.CLASS,
+    AnnotationTarget.TYPEALIAS,
+    AnnotationTarget.FUNCTION,
+    AnnotationTarget.PROPERTY,
+    AnnotationTarget.FIELD,
+    AnnotationTarget.CONSTRUCTOR
+)
+public annotation class FiltersApi
+
+/**
  * Representation of the filter configuration.
  */
 @Suppress("KDocMissingDocumentation", "KDocMissingDocumentation") // I don't know anything about music
+@FiltersApi
 public interface Filters {
     public val karaoke: Karaoke?
     public val timescale: Timescale?
@@ -74,6 +92,7 @@ public interface Filters {
 /**
  * Configures the [Filters.Karaoke] filter.
  */
+@FiltersApi
 @OptIn(ExperimentalContracts::class)
 public fun Filters.karaoke(block: Filters.Karaoke.() -> Unit) {
     contract {
@@ -92,6 +111,7 @@ public fun Filters.karaoke(block: Filters.Karaoke.() -> Unit) {
 /**
  * Configures the [Filters.Timescale] filter.
  */
+@FiltersApi
 @OptIn(ExperimentalContracts::class)
 public fun Filters.timescale(block: Filters.Timescale.() -> Unit) {
     contract {
@@ -110,6 +130,7 @@ public fun Filters.timescale(block: Filters.Timescale.() -> Unit) {
 /**
  * Configures the [Filters.Tremolo] filter.
  */
+@FiltersApi
 @OptIn(ExperimentalContracts::class)
 public fun Filters.tremolo(block: Filters.Tremolo.() -> Unit) {
     contract {
@@ -127,6 +148,7 @@ public fun Filters.tremolo(block: Filters.Tremolo.() -> Unit) {
 /**
  * Configures the [Filters.Vibrato] filter.
  */
+@FiltersApi
 @OptIn(ExperimentalContracts::class)
 public fun Filters.vibrato(block: Filters.Vibrato.() -> Unit) {
     contract {
@@ -141,6 +163,7 @@ public fun Filters.vibrato(block: Filters.Vibrato.() -> Unit) {
     filter.apply(block)
 }
 
+@FiltersApi
 @OptIn(ExperimentalContracts::class)
 private fun Filters.checkImplementation() {
     contract {

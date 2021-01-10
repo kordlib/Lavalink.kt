@@ -1,7 +1,6 @@
 package dev.kord.extensions.lavalink
 
 import dev.kord.extensions.lavalink.audio.internal.PenaltyProvider
-import dev.kord.extensions.lavalink.kord.ImmutableLavaKordOptions
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -95,7 +94,10 @@ public data class MutableLavaKordOptions(
         return link.apply(block)
     }
 
-    internal fun seal() = ImmutableLavaKordOptions(loadBalancer.seal(), link.seal())
+    /**
+     * Makes thi
+     */
+    public fun seal(): LavaKordOptions = ImmutableLavaKordOptions(loadBalancer.seal(), link.seal())
 
     /**
      * Mutable implementation of [LavaKordOptions.LoadBalancingConfig].
@@ -107,7 +109,8 @@ public data class MutableLavaKordOptions(
             penaltyProviders.plus(provider)
         }
 
-        internal fun seal() = ImmutableLavaKordOptions.LoadBalancingConfig(penaltyProviders.toList())
+        internal fun seal(): LavaKordOptions.LoadBalancingConfig =
+            ImmutableLavaKordOptions.LoadBalancingConfig(penaltyProviders.toList())
     }
 
     /**
@@ -118,6 +121,34 @@ public data class MutableLavaKordOptions(
         override var resumeTimeout: Int = 60,
         override var maxReconnectTries: Int = 5
     ) : LavaKordOptions.LinkConfig {
-        internal fun seal() = ImmutableLavaKordOptions.LinkConfig(autoReconnect, resumeTimeout, maxReconnectTries)
+        internal fun seal(): LavaKordOptions.LinkConfig =
+            ImmutableLavaKordOptions.LinkConfig(autoReconnect, resumeTimeout, maxReconnectTries)
     }
+}
+
+/**
+ * Immutable implementation of [LavaKordOptions].
+ */
+private data class ImmutableLavaKordOptions(
+    override val loadBalancer: LavaKordOptions.LoadBalancingConfig,
+    override val link: LavaKordOptions.LinkConfig
+) : LavaKordOptions {
+
+    /**
+     * Mutable implementation of [LavaKordOptions.LoadBalancingConfig].
+     */
+    public data class LoadBalancingConfig(override val penaltyProviders: List<PenaltyProvider>) :
+        LavaKordOptions.LoadBalancingConfig {
+        override fun plus(provider: PenaltyProvider): Nothing =
+            throw UnsupportedOperationException("This config has been sealed")
+    }
+
+    /**
+     * Mutable implementation of [LavaKordOptions.LinkConfig].
+     */
+    public data class LinkConfig(
+        override val autoReconnect: Boolean,
+        override val resumeTimeout: Int,
+        override val maxReconnectTries: Int
+    ) : LavaKordOptions.LinkConfig
 }
