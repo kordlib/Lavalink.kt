@@ -1,7 +1,7 @@
 package me.schlaubi.lavakord
 
-import dev.kord.extensions.lavalink.LavaKordOptions as NewLavaKordOptions
-import dev.kord.extensions.lavalink.MutableLavaKordOptions as NewMutableLavaKordOptions
+import dev.kord.x.lavalink.LavaKordOptions as NewLavaKordOptions
+import dev.kord.x.lavalink.MutableLavaKordOptions as NewMutableLavaKordOptions
 
 /**
  * Legacy alias to [NewLavaKordOptions].

@@ -2,20 +2,18 @@
 
 package me.schlaubi.lavakord.example
 
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
-import dev.kord.core.entity.channel.TextChannel
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
-import dev.kord.extensions.lavalink.audio.Link
-import dev.kord.extensions.lavalink.audio.on
-import dev.kord.extensions.lavalink.LavaKord
-import dev.kord.extensions.lavalink.audio.player.applyEqualizer
-import dev.kord.extensions.lavalink.audio.player.gain
-import dev.kord.extensions.lavalink.kord.lavakord
-import dev.kord.extensions.lavalink.rest.TrackResponse
-import dev.kord.extensions.lavalink.rest.loadItem
+import dev.kord.x.lavalink.audio.Link
+import dev.kord.x.lavalink.audio.on
+import dev.kord.x.lavalink.LavaKord
+import dev.kord.x.lavalink.audio.player.applyEqualizer
+import dev.kord.x.lavalink.audio.player.gain
+import dev.kord.x.lavalink.kord.lavakord
+import dev.kord.x.lavalink.rest.TrackResponse
+import dev.kord.x.lavalink.rest.loadItem
 import kotlin.time.ExperimentalTime
 
 lateinit var lavalink: LavaKord
@@ -33,7 +31,7 @@ suspend fun main() {
     kord.on<MessageCreateEvent> {
         val args = message.content.split(" ")
 
-        val link = lavalink.getLink(guildId!!.asString)
+        val link = lavalink.getLink(guildId?.asString ?: return@on)
         val player = link.player
         val guildId = guildId ?: return@on
 
@@ -46,7 +44,7 @@ suspend fun main() {
 
         when (args[0]) {
             "!connect" -> {
-                val voiceState = member!!.getVoiceState()
+                val voiceState = member?.getVoiceState() ?: return@on
 
                 val channelId = voiceState.channelId
                 if (channelId == null) {
@@ -224,14 +222,3 @@ suspend fun main() {
 //        }
 //    }
 //}
-
-fun AudioTrackInfo.asString(): String {
-    return "AudioTrackInfo{" +
-            "title='" + title + '\'' +
-            ", author='" + author + '\'' +
-            ", length=" + length +
-            ", identifier='" + identifier + '\'' +
-            ", isStream=" + isStream +
-            ", uri='" + uri + '\'' +
-            '}'
-}

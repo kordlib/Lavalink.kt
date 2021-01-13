@@ -37,6 +37,10 @@ kotlin {
         }
 
         jvmMain {
+            repositories  {
+                jitpack()
+            }
+
             dependencies {
                 implementation(Dependencies.kord)
             }
