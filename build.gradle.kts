@@ -1,6 +1,3 @@
-import com.jfrog.bintray.gradle.BintrayExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
-
 plugins {
     kotlin("multiplatform") version "1.4.21"
     kotlin("plugin.serialization") version "1.4.21"
@@ -13,11 +10,7 @@ group = "me.schlaubi"
 version = "1.0.0-SNAPSHOT"
 
 repositories {
-    mavenCentral()
-    maven("https://jitpack.io")
-    maven("https://dl.bintray.com/kordlib/Kord")
-    maven("https://kotlin.bintray.com/kotlinx/")
-    maven("https://oss.sonatype.org/content/repositories/snapshots")
+    sonatype()
     jcenter()
 }
 
@@ -25,118 +18,105 @@ kotlin {
     jvm {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = Jvm.target
             }
         }
-
     }
 
-    js {
-        nodejs()
-    }
+// See https://github.com/DRSchlaubi/Lavakord/issues/2
+//    js {
+//        nodejs()
+//        browser()
+//    }
 
     sourceSets {
         all {
-            languageSettings.useExperimentalAnnotation("kotlin.RequiresOptIn")
+            languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
         }
 
         commonMain {
             dependencies {
-                api("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.4.2")
-                api("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.0.1")
+                api(Dependencies.coroutines)
+                api(Dependencies.kotlinxSerialization)
 
-                implementation("io.ktor", "ktor-io", "1.4.1")
-                implementation("io.ktor", "ktor-utils", "1.4.1")
-                implementation("io.ktor", "ktor-client-websockets", "1.4.1")
-                implementation("io.ktor", "ktor-client-core", "1.4.1")
-                implementation("io.ktor", "ktor-client-serialization", "1.4.1")
-                implementation("io.ktor", "ktor-client-logging", "1.4.1")
+                implementation(Dependencies.`ktor-io`)
+                implementation(Dependencies.`ktor-utils`)
+                implementation(Dependencies.`ktor-client-websockets`)
+                implementation(Dependencies.`ktor-client-core`)
+                implementation(Dependencies.`ktor-client-serialization`)
+                implementation(Dependencies.`ktor-client-logging`)
 
-                implementation("io.github.microutils", "kotlin-logging", "2.0.4")
+                implementation(Dependencies.kotlinLogging)
             }
         }
 
-        val jvmMain by getting {
+        jvmMain {
             repositories {
-                maven("https://jitpack.io")
+                jitpack()
             }
 
             dependencies {
-                implementation("io.ktor", "ktor-client-cio", "1.4.1")
-                compileOnly("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
-                api("com.github.FredBoat", "Lavalink-Client", "4.0") // legacy
+                implementation(Dependencies.`ktor-client-cio`)
             }
         }
 
-        val jvmTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-            }
-        }
+//        jsMain {
+//            dependencies {
+//                implementation(Dependencies.`ktor-client-js`)
+//            }
+//        }
+    }
 
-        val jsMain by getting {
-            dependencies {
-                implementation("io.ktor", "ktor-client-js", "1.4.1")
-            }
+    publishing {
+        publications {
+
         }
     }
 }
 
+publishing {
+    repositories {
+        maven {
+            setUrl("https://api.bintray.com/maven/drschlaubi/maven/lavakord/;publish=1;override=0")
 
-//val javaComponent: SoftwareComponent = components["java"]
+            credentials {
+                username = System.getenv("BINTRAY_USER")
+                password = System.getenv("BINTRAY_KEY")
+            }
+        }
+    }
 
-//tasks {
-//    val sourcesJar = task<Jar>("sourcesJar") {
-//        dependsOn(classes)
-//        archiveClassifier.set("sources")
-//        from(sourceSets["main"].allSource)
-//    }
-//
-//
-//    val javadocJar = task<Jar>("javadocJar") {
-//        dependsOn(dokkaHtml)
-//        group = JavaBasePlugin.DOCUMENTATION_GROUP
-//        archiveClassifier.set("javadoc")
-//        from(dokkaHtml)
-//    }
-//
-//    publishing {
-//        publications {
-//            create<MavenPublication>("mavenJava") {
-//                from(javaComponent)
-//                artifact(sourcesJar)
-//                artifact(javadocJar)
-//
-//                pom {
-//                    name.set(project.name)
-//                    description.set("Extension of the official LavaLink-Client to work with Kord")
-//                    url.set("https://github.com/DRSchlaubi/lavakord")
-//
-//                    licenses {
-//                        license {
-//                            name.set("MIT License")
-//                            url.set("https://github.com/DRSchlaubi/Lavakord/blob/master/LICENSE")
-//                        }
-//                    }
-//
-//                    developers {
-//                        developer {
-//                            name.set("Michael Rittmeister")
-//                            email.set("mail@schlaubi.me")
-//                            organizationUrl.set("https://michael.rittmeister.in")
-//                        }
-//                    }
-//
-//                    scm {
-//                        connection.set("scm:git:https://github.com/DRSchlaubi/lavakord.git")
-//                        developerConnection.set("scm:git:https://github.com/DRSchlaubi/lavakord.git")
-//                        url.set("https://github.com/DRSchlaubi/lavakord")
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
+    publications {
+        filterIsInstance<MavenPublication>().forEach { publication ->
+            publication.pom {
+                name.set(project.name)
+                description.set("Extension of the official LavaLink-Client to work with Kord")
+                url.set("https://github.com/DRSchlaubi/lavakord")
+
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://github.com/DRSchlaubi/Lavakord/blob/master/LICENSE")
+                    }
+                }
+
+                developers {
+                    developer {
+                        name.set("Michael Rittmeister")
+                        email.set("mail@schlaubi.me")
+                        organizationUrl.set("https://michael.rittmeister.in")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:https://github.com/DRSchlaubi/lavakord.git")
+                    developerConnection.set("scm:git:https://github.com/DRSchlaubi/lavakord.git")
+                    url.set("https://github.com/DRSchlaubi/lavakord")
+                }
+            }
+        }
+    }
+}
 
 tasks {
     withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
@@ -152,9 +132,9 @@ tasks {
                 }
             }
 
-            named("jsMain") {
-                displayName.set("JS")
-            }
+//            named("jsMain") {
+//                displayName.set("JS")
+//            }
 
             named("jvmMain") {
                 jdkVersion.set(8)
@@ -167,31 +147,3 @@ tasks {
 kotlin {
     explicitApi()
 }
-
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_KEY")
-    setPublications("mavenJava")
-    pkg {
-        repo = "maven"
-        name = "lavakord"
-        setLicenses("MIT")
-        vcsUrl = "https://github.com/DRSchlaubi/lavakord.git"
-        version {
-            name = project.version as String
-            gpg {
-                sign = true
-                passphrase = System.getenv("GPG_PASS")
-            }
-        }
-    }
-}
-
-fun KotlinDependencyHandler.implementation(groupId: String, artifactId: String, version: String) = implementation("$groupId:$artifactId:$version")
-fun KotlinDependencyHandler.api(groupId: String, artifactId: String, version: String) = api("$groupId:$artifactId:$version")
-
-fun KotlinDependencyHandler.compileOnly(groupId: String, artifactId: String, version: String) = compileOnly("$groupId:$artifactId:$version")
-
-fun BintrayExtension.pkg(block: BintrayExtension.PackageConfig.() -> Unit) = pkg(delegateClosureOf(block))
-fun BintrayExtension.PackageConfig.version(block: BintrayExtension.VersionConfig.() -> Unit) = version(delegateClosureOf(block))
-fun BintrayExtension.VersionConfig.gpg(block: BintrayExtension.GpgConfig.() -> Unit) = gpg(delegateClosureOf(block))

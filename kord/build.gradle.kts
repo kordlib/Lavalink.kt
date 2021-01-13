@@ -21,14 +21,12 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(kotlin("stdlib-common"))
-                api(project(":"))
+                api(root)
             }
         }
         commonTest  {
             repositories {
-                maven("https://jitpack.io")
-                maven("https://oss.sonatype.org/content/repositories/snapshots")
+                sonatype()
                 jcenter()
             }
 
@@ -38,12 +36,10 @@ kotlin {
             }
         }
 
-        val jvmMain by getting {
+        jvmMain {
             dependencies {
-                implementation("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
+                implementation(Dependencies.kord)
             }
         }
     }
 }
-
-fun org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler.implementation(groupId: String, artifactId: String, version: String) = implementation("$groupId:$artifactId:$version")
