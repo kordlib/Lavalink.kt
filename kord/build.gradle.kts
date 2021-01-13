@@ -19,11 +19,16 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
+        }
+
         commonMain {
             dependencies {
                 api(root)
             }
         }
+
         commonTest  {
             repositories {
                 sonatype()

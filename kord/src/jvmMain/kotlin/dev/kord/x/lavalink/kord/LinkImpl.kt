@@ -4,10 +4,10 @@ import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Permissions
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.entity.channel.VoiceChannel
-import dev.kord.extensions.lavalink.InsufficientPermissionException
-import dev.kord.extensions.lavalink.audio.Link
-import dev.kord.extensions.lavalink.audio.Node
-import dev.kord.extensions.lavalink.audio.internal.AbstractLink
+import dev.kord.x.lavalink.InsufficientPermissionException
+import dev.kord.x.lavalink.audio.Link
+import dev.kord.x.lavalink.audio.Node
+import dev.kord.x.lavalink.audio.internal.AbstractLink
 import dev.kord.gateway.UpdateVoiceStatus
 import kotlinx.coroutines.flow.count
 import kotlin.contracts.ExperimentalContracts

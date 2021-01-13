@@ -1,9 +1,10 @@
 package me.schlaubi.lavakord
 
-import dev.kord.extensions.lavalink.InsufficientPermissionException
-import dev.kord.extensions.lavalink.NoRoutePlannerException
-import dev.kord.extensions.lavalink.RemoteTrackException
-import dev.kord.extensions.lavalink.rest.addressStatus
+import dev.kord.x.lavalink.InsufficientPermissionException
+import dev.kord.x.lavalink.NoRoutePlannerException
+import dev.kord.x.lavalink.RemoteTrackException
+import dev.kord.x.lavalink.rest.addressStatus
+import dev.kord.x.lavalink.audio.Link
 
 /**
  * Exception thrown when there is no permission to perform a certain action.
@@ -17,7 +18,7 @@ import dev.kord.extensions.lavalink.rest.addressStatus
 public typealias InsufficientPermissionException = InsufficientPermissionException
 
 /**
- * Exception thrown on [dev.kord.extensions.lavalink.audio.Link.addressStatus] when there is no route planner set in Lavalink configuration.
+ * Exception thrown on [Link.addressStatus] when there is no route planner set in Lavalink configuration.
  *
  * @see InsufficientPermissionException
  */

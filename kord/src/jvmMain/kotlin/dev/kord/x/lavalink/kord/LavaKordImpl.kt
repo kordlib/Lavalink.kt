@@ -6,14 +6,14 @@ import dev.kord.core.event.gateway.DisconnectEvent
 import dev.kord.core.event.guild.VoiceServerUpdateEvent
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.on
-import dev.kord.extensions.lavalink.LavaKordOptions
+import dev.kord.x.lavalink.LavaKordOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import dev.kord.extensions.lavalink.audio.DiscordVoiceServerUpdateData
-import dev.kord.extensions.lavalink.audio.Link
-import dev.kord.extensions.lavalink.audio.Node
-import dev.kord.extensions.lavalink.audio.internal.AbstractLavakord
+import dev.kord.x.lavalink.audio.DiscordVoiceServerUpdateData
+import dev.kord.x.lavalink.audio.Link
+import dev.kord.x.lavalink.audio.Node
+import dev.kord.x.lavalink.audio.internal.AbstractLavakord
 import kotlin.coroutines.CoroutineContext
 
 internal class KordLavaKord(

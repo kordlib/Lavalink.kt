@@ -1,9 +1,9 @@
 package dev.kord.x.lavalink.kord
 
 import dev.kord.core.Kord
-import dev.kord.extensions.lavalink.LavaKord
-import dev.kord.extensions.lavalink.LavaKordOptions
-import dev.kord.extensions.lavalink.MutableLavaKordOptions
+import dev.kord.x.lavalink.LavaKord
+import dev.kord.x.lavalink.LavaKordOptions
+import dev.kord.x.lavalink.MutableLavaKordOptions
 
 /**
  * Creates a [LavaKord] instance for this [Kord] instance.

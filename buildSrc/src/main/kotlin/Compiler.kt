@@ -1,5 +1,5 @@
 object ExpermientalAnnotations {
-    const val requiresOptIn = "-Xopt-in=kotlin.RequiresOptIn"
+    const val requiresOptIn = "kotlin.RequiresOptIn"
 }
 
 object Jvm {

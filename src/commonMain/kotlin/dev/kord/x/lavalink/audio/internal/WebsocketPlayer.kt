@@ -2,6 +2,7 @@ package dev.kord.x.lavalink.audio.internal
 
 import dev.kord.x.lavalink.audio.*
 import dev.kord.x.lavalink.audio.player.EqualizerBuilder
+import dev.kord.x.lavalink.audio.player.FiltersApi
 import dev.kord.x.lavalink.audio.player.Player
 import dev.kord.x.lavalink.audio.player.Track
 import kotlinx.coroutines.CoroutineScope
@@ -18,6 +19,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     private var updateTime: Long = 0
     override var volume: Int = 100
 
+    @FiltersApi
     @Suppress("unused")
     internal var filters: GatewayPayload.FiltersCommand = GatewayPayload.FiltersCommand(guildId.toString())
 
