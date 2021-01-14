@@ -36,6 +36,13 @@ public interface Filters {
     public val tremolo: Tremolo?
     public val vibrato: Vibrato?
 
+    public interface Filter {
+        /**
+         * Resets this filter to it's default state.
+         */
+        public fun reset()
+    }
+
     public fun reset() {
         require(this is GatewayPayload.FiltersCommand)
         karaoke = null
@@ -44,7 +51,7 @@ public interface Filters {
         vibrato = null
     }
 
-    public interface Karaoke {
+    public interface Karaoke : Filter {
         public var level: Float
         public var monoLevel: Float
         public var filterBand: Float
@@ -56,7 +63,7 @@ public interface Filters {
      * @property pitch must be greater than 0
      * @property rate must be greater than 0
      */
-    public interface Timescale {
+    public interface Timescale : Filter {
         public var speed: Float
         public var pitch: Float
         public var rate: Float
@@ -66,7 +73,7 @@ public interface Filters {
      * @property frequency must be greater than 0
      * @property depth must be between 0 and 1
      */
-    public interface Tremolo {
+    public interface Tremolo : Filter {
         public var frequency: Float
         public var depth: Float
     }
@@ -83,7 +90,7 @@ public interface Filters {
  */
 @FiltersApi
 public suspend fun Player.resetFilters() {
-    applyEqualizer { reset() }
+    applyFilters { reset() }
 }
 
 /**

@@ -98,6 +98,13 @@ internal sealed class GatewayPayload {
                 220F,
                 100F
             )
+
+            override fun reset() {
+                level = 1F
+                monoLevel = 1F
+                filterBand = 220F
+                filterWidth = 100F
+            }
         }
 
         @Serializable
@@ -131,6 +138,12 @@ internal sealed class GatewayPayload {
                     require(value > 0) { "Rate must be greater than 0" }
                     _rate = value
                 }
+
+            override fun reset() {
+                _speed = 1F
+                _pitch = 1F
+                _rate = 1F
+            }
         }
 
         @Serializable
@@ -152,6 +165,11 @@ internal sealed class GatewayPayload {
                     require(value > 0 && value <= 1) { "Frequency must be between 0 and 1" }
                     _depth = value
                 }
+
+            override fun reset() {
+                _frequency = 2F
+                _depth = .5F
+            }
         }
 
         @Serializable
@@ -173,6 +191,11 @@ internal sealed class GatewayPayload {
                     require(value > 0 && value <= 1) { "Frequency must be between 0 and 1" }
                     _depth = value
                 }
+
+            override fun reset() {
+                _frequency = 2F
+                _depth = .5F
+            }
         }
     }
 
