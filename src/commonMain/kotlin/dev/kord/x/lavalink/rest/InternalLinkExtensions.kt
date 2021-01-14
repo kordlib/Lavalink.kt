@@ -24,6 +24,13 @@ internal val client = HttpClient(HttpEngine) {
     install(Logging) {
         level = LogLevel.ALL
         logger = object : Logger {
+            override fun log(message: String) = LOG.trace { message }
+        }
+    }
+
+    install(Logging) {
+        level = LogLevel.INFO
+        logger = object : Logger {
             override fun log(message: String) = LOG.debug { message }
         }
     }

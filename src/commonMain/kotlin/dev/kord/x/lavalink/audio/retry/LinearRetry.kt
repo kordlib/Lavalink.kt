@@ -43,7 +43,7 @@ internal class LinearRetry constructor(
 
         var diff = (maxBackoff - firstBackoff).toLongMilliseconds() / maxTries
         diff *= tries.incrementAndGet()
-        LOG.trace { "retry attempt ${tries.value}, delaying for $diff ms" }
+        LOG.info { "retry attempt ${tries.value}/$maxTries, delaying for $diff ms." }
         delay(diff)
     }
 }

@@ -9,6 +9,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import dev.kord.x.lavalink.audio.StatsEvent as PublicStatsEvent
 
+internal interface SanitizablePayload<T : GatewayPayload> {
+    fun sanitize(): T
+}
+
 @Serializable
 internal sealed class GatewayPayload {
 
@@ -20,7 +24,11 @@ internal sealed class GatewayPayload {
         override val guildId: String,
         val sessionId: String,
         val event: DiscordVoiceServerUpdateData
-    ) : GatewayPayload()
+    ) : GatewayPayload(), SanitizablePayload<VoiceUpdateCommand> {
+        override fun sanitize(): VoiceUpdateCommand = copy(
+            event = event.copy(token = "[REDACTED]")
+        )
+    }
 
     @Serializable
     @SerialName("play")
@@ -163,9 +171,12 @@ internal sealed class GatewayPayload {
 
     @Serializable
     @SerialName("configureResuming")
-    data class ConfigureResumingCommand(val key: String, val timeout: Int) : GatewayPayload() {
+    data class ConfigureResumingCommand(val key: String, val timeout: Int) : GatewayPayload(),
+        SanitizablePayload<ConfigureResumingCommand> {
         override val guildId: String
             get() = throw UnsupportedOperationException("guildId is not supported for this event")
+
+        override fun sanitize(): ConfigureResumingCommand = copy(key = "[REDACTED]")
     }
 
     @Serializable

@@ -80,7 +80,7 @@ internal class NodeImpl(
         retry.reset()
         available = true
 
-        LOG.debug { "Succesfully connected to node: $name ($host)" }
+        LOG.debug { "Successfully connected to node: $name ($host)" }
 
         send(GatewayPayload.ConfigureResumingCommand(resumeKey, resumeTimeout))
 
@@ -110,13 +110,21 @@ internal class NodeImpl(
     }
 
     internal suspend fun send(command: GatewayPayload) {
-        LOG.debug { "Sending command: $command" }
-        session.outgoing.send(Frame.Text(json.encodeToString(command)))
+        val jsonCommand = json.encodeToString(command)
+        if (command is SanitizablePayload<*>) { // sanitize tokens or keys
+            val sanitizedCommand by lazy { command.sanitize() }
+            LOG.trace { "Sending command $sanitizedCommand" }
+            LOG.trace { "Gateway >>> ${json.encodeToString(sanitizedCommand)}" }
+        } else {
+            LOG.trace { "Sending command $command" }
+            LOG.trace { "Gateway >>> $jsonCommand" }
+        }
+        session.outgoing.send(Frame.Text(jsonCommand))
     }
 
     private suspend fun onMessage(frame: Frame.Text) {
         val text = frame.readText()
-        LOG.debug { "Received frame: $text" }
+        LOG.trace { "Gateway <<< $text" }
         val payload = try {
             json.decodeFromString<GatewayPayload>(text)
         } catch (e: SerializationException) {
@@ -128,7 +136,7 @@ internal class NodeImpl(
     }
 
     private suspend fun onEvent(event: GatewayPayload) {
-        LOG.debug { "Received event: $event" }
+        LOG.trace { "Received event: $event" }
         when (event) {
             is GatewayPayload.PlayerUpdateEvent -> (lavaKord.getLink(event.guildId).player as WebsocketPlayer).provideState(
                 event.state
@@ -174,6 +182,13 @@ internal class NodeImpl(
 
             install(JsonFeature) {
                 serializer = KotlinxSerializer(json)
+            }
+
+            install(Logging) {
+                level = LogLevel.INFO
+                logger = object : Logger {
+                    override fun log(message: String) = LOG.debug { message }
+                }
             }
         }
 
