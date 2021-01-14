@@ -1,4 +1,6 @@
 # Lavakord
+Support discord: https://discord.gg/ZbmrRVpDwR
+
 Extension of the [official LavaLink-Client](https://github.com/FredBoat/Lavalink-Client) to work with [Kord](https://github.com/kordlib/kord)
 
 **Both Kord and Lavakord is still in an experimental stage, as such we can't guarantee API stability between releases. While we'd love for you to try out our library, we don't recommend you use this in production just yet.**
