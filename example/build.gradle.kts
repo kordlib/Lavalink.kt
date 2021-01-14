@@ -20,8 +20,8 @@ dependencies {
 
     implementation("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
 
-    implementation("com.gitlab.kordlib.kordx", "kordx-commands-runtime-kord", "0.3.3")
-    kapt("com.gitlab.kordlib.kordx", "kordx-commands-processor", "0.3.3")
+//    implementation("com.gitlab.kordlib.kordx", "kordx-commands-runtime-kord", "0.3.3")
+//    kapt("com.gitlab.kordlib.kordx", "kordx-commands-processor", "0.3.3")
 }
 
 tasks {

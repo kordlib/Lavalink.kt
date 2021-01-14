@@ -16,6 +16,7 @@ public interface LavaKord : CoroutineScope {
     public val nodes: List<Node>
     public val userId: Long
     public val shardsTotal: Int
+    public val options: LavaKordOptions
 
     /**
      * Returns the corresponding [Link] for the [guildId].

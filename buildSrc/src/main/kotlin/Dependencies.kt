@@ -8,6 +8,8 @@ object Versions {
     const val kotlinxSerialization = "1.0.1"
     const val kotlinLogging = "2.0.4"
     const val kord = "0.7.0-SNAPSHOT"
+    const val bintray = "1.8.5"
+    const val atomicFu = "0.14.4"
 }
 
 object Dependencies {

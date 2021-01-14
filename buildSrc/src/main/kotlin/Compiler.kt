@@ -1,5 +1,6 @@
 object ExpermientalAnnotations {
     const val requiresOptIn = "kotlin.RequiresOptIn"
+    const val experimentalTime = "kotlin.time.ExperimentalTime"
 }
 
 object Jvm {

@@ -1,9 +1,10 @@
 plugins {
-    kotlin("multiplatform") version "1.4.21"
-    kotlin("plugin.serialization") version "1.4.21"
-    id("com.jfrog.bintray") version "1.8.5"
-    id("org.jetbrains.dokka") version "1.4.20"
     `maven-publish`
+    kotlin("multiplatform") version Versions.kotlin
+    kotlin("plugin.serialization") version Versions.kotlin
+    id("com.jfrog.bintray") version Versions.bintray
+    id("org.jetbrains.dokka") version "1.4.20"
+    id("kotlinx-atomicfu") version Versions.atomicFu
 }
 
 group = "me.schlaubi"
@@ -32,6 +33,7 @@ kotlin {
     sourceSets {
         all {
             languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
+            languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.experimentalTime)
         }
 
         commonMain {

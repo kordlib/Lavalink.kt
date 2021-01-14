@@ -44,7 +44,6 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         )
     }
 
-    @OptIn(ExperimentalTime::class)
     private fun handleNewTrack(event: TrackStartEvent) {
         position = event.track.position.toLongMilliseconds()
         playingTrack = event.track

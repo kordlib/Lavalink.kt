@@ -68,7 +68,6 @@ public interface Player : EventSource<TrackEvent> {
     /**
      * Seeks to a specific [position] in the current playback.
      */
-    @OptIn(ExperimentalTime::class)
     public suspend fun seekTo(position: Duration): Unit = seekTo(position.inMilliseconds.toLong())
 
     /**

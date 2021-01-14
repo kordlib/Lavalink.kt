@@ -23,9 +23,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import mu.KotlinLogging
-import kotlin.time.DurationUnit
-import kotlin.time.ExperimentalTime
-import kotlin.time.toDuration
 
 private val LOG = KotlinLogging.logger { }
 
@@ -37,11 +34,10 @@ internal class NodeImpl(
     override val name: String,
     override val authenticationHeader: String,
     private val lavaKord: LavaKord,
-    private val maxTries: Int,
-    private val resumeTimeout: Int
 ) : Node {
 
-    private var tries: Int = 0
+    private val resumeTimeout = lavaKord.options.link.resumeTimeout
+    private val retry = lavaKord.options.link.retry
 
     private val resumeKey = generateResumeKey()
     override var available: Boolean = true
@@ -87,8 +83,8 @@ internal class NodeImpl(
             reconnect(e, resume)
             return
         }
+        retry.reset()
         available = true
-        tries = 0
 
         LOG.debug { "Succesfully connected to node: $name ($host)" }
 
@@ -109,16 +105,13 @@ internal class NodeImpl(
         reconnect(resume = true)
     }
 
-    @OptIn(ExperimentalTime::class)
-    suspend fun reconnect(e: Throwable? = null, resume: Boolean = false) {
-        tries++
-        LOG.error(e) { "Error whilst trying to connect. Reconnecting $tries/$maxTries" }
-        if (tries <= maxTries) {
-            LOG.info { "Waiting 5 seconds before reconnect" }
-            delay(5.toDuration(DurationUnit.SECONDS))
+    private suspend fun reconnect(e: Throwable? = null, resume: Boolean = false) {
+        LOG.error(e) { "Error whilst trying to connect. Reconnecting" }
+        if (retry.hasNext) {
+            retry.retry()
             connect(resume)
         } else {
-            error("Cannot reconnect to $host")
+            error("Could not reconnect to websocket after to many attempts")
         }
     }
 

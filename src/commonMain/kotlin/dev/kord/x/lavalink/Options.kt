@@ -1,9 +1,14 @@
 package dev.kord.x.lavalink
 
 import dev.kord.x.lavalink.audio.internal.PenaltyProvider
+import dev.kord.x.lavalink.audio.retry.LinearRetry
+import dev.kord.x.lavalink.audio.retry.Retry
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+import kotlin.time.Duration
+import kotlin.time.milliseconds
+import kotlin.time.seconds
 
 
 /**
@@ -52,12 +57,12 @@ public interface LavaKordOptions {
      *
      * @property autoReconnect Whether to auto-reconnect links or not
      * @property resumeTimeout amount of seconds Lavalink will wait to kill all players if the client fails to resume it's connection
-     * @property maxReconnectTries maximal amount of tries to reconnect to a node
+     * @property retry retry strategy (See [Retry] and [LinearRetry])
      */
     public interface LinkConfig {
         public val autoReconnect: Boolean
         public val resumeTimeout: Int
-        public val maxReconnectTries: Int
+        public val retry: Retry
     }
 }
 
@@ -116,13 +121,31 @@ public data class MutableLavaKordOptions(
     /**
      * Mutable implementation of [LavaKordOptions.LinkConfig].
      */
-    public data class LinkConfig(
+    public data class LinkConfig constructor(
         override var autoReconnect: Boolean = true,
         override var resumeTimeout: Int = 60,
-        override var maxReconnectTries: Int = 5
+        override var retry: Retry = LinearRetry(2.seconds, 60.seconds, 10)
     ) : LavaKordOptions.LinkConfig {
         internal fun seal(): LavaKordOptions.LinkConfig =
-            ImmutableLavaKordOptions.LinkConfig(autoReconnect, resumeTimeout, maxReconnectTries)
+            ImmutableLavaKordOptions.LinkConfig(autoReconnect, resumeTimeout, retry)
+
+        /**
+         * Creates a linear [Retry] strategy.
+         * @property firstBackoff the delay for the first try
+         * @property maxBackoff the max delay
+         * @property maxTries the maximal amount of tries before giving up
+         */
+        public fun linear(firstBackoff: Duration, maxBackoff: Duration, maxTries: Int): Retry =
+            LinearRetry(firstBackoff, maxBackoff, maxTries)
+
+        /**
+         * Creates a linear [Retry] strategy.
+         * @property firstBackoff the delay for the first try in ms
+         * @property maxBackoff the max delay in ms
+         * @property maxTries the maximal amount of tries before giving up
+         */
+        public fun linear(firstBackoff: Long, maxBackoff: Long, maxTries: Int): Retry =
+            LinearRetry(firstBackoff.milliseconds, maxBackoff.milliseconds, maxTries)
     }
 }
 
@@ -137,7 +160,7 @@ private data class ImmutableLavaKordOptions(
     /**
      * Mutable implementation of [LavaKordOptions.LoadBalancingConfig].
      */
-    public data class LoadBalancingConfig(override val penaltyProviders: List<PenaltyProvider>) :
+    data class LoadBalancingConfig(override val penaltyProviders: List<PenaltyProvider>) :
         LavaKordOptions.LoadBalancingConfig {
         override fun plus(provider: PenaltyProvider): Nothing =
             throw UnsupportedOperationException("This config has been sealed")
@@ -146,9 +169,9 @@ private data class ImmutableLavaKordOptions(
     /**
      * Mutable implementation of [LavaKordOptions.LinkConfig].
      */
-    public data class LinkConfig(
+    data class LinkConfig(
         override val autoReconnect: Boolean,
         override val resumeTimeout: Int,
-        override val maxReconnectTries: Int
+        override val retry: Retry
     ) : LavaKordOptions.LinkConfig
 }

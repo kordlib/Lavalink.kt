@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import dev.kord.x.lavalink.LavaKord
 import dev.kord.x.lavalink.LavaKordOptions
 import dev.kord.x.lavalink.computeIfAbsent
+import kotlinx.atomicfu.atomic
 
 /**
  * Abstract implementation of [LavaKord].
@@ -16,9 +17,9 @@ import dev.kord.x.lavalink.computeIfAbsent
 public abstract class AbstractLavakord(
     override val userId: Long,
     override val shardsTotal: Int,
-    protected val options: LavaKordOptions
+    override val options: LavaKordOptions
 ) : LavaKord {
-    private var nodeCounter = 0
+    private val nodeCounter = atomic(0)
     private val nodesMap = mutableMapOf<String, Node>()
     protected val linksMap: MutableMap<Long, Link> = mutableMapOf()
 
@@ -41,10 +42,9 @@ public abstract class AbstractLavakord(
         if (name != null) {
             check(!nodesMap.containsKey(name)) { "Name is already in use" }
         }
-        nodeCounter++
-        val finalName = name ?: "Lavalink_Node_#$nodeCounter"
+        val finalName = name ?: "Lavalink_Node_#${nodeCounter.incrementAndGet()}"
         val node =
-            NodeImpl(serverUri, finalName, password, this, options.link.maxReconnectTries, options.link.resumeTimeout)
+            NodeImpl(serverUri, finalName, password, this)
         nodesMap[finalName] = node
         launch {
             node.connect()

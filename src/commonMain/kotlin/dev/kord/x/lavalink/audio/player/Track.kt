@@ -22,7 +22,6 @@ import kotlin.time.toDuration
  * @property source the Lavaplayer source of this track (e.g. youtube)
  * @property position the current position of the track (normally 0 or [length]) (See [Player.position]
  */
-@OptIn(ExperimentalTime::class)
 public data class Track constructor(
     public val version: Byte,
     public val track: String,

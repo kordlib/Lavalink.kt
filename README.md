@@ -18,6 +18,7 @@ You can create a `Lavalink` object like this
     val lavalink = kord.lavakord {
         link {
             autoReconnect = false
+            retry = linear(2.seconds, 60.seconds, 10)
         }
     }
 ```
