@@ -36,6 +36,9 @@ public interface Filters {
     public val tremolo: Tremolo?
     public val vibrato: Vibrato?
 
+    /**
+     * Root interface for a resettable filter.
+     */
     public interface Filter {
         /**
          * Resets this filter to it's default state.
