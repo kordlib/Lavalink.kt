@@ -20,13 +20,12 @@ public fun <K, V> MutableMap<K, V>.computeIfAbsent(
     key: K,
     mappingFunction: (K) -> V
 ): V {
-    var v: V?
-    if (get(key).also { v = it } == null) {
-        var newValue: V?
-        if (mappingFunction(key).also { newValue = it } != null) {
-            @Suppress("ReplaceNotNullAssertionWithElvisReturn") // see also call above
-            put(key, newValue!!)
-            return newValue!!
+    val v = get(key)
+    if (v == null) {
+        val newValue = mappingFunction(key)
+        if (newValue != null) {
+            put(key, newValue)
+            return newValue
         }
     }
     return v!!

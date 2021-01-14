@@ -21,7 +21,7 @@ public data class TrackResponse(
     @get:JvmName("getNullablePlaylistInfo")
     val playlistInfo: NullablePlaylistInfo,
     val tracks: List<PartialTrack>,
-    @get:JvmName("getPlaylistInfoOrNull")
+    @get:JvmName("getExceptionOrNull")
     val exception: Error? = null
 ) {
 

@@ -7,16 +7,16 @@ import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import dev.kord.x.lavalink.audio.Node
+import dev.kord.x.lavalink.internal.HttpEngine
 import mu.KotlinLogging
 
 private val LOG = KotlinLogging.logger {}
 
-internal val client = HttpClient {
+internal val client = HttpClient(HttpEngine) {
     Json {
         val json = kotlinx.serialization.json.Json {
             serializersModule = RoutePlannerModule
         }
-
 
         serializer = KotlinxSerializer(json)
     }
@@ -29,8 +29,8 @@ internal val client = HttpClient {
     }
 }
 
-internal suspend inline fun <reified T> Node.get(urlBuilder: URLBuilder) =
-    client.get<T>(urlBuilder.build()) { addHeader(this@get) }
+internal suspend inline fun <reified T> Node.get(noinline urlBuilder: URLBuilder.() -> Unit) =
+    client.get<T>(buildUrl(urlBuilder).build()) { addHeader(this@get) }
 
 internal suspend inline fun <reified T> Node.post(
     urlBuilder: URLBuilder,

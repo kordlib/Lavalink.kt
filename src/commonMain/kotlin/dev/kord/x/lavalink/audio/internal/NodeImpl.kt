@@ -2,6 +2,7 @@ package dev.kord.x.lavalink.audio.internal
 
 import dev.kord.x.lavalink.LavaKord
 import dev.kord.x.lavalink.audio.*
+import dev.kord.x.lavalink.internal.HttpEngine
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.features.*
@@ -21,12 +22,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import mu.KotlinLogging
 
 private val LOG = KotlinLogging.logger { }
-
-public expect object HttpEngine : HttpClientEngineFactory<HttpClientEngineConfig>
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class NodeImpl(
@@ -50,10 +48,6 @@ internal class NodeImpl(
     @OptIn(FlowPreview::class)
     override val events: Flow<TrackEvent>
         get() = eventPublisher.asFlow().buffer(Channel.UNLIMITED)
-
-    private val json = Json {
-        classDiscriminator = "op"
-    }
 
     @OptIn(InternalCoroutinesApi::class)
     internal suspend fun connect(resume: Boolean = false) {
@@ -169,12 +163,13 @@ internal class NodeImpl(
     }
 
     internal companion object {
+        private val json = kotlinx.serialization.json.Json {
+            encodeDefaults = false
+            classDiscriminator = "op"
+        }
+
         @OptIn(KtorExperimentalAPI::class)
         private val client = HttpClient(HttpEngine) {
-            val json = kotlinx.serialization.json.Json {
-                encodeDefaults = false
-                classDiscriminator = "op"
-            }
             install(WebSockets)
 
             install(JsonFeature) {

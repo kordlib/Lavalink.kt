@@ -7,7 +7,7 @@ plugins {
     id("kotlinx-atomicfu") version Versions.atomicFu
 }
 
-group = "me.schlaubi"
+group = "dev.kord.x"
 version = "1.0.0-SNAPSHOT"
 
 repositories {

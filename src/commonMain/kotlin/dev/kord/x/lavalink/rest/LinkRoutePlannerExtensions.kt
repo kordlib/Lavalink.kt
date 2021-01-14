@@ -2,20 +2,27 @@ package dev.kord.x.lavalink.rest
 
 import dev.kord.x.lavalink.NoRoutePlannerException
 import dev.kord.x.lavalink.audio.Link
+import dev.kord.x.lavalink.audio.Node
 import kotlinx.serialization.SerializationException
 
 /**
  * Retrieves the current address status of the route planner api. Can be null if no Route planner is set
  *
  * @see RoutePlannerStatus
+ * @see Node.addressStatusOrNull
  */
-public suspend fun Link.addressStatusOrNull(): RoutePlannerStatus<out RoutePlannerStatus.Data>? {
-    val url = node.buildUrl {
-        path("/routeplanner/status")
-    }
+public suspend fun Link.addressStatusOrNull(): RoutePlannerStatus<out RoutePlannerStatus.Data>? =
+    node.addressStatusOrNull()
 
+/**
+}
+ * Retrieves the current address status of the route planner api. Can be null if no Route planner is set
+ *
+ * @see RoutePlannerStatus
+ */
+public suspend fun Node.addressStatusOrNull(): RoutePlannerStatus<out RoutePlannerStatus.Data>? {
     return try {
-        node.get(url)
+        get { path("/routeplanner/status") }
     } catch (e: SerializationException) {
         if (e.message?.endsWith("{}") == true) { // {} means no route planer is not set
             return null
@@ -28,33 +35,52 @@ public suspend fun Link.addressStatusOrNull(): RoutePlannerStatus<out RoutePlann
  *
  * @throws NoRoutePlannerException when there is no Route planner specified in Lavalink configuration
  *
+ * @see Node.addressStatus
+ * @see NoRoutePlannerException
+ * @see RoutePlannerStatus
+ */
+public suspend fun Link.addressStatus(): RoutePlannerStatus<out RoutePlannerStatus.Data> = node.addressStatus()
+
+/**
+ * Retrieves the current address status of the route planner api.
+ *
+ * @throws NoRoutePlannerException when there is no Route planner specified in Lavalink configuration
+ *
  * @see Link.addressStatusOrNull
  * @see NoRoutePlannerException
  * @see RoutePlannerStatus
  */
-public suspend fun Link.addressStatus(): RoutePlannerStatus<out RoutePlannerStatus.Data> =
+public suspend fun Node.addressStatus(): RoutePlannerStatus<out RoutePlannerStatus.Data> =
     addressStatusOrNull() ?: throw NoRoutePlannerException()
 
 /**
  * Unmarks all route planner addresses.
+ *
+ * @see Node.unmarkAllAddresses
  */
-public suspend fun Link.unmarkAllAddresses() {
-    val url = node.buildUrl {
-        path("/routeplanner/free/all")
-    }
+public suspend fun Link.unmarkAllAddresses(): Unit = node.unmarkAllAddresses()
 
-    return node.get(url)
-}
+/**
+ * Unmarks all route planner addresses.
+ */
+public suspend fun Node.unmarkAllAddresses(): Unit = get { path("/routeplanner/free/all") }
+
+/**
+ * Unmarks the route planner [address].
+ *
+ * @see Node.unmarkAddress
+ */
+public suspend fun Link.unmarkAddress(address: String): Unit = node.unmarkAddress(address)
 
 /**
  * Unmarks the route planner [address].
  */
-private suspend fun Link.unmarkAddress(address: String) {
-    val url = node.buildUrl {
+public suspend fun Node.unmarkAddress(address: String) {
+    val url = buildUrl {
         path("/routeplanner/free/address")
     }
 
-    return node.post(url) {
+    return post(url) {
         body = mapOf("address" to address)
     }
 }

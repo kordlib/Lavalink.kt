@@ -1,8 +1,5 @@
 package dev.kord.x.lavalink.audio.retry
 
-import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
-
 /**
  * A strategy for retrying after after a failed action.
  */

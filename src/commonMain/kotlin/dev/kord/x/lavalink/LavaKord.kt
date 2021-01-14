@@ -11,6 +11,7 @@ import dev.kord.x.lavalink.audio.Node
  * @property nodes list of [Node]s in this cluster
  * @property userId the id of the Discord bot user
  * @property shardsTotal the total amount of shards of the Discord bot
+ * @property options Configuration options (See [LavaKordOptions]
  */
 public interface LavaKord : CoroutineScope {
     public val nodes: List<Node>
