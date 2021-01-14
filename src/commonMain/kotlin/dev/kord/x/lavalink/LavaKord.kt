@@ -52,4 +52,9 @@ public interface LavaKord : CoroutineScope {
      * Removes a node from the cluster by it's [name].
      */
     public fun removeNode(name: String)
+
+    /**
+     * Removes the [node].
+     */
+    public fun removeNode(node: Node): Unit = removeNode(node.name)
 }

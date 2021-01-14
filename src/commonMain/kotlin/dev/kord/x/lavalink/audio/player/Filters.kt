@@ -1,6 +1,7 @@
 package dev.kord.x.lavalink.audio.player
 
 import dev.kord.x.lavalink.audio.internal.GatewayPayload
+import dev.kord.x.lavalink.checkImplementation
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -10,7 +11,9 @@ import kotlin.contracts.contract
  */
 @RequiresOptIn(
     level = RequiresOptIn.Level.WARNING,
-    message = "This API is not yet documented or supported by Lavalink and has been copied from the official client"
+    message = """This API is not yet documented and only supported by the Lavalink "dev" branch
+        |: https://github.com/Frederikam/Lavalink/blob/dev/LavalinkServer/src/main/java/lavalink/server/io/WebSocketHandlers.kt#L116-L119
+    """
 )
 @Target(
     AnnotationTarget.CLASS,
@@ -48,46 +51,57 @@ public interface Filters {
         public var filterWidth: Float
     }
 
+    /**
+     * @property speed must be greater than 0
+     * @property pitch must be greater than 0
+     * @property rate must be greater than 0
+     */
     public interface Timescale {
         public var speed: Float
         public var pitch: Float
         public var rate: Float
     }
 
+    /**
+     * @property frequency must be greater than 0
+     * @property depth must be between 0 and 1
+     */
     public interface Tremolo {
         public var frequency: Float
         public var depth: Float
     }
 
     /**
-     * This has the same properties as [Tremolo].
+     * This has the same API as [Tremolo].
      */
     public interface Vibrato : Tremolo
 }
 
-// This part seems is not implemented to Lavalink yet I guess
-///**
-// * Resets all applied filters.
-// */
-//public suspend fun Player.resetFilters() {
-//    applyEqualizer { reset() }
-//}
-//
-///**
-// * Applies all Filters to this player.
-// */
-//@OptIn(ExperimentalContracts::class)
-//public suspend fun Player.applyFilters(block: Filters.() -> Unit) {
-//    contract {
-//        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
-//    }
-//
-//    checkImplementation()
-//    val filters = filters ?: error("This should never happen")
-//    filters.apply(block)
-//
-//    node.send(filters)
-//}
+
+/**
+ * Resets all applied filters.
+ */
+@FiltersApi
+public suspend fun Player.resetFilters() {
+    applyEqualizer { reset() }
+}
+
+/**
+ * Applies all Filters to this player.
+ */
+@FiltersApi
+@OptIn(ExperimentalContracts::class)
+public suspend fun Player.applyFilters(block: Filters.() -> Unit) {
+    contract {
+        callsInPlace(block, InvocationKind.AT_MOST_ONCE)
+    }
+
+    checkImplementation()
+    val filters = filters
+    filters.apply(block)
+
+    node.send(filters)
+}
 
 /**
  * Configures the [Filters.Karaoke] filter.

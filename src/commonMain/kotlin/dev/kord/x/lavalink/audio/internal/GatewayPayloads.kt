@@ -87,21 +87,30 @@ internal sealed class GatewayPayload {
     ) : GatewayPayload(), Filters {
         @Serializable
         data class Karaoke(
-            override var level: Float = 1F,
-            override var monoLevel: Float = 1F,
-            override var filterBand: Float = 220F,
-            override var filterWidth: Float = 100F
-        ) : Filters.Karaoke
+            override var level: Float,
+            override var monoLevel: Float,
+            override var filterBand: Float,
+            override var filterWidth: Float
+        ) : Filters.Karaoke {
+            constructor() : this(
+                1F,
+                1F,
+                220F,
+                100F
+            )
+        }
 
         @Serializable
         data class Timescale(
             @SerialName("speed")
-            private var _speed: Float = 1F,
+            private var _speed: Float,
             @SerialName("pitch")
-            private var _pitch: Float = 1F,
+            private var _pitch: Float,
             @SerialName("rate")
-            private var _rate: Float = 1F
+            private var _rate: Float
         ) : Filters.Timescale {
+            constructor() : this(1F, 1F, 1F)
+
             override var speed: Float
                 get() = _speed
                 set(value) {
@@ -126,9 +135,11 @@ internal sealed class GatewayPayload {
 
         @Serializable
         data class Tremolo(
-            @SerialName("frequency") private var _frequency: Float = 2F,
-            @SerialName("depth") private var _depth: Float = .5F
+            @SerialName("frequency") private var _frequency: Float,
+            @SerialName("depth") private var _depth: Float
         ) : Filters.Tremolo {
+            constructor() : this(2F, .5F)
+
             override var frequency: Float
                 get() = _frequency
                 set(value) {
@@ -145,9 +156,11 @@ internal sealed class GatewayPayload {
 
         @Serializable
         data class Vibrato(
-            @SerialName("frequency") private var _frequency: Float = 2F,
-            @SerialName("depth") private var _depth: Float = .5F
+            @SerialName("frequency") private var _frequency: Float,
+            @SerialName("depth") private var _depth: Float
         ) : Filters.Vibrato {
+            constructor() : this(2F, .5F)
+
             override var frequency: Float
                 get() = _frequency
                 set(value) {

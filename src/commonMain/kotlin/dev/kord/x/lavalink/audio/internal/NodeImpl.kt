@@ -105,6 +105,7 @@ internal class NodeImpl(
             retry.retry()
             connect(resume)
         } else {
+            lavaKord.removeNode(this)
             error("Could not reconnect to websocket after to many attempts")
         }
     }

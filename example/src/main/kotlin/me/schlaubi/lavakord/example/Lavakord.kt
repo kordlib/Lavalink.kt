@@ -9,8 +9,7 @@ import dev.kord.core.on
 import dev.kord.x.lavalink.audio.Link
 import dev.kord.x.lavalink.audio.on
 import dev.kord.x.lavalink.LavaKord
-import dev.kord.x.lavalink.audio.player.applyEqualizer
-import dev.kord.x.lavalink.audio.player.gain
+import dev.kord.x.lavalink.audio.player.*
 import dev.kord.x.lavalink.kord.lavakord
 import dev.kord.x.lavalink.rest.TrackResponse
 import dev.kord.x.lavalink.rest.loadItem
@@ -18,7 +17,7 @@ import kotlin.time.ExperimentalTime
 
 lateinit var lavalink: LavaKord
 
-@OptIn(ExperimentalTime::class)
+@OptIn(ExperimentalTime::class, FiltersApi::class)
 suspend fun main() {
     val kord = Kord(System.getenv("token"))
     val listenedGuilds = mutableListOf<Snowflake>()
@@ -93,14 +92,21 @@ suspend fun main() {
                     2 gain 1F
                 }
             }
-//            "!speed" -> {
-//                val float = args[1].toFloat()
-//                player.applyFilters {
-//                    timescale {
-//                        speed = float
-//                    }
-//                }
-//            }
+            "!speed" -> {
+                val float = args[1].toFloat()
+                player.applyFilters {
+                    timescale {
+                        speed = float
+                    }
+                }
+            }
+            "!karaoke" -> {
+                player.applyFilters {
+                    karaoke {
+                        level = 5F
+                    }
+                }
+            }
             "!play" -> {
                 val query = args.drop(1).joinToString(" ")
                 val search = if (query.startsWith("http")) {
