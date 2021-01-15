@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import dev.kord.x.lavalink.rest.RoutePlannerStatus.Data
+import kotlinx.serialization.Polymorphic
 
 internal val RoutePlannerModule = SerializersModule {
     polymorphic(RoutePlannerStatus::class) {
@@ -22,6 +23,7 @@ internal val RoutePlannerModule = SerializersModule {
  * @property details the [Data] from the route planner class
  */
 @Serializable
+@Polymorphic
 public sealed class RoutePlannerStatus<T : Data> {
 
     public abstract val details: Data
@@ -80,13 +82,14 @@ public sealed class RoutePlannerStatus<T : Data> {
  */
 @Suppress("KDocMissingDocumentation") // lavalink doesnt provide
 @Serializable
-public data class RotatingIpRoutePlanner(override val details: RoutePlannerStatus.Data) :
-    RoutePlannerStatus<Data>() {
+public data class RotatingIpRoutePlanner(override val details: Data) :
+    RoutePlannerStatus<RotatingNanoIpRoutePlanner.Data>() {
     /**
      * @property rotateIndex The number of rotations which happened since the restart of Lavalink
      * @property ipIndex The current offset in the block
      * @property currentAddress The currently used ip address
      */
+    @Serializable
     public data class Data(
         override val ipBlock: RoutePlannerStatus.Data.IpBlock,
         override val failingAddresses: List<RoutePlannerStatus.Data.FailingAddress>,
@@ -102,11 +105,12 @@ public data class RotatingIpRoutePlanner(override val details: RoutePlannerStatu
  */
 @Suppress("KDocMissingDocumentation") // lavalink doesnt provide
 @Serializable
-public data class NanoIpRoutePlanner(override val details: RoutePlannerStatus.Data) :
-    RoutePlannerStatus<Data>() {
+public data class NanoIpRoutePlanner(override val details: Data) :
+    RoutePlannerStatus<RotatingNanoIpRoutePlanner.Data>() {
     /**
      * @property currentAddressIndex The current offset in the ip block
      */
+    @Serializable
     public data class Data(
         override val ipBlock: RoutePlannerStatus.Data.IpBlock,
         override val failingAddresses: List<RoutePlannerStatus.Data.FailingAddress>,
@@ -119,12 +123,13 @@ public data class NanoIpRoutePlanner(override val details: RoutePlannerStatus.Da
  */
 @Suppress("KDocMissingDocumentation") // lavalink doesnt provide
 @Serializable
-public data class RotatingNanoIpRoutePlanner(override val details: RoutePlannerStatus.Data) :
-    RoutePlannerStatus<Data>() {
+public data class RotatingNanoIpRoutePlanner(override val details: Data) :
+    RoutePlannerStatus<RotatingNanoIpRoutePlanner.Data>() {
     /**
      * @property blockIndex The information in which /64 block ips are chosen. This number increases on each ban.
      * @property currentAddressIndex The current offset in the ip block
      */
+    @Serializable
     public data class Data(
         override val ipBlock: RoutePlannerStatus.Data.IpBlock,
         override val failingAddresses: List<RoutePlannerStatus.Data.FailingAddress>,

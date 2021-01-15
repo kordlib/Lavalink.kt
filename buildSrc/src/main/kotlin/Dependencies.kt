@@ -10,10 +10,17 @@ object Versions {
     const val kord = "0.7.0-SNAPSHOT"
     const val bintray = "1.8.5"
     const val atomicFu = "0.14.4"
+
+
+    const val junit5 = "5.6.0"
+    const val junitJupiterEngine = junit5
+    const val coroutinesTest = coroutines
+    const val slf4j = "1.7.30"
 }
 
 object Dependencies {
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutinesTest}"
     const val kotlinxSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
 
     const val `ktor-io` = "io.ktor:ktor-io:${Versions.ktor}"
@@ -28,6 +35,10 @@ object Dependencies {
     const val kotlinLogging = "io.github.microutils:kotlin-logging:${Versions.kotlinLogging}"
 
     const val kord = "dev.kord:kord-core:${Versions.kord}"
+
+    const val `junit-jupiter-engine` = "org.junit.jupiter:junit-jupiter-engine:${Versions.junitJupiterEngine}"
+
+    const val slf4jSimple = "org.slf4j:slf4j-simple:${Versions.slf4j}"
 }
 
 fun RepositoryHandler.jitpack() = maven("https://jitpack.io")

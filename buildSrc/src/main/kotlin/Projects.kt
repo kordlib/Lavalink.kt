@@ -8,6 +8,9 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 val NamedDomainObjectContainer<KotlinSourceSet>.jvmMain: NamedDomainObjectProvider<KotlinSourceSet>
     get() = named<KotlinSourceSet>("jvmMain")
 
+val NamedDomainObjectContainer<KotlinSourceSet>.jvmTest: NamedDomainObjectProvider<KotlinSourceSet>
+    get() = named<KotlinSourceSet>("jvmTest")
+
 val NamedDomainObjectContainer<KotlinSourceSet>.jsMain: NamedDomainObjectProvider<KotlinSourceSet>
     get() = named<KotlinSourceSet>("jsMain")
 

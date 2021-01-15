@@ -243,7 +243,7 @@ internal sealed class GatewayPayload {
     data class EmittedEvent(
         override val guildId: String,
         val type: Type,
-        val track: String,
+        val track: String? = null,
         val reason: String? = null,
         val error: String? = null,
         val thresholdMs: Long? = null,
@@ -265,7 +265,7 @@ internal sealed class GatewayPayload {
             @SerialName("TrackStuckEvent")
             TRACK_STUCK_EVENT,
 
-            @SerialName("WebsocketClosedEvent")
+            @SerialName("WebSocketClosedEvent")
             WEBSOCKET_CLOSED_EVENT
         }
     }

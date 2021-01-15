@@ -22,10 +22,16 @@ kotlin {
                 jvmTarget = Jvm.target
             }
         }
+
+        tasks {
+            withType<Test> {
+                useJUnitPlatform()
+            }
+        }
     }
 
 // See https://github.com/DRSchlaubi/Lavakord/issues/2
-//    js {
+//    js(BOTH) {
 //        nodejs()
 //        browser()
 //    }
@@ -52,6 +58,14 @@ kotlin {
             }
         }
 
+        commonTest {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+                implementation(Dependencies.coroutinesTest)
+            }
+        }
+
         jvmMain {
             repositories {
                 jitpack()
@@ -60,6 +74,15 @@ kotlin {
             dependencies {
                 implementation(Dependencies.`ktor-client-cio`)
                 implementation("com.github.FredBoat:Lavalink-Client:4.0")
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit5"))
+                runtimeOnly(Dependencies.`junit-jupiter-engine`)
+                runtimeOnly(Dependencies.slf4jSimple)
             }
         }
 

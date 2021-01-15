@@ -29,11 +29,10 @@ public sealed class TrackEvent {
  *
  * @see TrackEvent
  */
-public data class TrackStartEvent(override val guildId: Long, override val track: Track) :
-    TrackEvent() {
+public data class TrackStartEvent(override val guildId: Long, override val track: Track) : TrackEvent() {
     internal companion object {
         suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackStartEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_START_EVENT) { "Event needs to be track start event" }
+            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_START_EVENT && event.track != null) { "Event needs to be track start event" }
             return TrackStartEvent(event.guildId.toLong(), Track.fromLavalink(event.track))
         }
     }
@@ -49,8 +48,7 @@ public data class TrackEndEvent(
     override val guildId: Long,
     override val track: Track,
     public val reason: EndReason
-) :
-    TrackEvent() {
+) : TrackEvent() {
 
     /**
      * Representation of a Track end reason.
@@ -97,7 +95,7 @@ public data class TrackEndEvent(
      */
     internal companion object {
         suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackEndEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_END_EVENT && event.reason != null) { "Event needs to be track end event" }
+            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_END_EVENT && event.reason != null && event.track != null) { "Event needs to be track end event" }
             return TrackEndEvent(
                 event.guildId.toLong(),
                 Track.fromLavalink(event.track),
@@ -119,7 +117,7 @@ public data class TrackExceptionEvent(
 
     internal companion object {
         suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackExceptionEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_EXCEPTION_EVENT && event.error != null) { "Event has to be track exception event" }
+            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_EXCEPTION_EVENT && event.error != null && event.track != null) { "Event has to be track exception event" }
             return TrackExceptionEvent(
                 event.guildId.toLong(),
                 Track.fromLavalink(event.track),
@@ -142,7 +140,7 @@ public data class TrackStuckEvent(
 
     internal companion object {
         suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackStuckEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_STUCK_EVENT && event.thresholdMs != null) { "Event has to be track stuck event" }
+            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_STUCK_EVENT && event.thresholdMs != null && event.track != null) { "Event has to be track stuck event" }
             return TrackStuckEvent(
                 event.guildId.toLong(),
                 Track.fromLavalink(event.track),

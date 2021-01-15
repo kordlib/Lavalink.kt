@@ -3,6 +3,7 @@ package dev.kord.x.lavalink.rest
 import dev.kord.x.lavalink.rest.TrackResponse.*
 import dev.kord.x.lavalink.rest.TrackResponse.Error.Severity
 import dev.kord.x.lavalink.rest.TrackResponse.PartialTrack.Info
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmName
 import dev.kord.x.lavalink.audio.player.Track as NewTrack
@@ -18,6 +19,7 @@ import dev.kord.x.lavalink.audio.player.Track as NewTrack
 @Serializable
 public data class TrackResponse(
     val loadType: LoadType,
+    @SerialName("playlistInfo")
     @get:JvmName("getNullablePlaylistInfo")
     val playlistInfo: NullablePlaylistInfo,
     val tracks: List<PartialTrack>,
