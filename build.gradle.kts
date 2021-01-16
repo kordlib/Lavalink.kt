@@ -159,33 +159,44 @@ publishing {
     }
 }
 
-tasks {
-    withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
-        outputDirectory.set(file("docs/"))
+listOf(project, project("kord")).forEach {
+    it.tasks {
+        withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+            outputDirectory.set(rootProject.file("docs/"))
 
-        dokkaSourceSets {
-            configureEach {
-                includeNonPublic.set(false)
+            dokkaSourceSets {
+                configureEach {
+                    includeNonPublic.set(false)
 
-                perPackageOption {
-                    matchingRegex.set(".*\\.internal.*") // will match all .internal packages and sub-packages
-                    suppress.set(true)
+                    perPackageOption {
+                        matchingRegex.set(".*\\.internal.*") // will match all .internal packages and sub-packages
+                        suppress.set(true)
+                    }
                 }
-            }
 
-            named("jsMain") {
-                displayName.set("JS")
-            }
+                if(it.sourceSets.asMap.containsKey("jsMain")) {
+                    named("jsMain") {
+                        displayName.set("JS")
+                    }
+                }
 
-            named("jvmMain") {
-                jdkVersion.set(8)
-                displayName.set("JVM")
+                if(it.sourceSets.asMap.containsKey("jvmMain")) {
+                    named("jvmMain") {
+                        jdkVersion.set(8)
+                        displayName.set("JVM")
+                    }
+                }
             }
         }
     }
+}
 
+tasks {
     gitPublishPush {
         dependsOn(dokkaHtmlMultiModule)
+    }
+    dokkaHtmlMultiModule {
+//        outputDirectory.set(rootProject.file("docs"))
     }
 }
 
