@@ -33,8 +33,8 @@ kotlin {
     // See https://github.com/DRSchlaubi/Lavakord/issues/2
     js(BOTH) {
         nodejs()
-        // browser() doesn't work because the js websocket client does not allowe you to set headers
-        // Apart from that why would you need Lavalink in your brwoser
+        // browser() doesn't work because the js websocket client does not allowed you to set headers
+        // Apart from that why would you need Lavalink in your browser?
     }
 
     sourceSets {
@@ -102,12 +102,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-js"))
             }
-        }
-    }
-
-    publishing {
-        publications {
-
         }
     }
 }
