@@ -5,6 +5,7 @@ import dev.kord.x.lavalink.audio.internal.GatewayPayload
 import json.src.*
 import kotlin.js.JsName
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
 class EventsTest {
 
@@ -22,13 +23,28 @@ class EventsTest {
         fun GatewayPayload.StatsEvent.validateBasic() {
             players shouldBe 1
             playingPlayers shouldBe 1
-            memory shouldBe StatsEvent.Memory(100, 100, 100, 100)
-            cpu shouldBe StatsEvent.Cpu(10, .50, .10)
+            memory {
+                free shouldBe 100
+                used shouldBe 100
+                allocated shouldBe 100
+                reservable shouldBe 100
+            }
+            cpu {
+                cores shouldBe 10
+                systemLoad shouldBe .50
+                lavalinkLoad shouldBe .10
+            }
         }
 
         test<GatewayPayload.StatsEvent>(FULL_STATS_EVENT) {
             validateBasic()
-            frameStats shouldBe StatsEvent.FrameStats(10, 10, 10)
+            frameStats {
+                assertNotNull(this)
+
+                sent shouldBe 10
+                nulled shouldBe 10
+                deficit shouldBe 10
+            }
         }
 
         test<GatewayPayload.StatsEvent>(STATS_EVENT) {

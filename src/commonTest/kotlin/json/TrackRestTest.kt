@@ -29,7 +29,6 @@ class TrackRestTest {
     fun `test single track loaded`() {
         testRest<TrackResponse, TrackResponse>(TRACK_LOADED) {
             loadType shouldBe TrackResponse.LoadType.TRACK_LOADED
-            assertFailsWith<IllegalStateException> { getPlaylistInfo() }
             tracks shouldBe listOf(neverGonnaGiveYouUp)
         }
     }
@@ -48,7 +47,11 @@ class TrackRestTest {
         testRest<TrackResponse, TrackResponse>(PLAYLIST_LOADED) {
             loadType shouldBe TrackResponse.LoadType.PLAYLIST_LOADED
             validateTracks()
-            getPlaylistInfo() shouldBe TrackResponse.PlaylistInfo("Example YouTube Playlist", 3)
+            val playlistInfo = getPlaylistInfo()
+            playlistInfo {
+                name shouldBe "Example YouTube Playlist"
+                selectedTrack shouldBe 3
+            }
         }
     }
 
@@ -67,10 +70,11 @@ class TrackRestTest {
         testRest<TrackResponse, TrackResponse>(LOAD_FAILED) {
             loadType shouldBe TrackResponse.LoadType.LOAD_FAILED
             assertTrue(tracks.isEmpty())
-            exception shouldBe TrackResponse.Error(
-                "The uploader has not made this video available in your country.",
-                TrackResponse.Error.Severity.COMMON
-            )
+            val exception = getException()
+            exception {
+                message shouldBe "The uploader has not made this video available in your country."
+                severity shouldBe TrackResponse.Error.Severity.COMMON
+            }
         }
     }
 }

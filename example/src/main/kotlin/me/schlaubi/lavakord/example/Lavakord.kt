@@ -25,7 +25,7 @@ suspend fun main() {
 
     }
 
-    lavalink.addNode("wss://staging-automator-cloud.ngrok.io", "youshallnotpass")
+    lavalink.addNode("wss://lavakord.eu.ngrok.io ", "youshallnotpass")
 
     kord.on<MessageCreateEvent> {
         val args = message.content.split(" ")

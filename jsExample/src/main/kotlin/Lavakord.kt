@@ -19,7 +19,7 @@ import kotlin.time.seconds
 @OptIn(ExperimentalTime::class)
 suspend fun main() {
     val lavakord: LavaKord = DummyLavakord(0L, 0, MutableLavaKordOptions().seal())
-    lavakord.addNode("wss://staging-automator-cloud.ngrok.io", "youshallnotpass")
+    lavakord.addNode("wss://lavakord.eu.ngrok.io", "youshallnotpass")
     val link = lavakord.getLink(0)
 
     // Normally you would need to wait for your DAPI wrapper to connect to discord

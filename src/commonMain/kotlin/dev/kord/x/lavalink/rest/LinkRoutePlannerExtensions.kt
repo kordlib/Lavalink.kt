@@ -3,7 +3,11 @@ package dev.kord.x.lavalink.rest
 import dev.kord.x.lavalink.NoRoutePlannerException
 import dev.kord.x.lavalink.audio.Link
 import dev.kord.x.lavalink.audio.Node
+import io.ktor.http.*
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 /**
  * Retrieves the current address status of the route planner api. Can be null if no Route planner is set
@@ -54,14 +58,14 @@ public suspend fun Node.addressStatus(): RoutePlannerStatus<out RoutePlannerStat
     addressStatusOrNull() ?: throw NoRoutePlannerException()
 
 /**
- * Unmarks all route planner addresses.
+ * Unmarks all failed route planner addresses.
  *
  * @see Node.unmarkAllAddresses
  */
 public suspend fun Link.unmarkAllAddresses(): Unit = node.unmarkAllAddresses()
 
 /**
- * Unmarks all route planner addresses.
+ * Unmarks all failed route planner addresses.
  */
 public suspend fun Node.unmarkAllAddresses(): Unit = get { path("/routeplanner/free/all") }
 
@@ -81,6 +85,10 @@ public suspend fun Node.unmarkAddress(address: String) {
     }
 
     return post(url) {
-        body = mapOf("address" to address)
+        contentType(ContentType.Application.Json)
+        body = UnmarkAddressBody(address)
     }
 }
+
+@Serializable
+private class UnmarkAddressBody(@Suppress("unused") val address: String)

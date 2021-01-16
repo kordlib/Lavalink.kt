@@ -11,28 +11,28 @@ import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
+fun RoutePlannerStatus.Data.IpBlock.validate() {
+    type shouldBe "Inet6Address"
+    size shouldBe 1213123321
+}
+
+fun List<RoutePlannerStatus.Data.FailingAddress>.validate() {
+    assertTrue(size == 1)
+    first().run {
+        address shouldBe "/1.0.0.0"
+        failingTimestamp shouldBe 1573520707545
+        failingTime shouldBe "Mon Nov 11 20:05:07 EST 2019"
+    }
+}
+
 class RoutePlannerTest {
-
-    private fun RoutePlannerStatus.Data.IpBlock.validate() {
-        type shouldBe "Inet6Address"
-        size shouldBe 1213123321
-    }
-
-    private fun List<RoutePlannerStatus.Data.FailingAddress>.validate() {
-        assertTrue(size == 1)
-        first().run {
-            address shouldBe "/1.0.0.0"
-            failingTimestamp shouldBe 1573520707545
-            failingTime shouldBe "Mon Nov 11 20:05:07 EST 2019"
-        }
-    }
 
     @JsName("testRotatingNanoIpRoutePlanner")
     @Test
     fun `test rotating nano ip route planner`() {
         test<RotatingNanoIpRoutePlanner>(ROTATING_NANO_IP_ROUTE_PLANNER) {
             `class` shouldBe RoutePlannerStatus.Class.RotatingNanoIpRoutePlanner
-            details.run {
+            details {
                 ipBlock.validate()
                 failingAddresses.validate()
                 blockIndex shouldBe 0
@@ -47,7 +47,7 @@ class RoutePlannerTest {
     fun `test rotating ip route planner`() {
         test<RotatingIpRoutePlanner>(ROTATING_IP_ROUTE_PLANNER) {
             `class` shouldBe RoutePlannerStatus.Class.RotatingIpRoutePlanner
-            details.run {
+            details {
                 ipBlock.validate()
                 failingAddresses.validate()
                 rotateIndex shouldBe "1"
@@ -62,7 +62,7 @@ class RoutePlannerTest {
     fun `test nano ip route planner`() {
         test<NanoIpRoutePlanner>(NANO_IP_ROUTE_PLANNER) {
             `class` shouldBe RoutePlannerStatus.Class.NanoIpRoutePlanner
-            details.run {
+            details {
                 ipBlock.validate()
                 failingAddresses.validate()
                 currentAddressIndex shouldBe 1

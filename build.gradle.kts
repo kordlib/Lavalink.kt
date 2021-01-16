@@ -1,3 +1,5 @@
+import org.ajoberstar.gradle.git.publish.GitPublishExtension
+
 plugins {
     `maven-publish`
     kotlin("multiplatform") version Versions.kotlin
@@ -5,6 +7,7 @@ plugins {
     id("com.jfrog.bintray") version Versions.bintray
     id("org.jetbrains.dokka") version "1.4.20"
     id("kotlinx-atomicfu") version Versions.atomicFu
+    id("org.ajoberstar.git-publish") version "2.1.3"
 }
 
 group = "dev.kord.x"
@@ -31,7 +34,7 @@ kotlin {
     }
 
     // See https://github.com/DRSchlaubi/Lavakord/issues/2
-    js(BOTH) {
+    js(IR) {
         nodejs()
         // browser() doesn't work because the js websocket client does not allowed you to set headers
         // Apart from that why would you need Lavalink in your browser?
@@ -106,11 +109,11 @@ kotlin {
     }
 }
 
-tasks {
-    task("runAllTests") {
-        dependsOn(named("jvmTest"), named("jsLegacyTest"))
-    }
-}
+//tasks {
+//    task("runAllTests") {
+//        dependsOn(named("jvmTest"), named("jsIrTest"))
+//    }
+//}
 
 publishing {
     repositories {
@@ -170,9 +173,9 @@ tasks {
                 }
             }
 
-//            named("jsMain") {
-//                displayName.set("JS")
-//            }
+            named("jsMain") {
+                displayName.set("JS")
+            }
 
             named("jvmMain") {
                 jdkVersion.set(8)
@@ -180,6 +183,21 @@ tasks {
             }
         }
     }
+
+    gitPublishPush {
+        dependsOn(dokkaHtmlMultiModule)
+    }
+}
+
+configure<GitPublishExtension> {
+    repoUri.set("https://github.com/DRSchlaubi/lavakord.git")
+    branch.set("gh-pages")
+
+    contents {
+        from(file("${project.projectDir}/docs"))
+    }
+
+    commitMessage.set("Update Docs")
 }
 
 kotlin {

@@ -5,6 +5,7 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import dev.kord.x.lavalink.rest.RoutePlannerStatus.Data
 import kotlinx.serialization.Polymorphic
+import kotlinx.serialization.SerialName
 
 internal val RoutePlannerModule = SerializersModule {
     polymorphic(RoutePlannerStatus::class) {
@@ -82,6 +83,7 @@ public sealed class RoutePlannerStatus<T : Data> {
  */
 @Suppress("KDocMissingDocumentation") // lavalink doesnt provide
 @Serializable
+@SerialName("RotatingIpRoutePlanner")
 public data class RotatingIpRoutePlanner(override val details: Data) :
     RoutePlannerStatus<RotatingNanoIpRoutePlanner.Data>() {
     /**
@@ -105,6 +107,7 @@ public data class RotatingIpRoutePlanner(override val details: Data) :
  */
 @Suppress("KDocMissingDocumentation") // lavalink doesnt provide
 @Serializable
+@SerialName("NanoIpRoutePlanner")
 public data class NanoIpRoutePlanner(override val details: Data) :
     RoutePlannerStatus<RotatingNanoIpRoutePlanner.Data>() {
     /**
@@ -123,6 +126,7 @@ public data class NanoIpRoutePlanner(override val details: Data) :
  */
 @Suppress("KDocMissingDocumentation") // lavalink doesnt provide
 @Serializable
+@SerialName("RotatingNanoIpRoutePlanner")
 public data class RotatingNanoIpRoutePlanner(override val details: Data) :
     RoutePlannerStatus<RotatingNanoIpRoutePlanner.Data>() {
     /**
