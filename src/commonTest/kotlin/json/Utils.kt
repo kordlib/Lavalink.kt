@@ -3,6 +3,8 @@ package json
 import dev.kord.x.lavalink.audio.internal.GatewayPayload
 import dev.kord.x.lavalink.rest.RoutePlannerModule
 import dev.kord.x.lavalink.rest.RoutePlannerStatus
+import io.ktor.client.engine.mock.*
+import io.ktor.http.*
 import json.src.GUILD_ID
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -11,7 +13,10 @@ import kotlin.jvm.JvmName
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-infix fun <T> T.shouldBe(that: T): Unit = assertEquals(this, that, "$this was expected to be $that")
+infix fun <T> T?.shouldBe(that: T?): Unit =
+    assertEquals(this, that, "${this?.toString()} was expected to be ${that?.toString()}")
+
+operator fun <T> T.invoke(block: T.() -> Unit): Unit = run(block)
 
 internal fun <T : GatewayPayload> T.check(checker: T.() -> Unit) {
     if (this !is GatewayPayload.StatsEvent) {
@@ -36,6 +41,9 @@ internal inline fun <reified T : GatewayPayload> test(input: String, crossinline
     test<GatewayPayload, T>(
         gatewayJson, input, checker
     )
+
+fun MockRequestHandleScope.respondJson(json: String) =
+    respond(json, HttpStatusCode.OK, headersOf("Content-Type" to listOf("application/json")))
 
 
 @JvmName("testRoutePlannerStatus")

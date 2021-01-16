@@ -1,8 +1,6 @@
 package dev.kord.x.lavalink.audio.internal
 
-import dev.kord.x.lavalink.LavaKord
 import dev.kord.x.lavalink.audio.*
-import dev.kord.x.lavalink.internal.HttpEngine
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.features.*
@@ -24,18 +22,18 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import mu.KotlinLogging
 
-private val LOG = KotlinLogging.logger { }
+internal val LOG = KotlinLogging.logger { }
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class NodeImpl(
     override val host: Url,
     override val name: String,
     override val authenticationHeader: String,
-    private val lavaKord: LavaKord,
+    override val lavakord: AbstractLavakord,
 ) : Node {
 
-    private val resumeTimeout = lavaKord.options.link.resumeTimeout
-    private val retry = lavaKord.options.link.retry
+    private val resumeTimeout = lavakord.options.link.resumeTimeout
+    private val retry = lavakord.options.link.retry
 
     private val resumeKey = generateResumeKey()
     override var available: Boolean = true
@@ -43,7 +41,7 @@ internal class NodeImpl(
     private var eventPublisher: BroadcastChannel<TrackEvent> = BroadcastChannel(1)
     private lateinit var session: DefaultClientWebSocketSession
     override val coroutineScope: CoroutineScope
-        get() = lavaKord
+        get() = lavakord
 
     @OptIn(FlowPreview::class)
     override val events: Flow<TrackEvent>
@@ -52,11 +50,11 @@ internal class NodeImpl(
     @OptIn(InternalCoroutinesApi::class)
     internal suspend fun connect(resume: Boolean = false) {
         session = try {
-            client.webSocketSession {
+            lavakord.gatewayClient.webSocketSession {
                 url(this@NodeImpl.host)
                 header("Authorization", authenticationHeader)
-                header("Num-Shards", lavaKord.shardsTotal)
-                header("User-Id", lavaKord.userId)
+                header("Num-Shards", lavakord.shardsTotal)
+                header("User-Id", lavakord.userId)
                 header("Client-Name", "Lavakord")
                 if (resume) {
                     header("Resume-Key", resumeKey)
@@ -105,7 +103,7 @@ internal class NodeImpl(
             retry.retry()
             connect(resume)
         } else {
-            lavaKord.removeNode(this)
+            lavakord.removeNode(this)
             error("Could not reconnect to websocket after to many attempts")
         }
     }
@@ -139,7 +137,7 @@ internal class NodeImpl(
     private suspend fun onEvent(event: GatewayPayload) {
         LOG.trace { "Received event: $event" }
         when (event) {
-            is GatewayPayload.PlayerUpdateEvent -> (lavaKord.getLink(event.guildId).player as WebsocketPlayer).provideState(
+            is GatewayPayload.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer).provideState(
                 event.state
             )
             is GatewayPayload.StatsEvent -> {
@@ -166,7 +164,7 @@ internal class NodeImpl(
     }
 
     override fun close() {
-        lavaKord.launch {
+        lavakord.launch {
             session.close(CloseReason(CloseReason.Codes.NORMAL, "Close requested by client"))
         }
     }
@@ -175,22 +173,6 @@ internal class NodeImpl(
         private val json = kotlinx.serialization.json.Json {
             encodeDefaults = false
             classDiscriminator = "op"
-        }
-
-        @OptIn(KtorExperimentalAPI::class)
-        private val client = HttpClient(HttpEngine) {
-            install(WebSockets)
-
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(json)
-            }
-
-            install(Logging) {
-                level = LogLevel.INFO
-                logger = object : Logger {
-                    override fun log(message: String) = LOG.debug { message }
-                }
-            }
         }
 
         private fun generateResumeKey(): String {

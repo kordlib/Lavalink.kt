@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.maven
 
 object Versions {
     const val kotlin = "1.4.21"
-    const val ktor = "1.4.1"
+    const val ktor = "1.5.0"
     const val coroutines = "1.4.2"
     const val kotlinxSerialization = "1.0.1"
     const val kotlinLogging = "2.0.4"
@@ -31,6 +31,7 @@ object Dependencies {
     const val `ktor-client-logging` = "io.ktor:ktor-client-logging:${Versions.ktor}"
     const val `ktor-client-cio` = "io.ktor:ktor-client-cio:${Versions.ktor}"
     const val `ktor-client-js` = "io.ktor:ktor-client-js:${Versions.ktor}"
+    const val `ktor-client-mock` = "io.ktor:ktor-client-mock:${Versions.ktor}"
 
     const val kotlinLogging = "io.github.microutils:kotlin-logging:${Versions.kotlinLogging}"
 

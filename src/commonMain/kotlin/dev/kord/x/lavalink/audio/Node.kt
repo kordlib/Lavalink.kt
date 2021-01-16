@@ -1,6 +1,7 @@
 package dev.kord.x.lavalink.audio
 
 import dev.kord.x.lavalink.LavaKord
+import io.ktor.client.*
 import io.ktor.http.*
 import io.ktor.utils.io.core.*
 
@@ -37,4 +38,10 @@ public interface Node : EventSource<TrackEvent>, Closeable {
      * The last [StatsEvent] received from this node or null if no event has been received yet.
      */
     public val lastStatsEvent: StatsEvent?
+
+    /**
+     * The [LavaKord] instance which created this node.
+     */
+    public val lavakord: LavaKord
+
 }

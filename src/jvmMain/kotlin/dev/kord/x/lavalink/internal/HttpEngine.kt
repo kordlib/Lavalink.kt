@@ -5,4 +5,4 @@ import io.ktor.client.engine.cio.*
 import io.ktor.util.*
 
 @OptIn(KtorExperimentalAPI::class)
-internal actual object HttpEngine : HttpClientEngineFactory<HttpClientEngineConfig> by CIO
+public actual object HttpEngine : HttpClientEngineFactory<HttpClientEngineConfig> by CIO

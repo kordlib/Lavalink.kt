@@ -30,16 +30,20 @@ kotlin {
         }
     }
 
-// See https://github.com/DRSchlaubi/Lavakord/issues/2
-//    js(BOTH) {
-//        nodejs()
-//        browser()
-//    }
+    // See https://github.com/DRSchlaubi/Lavakord/issues/2
+    js(BOTH) {
+        nodejs()
+        // browser() doesn't work because the js websocket client does not allowe you to set headers
+        // Apart from that why would you need Lavalink in your brwoser
+    }
 
     sourceSets {
         all {
             languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
             languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.experimentalTime)
+            repositories {
+                jcenter()
+            }
         }
 
         commonMain {
@@ -62,7 +66,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(Dependencies.coroutinesTest)
+                implementation(Dependencies.`ktor-client-mock`)
             }
         }
 
@@ -83,20 +87,34 @@ kotlin {
                 implementation(kotlin("test-junit5"))
                 runtimeOnly(Dependencies.`junit-jupiter-engine`)
                 runtimeOnly(Dependencies.slf4jSimple)
+                implementation(Dependencies.coroutinesTest)
             }
         }
 
-//        jsMain {
-//            dependencies {
-//                implementation(Dependencies.`ktor-client-js`)
-//            }
-//        }
+        jsMain {
+            dependencies {
+                implementation(Dependencies.`ktor-client-js`)
+
+            }
+        }
+
+        jsTest {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
+        }
     }
 
     publishing {
         publications {
 
         }
+    }
+}
+
+tasks {
+    task("runAllTests") {
+        dependsOn(named("jvmTest"), named("jsLegacyTest"))
     }
 }
 
