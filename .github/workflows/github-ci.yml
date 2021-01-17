@@ -41,7 +41,7 @@ jobs:
           java-version: 1.8
 
       - name: Gradle (Build)
-        run: gradle --stacktrace --info --build-cache lavalink:compileKotlin kord:compileKotlin
+        run: gradle --stacktrace --info --build-cache core:compileKotlin kord:compileKotlin
 
       - name: Caching
         uses: actions/cache@v2.0.0
@@ -57,4 +57,4 @@ jobs:
 
       - name: Gradle (Testing)
         # TODO: Add jsIrTest when #4 gets fixed
-        run: gradle --stacktrace --info lavalink:jvmTest kord:jvmTest
+        run: gradle --stacktrace --info core:jvmTest kord:jvmTest
