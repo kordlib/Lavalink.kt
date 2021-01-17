@@ -1,6 +1,5 @@
 plugins {
     kotlin("js")
-    id("org.jetbrains.dokka")
 }
 
 group = "me.schlaubi.lavakord"
@@ -8,7 +7,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {

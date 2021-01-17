@@ -21,7 +21,7 @@ val NamedDomainObjectContainer<KotlinSourceSet>.jsTest: NamedDomainObjectProvide
     get() = named<KotlinSourceSet>("jsTest")
 
 val KotlinDependencyHandler.root: ProjectDependency
-    get() = project(":")
+    get() = project(":core")
 
 val DependencyHandler.root: Dependency
-    get() = project(":")
+    get() = project(":core")

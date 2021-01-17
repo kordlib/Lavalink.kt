@@ -128,3 +128,7 @@ gradle-app.setting
 **/build/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+iml,gradle,kotlin
+
+## Docs are only supposed to be there on gh-pages branch or on CI runners
+docs/
+!docs/index.html
