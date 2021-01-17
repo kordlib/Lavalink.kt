@@ -41,8 +41,7 @@ jobs:
           java-version: 1.8
 
       - name: Gradle (Build)
-        # TODO: Add jsIrTest when #4 gets fixed
-        run: gradle --stacktrace --info --build-cache compileKotlin jvmTest
+        run: gradle --stacktrace --info --build-cache compileKotlin
 
       - name: Caching
         uses: actions/cache@v2.0.0
@@ -57,4 +56,5 @@ jobs:
           # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
       - name: Gradle (Testing)
-        run: gradle --stacktrace --info check
+        # TODO: Add jsIrTest when #4 gets fixed
+        run: gradle --stacktrace --info jvmTest
