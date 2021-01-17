@@ -9,6 +9,8 @@ import dev.kord.x.lavalink.rest.loadItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import mu.KotlinLoggingConfiguration
+import mu.KotlinLoggingLevel
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.ExperimentalTime
 import kotlin.time.minutes
@@ -18,6 +20,9 @@ import kotlin.time.seconds
 // so this is just to test websocket connectivity and rest.
 @OptIn(ExperimentalTime::class)
 suspend fun main() {
+
+    KotlinLoggingConfiguration.LOG_LEVEL = KotlinLoggingLevel.TRACE
+
     val lavakord: LavaKord = DummyLavakord(0L, 0, MutableLavaKordOptions().seal())
     lavakord.addNode("wss://lavakord.eu.ngrok.io", "youshallnotpass")
     val link = lavakord.getLink(0)
@@ -26,8 +31,8 @@ suspend fun main() {
     // Plus connect to a voice channel and shit
     // So Lavakord most certainly had connected a node by then
     // However we would try to send a websocket packet before the connection established here
-    // so we just wait for 1 second  until it is there
-    delay(1.seconds)
+    // so we just wait for 10 seconds  until it is there
+    delay(10.seconds)
 
     // This doesn't do anything since we can't actually connect to a VC due to no API wrapper
     // But it is an easy way of sending a websocket packet

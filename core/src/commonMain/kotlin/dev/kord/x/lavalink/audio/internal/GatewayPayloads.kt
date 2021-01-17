@@ -14,6 +14,7 @@ internal interface SanitizablePayload<T : GatewayPayload> {
     fun sanitize(): T
 }
 
+// Workaround for https://github.com/DRSchlaubi/lavakord/issues/4
 internal val GatewayModule = SerializersModule {
     contextual(GatewayPayload::class, GatewayPayload.serializer())
 }
