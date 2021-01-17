@@ -57,4 +57,4 @@ jobs:
 
       - name: Gradle (Testing)
         # TODO: Add jsIrTest when #4 gets fixed
-        run: gradle --stacktrace --info core:jvmTest kord:jvmTest
+        run: gradle --stacktrace --info core:jvmTest core:jsTest

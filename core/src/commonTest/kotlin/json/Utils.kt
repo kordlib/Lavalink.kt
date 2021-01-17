@@ -1,5 +1,6 @@
 package json
 
+import dev.kord.x.lavalink.audio.internal.GatewayModule
 import dev.kord.x.lavalink.audio.internal.GatewayPayload
 import dev.kord.x.lavalink.rest.RoutePlannerModule
 import dev.kord.x.lavalink.rest.RoutePlannerStatus
@@ -28,6 +29,8 @@ internal fun <T : GatewayPayload> T.check(checker: T.() -> Unit) {
 
 val gatewayJson = Json {
     classDiscriminator = "op"
+
+    serializersModule = GatewayModule
 }
 
 val restJson = Json {

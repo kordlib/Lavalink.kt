@@ -7,10 +7,15 @@ import dev.kord.x.lavalink.audio.player.Filters
 import dev.kord.x.lavalink.audio.player.FiltersApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.modules.SerializersModule
 import dev.kord.x.lavalink.audio.StatsEvent as PublicStatsEvent
 
 internal interface SanitizablePayload<T : GatewayPayload> {
     fun sanitize(): T
+}
+
+internal val GatewayModule = SerializersModule {
+    contextual(GatewayPayload::class, GatewayPayload.serializer())
 }
 
 @Serializable

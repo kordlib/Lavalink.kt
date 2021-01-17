@@ -171,8 +171,9 @@ internal class NodeImpl(
 
     internal companion object {
         private val json = kotlinx.serialization.json.Json {
-            encodeDefaults = false
             classDiscriminator = "op"
+
+            serializersModule = GatewayModule
         }
 
         private fun generateResumeKey(): String {

@@ -17,10 +17,7 @@ import kotlinx.atomicfu.atomic
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlin.js.JsName
-import kotlin.test.Test
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 private const val ADDRESS = "1.3.3.7"
 
@@ -32,8 +29,7 @@ class RoutePlannerTest {
     private val engine = RestHttpEngine {
         addHandler { request ->
             checkAuth(request) {
-                val path = request.url.fullPath.substringAfter('/').substringBefore('?')
-                when (path) {
+                when (request.url.fullPath.substringAfter('/').substringBefore('?')) {
                     "/routeplanner/free/all" -> respond("", HttpStatusCode.NoContent)
                     "/routeplanner/free/address" -> {
                         val body = request.body.toByteArray().decodeToString()
