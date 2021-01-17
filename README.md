@@ -1,6 +1,9 @@
 # kordx.lavalink
 Lavakord is a coroutine based client for [LavaLink](https://github.com/Fredikaram/Lavalink) mainly designed to work with [Kord](https://github.com/kordlib/kord)
 
+Support discord: https://discord.gg/ZbmrRVpDwR
+
+
 **Both Kord and kordx.lavalink is still in an experimental stage, as such we can't guarantee API stability between releases. While we'd love for you to try out our library, we don't recommend you use this in production just yet.**
 
 Lavalink download: [https://github.com/Frederikam/Lavalink](https://github.com/Frederikam/Lavalink#server-configuration)
