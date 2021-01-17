@@ -41,7 +41,7 @@ jobs:
           java-version: 1.8
 
       - name: Gradle (Build)
-        run: gradle --stacktrace --info --build-cache core:compileKotlin kord:compileKotlin
+        run: gradle --stacktrace --info --build-cache assemble
 
       - name: Caching
         uses: actions/cache@v2.0.0
