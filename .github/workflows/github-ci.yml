@@ -42,7 +42,7 @@ jobs:
 
       - name: Gradle (Build)
         # TODO: Add jsIrTest when #4 gets fixed
-        run: gradle --stacktrace --info --build-cache build jvmTest
+        run: gradle --stacktrace --info --build-cache compileKotlin jvmTest
 
       - name: Caching
         uses: actions/cache@v2.0.0
