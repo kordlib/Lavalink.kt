@@ -4,8 +4,11 @@
 package me.schlaubi.lavakord.example
 
 import dev.kord.x.commands.annotation.AutoWired
+import dev.kord.x.commands.argument.extension.inRange
+import dev.kord.x.commands.argument.extension.map
 import dev.kord.x.commands.argument.extension.withDefault
 import dev.kord.x.commands.argument.primitive.BooleanArgument
+import dev.kord.x.commands.argument.primitive.DoubleArgument
 import dev.kord.x.commands.argument.primitive.IntArgument
 import dev.kord.x.commands.argument.text.StringArgument
 import dev.kord.x.commands.kord.bot
@@ -150,13 +153,15 @@ fun testModule(): ModuleModifier = module("music-test") {
     }
 
     command("eq") {
-        invoke(IntArgument, IntArgument) { band, rawGain ->
-            val gain = rawGain.toFloat()
+        invoke(
+            IntArgument.inRange(1..15).map { it - 1 },
+            DoubleArgument.map { it.toFloat() }.inRange(-0.25F..0.25F)
+        ) { band, gain ->
             player.applyEqualizer {
                 band(band) gain gain
 
                 // you can also do
-//              2 gain 1F
+//              2 gain 0.25F
             }
         }
     }
