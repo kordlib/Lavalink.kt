@@ -7,10 +7,8 @@ group = "me.schlaubi.lavakord"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    mavenCentral()
-    maven("https://jitpack.io")
-    maven("https://dl.bintray.com/kordlib/Kord")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
+    maven("https://jitpack.io")
     jcenter()
 }
 
@@ -20,8 +18,8 @@ dependencies {
 
     implementation("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
 
-//    implementation("com.gitlab.kordlib.kordx", "kordx-commands-runtime-kord", "0.3.3")
-//    kapt("com.gitlab.kordlib.kordx", "kordx-commands-processor", "0.3.3")
+    implementation("dev.kord.x:commands-runtime-kord:0.4.0-SNAPSHOT")
+    kapt("dev.kord.x:commands-processor:0.4.0-SNAPSHOT")
 }
 
 tasks {
