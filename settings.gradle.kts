@@ -1,7 +1,7 @@
 rootProject.name = "lavakord"
 include("example")
 include("kord")
-include("jsExample")
+//include("jsExample")
 include("core")
 
 pluginManagement {

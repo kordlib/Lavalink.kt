@@ -1,9 +1,9 @@
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.dokka")
+    `maven-publish`
 }
 
-group = "dev.kord.extensions.lavalink"
 version = "1.0.0-SNAPSHOT"
 
 repositories {
@@ -52,4 +52,6 @@ kotlin {
             }
         }
     }
+
+    applyPublishing()
 }

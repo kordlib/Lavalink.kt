@@ -12,7 +12,7 @@ internal class LoadBalancer(private val penaltyProviders: List<PenaltyProvider>,
             .filter(Node::available)
             .minByOrNull { calculatePenalties(it, penaltyProviders, guildId) }
 
-        checkNotNull(leastPenalty) { "Node nodes available" }
+        checkNotNull(leastPenalty) { "No nodes available" }
 
         return leastPenalty
     }

@@ -3,9 +3,9 @@ plugins {
     kotlin("plugin.serialization")
     id("kotlinx-atomicfu")
     id("org.jetbrains.dokka")
+    `maven-publish`
 }
 
-group = "dev.kord.x"
 version = "1.0.0-SNAPSHOT"
 
 sourceSets
@@ -28,11 +28,11 @@ kotlin {
     }
 
     // See https://github.com/DRSchlaubi/Lavakord/issues/2
-    js(IR) {
-        nodejs()
-        // browser() doesn't work because the js websocket client does not allowed you to set headers
-        // Apart from that why would you need Lavalink in your browser?
-    }
+//    js(IR) {
+//        nodejs()
+//        // browser() doesn't work because the js websocket client does not allowed you to set headers
+//        // Apart from that why would you need Lavalink in your browser?
+//    }
 
     sourceSets {
         all {
@@ -88,17 +88,19 @@ kotlin {
             }
         }
 
-        jsMain {
-            dependencies {
-                implementation(Dependencies.`ktor-client-js`)
-
-            }
-        }
-
-        jsTest {
-            dependencies {
-                implementation(kotlin("test-js"))
-            }
-        }
+//        jsMain {
+//            dependencies {
+//                implementation(Dependencies.`ktor-client-js`)
+//
+//            }
+//        }
+//
+//        jsTest {
+//            dependencies {
+//                implementation(kotlin("test-js"))
+//            }
+//        }
     }
+
+    applyPublishing()
 }

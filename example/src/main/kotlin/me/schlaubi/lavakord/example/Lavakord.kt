@@ -120,12 +120,6 @@ fun testModule(): ModuleModifier = module("music-test") {
         }
     }
 
-    command("leave") {
-        invoke {
-            link.destroy()
-        }
-    }
-
     command("volume") {
         invoke(IntArgument) { volume ->
             player.setVolume(volume)
