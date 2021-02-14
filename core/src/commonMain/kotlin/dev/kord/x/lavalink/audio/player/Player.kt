@@ -1,8 +1,8 @@
 package dev.kord.x.lavalink.audio.player
 
-//import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.kord.x.lavalink.audio.EventSource
 import dev.kord.x.lavalink.audio.TrackEvent
+import dev.kord.x.lavalink.audio.internal.GatewayPayload
 import dev.kord.x.lavalink.rest.TrackResponse
 //import lavalink.client.LavalinkUtil
 import kotlin.time.Duration
@@ -21,6 +21,8 @@ public interface Player : EventSource<TrackEvent> {
     public val paused: Boolean
     public val volume: Int
     public val position: Long
+
+    public val equalizers: Map<Int, Float>
 
     /**
      * Changes the currently playing track to [track].
@@ -81,4 +83,5 @@ public interface Player : EventSource<TrackEvent> {
      * Changes the volume of the current player.
      */
     public suspend fun setVolume(volume: Int)
+
 }

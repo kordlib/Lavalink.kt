@@ -80,18 +80,4 @@ internal class KordLavaKord(
             DiscordVoiceServerUpdateData(event.token, event.guildId.toString(), event.endpoint)
         )
     }
-
-    //    private fun onLeave(event: GuildDeleteEvent) {
-//        if (!event.unavailable) {
-////            linksMap[event.guildId.value]?.removeConnection()
-//        }
-//    }
-//
-//    private fun onChannelDeletion(event: VoiceChannelDeleteEvent) {
-//        val link = linksMap[event.channel.guildId.value] ?: return
-//        require(link is KordLink)
-//        if (event.channel.id.value == link.lastChannelId) {
-////            link.removeConnection()
-//        }
-//    }
 }

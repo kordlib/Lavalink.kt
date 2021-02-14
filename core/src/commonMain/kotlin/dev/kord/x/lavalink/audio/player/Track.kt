@@ -14,13 +14,13 @@ import kotlin.time.toDuration
  * @property track the base64 encoded string representing a Lavalink readable track
  * @property title the title of the track
  * @property author the author of the track
- * @property length the length of the track as a [Duration]
+ * @property length the length of the track as a [Duration] (On Java please use `TrackUtil` instead)
  * @property identifier the identifier for the track (e.g. youtube video id)
  * @property isStream whether this track is a stream or not
  * @property isSeekable whether this track is seekable or not (opposite of [isStream])
  * @property uri the full url of the track (if it's not a local track)
  * @property source the Lavaplayer source of this track (e.g. youtube)
- * @property position the current position of the track (normally 0 or [length]) (See [Player.position]
+ * @property position the current position of the track (normally 0 or [length]) (See [Player.position]; On Java please use `TrackUtil` instead)
  */
 public data class Track constructor(
     public val version: Byte,

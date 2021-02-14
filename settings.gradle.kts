@@ -3,6 +3,9 @@ include("example")
 include("kord")
 //include("jsExample")
 include("core")
+include("java")
+include("jda")
+include("jda-java")
 
 pluginManagement {
     resolutionStrategy {

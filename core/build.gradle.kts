@@ -36,7 +36,7 @@ kotlin {
 
     sourceSets {
         all {
-            languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
+
             languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.experimentalTime)
             repositories {
                 jcenter()

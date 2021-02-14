@@ -1,6 +1,9 @@
 package dev.kord.x.lavalink.audio.internal
 
-import dev.kord.x.lavalink.audio.*
+import dev.kord.x.lavalink.audio.TrackEndEvent
+import dev.kord.x.lavalink.audio.TrackEvent
+import dev.kord.x.lavalink.audio.TrackStartEvent
+import dev.kord.x.lavalink.audio.on
 import dev.kord.x.lavalink.audio.player.EqualizerBuilder
 import dev.kord.x.lavalink.audio.player.FiltersApi
 import dev.kord.x.lavalink.audio.player.Player
@@ -8,7 +11,6 @@ import dev.kord.x.lavalink.audio.player.Track
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
-import kotlin.time.ExperimentalTime
 
 internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId: Long) : Player {
     override var playingTrack: Track? = null
@@ -24,7 +26,15 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     internal var filters: GatewayPayload.FiltersCommand = GatewayPayload.FiltersCommand(guildId.toString())
 
     @Suppress("unused")
-    internal var equalizerBuilder: EqualizerBuilder = EqualizerBuilder(guildId)
+    var equalizerBuilder: EqualizerBuilder = EqualizerBuilder(guildId)
+
+    override val equalizers: Map<Int, Float>
+        get() =
+            equalizerBuilder.bands
+                .associateBy(GatewayPayload.EqualizerCommand.Band::band)
+                .mapValues { (_, band) ->
+                    band.gain
+                }
 
     override val events: Flow<TrackEvent>
         get() = node.events.filter { it.guildId == guildId }
