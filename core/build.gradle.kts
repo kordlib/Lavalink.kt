@@ -74,7 +74,6 @@ kotlin {
 
             dependencies {
                 implementation(Dependencies.`ktor-client-cio`)
-                implementation("com.github.FredBoat:Lavalink-Client:4.0")
             }
         }
 
@@ -101,6 +100,6 @@ kotlin {
 //            }
 //        }
     }
-
-    applyPublishing()
 }
+
+applyPublishing()

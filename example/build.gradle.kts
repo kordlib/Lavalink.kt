@@ -1,4 +1,6 @@
 plugins {
+    java
+    groovy
     kotlin("jvm")
     kotlin("kapt")
 }
@@ -20,6 +22,7 @@ dependencies {
     implementation("dev.kord", "kord-core", "0.7.0-SNAPSHOT")
 
     implementation("dev.kord.x:commands-runtime-kord:0.4.0-SNAPSHOT")
+    implementation("org.codehaus.groovy", "groovy-all", "2.4.15")
     kapt("dev.kord.x:commands-processor:0.4.0-SNAPSHOT")
 
     implementation("net.dv8tion:JDA:4.2.0_228") {

@@ -53,7 +53,8 @@ configure<GitPublishExtension> {
 
 subprojects {
     group = rootProject.group
-    tasks.apply {
+
+    tasks {
         withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
             dokkaSourceSets {
                 configureEach {

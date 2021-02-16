@@ -1,9 +1,9 @@
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.dokka")
     `maven-publish`
 }
 
+group = "dev.schlaubi.lavakord"
 version = "1.0.0-SNAPSHOT"
 
 repositories {
@@ -27,28 +27,24 @@ kotlin {
         commonMain {
             dependencies {
                 api(root)
+                api(project(":jda"))
             }
         }
-
-        commonTest  {
-            repositories {
-                sonatype()
-                jcenter()
-            }
-
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
-
         jvmMain {
-            repositories  {
-                jitpack()
+            kotlin.srcDir("main")
+            repositories {
+                jcenter()
+                maven("https://jitpack.io")
             }
 
             dependencies {
-                implementation(Dependencies.kord)
+                api(root)
+                api(project(":jda"))
+                api("net.dv8tion:JDA:4.2.0_228") {
+                    exclude(module = "opus-java")
+                }
+                implementation(Dependencies.coroutinesJdk8)
+                implementation(kotlin("stdlib"))
             }
         }
     }

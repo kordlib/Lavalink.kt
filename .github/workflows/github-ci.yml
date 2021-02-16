@@ -52,9 +52,12 @@ jobs:
             ~/build
             ~/core/build
             ~/kord/build
+            ~/jda/build
+            ~/java/build
+            ~/jda-java/build
             ~/.gradle
           # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
       - name: Gradle (Testing)
         # TODO: Add jsIrTest when #4 gets fixed
-        run: gradle --stacktrace --info core:jvmTest core:jsTest
+        run: gradle --stacktrace --info core:jvmTest

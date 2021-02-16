@@ -1,8 +1,10 @@
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.kotlin.dsl.apply
 
 fun Project.applyPublishing() {
+    apply(plugin = "publishing")
     val configure: PublishingExtension.() -> Unit = {
         repositories {
             maven {

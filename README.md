@@ -87,9 +87,12 @@ Since 1.0 it should be possible to implement your own version of lavakord by imp
 LavaKord and Link classes you can see a reference
 implementation [in the kord package](https://github.com/DRSchlaubi/Lavakord/blob/master/src/main/kotlin/me/schlaubi/lavakord/kord)
 
+# Using with Kord
+Add the `kord` artifact
+
 # Using with JDA
 
-Apart from Kord there also is a JDA implementation. You can use it like the following
+Apart from Kord there also is a JDA implementation. You can use it like the following. (Requires `jda` artifact)
 
 ```kotlin
 var (lavakord, jda) = JDABuilder.createDefault("token").buildWithLavakord()
@@ -104,14 +107,16 @@ class Javakord {
 }
 ```
 
-The snippets work simmilarly for `DefaultShardManagerBuilder` as well.
+The snippets work similarly for `DefaultShardManagerBuilder` as well.
 
 # Using with Java
 
 Lavakord provides a compatibility layer for coroutines based
 on [Java 8's CompletableFuture API](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html)
-. To access that interface please use the `JavaInterop` class. For all rest releated features refer to the `TrackUtil`
-and `RoutePlannerUtil` classes
+. To access that interface please use the `JavaInterop` class. For all rest related features refer to the `TrackUtil`
+and `RoutePlannerUtil` classes. In order to use these methods please add the `java` or `jda-java` artifact
+
+Full example can be found [here](https://github.com/DRSchlaubi/Lavakord/blob/feature/mpp/example/src/main/java/Javakord.java) 
 
 ```java
 class Javakord {
