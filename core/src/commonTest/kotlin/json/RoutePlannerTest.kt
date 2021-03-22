@@ -1,9 +1,9 @@
 package json
 
-import dev.kord.x.lavalink.rest.NanoIpRoutePlanner
-import dev.kord.x.lavalink.rest.RotatingIpRoutePlanner
-import dev.kord.x.lavalink.rest.RotatingNanoIpRoutePlanner
-import dev.kord.x.lavalink.rest.RoutePlannerStatus
+import dev.schlaubi.lavakord.rest.NanoIpRoutePlanner
+import dev.schlaubi.lavakord.rest.RotatingIpRoutePlanner
+import dev.schlaubi.lavakord.rest.RotatingNanoIpRoutePlanner
+import dev.schlaubi.lavakord.rest.RoutePlannerStatus
 import json.src.NANO_IP_ROUTE_PLANNER
 import json.src.ROTATING_IP_ROUTE_PLANNER
 import json.src.ROTATING_NANO_IP_ROUTE_PLANNER

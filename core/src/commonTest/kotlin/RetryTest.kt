@@ -1,4 +1,4 @@
-import dev.kord.x.lavalink.audio.retry.LinearRetry
+import dev.schlaubi.lavakord.audio.retry.LinearRetry
 import kotlinx.coroutines.launch
 //import kotlin.js.JsName
 import kotlin.test.Test

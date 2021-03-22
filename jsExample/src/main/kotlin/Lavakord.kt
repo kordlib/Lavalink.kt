@@ -1,10 +1,10 @@
 @file:Suppress("KDocMissingDocumentation")
 
-import dev.kord.x.lavalink.LavaKord
-import dev.kord.x.lavalink.audio.Link
-import dev.kord.x.lavalink.audio.player.*
-import dev.kord.x.lavalink.rest.TrackResponse
-import dev.kord.x.lavalink.rest.loadItem
+import dev.schlaubi.lavakord.LavaKord
+import dev.schlaubi.lavakord.audio.Link
+import dev.schlaubi.lavakord.audio.player.*
+import dev.schlaubi.lavakord.rest.TrackResponse
+import dev.schlaubi.lavakord.rest.loadItem
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.await
 import kotlinx.coroutines.delay
@@ -42,7 +42,7 @@ suspend fun main() {
 }
 
 @OptIn(ExperimentalTime::class, FiltersApi::class)
-private suspend fun commandHandler(message: Discord.Message, lavakord: LavaKord, client: Discord.Client) {
+private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schlaubi.lavakord.LavaKord, client: Discord.Client) {
     val input = message.content
     val (command, args) = with(input.split("\\s+".toRegex())) { first() to drop(1) }
     val guild = message.guild
@@ -150,7 +150,7 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: LavaKord,
 
 @OptIn(ExperimentalTime::class)
 suspend fun startLavakord(client: Discord.Client) {
-    val lavakord: LavaKord =
+    val lavakord: dev.schlaubi.lavakord.LavaKord =
         client.lavakord { } // In an ideal world we would be able to use Kord here, but we can't see discord-js(-lavakord).kt
     lavakord.addNode("wss://lavakord.eu.ngrok.io", "youshallnotpass")
 

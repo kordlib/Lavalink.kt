@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="kord-jvm-1.0.0-SNAPSHOT">
-    <output-path>D:\WORK\lavakord\kord\build\libs</output-path>
+    <output-path>C:\Users\micha\IdeaProjects\Lavalink.kt\kord\build\libs</output-path>
     <root id="archive" name="kord-jvm-1.0.0-SNAPSHOT.jar">
       <element id="module-output" name="lavakord.kord.jvmMain" />
     </root>

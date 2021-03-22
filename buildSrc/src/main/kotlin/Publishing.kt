@@ -1,53 +1,9 @@
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
-import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.apply
 
-fun Project.applyPublishing() {
-    apply(plugin = "publishing")
-    val configure: PublishingExtension.() -> Unit = {
-        repositories {
-            maven {
-                setUrl("https://schlaubi.jfrog.io/artifactory/lavakord")
+fun Project.applyPublishing(): Unit = apply(from = "../publishing.gradle.kts")
 
-                credentials {
-                    username = System.getenv("BINTRAY_USER")
-                    password = System.getenv("BINTRAY_KEY")
-                }
-            }
-        }
-
-        publications {
-            filterIsInstance<MavenPublication>().forEach { publication ->
-                publication.pom {
-                    name.set(project.name)
-                    description.set("Extension of the official LavaLink-Client to work with Kord")
-                    url.set("https://github.com/DRSchlaubi/lavakord")
-
-                    licenses {
-                        license {
-                            name.set("MIT License")
-                            url.set("https://github.com/DRSchlaubi/Lavakord/blob/master/LICENSE")
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            name.set("Michael Rittmeister")
-                            email.set("mail@schlaubi.me")
-                            organizationUrl.set("https://michael.rittmeister.in")
-                        }
-                    }
-
-                    scm {
-                        connection.set("scm:git:https://github.com/DRSchlaubi/lavakord.git")
-                        developerConnection.set("scm:git:https://github.com/DRSchlaubi/lavakord.git")
-                        url.set("https://github.com/DRSchlaubi/lavakord")
-                    }
-                }
-            }
-        }
-    }
-
-    (this as org.gradle.api.plugins.ExtensionAware).extensions.configure("publishing", configure)
-}
+val Project.publishing: PublishingExtension
+    get() =
+        (this as org.gradle.api.plugins.ExtensionAware).extensions.getByName("publishing") as PublishingExtension

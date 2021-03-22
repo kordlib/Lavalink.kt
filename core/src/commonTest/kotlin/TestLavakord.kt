@@ -1,8 +1,8 @@
-import dev.kord.x.lavalink.MutableLavaKordOptions
-import dev.kord.x.lavalink.audio.Link
-import dev.kord.x.lavalink.audio.Node
-import dev.kord.x.lavalink.audio.internal.AbstractLavakord
-import dev.kord.x.lavalink.audio.internal.NodeImpl
+import dev.schlaubi.lavakord.MutableLavaKordOptions
+import dev.schlaubi.lavakord.audio.Link
+import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
+import dev.schlaubi.lavakord.audio.internal.NodeImpl
 import io.ktor.client.engine.*
 import io.ktor.http.*
 import kotlinx.coroutines.CoroutineScope

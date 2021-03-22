@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="15">
-      <module name="lavakord-root.commonMain" target="1.8" />
-      <module name="lavakord-root.commonTest" target="1.8" />
-      <module name="lavakord-root.jvmMain" target="1.8" />
-      <module name="lavakord-root.jvmTest" target="1.8" />
-      <module name="lavakord-root.kord.commonMain" target="1.8" />
-      <module name="lavakord-root.kord.commonTest" target="1.8" />
-      <module name="lavakord-root.kord.jvmMain" target="1.8" />
-      <module name="lavakord-root.kord.jvmTest" target="1.8" />
-      <module name="lavakord.commonMain" target="1.8" />
-      <module name="lavakord.commonTest" target="1.8" />
-      <module name="lavakord.jvmMain" target="1.8" />
-      <module name="lavakord.jvmTest" target="1.8" />
-      <module name="lavakord.lavalink.commonMain" target="1.8" />
-      <module name="lavakord.lavalink.commonTest" target="1.8" />
-      <module name="lavakord.lavalink.jvmMain" target="1.8" />
-      <module name="lavakord.lavalink.jvmTest" target="1.8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.6" />
   </component>
 </project>

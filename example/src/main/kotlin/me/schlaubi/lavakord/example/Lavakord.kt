@@ -22,18 +22,18 @@ import dev.kord.x.commands.model.prefix.PrefixConfiguration
 import dev.kord.x.commands.model.prefix.literal
 import dev.kord.x.commands.model.prefix.or
 import dev.kord.x.commands.model.prefix.prefix
-import dev.kord.x.lavalink.LavaKord
-import dev.kord.x.lavalink.audio.Link
-import dev.kord.x.lavalink.audio.player.*
-import dev.kord.x.lavalink.kord.connectAudio
-import dev.kord.x.lavalink.kord.getLink
-import dev.kord.x.lavalink.kord.lavakord
-import dev.kord.x.lavalink.rest.TrackResponse
-import dev.kord.x.lavalink.rest.loadItem
+import dev.schlaubi.lavakord.LavaKord
+import dev.schlaubi.lavakord.audio.Link
+import dev.schlaubi.lavakord.audio.player.*
+import dev.schlaubi.lavakord.kord.connectAudio
+import dev.schlaubi.lavakord.kord.getLink
+import dev.schlaubi.lavakord.kord.lavakord
+import dev.schlaubi.lavakord.rest.TrackResponse
+import dev.schlaubi.lavakord.rest.loadItem
 import kapt.kotlin.generated.configure
 import kotlin.time.ExperimentalTime
 
-lateinit var lavalink: LavaKord
+lateinit var lavalink: dev.schlaubi.lavakord.LavaKord
 
 suspend fun main(): Unit = bot(System.getenv("token")) {
     configure()

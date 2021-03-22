@@ -28,15 +28,15 @@ kotlin {
     }
 
     // See https://github.com/DRSchlaubi/Lavakord/issues/2
-//    js(IR) {
-//        nodejs()
-//        // browser() doesn't work because the js websocket client does not allowed you to set headers
-//        // Apart from that why would you need Lavalink in your browser?
-//    }
+    js(IR) {
+        nodejs()
+        // browser() doesn't work because the js websocket client does not allowed you to set headers
+        // Apart from that why would you need Lavalink in your browser?
+    }
 
     sourceSets {
         all {
-
+            languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
             languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.experimentalTime)
             repositories {
                 jcenter()
@@ -87,18 +87,18 @@ kotlin {
             }
         }
 
-//        jsMain {
-//            dependencies {
-//                implementation(Dependencies.`ktor-client-js`)
-//
-//            }
-//        }
-//
-//        jsTest {
-//            dependencies {
-//                implementation(kotlin("test-js"))
-//            }
-//        }
+        jsMain {
+            dependencies {
+                implementation(Dependencies.`ktor-client-js`)
+
+            }
+        }
+
+        jsTest {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
+        }
     }
 }
 

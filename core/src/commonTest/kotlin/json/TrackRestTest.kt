@@ -1,10 +1,9 @@
 package json
 
-import dev.kord.x.lavalink.rest.TrackResponse
+import dev.schlaubi.lavakord.rest.TrackResponse
 import json.src.*
 //import kotlin.js.JsName
 import kotlin.test.Test
-import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 val neverGonnaGiveYouUp = TrackResponse.PartialTrack(

@@ -1,9 +1,9 @@
 package json
 
-import dev.kord.x.lavalink.audio.internal.GatewayModule
-import dev.kord.x.lavalink.audio.internal.GatewayPayload
-import dev.kord.x.lavalink.rest.RoutePlannerModule
-import dev.kord.x.lavalink.rest.RoutePlannerStatus
+import dev.schlaubi.lavakord.audio.internal.GatewayModule
+import dev.schlaubi.lavakord.audio.internal.GatewayPayload
+import dev.schlaubi.lavakord.rest.RoutePlannerModule
+import dev.schlaubi.lavakord.rest.RoutePlannerStatus
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
 import json.src.GUILD_ID

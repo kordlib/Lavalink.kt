@@ -1,11 +1,12 @@
 rootProject.name = "lavakord"
 include("example")
 include("kord")
-//include("jsExample")
+include("jsExample")
 include("core")
 include("java")
 include("jda")
 include("jda-java")
+include("bom")
 
 pluginManagement {
     resolutionStrategy {

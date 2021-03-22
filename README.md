@@ -13,8 +13,7 @@ Lavalink download: [https://github.com/Frederikam/Lavalink](https://github.com/F
 # Download
 
 You can get Lavakord from
-here: [https://package-search.jetbrains.com/package?id=me.schlaubi%3Alavakord](https://package-search.jetbrains.com/package?id=me.schlaubi%3Alavakord) (
-You need `jcenter()` and jitpack though)
+here: https://schlaubi.jfrog.io/ui/repos/tree/General/lavakord%2Fdev%2Fschlaubi%2Flavakord
 
 # Usage
 

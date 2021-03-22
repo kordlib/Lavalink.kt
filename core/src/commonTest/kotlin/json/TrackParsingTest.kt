@@ -1,7 +1,7 @@
 package json
 
 import Tests.runBlocking
-import dev.kord.x.lavalink.audio.player.Track
+import dev.schlaubi.lavakord.audio.player.Track
 import json.src.TRACK
 //import kotlin.js.JsName
 import kotlin.test.Test

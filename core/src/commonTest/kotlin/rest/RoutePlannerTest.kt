@@ -4,8 +4,8 @@ import RestTestLavakord
 import TestNode
 import Tests
 import Tests.runBlocking
-import dev.kord.x.lavalink.NoRoutePlannerException
-import dev.kord.x.lavalink.rest.*
+import dev.schlaubi.lavakord.NoRoutePlannerException
+import dev.schlaubi.lavakord.rest.*
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
 import io.ktor.util.*
@@ -81,7 +81,7 @@ class RoutePlannerTest {
         routePlannerClass.value = null
         Tests.runBlocking {
             assertNull(node.addressStatusOrNull())
-            assertFailsWith<NoRoutePlannerException> { node.addressStatus() }
+            assertFailsWith<dev.schlaubi.lavakord.NoRoutePlannerException> { node.addressStatus() }
         }
     }
 

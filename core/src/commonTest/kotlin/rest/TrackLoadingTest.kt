@@ -4,9 +4,9 @@ import RestTestLavakord
 import TestNode
 import Tests
 import Tests.runBlocking
-import dev.kord.x.lavalink.audio.internal.AbstractLavakord
-import dev.kord.x.lavalink.rest.TrackResponse
-import dev.kord.x.lavalink.rest.loadItem
+import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
+import dev.schlaubi.lavakord.rest.TrackResponse
+import dev.schlaubi.lavakord.rest.loadItem
 import io.ktor.client.engine.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.features.json.*
@@ -16,7 +16,6 @@ import json.neverGonnaGiveYouUp
 import json.respondJson
 import json.shouldBe
 import json.src.*
-import mu.KotlinLogging
 //import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertFailsWith

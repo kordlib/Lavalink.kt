@@ -1,12 +1,12 @@
 @file:Suppress("KDocMissingDocumentation")
 
-import dev.kord.x.lavalink.LavaKordOptions
-import dev.kord.x.lavalink.MutableLavaKordOptions
-import dev.kord.x.lavalink.audio.DiscordVoiceServerUpdateData
-import dev.kord.x.lavalink.audio.Link as ILink
-import dev.kord.x.lavalink.audio.Node
-import dev.kord.x.lavalink.audio.internal.AbstractLavakord
-import dev.kord.x.lavalink.audio.internal.AbstractLink
+import dev.schlaubi.lavakord.LavaKordOptions
+import dev.schlaubi.lavakord.MutableLavaKordOptions
+import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
+import dev.schlaubi.lavakord.audio.Link as ILink
+import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
+import dev.schlaubi.lavakord.audio.internal.AbstractLink
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.await

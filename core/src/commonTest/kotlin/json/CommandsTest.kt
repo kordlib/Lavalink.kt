@@ -1,6 +1,6 @@
 package json
 
-import dev.kord.x.lavalink.audio.internal.GatewayPayload
+import dev.schlaubi.lavakord.audio.internal.GatewayPayload
 import json.src.*
 //import kotlin.js.JsName
 import kotlin.test.Test
