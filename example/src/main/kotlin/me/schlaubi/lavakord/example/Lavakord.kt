@@ -1,233 +1,184 @@
 @file:Suppress("unused", "KDocMissingDocumentation")
+@file:AutoWired
 
 package me.schlaubi.lavakord.example
 
-import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo
-import dev.kord.common.entity.Snowflake
-import dev.kord.core.Kord
-import dev.kord.core.event.message.MessageCreateEvent
-import dev.kord.core.on
-import me.schlaubi.lavakord.LavaKord
-import me.schlaubi.lavakord.audio.*
-import me.schlaubi.lavakord.kord.lavakord
-import me.schlaubi.lavakord.rest.TrackResponse
-import me.schlaubi.lavakord.rest.loadItem
+import dev.kord.x.commands.annotation.AutoWired
+import dev.kord.x.commands.argument.extension.inRange
+import dev.kord.x.commands.argument.extension.map
+import dev.kord.x.commands.argument.extension.withDefault
+import dev.kord.x.commands.argument.primitive.BooleanArgument
+import dev.kord.x.commands.argument.primitive.DoubleArgument
+import dev.kord.x.commands.argument.primitive.IntArgument
+import dev.kord.x.commands.argument.text.StringArgument
+import dev.kord.x.commands.kord.bot
+import dev.kord.x.commands.kord.model.context.KordCommandEvent
+import dev.kord.x.commands.kord.model.prefix.kord
+import dev.kord.x.commands.kord.model.prefix.mention
+import dev.kord.x.commands.kord.module.module
+import dev.kord.x.commands.model.command.invoke
+import dev.kord.x.commands.model.module.ModuleModifier
+import dev.kord.x.commands.model.prefix.PrefixConfiguration
+import dev.kord.x.commands.model.prefix.literal
+import dev.kord.x.commands.model.prefix.or
+import dev.kord.x.commands.model.prefix.prefix
+import dev.schlaubi.lavakord.LavaKord
+import dev.schlaubi.lavakord.audio.Link
+import dev.schlaubi.lavakord.audio.player.*
+import dev.schlaubi.lavakord.kord.connectAudio
+import dev.schlaubi.lavakord.kord.getLink
+import dev.schlaubi.lavakord.kord.lavakord
+import dev.schlaubi.lavakord.rest.TrackResponse
+import dev.schlaubi.lavakord.rest.loadItem
+import kapt.kotlin.generated.configure
 import kotlin.time.ExperimentalTime
 
 lateinit var lavalink: LavaKord
 
-@OptIn(ExperimentalTime::class)
-suspend fun main() {
-    val kord = Kord(System.getenv("token"))
-    val listenedGuilds = mutableListOf<Snowflake>()
+suspend fun main(): Unit = bot(System.getenv("token")) {
+    configure()
     lavalink = kord.lavakord {
-
-    }
-
-    lavalink.addNode("ws://127.0.0.1:8080/", "youshallnotpass")
-
-    kord.on<MessageCreateEvent> {
-        val args = message.content.split(" ")
-
-        val link = lavalink.getLink(guildId!!.asString)
-        val player = link.player
-        val guildId = guildId ?: return@on
-
-        if (guildId !in listenedGuilds) {
-            player.on {
-                message.getChannel().createMessage("Event: $this")
-            }
-            listenedGuilds.add(guildId)
-        }
-
-        when (args[0]) {
-            "!connect" -> {
-                val voiceState = member!!.getVoiceState()
-
-                val channelId = voiceState.channelId
-                if (channelId == null) {
-                    message.getChannel().createMessage("Please connectAudio to a voice channel")
-                    return@on
-                }
-
-                link.connectAudio(channelId.value)
-            }
-            "!pause" -> {
-                player.pause(!player.paused)
-            }
-
-            "!stop" -> {
-                player.stopTrack()
-            }
-            "!leave" -> {
-                link.destroy()
-            }
-            "!volume" -> {
-                val volume = args[1].toInt()
-                player.setVolume(volume)
-            }
-            "!seek" -> {
-                val input = args[1].toLong() * 1000
-                val track = player.playingTrack
-                if (track == null) {
-                    message.channel.createMessage("Not playing anything")
-                    return@on
-                }
-                val newPosition = player.position + input
-                if (newPosition < 0 || newPosition > track.length.inMilliseconds.toLong()) {
-                    message.channel.createMessage("Position is out of bounds")
-                    return@on
-                }
-                player.seekTo(newPosition)
-            }
-            "!eq" -> {
-                val band = args[1].toInt()
-                val gain = args[2].toFloat()
-
-                player.applyEqualizer {
-                    band(band) gain gain
-
-                    // you can also do
-                    2 gain 1F
-                }
-            }
-//            "!speed" -> {
-//                val float = args[1].toFloat()
-//                player.applyFilters {
-//                    timescale {
-//                        speed = float
-//                    }
-//                }
-//            }
-            "!play" -> {
-                val query = args.drop(1).joinToString(" ")
-                val search = if (query.startsWith("http")) {
-                    query
-                } else {
-                    "ytsearch:$query"
-                }
-
-                if (link.state != Link.State.CONNECTED) {
-                    message.getChannel().createMessage("Not connectAudio to VC!")
-                    return@on
-                }
-
-                val item = link.loadItem(search)
-
-                when (item.loadType) {
-                    TrackResponse.LoadType.TRACK_LOADED -> player.playTrack(item.tracks.first())
-                    TrackResponse.LoadType.PLAYLIST_LOADED -> player.playTrack(item.tracks.first())
-                    TrackResponse.LoadType.SEARCH_RESULT -> player.playTrack(item.tracks.first())
-                    TrackResponse.LoadType.NO_MATCHES -> message.channel.createMessage("No matches")
-                    TrackResponse.LoadType.LOAD_FAILED -> message.channel.createMessage(
-                        item.exception?.message ?: "Error"
-                    )
-                }
-            }
+        link {
+            autoReconnect = false
         }
     }
-
-    kord.login()
+    lavalink.addNode("ws://localhost:8080", "youshallnotpass")
 }
 
-//suspend fun main(): Unit = bot(System.getenv("token")) {
-////    configure()
-//    lavalink = kord.lava {
-//        autoReconnect = false
-//    }
-//    lavalink.addNode(URI.create("ws://localhost:8080"), "youshallnotpass")
-//}
+val prefix: PrefixConfiguration = prefix {
+    kord { literal("!") or mention() }
+}
 
-//val prefix: PrefixConfiguration = prefix {
-//    kord { literal("!") or mention() }
-//}
+val KordCommandEvent.link: Link
+    get() = guild?.let { lavalink.getLink(it.id) } ?: error("Missing guild")
 
-//fun testModule(): ModuleModifier = module("music-test") {
-//    command("connectAudio") {
-//        invoke {
-//            val guild = guild ?: return@invoke
-//            val link = guild.getLink(lavalink)
-//
-//            val voiceState = author.asMember(guild.id).getVoiceState()
-//
-//            val channelId = voiceState.channelId
-//            if (channelId == null) {
-//                respond("Please connectAudio to a voice channel")
-//                return@invoke
-//            }
-//
-//            link.connect(channelId)
-//        }
-//    }
-//
-//    command("leave") {
-//        invoke {
-//            val guild = guild ?: return@invoke
-//            val link = guild.getLink(lavalink)
-//
-//            if (link.state == Link.State.CONNECTED) {
-//                link.disconnect()
-//            } else {
-//                respond("Not connected to a channel")
-//            }
-//        }
-//    }
-//
-//    command("play") {
-//        invoke(StringArgument) { query ->
-//
-//            val search = if (query.startsWith("http")) {
-//                query
-//            } else {
-//                "ytsearch:$query"
-//            }
-//
-//            val guild = guild ?: return@invoke
-//            val link = guild.getLink(lavalink)
-//            if (link.state != Link.State.CONNECTED) {
-//                respond("Not connectAudio to VC!")
-//                return@invoke
-//            }
-//
-//            val player = link.player
-//
-//            player.on<TrackStartEvent> {
-//                channel.createMessage(track.info.asString())
-//            }
-//
-//            link.loadItem(search, object : AudioLoadResultHandler {
-//                override fun trackLoaded(track: AudioTrack) {
-//                    player.playTrack(track)
-//                }
-//
-//                override fun playlistLoaded(playlist: AudioPlaylist) {
-//                    player.playTrack(playlist.tracks.first())
-//                }
-//
-//                override fun noMatches() {
-//                    kord.launch {
-//                        respond("No matches")
-//                    }
-//                }
-//
-//                override fun loadFailed(exception: FriendlyException?) {
-//                    kord.launch {
-//                        respond(exception?.message ?: "")
-//                    }
-//                }
-//
-//            })
-//        }
-//    }
-//}
+val KordCommandEvent.player: Player
+    get() = link.player
 
-fun AudioTrackInfo.asString(): String {
-    return "AudioTrackInfo{" +
-            "title='" + title + '\'' +
-            ", author='" + author + '\'' +
-            ", length=" + length +
-            ", identifier='" + identifier + '\'' +
-            ", isStream=" + isStream +
-            ", uri='" + uri + '\'' +
-            '}'
+@OptIn(ExperimentalTime::class, FiltersApi::class)
+fun testModule(): ModuleModifier = module("music-test") {
+    command("connectAudio") {
+        invoke {
+            val voiceState = author.asMember((guild ?: return@invoke).id).getVoiceState()
+
+            val channelId = voiceState.channelId
+            if (channelId == null) {
+                respond("Please connectAudio to a voice channel")
+                return@invoke
+            }
+
+            link.connectAudio(channelId)
+        }
+    }
+
+    command("leave") {
+        invoke {
+            if (link.state == Link.State.CONNECTED) {
+                link.disconnectAudio()
+            } else {
+                respond("Not connected to a channel")
+            }
+        }
+    }
+
+    command("play") {
+        invoke(StringArgument) { query ->
+            val search = if (query.startsWith("http")) {
+                query
+            } else {
+                "ytsearch:$query"
+            }
+
+            if (link.state != Link.State.CONNECTED) {
+                respond("Not connectAudio to VC!")
+                return@invoke
+            }
+
+            val item = link.loadItem(search)
+
+            when (item.loadType) {
+                TrackResponse.LoadType.TRACK_LOADED -> player.playTrack(item.tracks.first())
+                TrackResponse.LoadType.PLAYLIST_LOADED -> player.playTrack(item.tracks.first())
+                TrackResponse.LoadType.SEARCH_RESULT -> player.playTrack(item.tracks.first())
+                TrackResponse.LoadType.NO_MATCHES -> message.channel.createMessage("No matches")
+                TrackResponse.LoadType.LOAD_FAILED -> message.channel.createMessage(
+                    item.exception?.message ?: "Error"
+                )
+            }
+        }
+    }
+
+    command("pause") {
+        invoke(BooleanArgument.withDefault(true)) { paused ->
+            player.pause(!paused)
+        }
+    }
+
+    command("stop") {
+        invoke {
+            player.stopTrack()
+        }
+    }
+
+    command("volume") {
+        invoke(IntArgument) { volume ->
+            player.setVolume(volume)
+        }
+    }
+
+    command("seek") {
+        invoke(IntArgument) { rawInput ->
+            val input = rawInput.toLong() * 1000
+
+            val track = player.playingTrack
+            if (track == null) {
+                respond("Not playing anything")
+                return@invoke
+            }
+
+            val newPosition = player.position + input
+            if (newPosition < 0 || newPosition > track.length.inMilliseconds.toLong()) {
+                message.channel.createMessage("Position is out of bounds")
+                return@invoke
+            }
+
+            player.seekTo(newPosition)
+        }
+    }
+
+    command("eq") {
+        invoke(
+            IntArgument.inRange(1..15).map { it - 1 },
+            DoubleArgument.map { it.toFloat() }.inRange(-0.25F..0.25F)
+        ) { band, gain ->
+            player.applyEqualizer {
+                band(band) gain gain
+
+                // you can also do
+//              2 gain 0.25F
+            }
+        }
+    }
+
+    command("speed") {
+        invoke(IntArgument) { speed ->
+            val float = speed.toFloat()
+            player.applyFilters {
+                timescale {
+                    this.speed = float
+                }
+            }
+
+        }
+    }
+
+    command("karaoke") {
+        invoke {
+            player.applyFilters {
+                karaoke {
+                    level = 5F
+                }
+            }
+        }
+    }
 }
