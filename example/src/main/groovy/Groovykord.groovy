@@ -1,7 +1,7 @@
-import dev.kord.x.lavalink.interop.JavaInterop
-import dev.kord.x.lavalink.interop.JavaLavakord
-import dev.kord.x.lavalink.interop.TrackUtil
-import dev.kord.x.lavalink.interop.jda.LavakordJDABuilder
+import dev.schlaubi.lavakord.interop.JavaInterop
+import dev.schlaubi.lavakord.interop.JavaLavakord
+import dev.schlaubi.lavakord.interop.TrackUtil
+import dev.schlaubi.lavakord.interop.jda.LavakordJDABuilder
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.api.hooks.AnnotatedEventManager

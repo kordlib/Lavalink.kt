@@ -33,7 +33,7 @@ import dev.schlaubi.lavakord.rest.loadItem
 import kapt.kotlin.generated.configure
 import kotlin.time.ExperimentalTime
 
-lateinit var lavalink: dev.schlaubi.lavakord.LavaKord
+lateinit var lavalink: LavaKord
 
 suspend fun main(): Unit = bot(System.getenv("token")) {
     configure()
