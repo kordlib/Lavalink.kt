@@ -7,7 +7,7 @@ import dev.schlaubi.lavakord.rest.RoutePlannerStatus
 import json.src.NANO_IP_ROUTE_PLANNER
 import json.src.ROTATING_IP_ROUTE_PLANNER
 import json.src.ROTATING_NANO_IP_ROUTE_PLANNER
-//import kotlin.js.JsName
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
@@ -27,7 +27,7 @@ fun List<RoutePlannerStatus.Data.FailingAddress>.validate() {
 
 class RoutePlannerTest {
 
-    //@JsName("testRotatingNanoIpRoutePlanner")
+    @JsName("testRotatingNanoIpRoutePlanner")
     @Test
     fun `test rotating nano ip route planner`() {
         test<RotatingNanoIpRoutePlanner>(ROTATING_NANO_IP_ROUTE_PLANNER) {
@@ -41,8 +41,7 @@ class RoutePlannerTest {
         }
     }
 
-
-    //@JsName("testRotatingIpRoutePlanner")
+    @JsName("testRotatingIpRoutePlanner")
     @Test
     fun `test rotating ip route planner`() {
         test<RotatingIpRoutePlanner>(ROTATING_IP_ROUTE_PLANNER) {
@@ -57,7 +56,7 @@ class RoutePlannerTest {
         }
     }
 
-    //@JsName("testNanoIpRoutePlanner")
+    @JsName("testNanoIpRoutePlanner")
     @Test
     fun `test nano ip route planner`() {
         test<NanoIpRoutePlanner>(NANO_IP_ROUTE_PLANNER) {

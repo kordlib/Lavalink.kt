@@ -59,8 +59,7 @@ jobs:
           # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
       - name: Gradle (Testing)
-        # TODO: Add jsIrTest when #4 gets fixed
-        run: gradle --stacktrace --info core:jvmTest
+        run: gradle --stacktrace --info jvmTest jsTest
   release:
     name: Publish artifacts
     runs-on: ubuntu-latest

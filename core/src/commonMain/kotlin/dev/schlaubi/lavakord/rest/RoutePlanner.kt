@@ -1,9 +1,14 @@
 package dev.schlaubi.lavakord.rest
 
-import dev.schlaubi.lavakord.rest.RoutePlannerStatus.Data
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 
@@ -13,6 +18,8 @@ internal val RoutePlannerModule = SerializersModule {
         subclass(NanoIpRoutePlanner::class, NanoIpRoutePlanner.serializer())
         subclass(RotatingNanoIpRoutePlanner::class, RotatingNanoIpRoutePlanner.serializer())
     }
+
+    contextual(RoutePlannerStatus.Data::class, RoutePlannerStatus.Data.DummySerializer)
 }
 
 /**
@@ -25,7 +32,7 @@ internal val RoutePlannerModule = SerializersModule {
  */
 @Serializable
 @Polymorphic
-public sealed class RoutePlannerStatus<T : Data> {
+public sealed class RoutePlannerStatus<T : RoutePlannerStatus.Data> {
 
     public abstract val details: Data
 
@@ -59,9 +66,23 @@ public sealed class RoutePlannerStatus<T : Data> {
      * Representation of route planner data.
      */
     @Suppress("KDocMissingDocumentation") // lavalink doesnt provide
+    @Serializable(with = Data.DummySerializer::class)
     public interface Data {
         public val ipBlock: IpBlock
         public val failingAddresses: List<FailingAddress>
+
+        public object DummySerializer : KSerializer<Data> {
+            override fun deserialize(decoder: Decoder): Data {
+                TODO("Not yet implemented")
+            }
+
+            override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("X", PrimitiveKind.SHORT)
+
+            override fun serialize(encoder: Encoder, value: Data) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
         @Serializable
         public data class IpBlock(
@@ -85,7 +106,7 @@ public sealed class RoutePlannerStatus<T : Data> {
 @Serializable
 @SerialName("RotatingIpRoutePlanner")
 public data class RotatingIpRoutePlanner(override val details: Data) :
-    RoutePlannerStatus<RotatingNanoIpRoutePlanner.Data>() {
+    RoutePlannerStatus<RotatingIpRoutePlanner.Data>() {
     /**
      * @property rotateIndex The number of rotations which happened since the restart of Lavalink
      * @property ipIndex The current offset in the block
@@ -109,7 +130,7 @@ public data class RotatingIpRoutePlanner(override val details: Data) :
 @Serializable
 @SerialName("NanoIpRoutePlanner")
 public data class NanoIpRoutePlanner(override val details: Data) :
-    RoutePlannerStatus<RotatingNanoIpRoutePlanner.Data>() {
+    RoutePlannerStatus<NanoIpRoutePlanner.Data>() {
     /**
      * @property currentAddressIndex The current offset in the ip block
      */

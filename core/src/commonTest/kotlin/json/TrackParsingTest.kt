@@ -3,12 +3,12 @@ package json
 import Tests.runBlocking
 import dev.schlaubi.lavakord.audio.player.Track
 import json.src.TRACK
-//import kotlin.js.JsName
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.time.seconds
 
 class TrackParsingTest {
-    //@JsName("testNeverGonnaGiveYouUp")
+    @JsName("testNeverGonnaGiveYouUp")
     @Test
     fun `NEVVA GONNA GIVE YOU UP`() {
         Tests.runBlocking {

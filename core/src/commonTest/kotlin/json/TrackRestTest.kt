@@ -2,7 +2,7 @@ package json
 
 import dev.schlaubi.lavakord.rest.TrackResponse
 import json.src.*
-//import kotlin.js.JsName
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
@@ -23,7 +23,7 @@ val neverGonnaGiveYouUp = TrackResponse.PartialTrack(
 class TrackRestTest {
 
 
-    //@JsName("testSingleTrack")
+    @JsName("testSingleTrack")
     @Test
     fun `test single track loaded`() {
         testRest<TrackResponse, TrackResponse>(TRACK_LOADED) {
@@ -32,7 +32,7 @@ class TrackRestTest {
         }
     }
 
-    //@JsName("testPlaylistAndSearchResult")
+    @JsName("testPlaylistAndSearchResult")
     @Test
     fun `test playlist and searchResult loaded`() {
         fun TrackResponse.validateTracks() {
@@ -54,7 +54,7 @@ class TrackRestTest {
         }
     }
 
-    //@JsName("testNoResults")
+    @JsName("testNoResults")
     @Test
     fun `test no results found`() {
         testRest<TrackResponse, TrackResponse>(NO_MATCHES) {
@@ -63,7 +63,7 @@ class TrackRestTest {
         }
     }
 
-    //@JsName("testLoadFailed")
+    @JsName("testLoadFailed")
     @Test
     fun `test load failed`() {
         testRest<TrackResponse, TrackResponse>(LOAD_FAILED) {

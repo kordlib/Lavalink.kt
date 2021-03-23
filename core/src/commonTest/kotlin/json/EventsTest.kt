@@ -2,13 +2,13 @@ package json
 
 import dev.schlaubi.lavakord.audio.internal.GatewayPayload
 import json.src.*
-//import kotlin.js.JsName
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 class EventsTest {
 
-    //@JsName("testPlayerUpdateEvent")
+    @JsName("testPlayerUpdateEvent")
     @Test
     fun `test player update event serialization`() {
         test<GatewayPayload.PlayerUpdateEvent>(PLAYER_UPDATE_EVENT) {
@@ -16,7 +16,7 @@ class EventsTest {
         }
     }
 
-    //@JsName("testStatsEvent")
+    @JsName("testStatsEvent")
     @Test
     fun `test stats event serialization`() {
         fun GatewayPayload.StatsEvent.validateBasic() {
@@ -52,7 +52,7 @@ class EventsTest {
         }
     }
 
-    //@JsName("testEmittedEvent")
+    @JsName("testEmittedEvent")
     @Test
     fun `test emitted event serialization`() {
         fun GatewayPayload.EmittedEvent.validateBasic(type: String) {

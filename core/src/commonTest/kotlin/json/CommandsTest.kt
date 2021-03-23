@@ -2,12 +2,12 @@ package json
 
 import dev.schlaubi.lavakord.audio.internal.GatewayPayload
 import json.src.*
-//import kotlin.js.JsName
+import kotlin.js.JsName
 import kotlin.test.Test
 
 class CommandsTest {
 
-    //@JsName("testPlayCommand")
+    @JsName("testPlayCommand")
     @Test
     fun `test play command serialization`() {
         test<GatewayPayload.PlayCommand>(PLAY_COMMAND) {
@@ -19,14 +19,14 @@ class CommandsTest {
         }
     }
 
-    //@JsName("testStopCommand")
+    @JsName("testStopCommand")
     @Test
     fun `test stop command serialization`() {
         test<GatewayPayload.StopCommand>(STOP_COMMAND)
     }
 
 
-    //@JsName("testPauseCommand")
+    @JsName("testPauseCommand")
     @Test
     fun `test pause command serialization`() {
         test<GatewayPayload.PauseCommand>(PAUSE_COMMAND) {
@@ -34,7 +34,7 @@ class CommandsTest {
         }
     }
 
-    //@JsName("testSeekCommand")
+    @JsName("testSeekCommand")
     @Test
     fun `test seek command serialization`() {
         test<GatewayPayload.SeekCommand>(SEEK_COMMAND) {
@@ -42,7 +42,7 @@ class CommandsTest {
         }
     }
 
-    //@JsName("testVolumeCommand")
+    @JsName("testVolumeCommand")
     @Test
     fun `test volume command serialization`() {
         test<GatewayPayload.VolumeCommand>(VOLUME_COMMAND) {
@@ -50,7 +50,7 @@ class CommandsTest {
         }
     }
 
-    //@JsName("testEqCommand")
+    @JsName("testEqCommand")
     @Test
     fun `test equalizer command serialization`() {
         test<GatewayPayload.EqualizerCommand>(EQUALIZER_COMMAND) {
@@ -58,7 +58,7 @@ class CommandsTest {
         }
     }
 
-    //@JsName("testDestroyCommand")
+    @JsName("testDestroyCommand")
     @Test
     fun `test destroy command serialization`() {
         test<GatewayPayload.DestroyCommand>(DESTROY_COMMAND)

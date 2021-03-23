@@ -8,9 +8,8 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import kotlinx.serialization.json.Json
 import mu.KotlinLogging
-
-internal val LOG = KotlinLogging.logger {}
 
 internal suspend inline fun <reified T> Node.get(noinline urlBuilder: URLBuilder.() -> Unit): T =
     restClient.get(buildUrl(urlBuilder).build()) { addHeader(this@get); accept(ContentType.Application.JavaScript) }
@@ -35,4 +34,10 @@ private val Node.restClient: HttpClient
     get() {
         val lavakord = this.lavakord as? AbstractLavakord ?: error("Only supported on default implementation")
         return lavakord.restClient
+    }
+
+internal val Node.json: Json
+    get() {
+        val lavakord = this.lavakord as? AbstractLavakord ?: error("Only supported on default implementation")
+        return lavakord.json
     }

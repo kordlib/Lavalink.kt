@@ -16,13 +16,12 @@ import json.src.ROTATING_NANO_IP_ROUTE_PLANNER
 import kotlinx.atomicfu.atomic
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
-//import kotlin.js.JsName
+import kotlin.js.JsName
 import kotlin.test.*
 
 private const val ADDRESS = "1.3.3.7"
 
 class RoutePlannerTest {
-
     private val routePlannerClass = atomic<RoutePlannerStatus.Class?>(null)
 
     @OptIn(KtorExperimentalAPI::class)
@@ -59,7 +58,7 @@ class RoutePlannerTest {
     private val lavakord = RestTestLavakord(engine)
     private val node = TestNode(lavakord)
 
-    //@JsName("unmarkAllAddresses")
+    @JsName("unmarkAllAddresses")
     @Test
     fun `unmark all addresses`() {
         Tests.runBlocking {
@@ -67,7 +66,7 @@ class RoutePlannerTest {
         }
     }
 
-    //@JsName("unmarkAddress")
+    @JsName("unmarkAddress")
     @Test
     fun `unmark address`() {
         Tests.runBlocking {
@@ -75,17 +74,17 @@ class RoutePlannerTest {
         }
     }
 
-    //@JsName("noAddressStatus")
+    @JsName("noAddressStatus")
     @Test
     fun `test error handling if no route planner is configured`() {
         routePlannerClass.value = null
         Tests.runBlocking {
             assertNull(node.addressStatusOrNull())
-            assertFailsWith<dev.schlaubi.lavakord.NoRoutePlannerException> { node.addressStatus() }
+            assertFailsWith<NoRoutePlannerException> { node.addressStatus() }
         }
     }
 
-    //@JsName("testRotatingNanoIpRoutePlanner")
+    @JsName("testRotatingNanoIpRoutePlanner")
     @Test
     fun `test address status on RotatingNanoIpRoutePlanner`() {
         routePlannerClass.value = RoutePlannerStatus.Class.RotatingNanoIpRoutePlanner
@@ -103,8 +102,7 @@ class RoutePlannerTest {
         }
     }
 
-
-    //@JsName("testRotatingIpRoutePlanner")
+    @JsName("testRotatingIpRoutePlanner")
     @Test
     fun `test address status on RotatingIpRoutePlanner`() {
         routePlannerClass.value = RoutePlannerStatus.Class.RotatingIpRoutePlanner
@@ -123,7 +121,7 @@ class RoutePlannerTest {
         }
     }
 
-    //@JsName("testNanoIpRoutePlanner")
+    @JsName("testNanoIpRoutePlanner")
     @Test
     fun `test address status on NanoIpRoutePlanner`() {
         routePlannerClass.value = RoutePlannerStatus.Class.NanoIpRoutePlanner

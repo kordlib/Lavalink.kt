@@ -16,7 +16,7 @@ import json.neverGonnaGiveYouUp
 import json.respondJson
 import json.shouldBe
 import json.src.*
-//import kotlin.js.JsName
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
@@ -36,7 +36,7 @@ class TrackLoadingTest {
     private val lavakord: AbstractLavakord = RestTestLavakord(mockEngine)
     private val node = TestNode(lavakord)
 
-    //@JsName("requestSingleSong")
+    @JsName("requestSingleSong")
     @Test
     fun `test loading a single track`() {
         requestTrack(SINGLE_SONG) {
@@ -45,7 +45,7 @@ class TrackLoadingTest {
         }
     }
 
-    //@JsName("requestPlaylistSong")
+    @JsName("requestPlaylistSong")
     @Test
     fun `test loading a playlist`() {
         requestTrack(PLAYLIST) {
@@ -59,7 +59,7 @@ class TrackLoadingTest {
         }
     }
 
-    //@JsName("requestSearch")
+    @JsName("requestSearch")
     @Test
     fun `test searching a track`() {
         requestTrack(SEARCH) {
@@ -71,7 +71,7 @@ class TrackLoadingTest {
         }
     }
 
-    //@JsName("requestNothing")
+    @JsName("requestNothing")
     @Test
     fun `test requesting nothing`() {
         requestTrack(NOTHING) {
@@ -81,7 +81,7 @@ class TrackLoadingTest {
         }
     }
 
-    //@JsName("requestError")
+    @JsName("requestError")
     @Test
     fun `test handling of error on lavalink node`() {
         requestTrack(ERROR_ON_LOAD) {

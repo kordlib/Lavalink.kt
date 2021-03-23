@@ -6,6 +6,8 @@ import dev.schlaubi.lavakord.audio.Node
 import io.ktor.http.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.decodeFromJsonElement
 
 /**
  * Retrieves the current address status of the route planner api. Can be null if no Route planner is set
@@ -24,7 +26,9 @@ public suspend fun Link.addressStatusOrNull(): RoutePlannerStatus<out RoutePlann
  */
 public suspend fun Node.addressStatusOrNull(): RoutePlannerStatus<out RoutePlannerStatus.Data>? {
     return try {
-        get { path("/routeplanner/status") }
+        val response = get<JsonElement> { path("/routeplanner/status") }
+        // Due to a bug in ktor kx.ser doesn't get the correct info on K/JS and fails
+        json.decodeFromJsonElement<RoutePlannerStatus<out RoutePlannerStatus.Data>>(response)
     } catch (e: SerializationException) {
         if (e.message?.endsWith("{}") == true) { // {} means no route planer is not set
             return null

@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\core\src\commonTest\kotlin\json\CommandsTest.kt">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

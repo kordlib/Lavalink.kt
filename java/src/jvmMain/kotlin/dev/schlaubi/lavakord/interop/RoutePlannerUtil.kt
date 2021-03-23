@@ -34,7 +34,7 @@ public fun addressStatusOrNull(node: Node): CompletableFuture<RoutePlannerStatus
  * @see Node.addressStatusOrNull
  */
 public fun addressStatus(node: Node): CompletableFuture<RoutePlannerStatus<out RoutePlannerStatus.Data>> =
-    node.javaAddressStatusOrNull().thenApply { it ?: throw dev.schlaubi.lavakord.NoRoutePlannerException() }
+    node.javaAddressStatusOrNull().thenApply { it ?: throw NoRoutePlannerException() }
 
 private fun Node.javaUnmarkAllAddresses() = lavakord.run { unmarkAllAddresses() }
 

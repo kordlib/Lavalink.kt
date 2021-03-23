@@ -46,7 +46,7 @@ internal inline fun <reified T : GatewayPayload> test(input: String, crossinline
     )
 
 fun MockRequestHandleScope.respondJson(json: String) =
-    respond(json, HttpStatusCode.OK, headersOf("Content-Type" to listOf("application/json")))
+    respond(json, HttpStatusCode.OK, headersOf("Content-Type" to listOf(ContentType.Application.Json.toString())))
 
 
 @JvmName("testRoutePlannerStatus")

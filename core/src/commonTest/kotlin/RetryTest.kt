@@ -1,6 +1,6 @@
 import dev.schlaubi.lavakord.audio.retry.LinearRetry
 import kotlinx.coroutines.launch
-//import kotlin.js.JsName
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
@@ -11,7 +11,7 @@ import kotlin.time.seconds
 
 class RetryTest {
 
-    //@JsName("testRetryMaxFail")
+    @JsName("testRetryMaxFail")
     @Test
     fun `check whether retry exits correctly after exceeding max`() {
         val retry = LinearRetry(1.seconds, 5.seconds, 1)
@@ -23,7 +23,7 @@ class RetryTest {
         }
     }
 
-    //@JsName("testNeverExceedsMaxBackoff")
+    @JsName("testNeverExceedsMaxBackoff")
     @Test
     fun `check linear retry never exceeds max backoff`() {
         val max = 5

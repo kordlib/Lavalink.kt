@@ -48,13 +48,14 @@ public abstract class AbstractLavakord internal constructor(
     private val nodesMap = mutableMapOf<String, Node>()
     protected val linksMap: MutableMap<Long, Link> = mutableMapOf()
 
+    internal val json = kotlinx.serialization.json.Json {
+        serializersModule = RoutePlannerModule
+        classDiscriminator = "class"
+    }
+
+
     internal val restClient = HttpClient(httpClientEngine) {
         install(JsonFeature) {
-            val json = kotlinx.serialization.json.Json {
-                serializersModule = RoutePlannerModule
-                classDiscriminator = "class"
-            }
-
             serializer = KotlinxSerializer(json)
         }
 
