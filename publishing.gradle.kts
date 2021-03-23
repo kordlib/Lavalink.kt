@@ -6,7 +6,7 @@ apply(plugin = "org.gradle.signing")
 val configurePublishing: PublishingExtension.() -> Unit = {
     repositories {
         maven {
-            setUrl("https://schlaubi.jfrog.io/artifactory/forp-artifacts")
+            setUrl("https://schlaubi.jfrog.io/artifactory/lavakord")
 
             credentials {
                 username = System.getenv("BINTRAY_USER")
