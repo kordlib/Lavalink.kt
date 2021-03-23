@@ -1,6 +1,4 @@
 plugins {
-    java
-    groovy
     kotlin("jvm")
     kotlin("kapt")
 }
