@@ -1,5 +1,5 @@
 rootProject.name = "lavakord"
-include("example")
+//include("example")
 include("kord")
 include("jsExample")
 include("core")

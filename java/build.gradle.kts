@@ -8,6 +8,7 @@ version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+
 }
 
 kotlin {
@@ -35,12 +36,13 @@ kotlin {
             repositories {
                 jcenter()
                 maven("https://jitpack.io")
+                maven("https://m2.dv8tion.net/releases")
             }
 
             dependencies {
                 api(root)
                 api(project(":jda"))
-                api("net.dv8tion:JDA:4.2.0_228") {
+                api("net.dv8tion:JDA:4.2.1_253") {
                     exclude(module = "opus-java")
                 }
                 implementation(Dependencies.coroutinesJdk8)

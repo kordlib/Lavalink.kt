@@ -6,6 +6,7 @@ plugins {
 group = "dev.schlaubi.lavakord"
 version = "1.0.0-SNAPSHOT"
 
+
 kotlin {
     explicitApi()
 
@@ -19,6 +20,7 @@ kotlin {
         jvmMain {
             repositories {
                 mavenCentral()
+                maven("https://m2.dv8tion.net/releases")
             }
 
             dependencies {

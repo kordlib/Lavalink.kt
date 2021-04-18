@@ -15,7 +15,7 @@ version = "1.0.0-SNAPSHOT"
 allprojects {
     repositories {
         sonatype()
-        jcenter()
+        mavenCentral()
     }
 }
 
