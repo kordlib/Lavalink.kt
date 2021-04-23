@@ -51,6 +51,7 @@ public abstract class AbstractLavakord internal constructor(
     internal val json = kotlinx.serialization.json.Json {
         serializersModule = RoutePlannerModule
         classDiscriminator = "class"
+        ignoreUnknownKeys = true
     }
 
 

@@ -1,23 +1,18 @@
 package dev.schlaubi.lavakord.audio.internal
 
 import dev.schlaubi.lavakord.audio.*
-import io.ktor.client.*
-import io.ktor.client.engine.*
 import io.ktor.client.features.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.features.logging.*
 import io.ktor.client.features.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.network.sockets.*
-import io.ktor.util.*
-import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.buffer
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -173,8 +168,8 @@ internal class NodeImpl(
     internal companion object {
         private val json = kotlinx.serialization.json.Json {
             classDiscriminator = "op"
-
             serializersModule = GatewayModule
+            ignoreUnknownKeys = true
         }
 
         private fun generateResumeKey(): String {
