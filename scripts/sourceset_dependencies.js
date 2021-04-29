@@ -1,1 +1,1 @@
-sourceset_dependencies = '{}'
+sourceset_dependencies = '{":core:dokkaHtmlPartial/commonMain":[],":core:dokkaHtmlPartial/jsMain":[":core:dokkaHtmlPartial/commonMain"],":core:dokkaHtmlPartial/jvmMain":[":core:dokkaHtmlPartial/commonMain"],":kord:dokkaHtmlPartial/commonMain":[],":kord:dokkaHtmlPartial/jvmMain":[":kord:dokkaHtmlPartial/commonMain"]}'
