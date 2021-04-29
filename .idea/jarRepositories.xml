@@ -61,5 +61,10 @@
       <option name="name" value="maven4" />
       <option name="url" value="https://m2.dv8tion.net/releases" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven" />
+    </remote-repository>
   </component>
 </project>

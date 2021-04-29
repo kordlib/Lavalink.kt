@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
     kotlin("multiplatform") version Versions.kotlin apply false
     kotlin("plugin.serialization") version Versions.kotlin apply false
-    id("org.jetbrains.dokka") version "1.4.20"
+    id("org.jetbrains.dokka") version "1.4.30"
     id("kotlinx-atomicfu") version Versions.atomicFu apply false
     id("org.ajoberstar.git-publish") version "2.1.3"
 }
@@ -16,6 +16,7 @@ allprojects {
     repositories {
         sonatype()
         mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
     }
 }
 
