@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 import mu.KotlinLoggingConfiguration
 import mu.KotlinLoggingLevel
 import kotlin.time.ExperimentalTime
-import kotlin.time.minutes
+import kotlin.time.Duration
+import kotlin.time.DurationUnit
 
 // There is no Kotlin/JS Discord wrapper yet (See https://github.com/kordlib/kord/issues/69)
 // so this is just to test websocket connectivity and rest.
@@ -37,7 +38,7 @@ suspend fun main() {
     // Normally your Discord API wrapper would run some sort of blocking operation on the main thread but
     // as kord does not support js rn and the lavalink nodes run on separate threads we will just delay this one for ever
     while (true) {
-        delay(1.minutes)
+        delay(Duration.minutes(1))
     }
 }
 
@@ -88,7 +89,7 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schla
                 return
             }
             val newPosition = player.position + long
-            if (newPosition < 0 || newPosition > track.length.inMilliseconds.toLong()) {
+            if (newPosition < 0 || newPosition > track.length.toLong(DurationUnit.MILLISECONDS)) {
                 message.channel.send("Position is out of bounds")
                 return
             }

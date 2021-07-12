@@ -31,6 +31,7 @@ import dev.schlaubi.lavakord.kord.lavakord
 import dev.schlaubi.lavakord.rest.TrackResponse
 import dev.schlaubi.lavakord.rest.loadItem
 import kapt.kotlin.generated.configure
+import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 
 lateinit var lavalink: LavaKord
@@ -137,7 +138,7 @@ fun testModule(): ModuleModifier = module("music-test") {
             }
 
             val newPosition = player.position + input
-            if (newPosition < 0 || newPosition > track.length.inMilliseconds.toLong()) {
+            if (newPosition < 0 || newPosition > track.length.toLong(DurationUnit.MILLISECONDS)) {
                 message.channel.createMessage("Position is out of bounds")
                 return@invoke
             }

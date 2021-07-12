@@ -55,7 +55,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     }
 
     private fun handleNewTrack(event: TrackStartEvent) {
-        position = event.track.position.toLongMilliseconds()
+        position = event.track.position.inWholeMilliseconds
         playingTrack = event.track
     }
 

@@ -9,7 +9,7 @@ on:
 jobs:
   upload_docs:
     name: upload docs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       GRGIT_USER: ${{ secrets.GRGIT_USER }}
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true

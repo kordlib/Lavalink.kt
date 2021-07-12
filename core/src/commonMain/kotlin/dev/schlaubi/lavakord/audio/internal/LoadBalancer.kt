@@ -30,7 +30,7 @@ internal class LoadBalancer(
         val cpuPenalty: Int
         val deficitFramePenalty: Int
         val nullFramePenalty: Int
-        val customPenalties = penaltyProviders.sumBy { it.getPenalty(node, guildId) }
+        val customPenalties = penaltyProviders.sumOf { it.getPenalty(node, guildId) }
 
         val stats = (node as NodeImpl).lastStatsEvent
         if (stats == null) {

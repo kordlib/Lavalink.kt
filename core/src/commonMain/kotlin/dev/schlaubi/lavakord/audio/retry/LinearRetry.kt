@@ -21,11 +21,11 @@ internal class LinearRetry constructor(
 ) : Retry {
 
     init {
-        require(firstBackoff.isPositive()) { "firstBackoff needs to be positive but was ${firstBackoff.toLongMilliseconds()} ms" }
-        require(maxBackoff.isPositive()) { "maxBackoff needs to be positive but was ${maxBackoff.toLongMilliseconds()} ms" }
+        require(firstBackoff.isPositive()) { "firstBackoff needs to be positive but was ${firstBackoff.inWholeMilliseconds} ms" }
+        require(maxBackoff.isPositive()) { "maxBackoff needs to be positive but was ${maxBackoff.inWholeMilliseconds} ms" }
         require(
             maxBackoff.minus(firstBackoff).isPositive()
-        ) { "maxBackoff ${maxBackoff.toLongMilliseconds()} ms needs to be bigger than firstBackoff ${firstBackoff.toLongMilliseconds()} ms" }
+        ) { "maxBackoff ${maxBackoff.inWholeMilliseconds} ms needs to be bigger than firstBackoff ${firstBackoff.inWholeMilliseconds} ms" }
         require(maxTries > 0) { "maxTries needs to be positive but was $maxTries" }
     }
 
@@ -41,7 +41,7 @@ internal class LinearRetry constructor(
     override suspend fun retry() {
         if (!hasNext) error("max retries exceeded")
 
-        var diff = (maxBackoff - firstBackoff).toLongMilliseconds() / maxTries
+        var diff = (maxBackoff - firstBackoff).inWholeMilliseconds / maxTries
         diff *= tries.incrementAndGet()
         LOG.info { "retry attempt ${tries.value}/$maxTries, delaying for $diff ms." }
         delay(diff)

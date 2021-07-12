@@ -8,11 +8,8 @@ import io.ktor.http.*
 import io.ktor.http.cio.websocket.*
 import io.ktor.network.sockets.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -34,14 +31,14 @@ internal class NodeImpl(
     private val resumeKey = generateResumeKey()
     override var available: Boolean = true
     override var lastStatsEvent: GatewayPayload.StatsEvent? = null
-    private var eventPublisher: BroadcastChannel<TrackEvent> = BroadcastChannel(1)
+    private var eventPublisher: MutableSharedFlow<TrackEvent> = MutableSharedFlow(extraBufferCapacity = Channel.UNLIMITED)
     private lateinit var session: DefaultClientWebSocketSession
     override val coroutineScope: CoroutineScope
         get() = lavakord
 
     @OptIn(FlowPreview::class)
-    override val events: Flow<TrackEvent>
-        get() = eventPublisher.asFlow().buffer(Channel.UNLIMITED)
+    override val events: SharedFlow<TrackEvent>
+        get() = eventPublisher.asSharedFlow()
 
     @OptIn(InternalCoroutinesApi::class)
     internal suspend fun connect(resume: Boolean = false) {
@@ -153,7 +150,7 @@ internal class NodeImpl(
                     GatewayPayload.EmittedEvent.Type.WEBSOCKET_CLOSED_EVENT -> WebsocketClosedEvent(event)
                 }
 
-                eventPublisher.send(emittedEvent)
+                eventPublisher.tryEmit(emittedEvent)
             }
             else -> LOG.warn { "Received unexpected event: $event" }
         }

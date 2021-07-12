@@ -5,6 +5,7 @@ import dev.schlaubi.lavakord.audio.TrackEvent
 import dev.schlaubi.lavakord.rest.TrackResponse
 //import lavalink.client.LavalinkUtil
 import kotlin.time.Duration
+import kotlin.time.DurationUnit
 
 /**
  * Interface allowing interaction with Lavalink player.
@@ -68,7 +69,7 @@ public interface Player : EventSource<TrackEvent> {
     /**
      * Seeks to a specific [position] in the current playback.
      */
-    public suspend fun seekTo(position: Duration): Unit = seekTo(position.inMilliseconds.toLong())
+    public suspend fun seekTo(position: Duration): Unit = seekTo(position.toLong(DurationUnit.MILLISECONDS))
 
     /**
      * Seeks to a specific [position] in the current playback.

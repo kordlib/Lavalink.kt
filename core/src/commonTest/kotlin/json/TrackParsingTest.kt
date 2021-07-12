@@ -5,6 +5,7 @@ import dev.schlaubi.lavakord.audio.player.Track
 import json.src.TRACK
 import kotlin.js.JsName
 import kotlin.test.Test
+import kotlin.time.Duration
 import kotlin.time.seconds
 
 class TrackParsingTest {
@@ -17,9 +18,9 @@ class TrackParsingTest {
                 identifier shouldBe "dQw4w9WgXcQ"
                 isSeekable shouldBe true
                 author shouldBe "RickAstleyVEVO"
-                length shouldBe 212.seconds
+                length shouldBe Duration.seconds(212)
                 isStream shouldBe false
-                position shouldBe 0.seconds
+                position shouldBe Duration.seconds(0)
                 title shouldBe "Rick Astley - Never Gonna Give You Up"
                 uri shouldBe "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             }

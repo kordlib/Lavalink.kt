@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "dev.schlaubi.lavakord"
-version = "1.0.0-SNAPSHOT"
+version = "2.0.0"
 
 repositories {
     mavenCentral()
@@ -34,7 +34,7 @@ kotlin {
         jvmMain {
             kotlin.srcDir("main")
             repositories {
-                jcenter()
+                mavenCentral()
                 maven("https://jitpack.io")
                 maven("https://m2.dv8tion.net/releases")
             }
@@ -46,7 +46,6 @@ kotlin {
                     exclude(module = "opus-java")
                 }
                 implementation(Dependencies.coroutinesJdk8)
-                implementation(kotlin("stdlib"))
             }
         }
     }

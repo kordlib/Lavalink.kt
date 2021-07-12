@@ -11,7 +11,6 @@ include("bom")
 pluginManagement {
     resolutionStrategy {
         repositories {
-            mavenCentral()
             gradlePluginPortal()
         }
 

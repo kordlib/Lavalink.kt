@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.schlaubi"
-version = "1.0.0-SNAPSHOT"
+version = "2.0.0"
 
 repositories {
     mavenCentral()
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("gradle-plugin-api", version = "1.4.21"))
+    implementation(kotlin("gradle-plugin-api", version = "1.5.20"))
     implementation(gradleApi())
     implementation(localGroovy())
 }

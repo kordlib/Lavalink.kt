@@ -8,7 +8,6 @@ import dev.schlaubi.lavakord.NoRoutePlannerException
 import dev.schlaubi.lavakord.rest.*
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
-import io.ktor.util.*
 import json.*
 import json.src.NANO_IP_ROUTE_PLANNER
 import json.src.ROTATING_IP_ROUTE_PLANNER
@@ -17,14 +16,16 @@ import kotlinx.atomicfu.atomic
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlin.js.JsName
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 private const val ADDRESS = "1.3.3.7"
 
 class RoutePlannerTest {
     private val routePlannerClass = atomic<RoutePlannerStatus.Class?>(null)
 
-    @OptIn(KtorExperimentalAPI::class)
     private val engine = RestHttpEngine {
         addHandler { request ->
             checkAuth(request) {

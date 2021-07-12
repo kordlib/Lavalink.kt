@@ -124,7 +124,7 @@ public data class MutableLavaKordOptions(
     public data class LinkConfig constructor(
         override var autoReconnect: Boolean = true,
         override var resumeTimeout: Int = 60,
-        override var retry: Retry = LinearRetry(2.seconds, 60.seconds, 10)
+        override var retry: Retry = LinearRetry(Duration.seconds(2), Duration.seconds(60), 10)
     ) : LavaKordOptions.LinkConfig {
         internal fun seal(): LavaKordOptions.LinkConfig =
             ImmutableLavaKordOptions.LinkConfig(autoReconnect, resumeTimeout, retry)
@@ -145,7 +145,7 @@ public data class MutableLavaKordOptions(
          * @property maxTries the maximal amount of tries before giving up
          */
         public fun linear(firstBackoff: Long, maxBackoff: Long, maxTries: Int): Retry =
-            LinearRetry(firstBackoff.milliseconds, maxBackoff.milliseconds, maxTries)
+            LinearRetry(Duration.milliseconds(firstBackoff), Duration.milliseconds(maxBackoff), maxTries)
     }
 }
 

@@ -75,7 +75,6 @@ public abstract class AbstractLavakord internal constructor(
         }
     }
 
-    @OptIn(KtorExperimentalAPI::class)
     internal val gatewayClient = HttpClient(HttpEngine) {
         install(WebSockets)
 

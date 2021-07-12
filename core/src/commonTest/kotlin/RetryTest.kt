@@ -14,7 +14,7 @@ class RetryTest {
     @JsName("testRetryMaxFail")
     @Test
     fun `check whether retry exits correctly after exceeding max`() {
-        val retry = LinearRetry(1.seconds, 5.seconds, 1)
+        val retry = LinearRetry(Duration.seconds(1), Duration.seconds(5), 1)
         Tests.launch {
             retry.retry()
 
@@ -27,8 +27,8 @@ class RetryTest {
     @Test
     fun `check linear retry never exceeds max backoff`() {
         val max = 5
-        val maxBackoff = 5.seconds
-        val retry = LinearRetry(1.seconds, maxBackoff, max)
+        val maxBackoff = Duration.seconds(5)
+        val retry = LinearRetry(Duration.seconds(1), maxBackoff, max)
         val delays = mutableListOf<Duration>()
         repeat(max) {
             delays += measureTime {

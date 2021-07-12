@@ -77,8 +77,9 @@ or [Dokka docs](https://l.mik.wtf/lavakord/)
 
 Since Lavakord 1.0 we use only Multiplatform Kotlin libraries but Ktor doesn't support Websockets when using Kotlin
 native yet see [kordlib/kord#69](https://github.com/kordlib/kord/issues/69)
-and [ktorio/ktor#1215](https://github.com/ktorio/ktor/issues/1215) for reference. Kord doesn't support Multiplatform
-because of the same issue as well
+and [ktorio/ktor#1215](https://github.com/ktorio/ktor/issues/1215) for reference. Kord doesn't support Multiplatform because of the same issue as well
+
+Since 2.0 JS is officially supported
 
 # Other Discord API wrappers
 

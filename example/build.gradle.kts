@@ -10,7 +10,7 @@ repositories {
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://jitpack.io")
     maven("https://m2.dv8tion.net/releases")
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {

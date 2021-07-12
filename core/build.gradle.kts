@@ -6,9 +6,7 @@ plugins {
     `maven-publish`
 }
 
-version = "1.0.0-SNAPSHOT"
-
-sourceSets
+version = "2.0.0"
 
 kotlin {
     explicitApi()
@@ -39,7 +37,7 @@ kotlin {
             languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
             languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.experimentalTime)
             repositories {
-                jcenter()
+                mavenCentral()
             }
         }
 
@@ -68,10 +66,6 @@ kotlin {
         }
 
         jvmMain {
-            repositories {
-                jitpack()
-            }
-
             dependencies {
                 implementation(Dependencies.`ktor-client-cio`)
             }

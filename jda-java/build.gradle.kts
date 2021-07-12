@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "dev.schlaubi.lavakord"
-version = "1.0.0-SNAPSHOT"
+version = "2.0.0"
 
 
 kotlin {
@@ -24,7 +24,6 @@ kotlin {
             }
 
             dependencies {
-                implementation(kotlin("stdlib"))
                 api(project(":jda"))
                 api(project(":java"))
             }
