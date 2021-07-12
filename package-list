@@ -1,0 +1,13 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:core
+dev.schlaubi.lavakord
+dev.schlaubi.lavakord.audio
+dev.schlaubi.lavakord.audio.internal
+dev.schlaubi.lavakord.audio.player
+dev.schlaubi.lavakord.audio.retry
+dev.schlaubi.lavakord.internal
+dev.schlaubi.lavakord.rest
+module:kord
+dev.schlaubi.lavakord.kord
