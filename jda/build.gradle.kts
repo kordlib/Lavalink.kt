@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     `maven-publish`
+    id("org.jetbrains.dokka")
 }
 
 group = "dev.schlaubi.lavakord"
