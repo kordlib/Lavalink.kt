@@ -2,15 +2,15 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.kotlin.dsl.maven
 
 object Versions {
-    const val kotlin = "1.5.20"
-    const val ktor = "1.6.1"
-    const val coroutines = "1.5.1"
+    const val kotlin = "1.5.30"
+    const val ktor = "1.6.2"
+    const val coroutines = "1.5.2"
     const val kotlinxSerialization = "1.2.2"
-    const val kotlinLogging = "2.0.8"
-    const val kord = "0.7.3"
-    const val atomicFu = "0.16.2"
+    const val kotlinLogging = "2.0.11"
+    const val kord = "0.8.0-M5"
+    const val atomicFu = "0.16.3"
 
-    const val junit5 = "5.7.2"
+    const val junit5 = "5.8.0"
     const val junitJupiterEngine = junit5
     const val coroutinesTest = coroutines
     const val slf4j = "1.7.30"
