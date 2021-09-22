@@ -8,6 +8,8 @@ import dev.kord.gateway.UpdateVoiceStatus
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.internal.AbstractLink
+import dev.schlaubi.lavakord.audio.player.Player
+import dev.schlaubi.lavakord.audio.player.applyFilters
 import kotlinx.coroutines.flow.count
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract

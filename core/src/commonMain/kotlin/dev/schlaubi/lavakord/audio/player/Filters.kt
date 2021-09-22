@@ -12,7 +12,7 @@ import kotlin.contracts.contract
 @RequiresOptIn(
     level = RequiresOptIn.Level.WARNING,
     message = """This API is not yet documented and only supported by the Lavalink "dev" branch
-        |: https://github.com/Frederikam/Lavalink/blob/dev/LavalinkServer/src/main/java/lavalink/server/io/WebSocketHandlers.kt#L116-L119
+        |: https://github.com/freyacodes/Lavalink/blob/dev/LavalinkServer/src/main/java/lavalink/server/io/WebSocketHandlers.kt#L116-L119
     """
 )
 @Target(
@@ -31,6 +31,7 @@ public annotation class FiltersApi
 @Suppress("KDocMissingDocumentation", "KDocMissingDocumentation") // I don't know anything about music
 @FiltersApi
 public interface Filters {
+    public var volume: Float?
     public val karaoke: Karaoke?
     public val timescale: Timescale?
     public val tremolo: Tremolo?

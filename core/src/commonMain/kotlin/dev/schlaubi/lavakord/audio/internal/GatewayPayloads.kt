@@ -86,6 +86,7 @@ internal sealed class GatewayPayload {
     @SerialName("filters")
     data class FiltersCommand(
         override val guildId: String,
+        override var volume: Float?,
         override var karaoke: Karaoke? = null,
         override var timescale: Timescale? = null,
         override var tremolo: Tremolo? = null,
