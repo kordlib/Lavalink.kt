@@ -50,6 +50,7 @@ internal class KordLavaKord(
 
 
     private suspend fun handleVoiceStateUpdate(event: VoiceStateUpdateEvent) {
+        if(event.kord.selfId != event.state.userId) return
         val channel = event.state.getChannelOrNull()
         val link = event.state.guildId.let { linksMap[it.value] } ?: return
         require(link is KordLink)
