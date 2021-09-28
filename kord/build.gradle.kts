@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
 }
 
-version = "2.0.2"
+version = "2.1.0"
 
 repositories {
     mavenCentral()
@@ -21,7 +21,7 @@ kotlin {
 
     sourceSets {
         all {
-            languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
+            languageSettings.optIn(ExpermientalAnnotations.requiresOptIn)
         }
 
         commonMain {

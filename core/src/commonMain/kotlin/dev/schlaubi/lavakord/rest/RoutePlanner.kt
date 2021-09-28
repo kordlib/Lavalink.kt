@@ -9,6 +9,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonClassDiscriminator
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 
@@ -32,6 +33,7 @@ internal val RoutePlannerModule = SerializersModule {
  */
 @Serializable
 @Polymorphic
+@JsonClassDiscriminator("class")
 public sealed class RoutePlannerStatus<T : RoutePlannerStatus.Data> {
 
     public abstract val details: Data

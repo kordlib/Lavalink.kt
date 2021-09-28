@@ -30,7 +30,7 @@ class RoutePlannerTest {
     @JsName("testRotatingNanoIpRoutePlanner")
     @Test
     fun `test rotating nano ip route planner`() {
-        test<RotatingNanoIpRoutePlanner>(ROTATING_NANO_IP_ROUTE_PLANNER) {
+        testPlanner<RotatingNanoIpRoutePlanner>(ROTATING_NANO_IP_ROUTE_PLANNER) {
             `class` shouldBe RoutePlannerStatus.Class.RotatingNanoIpRoutePlanner
             details {
                 ipBlock.validate()
@@ -44,7 +44,7 @@ class RoutePlannerTest {
     @JsName("testRotatingIpRoutePlanner")
     @Test
     fun `test rotating ip route planner`() {
-        test<RotatingIpRoutePlanner>(ROTATING_IP_ROUTE_PLANNER) {
+        testPlanner<RotatingIpRoutePlanner>(ROTATING_IP_ROUTE_PLANNER) {
             `class` shouldBe RoutePlannerStatus.Class.RotatingIpRoutePlanner
             details {
                 ipBlock.validate()
@@ -59,7 +59,7 @@ class RoutePlannerTest {
     @JsName("testNanoIpRoutePlanner")
     @Test
     fun `test nano ip route planner`() {
-        test<NanoIpRoutePlanner>(NANO_IP_ROUTE_PLANNER) {
+        testPlanner<NanoIpRoutePlanner>(NANO_IP_ROUTE_PLANNER) {
             `class` shouldBe RoutePlannerStatus.Class.NanoIpRoutePlanner
             details {
                 ipBlock.validate()

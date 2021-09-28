@@ -26,7 +26,7 @@ class TrackRestTest {
     @JsName("testSingleTrack")
     @Test
     fun `test single track loaded`() {
-        testRest<TrackResponse, TrackResponse>(TRACK_LOADED) {
+        test<TrackResponse>(TRACK_LOADED) {
             loadType shouldBe TrackResponse.LoadType.TRACK_LOADED
             tracks shouldBe listOf(neverGonnaGiveYouUp)
         }
@@ -38,12 +38,13 @@ class TrackRestTest {
         fun TrackResponse.validateTracks() {
             tracks shouldBe listOf(neverGonnaGiveYouUp, neverGonnaGiveYouUp, neverGonnaGiveYouUp)
         }
-        testRest<TrackResponse, TrackResponse>(SEARCH_RESULT) {
+
+        test<TrackResponse>(SEARCH_RESULT) {
             loadType shouldBe TrackResponse.LoadType.SEARCH_RESULT
             validateTracks()
         }
 
-        testRest<TrackResponse, TrackResponse>(PLAYLIST_LOADED) {
+        test<TrackResponse>(PLAYLIST_LOADED) {
             loadType shouldBe TrackResponse.LoadType.PLAYLIST_LOADED
             validateTracks()
             val playlistInfo = getPlaylistInfo()
@@ -57,7 +58,7 @@ class TrackRestTest {
     @JsName("testNoResults")
     @Test
     fun `test no results found`() {
-        testRest<TrackResponse, TrackResponse>(NO_MATCHES) {
+        test<TrackResponse>(NO_MATCHES) {
             loadType shouldBe TrackResponse.LoadType.NO_MATCHES
             assertTrue(tracks.isEmpty())
         }
@@ -66,7 +67,7 @@ class TrackRestTest {
     @JsName("testLoadFailed")
     @Test
     fun `test load failed`() {
-        testRest<TrackResponse, TrackResponse>(LOAD_FAILED) {
+        test<TrackResponse>(LOAD_FAILED) {
             loadType shouldBe TrackResponse.LoadType.LOAD_FAILED
             assertTrue(tracks.isEmpty())
             val exception = getException()

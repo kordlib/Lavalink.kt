@@ -7,6 +7,7 @@ import dev.schlaubi.lavakord.audio.player.Filters
 import dev.schlaubi.lavakord.audio.player.FiltersApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonClassDiscriminator
 import kotlinx.serialization.modules.SerializersModule
 import dev.schlaubi.lavakord.audio.StatsEvent as PublicStatsEvent
 
@@ -20,6 +21,7 @@ internal val GatewayModule = SerializersModule {
 }
 
 @Serializable
+@JsonClassDiscriminator("op")
 internal sealed class GatewayPayload {
 
     abstract val guildId: String?

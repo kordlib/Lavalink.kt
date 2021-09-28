@@ -19,7 +19,9 @@ public interface Player : EventSource<TrackEvent> {
     public val playingTrack: Track?
     public val paused: Boolean
     public val volume: Int
+    public val positionDuration: Duration
     public val position: Long
+        get() = positionDuration.inWholeMilliseconds
 
     public val equalizers: Map<Int, Float>
 

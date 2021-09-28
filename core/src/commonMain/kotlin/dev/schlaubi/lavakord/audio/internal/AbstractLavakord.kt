@@ -18,6 +18,7 @@ import io.ktor.http.*
 import io.ktor.util.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.launch
+import kotlinx.serialization.modules.plus
 
 /**
  * Abstract implementation of [LavaKord].
@@ -49,8 +50,7 @@ public abstract class AbstractLavakord internal constructor(
     protected val linksMap: MutableMap<Long, Link> = mutableMapOf()
 
     internal val json = kotlinx.serialization.json.Json {
-        serializersModule = RoutePlannerModule
-        classDiscriminator = "class"
+        serializersModule = RoutePlannerModule + GatewayModule
         ignoreUnknownKeys = true
     }
 

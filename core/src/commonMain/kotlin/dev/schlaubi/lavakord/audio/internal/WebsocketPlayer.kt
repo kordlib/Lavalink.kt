@@ -11,14 +11,25 @@ import dev.schlaubi.lavakord.audio.player.Track
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
+import kotlin.time.Duration
 
 internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId: Long) : Player {
     override var playingTrack: Track? = null
     override val coroutineScope: CoroutineScope
         get() = node.coroutineScope
     override var paused: Boolean = false
-    override var position: Long = -1
-    private var updateTime: Long = 0
+    private var lastPosition: Duration = Duration.milliseconds(0)
+    private var updateTime: Instant = Instant.DISTANT_PAST
+    override val positionDuration: Duration
+        get() {
+            val now = Clock.System.now()
+            val elapsedSinceUpdate = now - updateTime
+
+            return lastPosition + elapsedSinceUpdate
+        }
+
     override var volume: Int = 100
 
     @FiltersApi
@@ -55,13 +66,13 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     }
 
     private fun handleNewTrack(event: TrackStartEvent) {
-        position = event.track.position.inWholeMilliseconds
+        lastPosition = event.track.position
         playingTrack = event.track
     }
 
     private fun handleTrackEnd(@Suppress("UNUSED_PARAMETER") event: TrackEndEvent) {
         playingTrack = null
-        position = -1
+        lastPosition = Duration.milliseconds(0)
     }
 
     override suspend fun stopTrack() {
@@ -91,7 +102,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     }
 
     internal fun provideState(state: GatewayPayload.PlayerUpdateEvent.State) {
-        updateTime = state.time
-        position = state.position ?: 0
+        updateTime = Instant.fromEpochMilliseconds(state.time)
+        lastPosition = state.position?.let { Duration.milliseconds(it) } ?: Duration.milliseconds(0)
     }
 }

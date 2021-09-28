@@ -10,7 +10,7 @@ class CommandsTest {
     @JsName("testPlayCommand")
     @Test
     fun `test play command serialization`() {
-        test<GatewayPayload.PlayCommand>(PLAY_COMMAND) {
+        testPayload<GatewayPayload.PlayCommand>(PLAY_COMMAND) {
             startTime shouldBe 60000
             endTime shouldBe 120000
             volume shouldBe 100
@@ -22,14 +22,14 @@ class CommandsTest {
     @JsName("testStopCommand")
     @Test
     fun `test stop command serialization`() {
-        test<GatewayPayload.StopCommand>(STOP_COMMAND)
+        testPayload<GatewayPayload.StopCommand>(STOP_COMMAND)
     }
 
 
     @JsName("testPauseCommand")
     @Test
     fun `test pause command serialization`() {
-        test<GatewayPayload.PauseCommand>(PAUSE_COMMAND) {
+        testPayload<GatewayPayload.PauseCommand>(PAUSE_COMMAND) {
             pause shouldBe true
         }
     }
@@ -37,7 +37,7 @@ class CommandsTest {
     @JsName("testSeekCommand")
     @Test
     fun `test seek command serialization`() {
-        test<GatewayPayload.SeekCommand>(SEEK_COMMAND) {
+        testPayload<GatewayPayload.SeekCommand>(SEEK_COMMAND) {
             position shouldBe 60000
         }
     }
@@ -45,7 +45,7 @@ class CommandsTest {
     @JsName("testVolumeCommand")
     @Test
     fun `test volume command serialization`() {
-        test<GatewayPayload.VolumeCommand>(VOLUME_COMMAND) {
+        testPayload<GatewayPayload.VolumeCommand>(VOLUME_COMMAND) {
             volume shouldBe 125
         }
     }
@@ -53,7 +53,7 @@ class CommandsTest {
     @JsName("testEqCommand")
     @Test
     fun `test equalizer command serialization`() {
-        test<GatewayPayload.EqualizerCommand>(EQUALIZER_COMMAND) {
+        testPayload<GatewayPayload.EqualizerCommand>(EQUALIZER_COMMAND) {
             bands shouldBe listOf(GatewayPayload.EqualizerCommand.Band(0, 0.2F))
         }
     }
@@ -61,6 +61,6 @@ class CommandsTest {
     @JsName("testDestroyCommand")
     @Test
     fun `test destroy command serialization`() {
-        test<GatewayPayload.DestroyCommand>(DESTROY_COMMAND)
+        testPayload<GatewayPayload.DestroyCommand>(DESTROY_COMMAND)
     }
 }

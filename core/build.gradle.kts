@@ -6,7 +6,7 @@ plugins {
     `maven-publish`
 }
 
-version = "2.0.2"
+version = "2.1.0"
 
 kotlin {
     explicitApi()
@@ -34,8 +34,9 @@ kotlin {
 
     sourceSets {
         all {
-            languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.requiresOptIn)
-            languageSettings.useExperimentalAnnotation(ExpermientalAnnotations.experimentalTime)
+            languageSettings.optIn(ExpermientalAnnotations.requiresOptIn)
+            languageSettings.optIn(ExpermientalAnnotations.experimentalTime)
+            languageSettings.optIn(ExpermientalAnnotations.experimentalSerialization)
             repositories {
                 mavenCentral()
             }
@@ -45,6 +46,7 @@ kotlin {
             dependencies {
                 api(Dependencies.coroutines)
                 api(Dependencies.kotlinxSerialization)
+                api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.0")
 
                 implementation(Dependencies.`ktor-io`)
                 implementation(Dependencies.`ktor-utils`)

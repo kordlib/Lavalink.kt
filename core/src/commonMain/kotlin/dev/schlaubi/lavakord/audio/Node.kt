@@ -41,6 +41,6 @@ public interface Node : EventSource<TrackEvent>, Closeable {
     /**
      * The [LavaKord] instance which created this node.
      */
-    public val lavakord: dev.schlaubi.lavakord.LavaKord
+    public val lavakord: LavaKord
 
 }

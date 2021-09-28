@@ -31,7 +31,8 @@ internal class NodeImpl(
     private val resumeKey = generateResumeKey()
     override var available: Boolean = true
     override var lastStatsEvent: GatewayPayload.StatsEvent? = null
-    private var eventPublisher: MutableSharedFlow<TrackEvent> = MutableSharedFlow(extraBufferCapacity = Channel.UNLIMITED)
+    private var eventPublisher: MutableSharedFlow<TrackEvent> =
+        MutableSharedFlow(extraBufferCapacity = Channel.UNLIMITED)
     private lateinit var session: DefaultClientWebSocketSession
     override val coroutineScope: CoroutineScope
         get() = lavakord
@@ -102,11 +103,11 @@ internal class NodeImpl(
     }
 
     internal suspend fun send(command: GatewayPayload) {
-        val jsonCommand = json.encodeToString(command)
+        val jsonCommand = lavakord.json.encodeToString(command)
         if (command is SanitizablePayload<*>) { // sanitize tokens or keys
             val sanitizedCommand by lazy { command.sanitize() }
             LOG.trace { "Sending command $sanitizedCommand" }
-            LOG.trace { "Gateway >>> ${json.encodeToString(sanitizedCommand)}" }
+            LOG.trace { "Gateway >>> ${lavakord.json.encodeToString(sanitizedCommand)}" }
         } else {
             LOG.trace { "Sending command $command" }
             LOG.trace { "Gateway >>> $jsonCommand" }
@@ -118,7 +119,7 @@ internal class NodeImpl(
         val text = frame.readText()
         LOG.trace { "Gateway <<< $text" }
         val payload = try {
-            json.decodeFromString<GatewayPayload>(text)
+            lavakord.json.decodeFromString<GatewayPayload>(text)
         } catch (e: SerializationException) {
             LOG.warn(e) { "Error whilst handling websocket packet" }
             return
@@ -163,12 +164,6 @@ internal class NodeImpl(
     }
 
     internal companion object {
-        private val json = kotlinx.serialization.json.Json {
-            classDiscriminator = "op"
-            serializersModule = GatewayModule
-            ignoreUnknownKeys = true
-        }
-
         private fun generateResumeKey(): String {
             val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
             return (1..25)

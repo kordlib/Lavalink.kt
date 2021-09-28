@@ -11,7 +11,7 @@ class EventsTest {
     @JsName("testPlayerUpdateEvent")
     @Test
     fun `test player update event serialization`() {
-        test<GatewayPayload.PlayerUpdateEvent>(PLAYER_UPDATE_EVENT) {
+        testPayload<GatewayPayload.PlayerUpdateEvent>(PLAYER_UPDATE_EVENT) {
             state shouldBe GatewayPayload.PlayerUpdateEvent.State(1500467109, 1500467109)
         }
     }
@@ -35,7 +35,7 @@ class EventsTest {
             }
         }
 
-        test<GatewayPayload.StatsEvent>(FULL_STATS_EVENT) {
+        testPayload<GatewayPayload.StatsEvent>(FULL_STATS_EVENT) {
             validateBasic()
             frameStats {
                 assertNotNull(this)
@@ -46,7 +46,7 @@ class EventsTest {
             }
         }
 
-        test<GatewayPayload.StatsEvent>(STATS_EVENT) {
+        testPayload<GatewayPayload.StatsEvent>(STATS_EVENT) {
             validateBasic()
             frameStats shouldBe null
         }
@@ -62,26 +62,26 @@ class EventsTest {
             type shouldBe type
         }
 
-        test<GatewayPayload.EmittedEvent>(TRACK_START_EVENT) {
+        testPayload<GatewayPayload.EmittedEvent>(TRACK_START_EVENT) {
             validateBasic("TrackStartEvent")
         }
 
-        test<GatewayPayload.EmittedEvent>(TRACK_END_EVENT) {
+        testPayload<GatewayPayload.EmittedEvent>(TRACK_END_EVENT) {
             validateBasic("TrackEndEvent")
             reason shouldBe "FINISHED"
         }
 
-        test<GatewayPayload.EmittedEvent>(TRACK_EXCEPTION_EVENT) {
+        testPayload<GatewayPayload.EmittedEvent>(TRACK_EXCEPTION_EVENT) {
             validateBasic("TrackExceptionEvent")
             error shouldBe "An error occurred"
         }
 
-        test<GatewayPayload.EmittedEvent>(TRACK_STUCK_EVENT) {
+        testPayload<GatewayPayload.EmittedEvent>(TRACK_STUCK_EVENT) {
             validateBasic("TrackStuckEvent")
             thresholdMs shouldBe 500
         }
 
-        test<GatewayPayload.EmittedEvent>(WEBSOCKET_CLOSED_EVENT) {
+        testPayload<GatewayPayload.EmittedEvent>(WEBSOCKET_CLOSED_EVENT) {
             validateBasic("WebSocketClosedEvent")
             code shouldBe 4006
             reason shouldBe "Your session is no longer valid."

@@ -21,7 +21,7 @@ internal suspend inline fun <reified T> Node.post(
     restClient.get<T>(urlBuilder.build()) { addHeader(this@post); accept(ContentType.Application.JavaScript); block(this) }
 
 private fun HttpRequestBuilder.addHeader(socket: Node) {
-    headers["Authorization"] = socket.authenticationHeader
+    header(HttpHeaders.Authorization, socket.authenticationHeader)
 }
 
 internal fun Node.buildUrl(block: URLBuilder.() -> Unit) = URLBuilder(host)

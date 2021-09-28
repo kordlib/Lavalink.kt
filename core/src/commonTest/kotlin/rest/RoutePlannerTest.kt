@@ -33,7 +33,7 @@ class RoutePlannerTest {
                     "/routeplanner/free/all" -> respond("", HttpStatusCode.NoContent)
                     "/routeplanner/free/address" -> {
                         val body = request.body.toByteArray().decodeToString()
-                        val json = restJson.parseToJsonElement(body) as JsonObject
+                        val json = json.parseToJsonElement(body) as JsonObject
                         if ((json["address"] as? JsonPrimitive).toString().replace("\"", "") == ADDRESS) {
                             respond("", HttpStatusCode.NoContent)
                         } else {

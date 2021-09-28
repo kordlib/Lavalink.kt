@@ -3,6 +3,7 @@ package dev.schlaubi.lavakord.rest
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.player.Track
+import io.ktor.util.*
 
 /**
  * Maps a [List] of [TrackResponse.PartialTrack]s to a List of [Track]s.
@@ -28,6 +29,7 @@ public suspend fun Link.loadItem(query: String): TrackResponse = node.loadItem(q
  *
  * @see TrackResponse
  */
+@OptIn(InternalAPI::class) // There is no other way for parameters
 public suspend fun Node.loadItem(query: String): TrackResponse = get {
     path("loadtracks")
     parameters.append("identifier", query)
