@@ -1,9 +1,8 @@
 plugins {
+    `lavalink-publishing`
     `java-platform`
     `maven-publish`
 }
-
-applyPublishing()
 
 val me = project
 

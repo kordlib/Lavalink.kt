@@ -1,5 +1,6 @@
 plugins {
     `lavalink-module`
+    `lavalink-publishing`
     id("org.jetbrains.dokka")
 }
 
