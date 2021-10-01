@@ -1,22 +1,9 @@
 plugins {
-    kotlin("multiplatform")
+    `lavalink-module`
     id("org.jetbrains.dokka")
-    `maven-publish`
 }
 
-group = "dev.schlaubi.lavakord"
-version = "2.1.0"
-
-
 kotlin {
-    explicitApi()
-
-    jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
-        }
-    }
-
     sourceSets {
         jvmMain {
             repositories {

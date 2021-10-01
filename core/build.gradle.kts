@@ -1,47 +1,13 @@
 plugins {
-    kotlin("multiplatform")
+    `lavalink-module`
     kotlin("plugin.serialization")
-    id("kotlinx-atomicfu")
     id("org.jetbrains.dokka")
-    `maven-publish`
+    id("kotlinx-atomicfu")
 }
 
-version = "2.1.0"
-
 kotlin {
-    explicitApi()
-
-    jvm {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = Jvm.target
-            }
-        }
-
-        tasks {
-            withType<Test> {
-                useJUnitPlatform()
-            }
-        }
-    }
-
-    // See https://github.com/DRSchlaubi/Lavakord/issues/2
-    js(IR) {
-        nodejs()
-        // browser() doesn't work because the js websocket client does not allowed you to set headers
-        // Apart from that why would you need Lavalink in your browser?
-    }
 
     sourceSets {
-        all {
-            languageSettings.optIn(ExpermientalAnnotations.requiresOptIn)
-            languageSettings.optIn(ExpermientalAnnotations.experimentalTime)
-            languageSettings.optIn(ExpermientalAnnotations.experimentalSerialization)
-            repositories {
-                mavenCentral()
-            }
-        }
-
         commonMain {
             dependencies {
                 api(Dependencies.coroutines)
