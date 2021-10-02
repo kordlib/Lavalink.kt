@@ -8,8 +8,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(root)
-                api(project(":jda"))
+                api(projects.core)
+                api(projects.jda)
             }
         }
         jvmMain {
@@ -19,8 +19,8 @@ kotlin {
             }
 
             dependencies {
-                api(root)
-                api(project(":jda"))
+                api(projects.core)
+                api(projects.jda)
                 api("net.dv8tion:JDA:4.2.1_253") {
                     exclude(module = "opus-java")
                 }
@@ -29,5 +29,3 @@ kotlin {
         }
     }
 }
-
-applyPublishing()

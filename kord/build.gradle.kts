@@ -8,7 +8,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(root)
+                api(projects.core)
             }
         }
 
@@ -26,5 +26,3 @@ kotlin {
         }
     }
 }
-
-applyPublishing()

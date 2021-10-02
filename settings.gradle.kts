@@ -8,6 +8,10 @@ include("jda")
 include("jda-java")
 include("bom")
 
+
+enableFeaturePreview("VERSION_CATALOGS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     resolutionStrategy {
         repositories {

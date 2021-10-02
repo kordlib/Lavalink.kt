@@ -13,11 +13,9 @@ kotlin {
             }
 
             dependencies {
-                api(project(":jda"))
-                api(project(":java"))
+                api(projects.jda)
+                api(projects.java)
             }
         }
     }
 }
-
-applyPublishing()
