@@ -21,7 +21,7 @@ kotlin {
 
         jvmMain {
             dependencies {
-                implementation(Dependencies.kord)
+                implementation(libs.kord.core)
             }
         }
     }

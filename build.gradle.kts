@@ -2,7 +2,7 @@ import org.ajoberstar.gradle.git.publish.GitPublishExtension
 
 plugins {
     id("org.jetbrains.dokka")
-    id("kotlinx-atomicfu") version Versions.atomicFu apply false
+    id("kotlinx-atomicfu") version "0.16.3" apply false
     id("org.ajoberstar.git-publish") version "2.1.3"
 }
 
