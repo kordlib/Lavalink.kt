@@ -9,6 +9,8 @@ dev.schlaubi.lavakord.audio.player
 dev.schlaubi.lavakord.audio.retry
 dev.schlaubi.lavakord.internal
 dev.schlaubi.lavakord.rest
+module:java
+dev.schlaubi.lavakord.interop
 module:jda
 dev.schlaubi.lavakord.jda
 module:jda-java
