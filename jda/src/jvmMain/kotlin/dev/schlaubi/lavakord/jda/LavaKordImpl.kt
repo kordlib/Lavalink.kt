@@ -17,15 +17,15 @@ import kotlin.coroutines.CoroutineContext
 internal class JDALavakord(
     internal val jdaProvider: (Int) -> JDA,
     override val coroutineContext: CoroutineContext,
-    userId: Long,
+    userId: ULong,
     shardsTotal: Int,
     options: LavaKordOptions
 ) : AbstractLavakord(userId, shardsTotal, options), VoiceDispatchInterceptor, EventListener {
 
-    override fun buildNewLink(guildId: Long, node: Node): Link = JDALink(this, node, guildId)
+    override fun buildNewLink(guildId: ULong, node: Node): Link = JDALink(this, node, guildId)
 
     override fun onVoiceServerUpdate(update: VoiceDispatchInterceptor.VoiceServerUpdate) {
-        val link = getLink(update.guildIdLong)
+        val link = getLink(update.guildIdLong.toULong())
 
         launch {
             forwardVoiceEvent(
@@ -43,7 +43,7 @@ internal class JDALavakord(
 
     override fun onVoiceStateUpdate(update: VoiceDispatchInterceptor.VoiceStateUpdate): Boolean {
         val channel = update.channel
-        val link = getLink(update.guildIdLong)
+        val link = getLink(update.guildIdLong.toULong())
         require(link is JDALink)
 
         // Null channel means disconnected
@@ -52,7 +52,7 @@ internal class JDALavakord(
                 link.state = Link.State.DESTROYED
             }
         } else {
-            link.lastChannelId = channel.idLong
+            link.lastChannelId = channel.idLong.toULong()
             link.state = Link.State.CONNECTED
         }
 
@@ -66,8 +66,8 @@ internal class JDALavakord(
                 if (options.link.autoReconnect) {
                     linksMap.forEach { (_, link) ->
                         val lastChannel = link.lastChannelId
-                        if (lastChannel != null && event.jda.getVoiceChannelById(lastChannel) != null) {
-                            link.connectAudio(lastChannel.toLong())
+                        if (lastChannel != null && event.jda.getVoiceChannelById(lastChannel.toLong()) != null) {
+                            link.connectAudio(lastChannel)
                         }
                     }
                 }

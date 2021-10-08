@@ -20,7 +20,7 @@ public const val DEFAULT_GAIN: Float = 0F
  * }
  * ```
  */
-public class EqualizerBuilder internal constructor(private val guildId: Long) {
+public class EqualizerBuilder internal constructor(private val guildId: ULong) {
     internal val bands = mutableListOf<GatewayPayload.EqualizerCommand.Band>()
 
     /**

@@ -20,7 +20,7 @@ import kotlin.time.toDuration
  * @property track the [Track] the even is about
  */
 public sealed class TrackEvent {
-    public abstract val guildId: Long
+    public abstract val guildId: ULong
     public abstract val track: Track
 }
 
@@ -29,11 +29,11 @@ public sealed class TrackEvent {
  *
  * @see TrackEvent
  */
-public data class TrackStartEvent(override val guildId: Long, override val track: Track) : TrackEvent() {
+public data class TrackStartEvent(override val guildId: ULong, override val track: Track) : TrackEvent() {
     internal companion object {
         suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackStartEvent {
             require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_START_EVENT && event.track != null) { "Event needs to be track start event" }
-            return TrackStartEvent(event.guildId.toLong(), Track.fromLavalink(event.track))
+            return TrackStartEvent(event.guildId.toULong(), Track.fromLavalink(event.track))
         }
     }
 }
@@ -45,7 +45,7 @@ public data class TrackStartEvent(override val guildId: Long, override val track
  * @see TrackEvent
  */
 public data class TrackEndEvent(
-    override val guildId: Long,
+    override val guildId: ULong,
     override val track: Track,
     public val reason: EndReason
 ) : TrackEvent() {
@@ -97,7 +97,7 @@ public data class TrackEndEvent(
         suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackEndEvent {
             require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_END_EVENT && event.reason != null && event.track != null) { "Event needs to be track end event" }
             return TrackEndEvent(
-                event.guildId.toLong(),
+                event.guildId.toULong(),
                 Track.fromLavalink(event.track),
                 EndReason.valueOf(event.reason)
             )
@@ -112,7 +112,7 @@ public data class TrackEndEvent(
  * @see TrackEvent
  */
 public data class TrackExceptionEvent(
-    override val guildId: Long,
+    override val guildId: ULong,
     override val track: Track,
     public val exception: RemoteTrackException
 ) : TrackEvent() {
@@ -121,7 +121,7 @@ public data class TrackExceptionEvent(
         suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackExceptionEvent {
             require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_EXCEPTION_EVENT && event.error != null && event.track != null) { "Event has to be track exception event" }
             return TrackExceptionEvent(
-                event.guildId.toLong(),
+                event.guildId.toULong(),
                 Track.fromLavalink(event.track),
                 RemoteTrackException(event.error)
             )
@@ -130,21 +130,21 @@ public data class TrackExceptionEvent(
 }
 
 /**
- * Event that is fired when a track was started, but no audio frames from it have arrived in a long time
+ * Event that is fired when a track was started, but no audio frames from it have arrived in a ULong time
  *
  * @property threshold The wait threshold that was exceeded for this event to trigger
  * @see TrackEvent
  */
 @OptIn(ExperimentalTime::class)
 public data class TrackStuckEvent(
-    override val guildId: Long, override val track: Track, public val threshold: Duration
+    override val guildId: ULong, override val track: Track, public val threshold: Duration
 ) : TrackEvent() {
 
     internal companion object {
         suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackStuckEvent {
             require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_STUCK_EVENT && event.thresholdMs != null && event.track != null) { "Event has to be track stuck event" }
             return TrackStuckEvent(
-                event.guildId.toLong(),
+                event.guildId.toULong(),
                 Track.fromLavalink(event.track),
                 event.thresholdMs.toDuration(DurationUnit.MILLISECONDS)
             )
@@ -160,7 +160,7 @@ public data class TrackStuckEvent(
  * @property byRemote whether the connection was closed by the remote or not
  */
 public data class WebsocketClosedEvent(
-    override val guildId: Long,
+    override val guildId: ULong,
     public val code: Int,
     public val reason: String,
     public val byRemote: Boolean
@@ -172,7 +172,7 @@ public data class WebsocketClosedEvent(
         operator fun invoke(event: GatewayPayload.EmittedEvent): WebsocketClosedEvent {
             require(event.type == GatewayPayload.EmittedEvent.Type.WEBSOCKET_CLOSED_EVENT && event.code != null && event.reason != null && event.byRemote != null) { "Event has to be track stuck event" }
             return WebsocketClosedEvent(
-                event.guildId.toLong(),
+                event.guildId.toULong(),
                 event.code,
                 event.reason,
                 event.byRemote

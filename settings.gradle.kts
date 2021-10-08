@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 rootProject.name = "lavakord"
 //include("example")
 include("kord") // GitHub Actions gets mad about this and I can't reproduce this locally
@@ -30,7 +32,7 @@ dependencyResolutionManagement {
         create("libs") {
             kotlinx()
             ktor()
-            alias("kord-core").to("dev.kord", "kord-core").version("0.8.0-M5")
+            alias("kord-core").to("dev.kord", "kord-core").version("0.8.0-M6")
             alias("junit-jupiter-engine").to("org.junit.jupiter", "junit-jupiter-engine").version("5.8.0")
             alias("kotlinlogging").to("io.github.microutils", "kotlin-logging").version("2.0.11")
             alias("sl4fj-simple").to("org.slf4j", "slf4j-simple").version("1.7.30")

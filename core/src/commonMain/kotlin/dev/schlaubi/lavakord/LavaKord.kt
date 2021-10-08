@@ -15,19 +15,19 @@ import kotlinx.coroutines.CoroutineScope
  */
 public interface LavaKord : CoroutineScope {
     public val nodes: List<Node>
-    public val userId: Long
+    public val userId: ULong
     public val shardsTotal: Int
     public val options: LavaKordOptions
 
     /**
      * Returns the corresponding [Link] for the [guildId].
      */
-    public fun getLink(guildId: Long): Link
+    public fun getLink(guildId: ULong): Link
 
     /**
      * Returns the corresponding [Link] for the [guildId].
      */
-    public fun getLink(guildId: String): Link = getLink(guildId.toLong())
+    public fun getLink(guildId: String): Link = getLink(guildId.toULong())
 
     /**
      * Adds a new node to this cluster.

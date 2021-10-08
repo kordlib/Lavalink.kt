@@ -9,7 +9,7 @@ internal class LoadBalancer(
     private val lavakord: LavaKord
 ) {
 
-    fun determineBestNode(guildId: Long): Node {
+    fun determineBestNode(guildId: ULong): Node {
         val leastPenalty = lavakord.nodes
             .asSequence()
             .filter(Node::available)
@@ -24,7 +24,7 @@ internal class LoadBalancer(
     private fun calculatePenalties(
         node: Node,
         penaltyProviders: List<PenaltyProvider>,
-        guildId: Long
+        guildId: ULong
     ): Int {
         val playerPenalty: Int
         val cpuPenalty: Int
@@ -71,5 +71,5 @@ public fun interface PenaltyProvider {
      * @see Node.lastStatsEvent
      * @return total penalty to add to this node.
      */
-    public fun getPenalty(node: Node, guildId: Long): Int
+    public fun getPenalty(node: Node, guildId: ULong): Int
 }

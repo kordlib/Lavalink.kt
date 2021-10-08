@@ -15,7 +15,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlin.time.Duration
 
-internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId: Long) : Player {
+internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId: ULong) : Player {
     override var playingTrack: Track? = null
     override val coroutineScope: CoroutineScope
         get() = node.coroutineScope

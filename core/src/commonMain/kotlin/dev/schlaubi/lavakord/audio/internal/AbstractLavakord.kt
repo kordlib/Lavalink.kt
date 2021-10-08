@@ -15,7 +15,6 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.features.websocket.*
 import io.ktor.http.*
-import io.ktor.util.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.launch
 import kotlinx.serialization.modules.plus
@@ -27,7 +26,7 @@ import kotlinx.serialization.modules.plus
  * @property linksMap [Map] all [Link]s are stored in
  */
 public abstract class AbstractLavakord internal constructor(
-    override val userId: Long,
+    override val userId: ULong,
     override val shardsTotal: Int,
     httpClientEngine: HttpClientEngineFactory<HttpClientEngineConfig>,
     override val options: LavaKordOptions
@@ -40,14 +39,14 @@ public abstract class AbstractLavakord internal constructor(
      * @property linksMap [Map] all [Link]s are stored in
      */
     public constructor(
-        userId: Long,
+        userId: ULong,
         shardsTotal: Int,
         options: LavaKordOptions
     ) : this(userId, shardsTotal, HttpEngine, options)
 
     private val nodeCounter = atomic(0)
     private val nodesMap = mutableMapOf<String, Node>()
-    protected val linksMap: MutableMap<Long, Link> = mutableMapOf()
+    protected val linksMap: MutableMap<ULong, Link> = mutableMapOf()
 
     internal val json = kotlinx.serialization.json.Json {
         serializersModule = RoutePlannerModule + GatewayModule
@@ -95,7 +94,7 @@ public abstract class AbstractLavakord internal constructor(
 
     internal fun removeDestroyedLink(link: Link) = linksMap.remove(link.guildId)
 
-    override fun getLink(guildId: Long): Link {
+    override fun getLink(guildId: ULong): Link {
         return linksMap.computeIfAbsent(guildId) {
             val node = loadBalancer.determineBestNode(guildId) as NodeImpl
             buildNewLink(guildId, node)
@@ -142,5 +141,5 @@ public abstract class AbstractLavakord internal constructor(
     /**
      * Abstract function to create a new [Link] for this [guild][guildId] using this [node].
      */
-    protected abstract fun buildNewLink(guildId: Long, node: Node): Link
+    protected abstract fun buildNewLink(guildId: ULong, node: Node): Link
 }

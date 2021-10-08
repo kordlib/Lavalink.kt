@@ -20,7 +20,7 @@ public class JavaLavakord(private val parent: LavaKord) {
      * @see LavaKord.userId
      */
     public val userId: Long
-        get() = parent.userId
+        get() = parent.userId.toLong()
 
     /**
      * @see LavaKord.shardsTotal
@@ -40,7 +40,7 @@ public class JavaLavakord(private val parent: LavaKord) {
      * @see JavaLink
      */
     public fun getLink(guildId: Long): JavaLink {
-        val link = parent.getLink(guildId)
+        val link = parent.getLink(guildId.toULong())
 
         return JavaLink(link)
     }

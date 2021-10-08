@@ -31,9 +31,9 @@ public class JavaLink(internal val suspendingLink: Link) : CoroutineScope {
     public val state: State
         get() = suspendingLink.state
     public val guildId: Long
-        get() = suspendingLink.guildId
+        get() = suspendingLink.guildId.toLong()
     public val lastChannelId: Long?
-        get() = suspendingLink.lastChannelId
+        get() = suspendingLink.lastChannelId?.toLong()
 
 
     /**
@@ -44,7 +44,7 @@ public class JavaLink(internal val suspendingLink: Link) : CoroutineScope {
      * @throws NullPointerException If the [voiceChannelId] does not resolve to a valid voice channel
      */
     public fun connectAudio(voiceChannelId: Long): CompletableFuture<Void> =
-        run { suspendingLink.connectAudio(voiceChannelId) }
+        run { suspendingLink.connectAudio(voiceChannelId.toULong()) }
 
     /**
      * Disconnects from the currently connected voice channel.
