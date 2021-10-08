@@ -37,7 +37,7 @@ public fun JDABuilder.buildWithLavakord(
     val lavakord = JDALavakord(
         jdaProvider,
         coroutineContext,
-        jda.selfUser.idLong,
+        jda.selfUser.idLong.toULong(),
         jda.shardInfo.shardTotal,
         settings
     )
@@ -70,8 +70,8 @@ public fun DefaultShardManagerBuilder.buildWithLavakord(
         { shardId -> shardManager.getShardById(shardId) ?: error("Could not find shard with id: $shardId") }
     val lavakord = JDALavakord(
         jdaProvider,
-        executor ?: Dispatchers.IO + Job(),
-        shardManager.retrieveApplicationInfo().complete().idLong,
+        executor ?: (Dispatchers.IO + Job()),
+        shardManager.retrieveApplicationInfo().complete().idLong.toULong(),
         shardManager.shardsTotal,
         settings
     )

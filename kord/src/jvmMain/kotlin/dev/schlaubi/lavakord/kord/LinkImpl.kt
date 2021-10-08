@@ -8,19 +8,17 @@ import dev.kord.gateway.UpdateVoiceStatus
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.internal.AbstractLink
-import dev.schlaubi.lavakord.audio.player.Player
-import dev.schlaubi.lavakord.audio.player.applyFilters
 import kotlinx.coroutines.flow.count
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
 internal class KordLink(
-    guildId: Long,
+    guildId: ULong,
     node: Node,
     override val lavakord: KordLavaKord
 ) : AbstractLink(node, guildId) {
 
-    override suspend fun connectAudio(voiceChannelId: Long) {
+    override suspend fun connectAudio(voiceChannelId: ULong) {
         lastChannelId = voiceChannelId
         val channel = lavakord.kord.getChannel(Snowflake(voiceChannelId)) as VoiceChannel?
         checkChannel(channel)

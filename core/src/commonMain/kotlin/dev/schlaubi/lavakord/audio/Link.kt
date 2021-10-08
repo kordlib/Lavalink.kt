@@ -19,22 +19,22 @@ public interface Link {
     public val player: Player
     public val lavakord: LavaKord
     public val state: State
-    public val guildId: Long
-    public val lastChannelId: Long?
+    public val guildId: ULong
+    public val lastChannelId: ULong?
 
     /**
      * Connects this link to the voice channel with the specified [voiceChannelId]
      *
      * Throws is only valid for kord implementation
-     * @throws me.schlaubi.lavakord.InsufficientPermissionException if the bot does not have the permission to join the voice channel or override user limit if needed
+     * @throws dev.schlaubi.lavakord.InsufficientPermissionException if the bot does not have the permission to join the voice channel or override user limit if needed
      * @throws NullPointerException If the [voiceChannelId] does not resolve to a valid voice channel
      */
-    public suspend fun connectAudio(voiceChannelId: Long)
+    public suspend fun connectAudio(voiceChannelId: ULong)
 
     /**
      * Connects this link to the voice channel with the specified [voiceChannelId].
      */
-    public suspend fun Link.connect(voiceChannelId: String): Unit = connectAudio(voiceChannelId.toLong())
+    public suspend fun Link.connect(voiceChannelId: String): Unit = connectAudio(voiceChannelId.toULong())
 
     /**
      * Disconnects from the currently connected voice channel.

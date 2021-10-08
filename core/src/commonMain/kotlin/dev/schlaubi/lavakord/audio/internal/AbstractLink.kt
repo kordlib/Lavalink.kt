@@ -7,10 +7,10 @@ import dev.schlaubi.lavakord.audio.player.Player
 /**
  * Abstract implementation of [Link].
  */
-public abstract class AbstractLink(final override val node: Node, final override val guildId: Long) : Link {
+public abstract class AbstractLink(final override val node: Node, final override val guildId: ULong) : Link {
     override val player: Player = WebsocketPlayer(node as NodeImpl, guildId)
     abstract override val lavakord: AbstractLavakord
-    override var lastChannelId: Long? = null
+    override var lastChannelId: ULong? = null
     override var state: Link.State = Link.State.NOT_CONNECTED
 
     override suspend fun onDisconnected() {

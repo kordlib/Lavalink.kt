@@ -18,7 +18,7 @@ import kotlin.coroutines.CoroutineContext
 
 internal class KordLavaKord(
     internal val kord: Kord,
-    userId: Long,
+    userId: ULong,
     shardsTotal: Int,
     options: LavaKordOptions
 ) : AbstractLavakord(userId, shardsTotal, options) {
@@ -38,7 +38,7 @@ internal class KordLavaKord(
                     val lastChannel = link.lastChannelId
                     if (lastChannel != null && event.kord.getGuild(Snowflake(guildId)) != null) {
                         try {
-                            link.connectAudio(lastChannel.toLong())
+                            link.connectAudio(lastChannel)
                         } catch (e: Exception) {
                             e.printStackTrace()
                         }
@@ -50,7 +50,7 @@ internal class KordLavaKord(
 
 
     private suspend fun handleVoiceStateUpdate(event: VoiceStateUpdateEvent) {
-        if(event.kord.selfId != event.state.userId) return
+        if (event.kord.selfId != event.state.userId) return
         val channel = event.state.getChannelOrNull()
         val link = event.state.guildId.let { linksMap[it.value] } ?: return
         require(link is KordLink)
@@ -66,7 +66,7 @@ internal class KordLavaKord(
         }
     }
 
-    override fun buildNewLink(guildId: Long, node: Node): Link =
+    override fun buildNewLink(guildId: ULong, node: Node): Link =
         KordLink(guildId, node, this)
 
     private suspend fun handleVoiceServerUpdate(event: VoiceServerUpdateEvent) {

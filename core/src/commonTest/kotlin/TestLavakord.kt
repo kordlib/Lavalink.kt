@@ -11,8 +11,8 @@ const val AUTH_HEADER = "RANDOM_AUTH"
 
 class RestTestLavakord(
     httpClientEngine: HttpClientEngineFactory<HttpClientEngineConfig>,
-) : AbstractLavakord(0L, 0, httpClientEngine, MutableLavaKordOptions().seal()), CoroutineScope by Tests {
-    override fun buildNewLink(guildId: Long, node: Node): Link {
+) : AbstractLavakord(0UL, 0, httpClientEngine, MutableLavaKordOptions().seal()), CoroutineScope by Tests {
+    override fun buildNewLink(guildId: ULong, node: Node): Link {
         throw UnsupportedOperationException()
     }
 }
