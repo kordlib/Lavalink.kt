@@ -1,11 +1,8 @@
 plugins {
-    kotlin("multiplatform")
-    `maven-publish`
+    `lavalink-module`
+    `lavalink-publishing`
     id("org.jetbrains.dokka")
 }
-
-group = "dev.schlaubi.lavakord"
-version = "2.1.0"
 
 repositories {
     mavenCentral()
@@ -13,23 +10,10 @@ repositories {
 }
 
 kotlin {
-    explicitApi()
-
-    jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
-        }
-    }
-
     sourceSets {
         jvmMain {
-            repositories {
-                maven("https://jitpack.io")
-                maven("https://m2.dv8tion.net/releases")
-            }
-
             dependencies {
-                api(root)
+                api(projects.core)
                 implementation("net.dv8tion:JDA:4.3.0_296") {
                     exclude(module = "opus-java")
                 }
@@ -37,5 +21,3 @@ kotlin {
         }
     }
 }
-
-applyPublishing()

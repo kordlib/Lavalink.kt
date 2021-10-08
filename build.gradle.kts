@@ -1,11 +1,8 @@
 import org.ajoberstar.gradle.git.publish.GitPublishExtension
 
 plugins {
-    `maven-publish`
-    kotlin("multiplatform") version Versions.kotlin apply false
-    kotlin("plugin.serialization") version Versions.kotlin apply false
-    id("org.jetbrains.dokka") version "1.5.0"
-    id("kotlinx-atomicfu") version Versions.atomicFu apply false
+    id("org.jetbrains.dokka")
+    id("kotlinx-atomicfu") version "0.16.3" apply false
     id("org.ajoberstar.git-publish") version "2.1.3"
 }
 
