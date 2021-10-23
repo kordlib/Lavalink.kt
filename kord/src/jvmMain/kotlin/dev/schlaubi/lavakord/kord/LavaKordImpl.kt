@@ -14,6 +14,7 @@ import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
+import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
 internal class KordLavaKord(
@@ -23,7 +24,7 @@ internal class KordLavaKord(
     options: LavaKordOptions
 ) : AbstractLavakord(userId, shardsTotal, options) {
 
-    override val coroutineContext: CoroutineContext = Dispatchers.IO + Job()
+    override val coroutineContext: CoroutineContext = Dispatchers.IO + SupervisorJob()
 
     init {
         kord.on(consumer = ::handleVoiceServerUpdate)

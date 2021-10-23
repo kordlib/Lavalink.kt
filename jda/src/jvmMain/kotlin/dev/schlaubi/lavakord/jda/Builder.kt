@@ -4,6 +4,7 @@ import dev.schlaubi.lavakord.LavaKordOptions
 import dev.schlaubi.lavakord.MutableLavaKordOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -70,7 +71,7 @@ public fun DefaultShardManagerBuilder.buildWithLavakord(
         { shardId -> shardManager.getShardById(shardId) ?: error("Could not find shard with id: $shardId") }
     val lavakord = JDALavakord(
         jdaProvider,
-        executor ?: (Dispatchers.IO + Job()),
+        executor ?: (Dispatchers.IO + SupervisorJob()),
         shardManager.retrieveApplicationInfo().complete().idLong.toULong(),
         shardManager.shardsTotal,
         settings
