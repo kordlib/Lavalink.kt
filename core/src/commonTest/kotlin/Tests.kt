@@ -1,7 +1,10 @@
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestResult
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
 
-@OptIn(ExperimentalCoroutinesApi::class)
-expect object Tests : CoroutineScope {
-    fun Tests.runBlocking(block: suspend () -> Unit)
+private val testScope = TestScope()
+
+object Tests : CoroutineScope by testScope {
+    fun runBlocking(block: suspend TestScope.() -> Unit): TestResult = runTest(testBody = block)
 }

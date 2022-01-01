@@ -8,6 +8,9 @@ plugins {
 
 kotlin {
     sourceSets {
+        all {
+            languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+        }
         commonMain {
             dependencies {
                 api(libs.kotlinx.coroutines.core)
@@ -30,6 +33,7 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 implementation(libs.ktor.client.mock)
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
 
@@ -45,7 +49,6 @@ kotlin {
                 implementation(kotlin("test-junit5"))
                 runtimeOnly(libs.junit.jupiter.engine)
                 runtimeOnly(libs.sl4fj.simple)
-                implementation(libs.kotlinx.coroutines.test)
             }
         }
 

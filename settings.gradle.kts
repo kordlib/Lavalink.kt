@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 rootProject.name = "lavakord"
-//include("example")
+include("example")
 include("kord") // GitHub Actions gets mad about this and I can't reproduce this locally
 //include("jsExample") // kotlinx-nodejs is unavailable: https://github.com/Kotlin/kotlinx-nodejs/issues/16
 include("core")
@@ -32,21 +32,21 @@ dependencyResolutionManagement {
         create("libs") {
             kotlinx()
             ktor()
-            alias("kord-core").to("dev.kord", "kord-core").version("0.8.0-M6")
-            alias("junit-jupiter-engine").to("org.junit.jupiter", "junit-jupiter-engine").version("5.8.0")
-            alias("kotlinlogging").to("io.github.microutils", "kotlin-logging").version("2.0.11")
+            alias("kord-core").to("dev.kord", "kord-core").version("0.8.x-SNAPSHOT")
+            alias("junit-jupiter-engine").to("org.junit.jupiter", "junit-jupiter-engine").version("5.8.2")
+            alias("kotlinlogging").to("io.github.microutils", "kotlin-logging").version("2.1.21")
             alias("sl4fj-simple").to("org.slf4j", "slf4j-simple").version("1.7.30")
         }
     }
 }
 
 fun VersionCatalogBuilder.kotlinx() {
-    val coroutines = version("coroutines", "1.5.2")
+    val coroutines = version("coroutines", "1.6.0")
     alias("kotlinx-coroutines-core").to("org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutines)
     alias("kotlinx-coroutines-jdk8").to("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     alias("kotlinx-coroutines-test").to("org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
-    alias("kotlinx-serialization-json").to("org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.3.0")
-    alias("kotlinx-datetime").to("org.jetbrains.kotlinx", "kotlinx-datetime").version("0.3.0")
+    alias("kotlinx-serialization-json").to("org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.3.2")
+    alias("kotlinx-datetime").to("org.jetbrains.kotlinx", "kotlinx-datetime").version("0.3.1")
 }
 
 fun VersionCatalogBuilder.ktor() {

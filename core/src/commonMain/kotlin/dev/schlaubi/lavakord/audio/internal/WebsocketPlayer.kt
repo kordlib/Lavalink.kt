@@ -14,13 +14,14 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId: ULong) : Player {
     override var playingTrack: Track? = null
     override val coroutineScope: CoroutineScope
         get() = node.coroutineScope
     override var paused: Boolean = false
-    private var lastPosition: Duration = Duration.milliseconds(0)
+    private var lastPosition: Duration = 0.milliseconds
     private var updateTime: Instant = Instant.DISTANT_PAST
     override val positionDuration: Duration
         get() {
@@ -72,7 +73,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
 
     private fun handleTrackEnd(@Suppress("UNUSED_PARAMETER") event: TrackEndEvent) {
         playingTrack = null
-        lastPosition = Duration.milliseconds(0)
+        lastPosition = 0.milliseconds
     }
 
     override suspend fun stopTrack() {
@@ -103,6 +104,6 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
 
     internal fun provideState(state: GatewayPayload.PlayerUpdateEvent.State) {
         updateTime = Instant.fromEpochMilliseconds(state.time)
-        lastPosition = state.position?.let { Duration.milliseconds(it) } ?: Duration.milliseconds(0)
+        lastPosition = state.position?.milliseconds ?: 0.milliseconds
     }
 }

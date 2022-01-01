@@ -1,4 +1,5 @@
 plugins {
+    java
     kotlin("jvm")
     kotlin("kapt")
 }
@@ -14,17 +15,16 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":kord"))
-    implementation(project(":jda-java"))
-    implementation("org.slf4j", "slf4j-simple", "1.7.30")
-
-    implementation(Dependencies.kord)
+    implementation(projects.kord)
+    implementation(projects.jdaJava)
+    implementation(libs.sl4fj.simple)
+    implementation(libs.kord.core)
 
     implementation("dev.kord.x:commands-runtime-kord:0.4.0-SNAPSHOT")
     implementation("org.codehaus.groovy", "groovy-all", "2.4.15")
     kapt("dev.kord.x:commands-processor:0.4.0-SNAPSHOT")
 
-    implementation("net.dv8tion:JDA:4.2.1_253") {
+    implementation("net.dv8tion:JDA:5.0.0-alpha.3") {
         exclude(module = "opus-java")
     }
 }

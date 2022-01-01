@@ -7,7 +7,7 @@ import io.ktor.client.engine.*
 import io.ktor.http.*
 import kotlinx.coroutines.CoroutineScope
 
-const val AUTH_HEADER = "RANDOM_AUTH"
+const val AUTH_HEADER: String = "RANDOM_AUTH"
 
 class RestTestLavakord(
     httpClientEngine: HttpClientEngineFactory<HttpClientEngineConfig>,

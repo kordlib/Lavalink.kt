@@ -14,7 +14,7 @@ import dev.schlaubi.lavakord.audio.Link
  *
  * @see LavaKord.getLink
  */
-public fun LavaKord.getLink(guildId: Snowflake): Link = getLink(guildId.asString)
+public fun LavaKord.getLink(guildId: Snowflake): Link = getLink(guildId.toString())
 
 /**
  * Creates or returns an existing [Link] for this [Guild] using the [lavalink] instance.

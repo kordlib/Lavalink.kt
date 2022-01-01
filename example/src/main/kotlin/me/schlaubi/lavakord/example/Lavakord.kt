@@ -56,6 +56,7 @@ val KordCommandEvent.link: Link
 val KordCommandEvent.player: Player
     get() = link.player
 
+@AutoWired
 @OptIn(ExperimentalTime::class, FiltersApi::class)
 fun testModule(): ModuleModifier = module("music-test") {
     command("connectAudio") {

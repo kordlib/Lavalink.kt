@@ -1,9 +1,6 @@
 package dev.schlaubi.lavakord.rest
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Polymorphic
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -49,7 +46,7 @@ public sealed class RoutePlannerStatus<T : RoutePlannerStatus.Data> {
     /**
      * Alias to [class] so you won't need backticks.
      */
-    public val clazz: Class? by ::`class`
+    public val clazz: Class get() = `class`
 
     /**
      * Representation of different RoutePlanner classes

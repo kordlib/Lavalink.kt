@@ -77,7 +77,7 @@ internal class KordLavaKord(
 
         forwardVoiceEvent(
             link,
-            guild.id.asString,
+            guild.id.toString(),
             guild.getMember(event.kord.selfId).getVoiceState().sessionId,
             DiscordVoiceServerUpdateData(event.token, event.guildId.toString(), event.endpoint)
         )

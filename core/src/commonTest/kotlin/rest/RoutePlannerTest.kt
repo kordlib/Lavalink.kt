@@ -2,7 +2,6 @@ package rest
 
 import RestTestLavakord
 import TestNode
-import Tests
 import Tests.runBlocking
 import dev.schlaubi.lavakord.NoRoutePlannerException
 import dev.schlaubi.lavakord.rest.*
@@ -62,7 +61,7 @@ class RoutePlannerTest {
     @JsName("unmarkAllAddresses")
     @Test
     fun `unmark all addresses`() {
-        Tests.runBlocking {
+        runBlocking {
             node.unmarkAllAddresses()
         }
     }
@@ -70,7 +69,7 @@ class RoutePlannerTest {
     @JsName("unmarkAddress")
     @Test
     fun `unmark address`() {
-        Tests.runBlocking {
+        runBlocking {
             node.unmarkAddress(ADDRESS)
         }
     }
@@ -79,7 +78,7 @@ class RoutePlannerTest {
     @Test
     fun `test error handling if no route planner is configured`() {
         routePlannerClass.value = null
-        Tests.runBlocking {
+        runBlocking {
             assertNull(node.addressStatusOrNull())
             assertFailsWith<NoRoutePlannerException> { node.addressStatus() }
         }
@@ -89,7 +88,7 @@ class RoutePlannerTest {
     @Test
     fun `test address status on RotatingNanoIpRoutePlanner`() {
         routePlannerClass.value = RoutePlannerStatus.Class.RotatingNanoIpRoutePlanner
-        Tests.runBlocking {
+        runBlocking {
             node.addressStatus().run {
                 assertTrue(this is RotatingNanoIpRoutePlanner)
                 `class` shouldBe RoutePlannerStatus.Class.RotatingNanoIpRoutePlanner
@@ -107,7 +106,7 @@ class RoutePlannerTest {
     @Test
     fun `test address status on RotatingIpRoutePlanner`() {
         routePlannerClass.value = RoutePlannerStatus.Class.RotatingIpRoutePlanner
-        Tests.runBlocking {
+        runBlocking {
             node.addressStatus().run {
                 assertTrue(this is RotatingIpRoutePlanner)
                 `class` shouldBe RoutePlannerStatus.Class.RotatingIpRoutePlanner
@@ -126,7 +125,7 @@ class RoutePlannerTest {
     @Test
     fun `test address status on NanoIpRoutePlanner`() {
         routePlannerClass.value = RoutePlannerStatus.Class.NanoIpRoutePlanner
-        Tests.runBlocking {
+        runBlocking {
             node.addressStatus().run {
                 assertTrue(this is NanoIpRoutePlanner)
                 `class` shouldBe RoutePlannerStatus.Class.NanoIpRoutePlanner

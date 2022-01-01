@@ -4,10 +4,8 @@ plugins {
     `maven-publish`
 }
 
-val me = project
+val me: Project = project
 
-// Without Gradle won't find any project with the publish plugin applied
-javaPlatform.allowDependencies()
 rootProject.subprojects {
     if (name != me.name) {
         me.evaluationDependsOn(path)
@@ -16,15 +14,13 @@ rootProject.subprojects {
 
 dependencies {
     constraints {
-        rootProject.subprojects.forEach {
-            if (it.plugins.hasPlugin("maven-publish") && it.name != name) {
-                it.publishing.publications.all {
-                    if (this is MavenPublication) {
-                        if (!artifactId.endsWith("-metadata") &&
-                            !artifactId.endsWith("-kotlinMultiplatform")
-                        ) {
-                            api(groupId, artifactId, version)
-                        }
+        rootProject.subprojects.forEach { subproject ->
+            if (subproject.plugins.hasPlugin("maven-publish") && subproject.name != name) {
+                subproject.publishing.publications.withType<MavenPublication> {
+                    if (!artifactId.endsWith("-metadata") &&
+                        !artifactId.endsWith("-kotlinMultiplatform")
+                    ) {
+                        api("$groupId:$artifactId:$version")
                     }
                 }
             }

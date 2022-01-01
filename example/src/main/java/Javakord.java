@@ -3,11 +3,11 @@ import dev.schlaubi.lavakord.interop.JavaLavakord;
 import dev.schlaubi.lavakord.interop.TrackUtil;
 import dev.schlaubi.lavakord.interop.jda.LavakordJDABuilder;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 
 public class Javakord extends ListenerAdapter {
 
@@ -24,25 +24,28 @@ public class Javakord extends ListenerAdapter {
         var container = lavakordBuilder.build();
         lavakord = JavaInterop.createJavaInterface(container.getLavakord());
         lavakord.addNode("ws://localhost:8080", "youshallnotpass");
+        var jda = container.getJda();
+        jda.updateCommands()
+                .addCommands(
+                        new CommandData("connect", "Joins the current channel"),
+                        new CommandData("play", "Plays a new song")
+                                .addOption(OptionType.STRING, "query", "The query you want to play"),
+                        new CommandData("destroy", "Let the bot leave the channel"),
+                        new CommandData("pause", "Pauses or unpauses playpack")
+                )
+                .queue();
     }
 
     @Override
-    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
-        var content = event.getMessage().getContentRaw();
-        if (!content.startsWith("!")) return;
-        var withoutPrefix = content.substring(1);
-
-        var argsRaw = withoutPrefix.split("\\s+");
-        var invoke = argsRaw[0];
-        var args = Arrays.copyOfRange(argsRaw, 1, argsRaw.length);
-
+    public void onSlashCommand(@NotNull SlashCommandEvent event) {
+        var invoke = event.getName();
         var link = lavakord.getLink(event.getGuild().getIdLong());
         var player = link.getPlayer();
 
         switch (invoke) {
             case "connect" -> {
                 var voiceState = event.getMember().getVoiceState();
-                if (voiceState == null || !voiceState.inVoiceChannel()) {
+                if (voiceState == null || !voiceState.inAudioChannel()) {
                     event.getChannel().sendMessage("Not in VC").queue();
                     return;
                 }
@@ -50,26 +53,25 @@ public class Javakord extends ListenerAdapter {
 
                 link.connectAudio(voiceState.getChannel().getIdLong());
             }
-            case "destroy", "ragequit", "leave" -> link.disconnectAudio();
+            case "destroy" -> link.disconnectAudio();
             case "play" -> {
-                var query = String.join(" ", args);
+                var query = event.getOption("query").getAsString();
                 TrackUtil.loadItem(link, query).thenAccept(track -> {
                     switch (track.getLoadType()) {
                         case TRACK_LOADED -> player.playTrack(track.getTrack());
                         case PLAYLIST_LOADED, SEARCH_RESULT -> player.playTrack(track.getTracks().get(0));
                         case NO_MATCHES -> event.getChannel().sendMessage("No tracks found!").queue();
                         case LOAD_FAILED -> event.getChannel().sendMessage("Load failed: %s".formatted(track.getException().getMessage())).queue();
-
                     }
                 });
             }
             case "pause" -> player.pause(!player.getPaused());
             case "volume" -> {
-                var volume = Integer.parseInt(args[0]);
-                player.setVolume(volume);
+                var volume = event.getOption("volume").getAsLong();
+                player.setVolume((int) volume);
             }
             case "seek" -> {
-                var lng = Long.parseLong(args[0]) * 1000;
+                var lng = event.getOption("position").getAsLong() * 1000;
                 var track = player.getPlayingTrack();
                 if (track == null) {
                     event.getChannel().sendMessage("Not playing anything").queue();
@@ -83,8 +85,8 @@ public class Javakord extends ListenerAdapter {
                 player.seekTo(newPosition);
             }
             case "eq" -> {
-                var band = Integer.parseInt(args[0]);
-                var gain = Float.parseFloat(args[0]);
+                var band = (int) event.getOption("band").getAsLong();
+                var gain = (float) event.getOption("gain").getAsDouble();
 
                 player.updateEqualizer()
                         .setBand(band, gain)
