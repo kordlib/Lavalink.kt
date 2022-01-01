@@ -2,28 +2,32 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>EqualizerBuilder</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
+</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" defer></script><script type="text/javascript" src="../../../scripts/prism.js" async></script><script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+
   
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="../../../index.html"><span>lavakord</span></a></div>
+      <div>3.1.0</div>
+      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+      </div>
+    </div>
     <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+      <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
       <div id="main">
-        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
         <div class="main-content" id="content" pageids="java::dev.schlaubi.lavakord.interop/EqualizerBuilder///PointingToDeclaration//-875782939">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">java</a>/<a href="../index.html">dev.schlaubi.lavakord.interop</a>/<a href="index.html">EqualizerBuilder</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
+          <div class="breadcrumbs"><a href="../../index.html">java</a>/<a href="../index.html">dev.schlaubi.lavakord.interop</a>/<a href="index.html">EqualizerBuilder</a></div>
           <div class="cover ">
             <h1 class="cover"><span>Equalizer</span><wbr><span><span>Builder</span></span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">class <a href="index.html">EqualizerBuilder</a>(bands: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>&gt;)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Builder for Equalizer configuration.</p><p class="paragraph">Call <a href="apply.html">apply</a> to apply it to a <a href="../-java-player/index.html">JavaPlayer</a>. This contains the previous configuration from the player. To reset call <a href="reset.html">reset</a>.</p></div></div>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">EqualizerBuilder</a><span class="token punctuation">(</span>bands<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Builder for Equalizer configuration.</p><p class="paragraph">Call <a href="apply.html">apply</a> to apply it to a <a href="../-java-player/index.html">JavaPlayer</a>. This contains the previous configuration from the player. To reset call <a href="reset.html">reset</a>.</p></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button></div>
@@ -32,12 +36,14 @@
               <div class="table" data-togglable="Constructors"><a data-name="2078527631%2FConstructors%2F-875782939" anchor-label="EqualizerBuilder" id="2078527631%2FConstructors%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-equalizer-builder.html">EqualizerBuilder</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2078527631%2FConstructors%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="-equalizer-builder.html"><span>Equalizer</span><wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2078527631%2FConstructors%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="-equalizer-builder.html">EqualizerBuilder</a>(bands: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>&gt; = mutableMapOf())<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-equalizer-builder.html"><span class="token function">EqualizerBuilder</span></a><span class="token punctuation">(</span>bands<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator"> = </span>mutableMapOf()<span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -47,51 +53,45 @@
               <div class="table" data-togglable="Functions"><a data-name="2101392331%2FFunctions%2F-875782939" anchor-label="apply" id="2101392331%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="apply.html"><span><span>apply</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2101392331%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="apply.html"><span><span>apply</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2101392331%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="apply.html">apply</a>(player: <a href="../-java-player/index.html">JavaPlayer</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Applies this configuration to a <a href="../-java-player/index.html">JavaPlayer</a>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="apply.html"><span class="token function">apply</span></a><span class="token punctuation">(</span>player<span class="token operator">: </span><a href="../-java-player/index.html">JavaPlayer</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Applies this configuration to a <a href="../-java-player/index.html">JavaPlayer</a>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="-1661940880%2FFunctions%2F-875782939" anchor-label="reset" id="-1661940880%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="reset.html"><span><span>reset</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1661940880%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="reset.html"><span><span>reset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1661940880%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="reset.html">reset</a>()<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Resets all bands.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="reset.html"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Resets all bands.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="440480810%2FFunctions%2F-875782939" anchor-label="setBand" id="440480810%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="set-band.html"><span>set</span><wbr><span><span>Band</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="440480810%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="set-band.html"><span>set</span><wbr><span><span>Band</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="440480810%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="set-band.html">setBand</a>(band: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, gain: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>): <a href="index.html">EqualizerBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Set's the gain of <a href="set-band.html">band</a> to <a href="set-band.html">gain</a>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-band.html"><span class="token function">setBand</span></a><span class="token punctuation">(</span>band<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span>gain<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">EqualizerBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Set's the gain of <a href="set-band.html">band</a> to <a href="set-band.html">gain</a>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -99,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   

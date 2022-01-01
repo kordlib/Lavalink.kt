@@ -2,46 +2,52 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>JavaPlayer</title>
-</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" async></script>
+</head><body><link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><link href="../../../styles/prism.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script><script type="text/javascript" src="../../../scripts/main.js" defer></script><script type="text/javascript" src="../../../scripts/prism.js" async></script><script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+
   
+    <div class="navigation-wrapper" id="navigation-wrapper">
+      <div id="leftToggler"><span class="icon-toggler"></span></div>
+      <div class="library-name"><a href="../../../index.html"><span>lavakord</span></a></div>
+      <div>3.1.0</div>
+      <div class="pull-right d-flex"><button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+      </div>
+    </div>
     <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-            <div id="logo"></div>
-          </a>
-        <div id="paneSearch"></div>
+      <div id="leftColumn">
         <div id="sideMenu"></div>
       </div>
       <div id="main">
-        <script type="text/javascript" src="../../../scripts/main.js"></script><div id="leftToggler"><span class="icon-toggler"></span></div>
-
         <div class="main-content" id="content" pageids="java::dev.schlaubi.lavakord.interop/JavaPlayer///PointingToDeclaration//-875782939">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">java</a>/<a href="../index.html">dev.schlaubi.lavakord.interop</a>/<a href="index.html">JavaPlayer</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
+          <div class="breadcrumbs"><a href="../../index.html">java</a>/<a href="../index.html">dev.schlaubi.lavakord.interop</a>/<a href="index.html">JavaPlayer</a></div>
           <div class="cover ">
             <h1 class="cover"><span>Java</span><wbr><span><span>Player</span></span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">class <a href="index.html">JavaPlayer</a>(suspendingPlayer: <a href="../../../core/dev.schlaubi.lavakord.audio.player/-player/index.html">Player</a>) : <span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Wrapper class for <a href="../../../core/dev.schlaubi.lavakord.audio.player/-player/index.html">Player</a> which replaces suspending functions by using <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>.</p></div></div>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">JavaPlayer</a><span class="token punctuation">(</span>suspendingPlayer<span class="token operator">: </span><a href="../../../core/dev.schlaubi.lavakord.audio.player/-player/index.html">Player</a><span class="token punctuation">)</span> : <span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Wrapper class for <a href="../../../core/dev.schlaubi.lavakord.audio.player/-player/index.html">Player</a> which replaces suspending functions by using <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>.</p></div></div>
           </div>
           <div class="tabbedcontent">
             <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="See also">See also</button></div>
             <div class="tabs-section-body">
               <h2 class="">See also</h2>
               <div data-togglable="See also">
-                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="See also"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue WithExtraAttributes RowTitle"><div class=""><span class="inline-flex"><a href="../../../core/dev.schlaubi.lavakord.audio.player/-player/index.html"><span>dev.</span><wbr><span>schlaubi.</span><wbr><span>lavakord.</span><wbr><span>audio.</span><wbr><span>player.</span><wbr><span>Player</span></a></span><span class="inline-flex"><div data-togglable="See also"></div></span></div><div></div></div></div></div></div></div></div>
+                <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="See also"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><a href="../../../core/dev.schlaubi.lavakord.audio.player/-player/index.html"><span>dev.</span><wbr><span>schlaubi.</span><wbr><span>lavakord.</span><wbr><span>audio.</span><wbr><span>player.</span><wbr><span>Player</span></a></div></span></div><div><div class="title"><div data-togglable="See also"></div></div></div></div></div></div></div></div></div>
               </div>
               <h2 class="tabbedcontent">Constructors</h2>
               <div class="table" data-togglable="Constructors"><a data-name="1984793420%2FConstructors%2F-875782939" anchor-label="JavaPlayer" id="1984793420%2FConstructors%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue TabbedContent">
-                    <div class=""><span class="inline-flex"><a href="-java-player.html">JavaPlayer</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1984793420%2FConstructors%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="-java-player.html"><span>Java</span><wbr><span><span>Player</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1984793420%2FConstructors%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="-java-player.html">JavaPlayer</a>(suspendingPlayer: <a href="../../../core/dev.schlaubi.lavakord.audio.player/-player/index.html">Player</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-java-player.html"><span class="token function">JavaPlayer</span></a><span class="token punctuation">(</span>suspendingPlayer<span class="token operator">: </span><a href="../../../core/dev.schlaubi.lavakord.audio.player/-player/index.html">Player</a><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -51,119 +57,105 @@
               <div class="table" data-togglable="Functions"><a data-name="-1179122636%2FFunctions%2F-875782939" anchor-label="pause" id="-1179122636%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="pause.html"><span><span>pause</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1179122636%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="pause.html"><span><span>pause</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1179122636%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="pause.html">pause</a>(doPause: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = true): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Pauses/unpauses playback of the current track.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="pause.html"><span class="token function">pause</span></a><span class="token punctuation">(</span>doPause<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Pauses/unpauses playback of the current track.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="-939987068%2FFunctions%2F-875782939" anchor-label="playTrack" id="-939987068%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="play-track.html"><span>play</span><wbr><span><span>Track</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-939987068%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="play-track.html"><span>play</span><wbr><span><span>Track</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-939987068%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="play-track.html">playTrack</a>(track: <a href="../../../core/dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun <a href="play-track.html">playTrack</a>(track: <a href="../../../core/dev.schlaubi.lavakord.rest/-track-response/-partial-track/index.html">TrackResponse.PartialTrack</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun <a href="play-track.html">playTrack</a>(track: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Changes the currently playing track to <a href="play-track.html">track</a>.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="play-track.html"><span class="token function">playTrack</span></a><span class="token punctuation">(</span>track<span class="token operator">: </span><a href="../../../core/dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="play-track.html"><span class="token function">playTrack</span></a><span class="token punctuation">(</span>track<span class="token operator">: </span><a href="../../../core/dev.schlaubi.lavakord.rest/-track-response/-partial-track/index.html">TrackResponse.PartialTrack</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="play-track.html"><span class="token function">playTrack</span></a><span class="token punctuation">(</span>track<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Changes the currently playing track to <a href="play-track.html">track</a>.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="1219576362%2FFunctions%2F-875782939" anchor-label="seekTo" id="1219576362%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="seek-to.html"><span>seek</span><wbr><span><span>To</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1219576362%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="seek-to.html"><span>seek</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1219576362%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">suspend fun <a href="seek-to.html">seekTo</a>(position: <a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun <a href="seek-to.html">seekTo</a>(position: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Seeks to a specific <a href="seek-to.html">position</a> in the current playback.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="seek-to.html"><span class="token function">seekTo</span></a><span class="token punctuation">(</span>position<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html">Duration</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="seek-to.html"><span class="token function">seekTo</span></a><span class="token punctuation">(</span>position<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Seeks to a specific <a href="seek-to.html">position</a> in the current playback.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="-1988978649%2FFunctions%2F-875782939" anchor-label="setVolume" id="-1988978649%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="set-volume.html"><span>set</span><wbr><span><span>Volume</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1988978649%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="set-volume.html"><span>set</span><wbr><span><span>Volume</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1988978649%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="set-volume.html">setVolume</a>(volume: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Changes the volume of the current player.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="set-volume.html"><span class="token function">setVolume</span></a><span class="token punctuation">(</span>volume<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Changes the volume of the current player.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="-386426340%2FFunctions%2F-875782939" anchor-label="stopTrack" id="-386426340%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="stop-track.html"><span>stop</span><wbr><span><span>Track</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-386426340%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="stop-track.html"><span>stop</span><wbr><span><span>Track</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-386426340%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="stop-track.html">stopTrack</a>(): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Stops playback of the currently playing track.</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="stop-track.html"><span class="token function">stopTrack</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Stops playback of the currently playing track.</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="-1181214168%2FFunctions%2F-875782939" anchor-label="unPause" id="-1181214168%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="un-pause.html"><span>un</span><wbr><span><span>Pause</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1181214168%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="un-pause.html"><span>un</span><wbr><span><span>Pause</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1181214168%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="un-pause.html">unPause</a>(): <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Unpauses the playback</p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="un-pause.html"><span class="token function">unPause</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Void.html">Void</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unpauses the playback</p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
 <a data-name="372818556%2FFunctions%2F-875782939" anchor-label="updateEqualizer" id="372818556%2FFunctions%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="update-equalizer.html"><span>update</span><wbr><span><span>Equalizer</span></span></a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="372818556%2FFunctions%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="update-equalizer.html"><span>update</span><wbr><span><span>Equalizer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="372818556%2FFunctions%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace">fun <a href="update-equalizer.html">updateEqualizer</a>(): <a href="../-equalizer-builder/index.html">EqualizerBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<div class="brief "><p class="paragraph">Creates an <a href="../-equalizer-builder/index.html">EqualizerBuilder</a> to update equalizer config. <strong>This does not update the equalizers. To update equalizers please call </strong><a href="../-equalizer-builder/apply.html"><strong>EqualizerBuilder.apply</strong></a></p></div></div>
-</div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="update-equalizer.html"><span class="token function">updateEqualizer</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-equalizer-builder/index.html">EqualizerBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Creates an <a href="../-equalizer-builder/index.html">EqualizerBuilder</a> to update equalizer config. <strong>This does not update the equalizers. To update equalizers please call </strong><a href="../-equalizer-builder/apply.html"><strong>EqualizerBuilder.apply</strong></a></p></div></div></div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -172,12 +164,14 @@
               <div class="table" data-togglable="Properties"><a data-name="-1749388738%2FProperties%2F-875782939" anchor-label="coroutineContext" id="-1749388738%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="coroutine-context.html">coroutineContext</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1749388738%2FProperties%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="coroutine-context.html">coroutineContext</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1749388738%2FProperties%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="-1749388738%2FProperties%2F-875782939" anchor-label="coroutineContext" id="-1749388738%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace">open override val <a href="coroutine-context.html">coroutineContext</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="-1749388738%2FProperties%2F-875782939" anchor-label="coroutineContext" id="-1749388738%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="coroutine-context.html">coroutineContext</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -185,12 +179,14 @@
 <a data-name="1985729191%2FProperties%2F-875782939" anchor-label="paused" id="1985729191%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="paused.html">paused</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1985729191%2FProperties%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="paused.html">paused</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1985729191%2FProperties%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="1985729191%2FProperties%2F-875782939" anchor-label="paused" id="1985729191%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace">val <a href="paused.html">paused</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1985729191%2FProperties%2F-875782939" anchor-label="paused" id="1985729191%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">whether the playback is currently paused or not</p></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="1985729191%2FProperties%2F-875782939" anchor-label="paused" id="1985729191%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="paused.html">paused</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1985729191%2FProperties%2F-875782939" anchor-label="paused" id="1985729191%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">whether the playback is currently paused or not</p></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -198,12 +194,14 @@
 <a data-name="-1585210632%2FProperties%2F-875782939" anchor-label="playingTrack" id="-1585210632%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="playing-track.html">playingTrack</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1585210632%2FProperties%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="playing-track.html">playingTrack</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1585210632%2FProperties%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="-1585210632%2FProperties%2F-875782939" anchor-label="playingTrack" id="-1585210632%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace">val <a href="playing-track.html">playingTrack</a>: <a href="../../../core/dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1585210632%2FProperties%2F-875782939" anchor-label="playingTrack" id="-1585210632%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">the currently playing <a href="../../../core/dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a></p></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="-1585210632%2FProperties%2F-875782939" anchor-label="playingTrack" id="-1585210632%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="playing-track.html">playingTrack</a><span class="token operator">: </span><a href="../../../core/dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1585210632%2FProperties%2F-875782939" anchor-label="playingTrack" id="-1585210632%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">the currently playing <a href="../../../core/dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a></p></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -211,12 +209,14 @@
 <a data-name="1835695372%2FProperties%2F-875782939" anchor-label="position" id="1835695372%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="position.html">position</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1835695372%2FProperties%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="position.html">position</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1835695372%2FProperties%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="1835695372%2FProperties%2F-875782939" anchor-label="position" id="1835695372%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace">val <a href="position.html">position</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1835695372%2FProperties%2F-875782939" anchor-label="position" id="1835695372%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">the position of the current song the player is at (-1 if <a href="playing-track.html">playingTrack</a> is null)</p></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="1835695372%2FProperties%2F-875782939" anchor-label="position" id="1835695372%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="position.html">position</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1835695372%2FProperties%2F-875782939" anchor-label="position" id="1835695372%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">the position of the current song the player is at (-1 if <a href="playing-track.html">playingTrack</a> is null)</p></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -224,12 +224,14 @@
 <a data-name="930530875%2FProperties%2F-875782939" anchor-label="volume" id="930530875%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a>
                 <div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain">
                   <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="volume.html">volume</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="930530875%2FProperties%2F-875782939"></span>
+                    <div class=""><span class="inline-flex">
+                        <div><a href="volume.html">volume</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="930530875%2FProperties%2F-875782939"></span>
                           <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                         </span></span></div>
                     <div>
                       <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="930530875%2FProperties%2F-875782939" anchor-label="volume" id="930530875%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace">val <a href="volume.html">volume</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="930530875%2FProperties%2F-875782939" anchor-label="volume" id="930530875%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">the current volume of this player</p></div></div></div>
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><a data-name="930530875%2FProperties%2F-875782939" anchor-label="volume" id="930530875%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="volume.html">volume</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="930530875%2FProperties%2F-875782939" anchor-label="volume" id="930530875%2FProperties%2F-875782939" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">the current volume of this player</p></div></div></div>
                       </div>
                     </div>
                   </div>
@@ -238,7 +240,7 @@
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2021 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
   
