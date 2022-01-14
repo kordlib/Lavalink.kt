@@ -46,11 +46,11 @@ fun VersionCatalogBuilder.kotlinx() {
     alias("kotlinx-coroutines-jdk8").to("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     alias("kotlinx-coroutines-test").to("org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
     alias("kotlinx-serialization-json").to("org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.3.2")
-    alias("kotlinx-datetime").to("org.jetbrains.kotlinx", "kotlinx-datetime").version("0.3.1")
+    alias("kotlinx-datetime").to("org.jetbrains.kotlinx", "kotlinx-datetime").version("0.3.2")
 }
 
 fun VersionCatalogBuilder.ktor() {
-    val ktor = version("ktor", "1.6.3")
+    val ktor = version("ktor", "1.6.7")
     alias("ktor-io").to("io.ktor", "ktor-io").versionRef(ktor)
     alias("ktor-utils").to("io.ktor", "ktor-utils").versionRef(ktor)
     alias("ktor-client-websockets").to("io.ktor", "ktor-client-websockets").versionRef(ktor)

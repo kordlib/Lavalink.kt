@@ -21,7 +21,7 @@ kotlin {
             dependencies {
                 api(projects.core)
                 api(projects.jda)
-                api("net.dv8tion:JDA:4.2.1_253") {
+                api("net.dv8tion:JDA:5.0.0-alpha.4") {
                     exclude(module = "opus-java")
                 }
                 implementation(libs.kotlinx.coroutines.jdk8)
