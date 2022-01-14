@@ -5,17 +5,22 @@ plugins {
 
 publishing {
     repositories {
-        maven {
-            setUrl("https://schlaubi.jfrog.io/artifactory/lavakord")
-            credentials {
-                username = System.getenv("BINTRAY_USER")
-                password = System.getenv("BINTRAY_KEY")
+        listOf(
+            "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/",
+            "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+        ).forEach {
+            maven {
+                setUrl(it)
+                credentials {
+                    username = System.getenv("SONATYPE_USER")
+                    password = System.getenv("SONATYPE_KEY")
+                }
             }
         }
     }
 
     publications {
-        withType<MavenPublication>() {
+        withType<MavenPublication> {
             pom {
                 name.set(project.name)
                 description.set("Coroutine based client for Lavalink (Kotlin and Java)")
