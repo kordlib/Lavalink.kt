@@ -3,6 +3,12 @@ plugins {
     signing
 }
 
+val dokkaJar by tasks.registering(Jar::class) {
+    dependsOn("dokkaHtml")
+    archiveClassifier.set("javadoc")
+    from(tasks.getByName("dokkaHtml"))
+}
+
 publishing {
     repositories {
         listOf(
@@ -21,6 +27,7 @@ publishing {
 
     publications {
         withType<MavenPublication> {
+            artifact(dokkaJar)
             pom {
                 name.set(project.name)
                 description.set("Coroutine based client for Lavalink (Kotlin and Java)")

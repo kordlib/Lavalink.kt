@@ -2,7 +2,6 @@ plugins {
     `lavalink-module`
     `lavalink-publishing`
     kotlin("plugin.serialization")
-    id("org.jetbrains.dokka")
     id("kotlinx-atomicfu")
 }
 
