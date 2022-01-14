@@ -57,7 +57,7 @@ val KordCommandEvent.player: Player
     get() = link.player
 
 @AutoWired
-@OptIn(ExperimentalTime::class, FiltersApi::class)
+@OptIn(ExperimentalTime::class)
 fun testModule(): ModuleModifier = module("music-test") {
     command("connectAudio") {
         invoke {
@@ -153,12 +153,14 @@ fun testModule(): ModuleModifier = module("music-test") {
             IntArgument.inRange(1..15).map { it - 1 },
             DoubleArgument.map { it.toFloat() }.inRange(-0.25F..0.25F)
         ) { band, gain ->
-            player.applyEqualizer {
+            // you can also do
+//              2 gain 0.25F
+            player.applyFilters(fun EqualizerBuilder.() {
                 band(band) gain gain
 
                 // you can also do
-//              2 gain 0.25F
-            }
+                //              2 gain 0.25F
+            })
         }
     }
 

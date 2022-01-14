@@ -14,6 +14,8 @@ import kotlin.time.DurationUnit
  * @property paused whether the playback is currently paused or not
  * @property volume the current volume of this player
  * @property position the position of the current song the player is at (-1 if [playingTrack] is null)
+ * @property positionDuration the position of the current song the player is at (-1 if [playingTrack] is null)
+ * @property equalizers the applied equalizers in this player
  */
 public interface Player : EventSource<TrackEvent> {
     public val playingTrack: Track?
@@ -29,13 +31,6 @@ public interface Player : EventSource<TrackEvent> {
      * Changes the currently playing track to [track].
      */
     public suspend fun playTrack(track: Track): Unit = playTrack(track.track)
-
-//    /**
-//     * Changes the currently playing track to [track].
-//     */
-//    @Suppress("BlockingMethodInNonBlockingContext")
-//    @Deprecated("Replaced by new track API", ReplaceWith("playTrack"))
-//    public suspend fun playTrack(track: AudioTrack): Unit = playTrack(LavalinkUtil.toMessage(track))
 
     /**
      * Changes the currently playing track to [track].

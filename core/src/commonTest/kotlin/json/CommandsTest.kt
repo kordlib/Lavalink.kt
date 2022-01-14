@@ -50,14 +50,6 @@ class CommandsTest {
         }
     }
 
-    @JsName("testEqCommand")
-    @Test
-    fun `test equalizer command serialization`() {
-        testPayload<GatewayPayload.EqualizerCommand>(EQUALIZER_COMMAND) {
-            bands shouldBe listOf(GatewayPayload.EqualizerCommand.Band(0, 0.2F))
-        }
-    }
-
     @JsName("testDestroyCommand")
     @Test
     fun `test destroy command serialization`() {

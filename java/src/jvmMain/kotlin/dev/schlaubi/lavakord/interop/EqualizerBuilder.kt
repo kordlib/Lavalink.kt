@@ -1,6 +1,6 @@
 package dev.schlaubi.lavakord.interop
 
-import dev.schlaubi.lavakord.audio.player.applyEqualizer
+import dev.schlaubi.lavakord.audio.player.applyFilters
 import dev.schlaubi.lavakord.audio.player.gain
 import java.util.concurrent.CompletableFuture
 import dev.schlaubi.lavakord.audio.player.EqualizerBuilder as KotlinEqualizerBuilder
@@ -40,7 +40,7 @@ public class EqualizerBuilder(
         }
 
         return player.run {
-            player.suspendingPlayer.applyEqualizer(builder)
+            player.suspendingPlayer.applyFilters(builder)
         }
     }
 }

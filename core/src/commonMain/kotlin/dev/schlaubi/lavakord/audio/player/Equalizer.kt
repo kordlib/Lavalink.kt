@@ -1,10 +1,7 @@
 package dev.schlaubi.lavakord.audio.player
 
-import dev.schlaubi.lavakord.audio.internal.GatewayPayload
-import dev.schlaubi.lavakord.checkImplementation
+import kotlinx.serialization.Serializable
 import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 
 /**
  * The default gain of all bands
@@ -12,16 +9,31 @@ import kotlin.contracts.contract
 public const val DEFAULT_GAIN: Float = 0F
 
 /**
+ * There are 15 bands (0-14) that can be changed.
+ *
+ * @property band the number of the band
+ * @property gain is the multiplier for the given band. The default value is 0. Valid values range from -0.25 to 1.0,
+ *              where -0.25 means the given band is completely muted, and 0.25 means it is doubled. Modifying the gain could
+ *              also change the volume of the output.
+ */
+@Serializable
+public data class Band(val band: Int, val gain: Float)
+
+
+/**
  * Builder for equalizer settings.
  *
  * ```kotlin
- * player.applyEqualizer {
+ * player.applyFilters {
  *  band(3) gain 0.25
  * }
  * ```
  */
-public class EqualizerBuilder internal constructor(private val guildId: ULong) {
-    internal val bands = mutableListOf<GatewayPayload.EqualizerCommand.Band>()
+public interface EqualizerBuilder {
+    /**
+     * The bands to modify.
+     */
+    public val bands: MutableList<Band>
 
     /**
      * Resets all bands configured in this builder.
@@ -55,8 +67,6 @@ public class EqualizerBuilder internal constructor(private val guildId: ULong) {
      * @see BandConfigurator.gain
      */
     public class BandConfigurator internal constructor(internal val id: Int, internal val builder: EqualizerBuilder)
-
-    internal fun toPayload() = GatewayPayload.EqualizerCommand(guildId.toString(), bands)
 }
 
 /**
@@ -73,14 +83,18 @@ public fun EqualizerBuilder.BandConfigurator.reset() {
  */
 public infix fun EqualizerBuilder.BandConfigurator.gain(gain: Float) {
     require(gain in -.25F..1F) { "Gain needs to be between -0.25 (muted) and 1. 0 = normal; 0.25 = double" }
-    builder.bands += GatewayPayload.EqualizerCommand.Band(id, gain)
+    builder.bands.add(Band(id, gain))
 }
 
 /**
  * Resets all Bands of this player.
  */
+@Deprecated(
+    "Replaced by filters api",
+    ReplaceWith("applyFilters { bands.clear() }", "dev.schlaubi.lavakord.audio.player.applyFilters")
+)
 public suspend fun Player.resetEqualizer() {
-    applyEqualizer { reset() }
+    applyFilters { bands.clear() }
 }
 
 /**
@@ -91,11 +105,12 @@ public suspend fun Player.resetEqualizer() {
  * @see EqualizerBuilder.BandConfigurator.gain
  */
 @OptIn(ExperimentalContracts::class)
+@Deprecated(
+    "Replaced by filters api",
+    ReplaceWith("applyFilters(builder)", "dev.schlaubi.lavakord.audio.player.applyFilters")
+)
 public suspend fun Player.applyEqualizer(builder: EqualizerBuilder.() -> Unit) {
-    contract {
-        callsInPlace(builder, InvocationKind.EXACTLY_ONCE)
+    applyFilters {
+        builder()
     }
-    checkImplementation()
-    equalizerBuilder.apply(builder)
-    node.send(equalizerBuilder.toPayload())
 }

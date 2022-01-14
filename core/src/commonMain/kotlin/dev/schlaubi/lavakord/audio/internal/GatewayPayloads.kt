@@ -3,8 +3,8 @@
 package dev.schlaubi.lavakord.audio.internal
 
 import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
+import dev.schlaubi.lavakord.audio.player.Band
 import dev.schlaubi.lavakord.audio.player.Filters
-import dev.schlaubi.lavakord.audio.player.FiltersApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
@@ -75,25 +75,22 @@ internal sealed class GatewayPayload {
     ) : GatewayPayload()
 
     @Serializable
-    @SerialName("equalizer")
-    data class EqualizerCommand(
-        override val guildId: String, val bands: List<Band>
-    ) : GatewayPayload() {
-        @Serializable
-        data class Band(val band: Int, val gain: Float)
-    }
-
-    @FiltersApi
-    @Serializable
     @SerialName("filters")
     data class FiltersCommand(
         override val guildId: String,
+        @SerialName("equalizer")
+        override val bands: MutableList<Band> = mutableListOf(),
         override var volume: Float? = null,
         override var karaoke: Karaoke? = null,
         override var timescale: Timescale? = null,
         override var tremolo: Tremolo? = null,
-        override var vibrato: Vibrato? = null
+        override var vibrato: Vibrato? = null,
+        override var rotation: Rotation? = null,
+        override var distortion: Distortion? = null,
+        override var channelMix: ChannelMix? = null,
+        override var lowPass: LowPass? = null
     ) : GatewayPayload(), Filters {
+
         @Serializable
         data class Karaoke(
             override var level: Float,
@@ -205,6 +202,40 @@ internal sealed class GatewayPayload {
                 _frequency = 2F
                 _depth = .5F
             }
+        }
+
+        @Serializable
+        data class Rotation(override var rotationHz: Float) : Filters.Rotation {
+            constructor() : this(0.0f)
+        }
+
+        @Serializable
+        data class Distortion(
+            override var sinOffset: Float,
+            override var sinScale: Float,
+            override var cosOffset: Float,
+            override var cosScale: Float,
+            override var tanOffset: Float,
+            override var tanScale: Float,
+            override var offset: Float,
+            override var scal: Float
+        ) : Filters.Distortion {
+            constructor() : this(0f, 1f, 0f, 1f, 0f, 1f, 0f, 1f)
+        }
+
+        @Serializable
+        data class ChannelMix(
+            override var leftToLeft: Float,
+            override var leftToRight: Float,
+            override var rightToLeft: Float,
+            override var rightToRight: Float
+        ) : Filters.ChannelMix {
+            constructor() : this(1f, 0f, 0f, 1f)
+        }
+
+        @Serializable
+        data class LowPass(override var smoothing: Float) : Filters.LowPass {
+            constructor() : this(20.0f)
         }
     }
 

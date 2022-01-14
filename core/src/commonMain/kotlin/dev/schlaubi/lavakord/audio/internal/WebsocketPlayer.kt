@@ -4,8 +4,7 @@ import dev.schlaubi.lavakord.audio.TrackEndEvent
 import dev.schlaubi.lavakord.audio.TrackEvent
 import dev.schlaubi.lavakord.audio.TrackStartEvent
 import dev.schlaubi.lavakord.audio.on
-import dev.schlaubi.lavakord.audio.player.EqualizerBuilder
-import dev.schlaubi.lavakord.audio.player.FiltersApi
+import dev.schlaubi.lavakord.audio.player.Band
 import dev.schlaubi.lavakord.audio.player.Player
 import dev.schlaubi.lavakord.audio.player.Track
 import kotlinx.coroutines.CoroutineScope
@@ -33,20 +32,15 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
 
     override var volume: Int = 100
 
-    @FiltersApi
     @Suppress("unused")
     internal var filters: GatewayPayload.FiltersCommand = GatewayPayload.FiltersCommand(guildId.toString())
 
-    @Suppress("unused")
-    var equalizerBuilder: EqualizerBuilder = EqualizerBuilder(guildId)
-
     override val equalizers: Map<Int, Float>
-        get() =
-            equalizerBuilder.bands
-                .associateBy(GatewayPayload.EqualizerCommand.Band::band)
-                .mapValues { (_, band) ->
-                    band.gain
-                }
+        get() = filters.bands
+            .associateBy(Band::band)
+            .mapValues { (_, band) ->
+                band.gain
+            }
 
     override val events: Flow<TrackEvent>
         get() = node.events.filter { it.guildId == guildId }
