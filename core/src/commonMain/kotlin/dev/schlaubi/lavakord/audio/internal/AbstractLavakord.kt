@@ -5,8 +5,10 @@ import dev.schlaubi.lavakord.LavaKordOptions
 import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.audio.RestNode
 import dev.schlaubi.lavakord.computeIfAbsent
 import dev.schlaubi.lavakord.internal.HttpEngine
+import dev.schlaubi.lavakord.internal.RestNodeImpl
 import dev.schlaubi.lavakord.rest.RoutePlannerModule
 import io.ktor.client.*
 import io.ktor.client.engine.*
@@ -113,6 +115,13 @@ public abstract class AbstractLavakord internal constructor(
             node.connect()
         }
     }
+
+    override fun createRestNode(serverUri: Url, password: String, name: String?): RestNode = RestNodeImpl(
+        serverUri,
+        name ?: "Rest_only_node",
+        password,
+        this,
+    )
 
     override fun removeNode(name: String) {
         val node = nodesMap.remove(name)

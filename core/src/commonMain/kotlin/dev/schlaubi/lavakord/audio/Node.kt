@@ -5,9 +5,9 @@ import io.ktor.http.*
 import io.ktor.utils.io.core.*
 
 /**
- * Representation of a Lavalink node.
+ * Representation of a Lavalink node supporting rest calls.
  */
-public interface Node : EventSource<TrackEvent>, Closeable {
+public interface RestNode {
 
     /**
      * The host of the node.
@@ -29,6 +29,17 @@ public interface Node : EventSource<TrackEvent>, Closeable {
     public val authenticationHeader: String
 
     /**
+     * The [LavaKord] instance which created this node.
+     */
+    public val lavakord: LavaKord
+}
+
+/**
+ * Representation of a Lavalink node, supporting rest calls and a websocket connection.
+ */
+public interface Node : RestNode, EventSource<TrackEvent>, Closeable {
+
+    /**
      * Whether this node is currently available or not (e.g. reconnecting).
      */
     public val available: Boolean
@@ -37,10 +48,5 @@ public interface Node : EventSource<TrackEvent>, Closeable {
      * The last [StatsEvent] received from this node or null if no event has been received yet.
      */
     public val lastStatsEvent: StatsEvent?
-
-    /**
-     * The [LavaKord] instance which created this node.
-     */
-    public val lavakord: LavaKord
 
 }

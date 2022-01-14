@@ -2,6 +2,7 @@ package dev.schlaubi.lavakord.rest
 
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.audio.RestNode
 import dev.schlaubi.lavakord.audio.player.Track
 import io.ktor.util.*
 
@@ -30,7 +31,7 @@ public suspend fun Link.loadItem(query: String): TrackResponse = node.loadItem(q
  * @see TrackResponse
  */
 @OptIn(InternalAPI::class) // There is no other way for parameters
-public suspend fun Node.loadItem(query: String): TrackResponse = get {
+public suspend fun RestNode.loadItem(query: String): TrackResponse = get {
     path("loadtracks")
     parameters.append("identifier", query)
 }

@@ -2,6 +2,7 @@ package dev.schlaubi.lavakord
 
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.audio.RestNode
 import io.ktor.http.*
 import kotlinx.coroutines.CoroutineScope
 
@@ -47,6 +48,15 @@ public interface LavaKord : CoroutineScope {
      * @param name a optional name for the node
      */
     public fun addNode(serverUri: Url, password: String, name: String? = null)
+
+    /**
+     * Creates and returns a new [rest-only node][RestNode].
+     *
+     * @param serverUri the uri to connect to
+     * @param password the lavalink node password
+     * @param name a optional name for the node
+     */
+    public fun createRestNode(serverUri: Url, password: String, name: String? = null): RestNode
 
     /**
      * Removes a node from the cluster by it's [name].

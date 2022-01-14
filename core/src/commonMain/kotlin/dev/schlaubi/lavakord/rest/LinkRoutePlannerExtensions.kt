@@ -3,6 +3,7 @@ package dev.schlaubi.lavakord.rest
 import dev.schlaubi.lavakord.NoRoutePlannerException
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.audio.RestNode
 import io.ktor.http.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
@@ -24,7 +25,7 @@ public suspend fun Link.addressStatusOrNull(): RoutePlannerStatus<out RoutePlann
  *
  * @see RoutePlannerStatus
  */
-public suspend fun Node.addressStatusOrNull(): RoutePlannerStatus<out RoutePlannerStatus.Data>? {
+public suspend fun RestNode.addressStatusOrNull(): RoutePlannerStatus<out RoutePlannerStatus.Data>? {
     return try {
         val response = get<JsonElement> { path("/routeplanner/status") }
         // Due to a bug in ktor kx.ser doesn't get the correct info on K/JS and fails
@@ -56,7 +57,7 @@ public suspend fun Link.addressStatus(): RoutePlannerStatus<out RoutePlannerStat
  * @see NoRoutePlannerException
  * @see RoutePlannerStatus
  */
-public suspend fun Node.addressStatus(): RoutePlannerStatus<out RoutePlannerStatus.Data> =
+public suspend fun RestNode.addressStatus(): RoutePlannerStatus<out RoutePlannerStatus.Data> =
     addressStatusOrNull() ?: throw NoRoutePlannerException()
 
 /**
@@ -69,7 +70,7 @@ public suspend fun Link.unmarkAllAddresses(): Unit = node.unmarkAllAddresses()
 /**
  * Unmarks all failed route planner addresses.
  */
-public suspend fun Node.unmarkAllAddresses(): Unit = get { path("/routeplanner/free/all") }
+public suspend fun RestNode.unmarkAllAddresses(): Unit = get { path("/routeplanner/free/all") }
 
 /**
  * Unmarks the route planner [address].
@@ -81,7 +82,7 @@ public suspend fun Link.unmarkAddress(address: String): Unit = node.unmarkAddres
 /**
  * Unmarks the route planner [address].
  */
-public suspend fun Node.unmarkAddress(address: String) {
+public suspend fun RestNode.unmarkAddress(address: String) {
     val url = buildUrl {
         path("/routeplanner/free/address")
     }
