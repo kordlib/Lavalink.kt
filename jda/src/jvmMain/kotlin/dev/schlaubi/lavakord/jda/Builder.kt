@@ -1,17 +1,21 @@
 package dev.schlaubi.lavakord.jda
 
+import dev.schlaubi.lavakord.LavaKord
 import dev.schlaubi.lavakord.LavaKordOptions
 import dev.schlaubi.lavakord.MutableLavaKordOptions
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.future.await
+import mu.KotlinLogging
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.hooks.EventListener
 import net.dv8tion.jda.api.hooks.VoiceDispatchInterceptor
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
+import net.dv8tion.jda.api.sharding.ShardManager
 import kotlin.coroutines.CoroutineContext
+
+private val LOG = KotlinLogging.logger { }
 
 /**
  * Builds a new [LavaKordJDA] and applies [builder] to it.
@@ -22,29 +26,111 @@ import kotlin.coroutines.CoroutineContext
  *
  * @see LavaKordJDA
  */
-public fun JDABuilder.buildWithLavakord(
+public suspend fun JDABuilder.buildWithLavakord(
     executor: CoroutineContext? = null,
     options: MutableLavaKordOptions = MutableLavaKordOptions(),
     builder: LavaKordOptions.() -> Unit = {}
 ): LJDA {
+    val lavaKordJDA = LavaKordJDA()
+    applyLavakord(lavaKordJDA)
+
+    build().lavakord(lavaKordJDA, executor, options, builder)
+
+    return lavaKordJDA
+}
+
+/**
+ * Applies all needed options of this [shardManager] to this [DefaultShardManagerBuilder].
+ *
+ * @see buildWithLavakord
+ */
+public fun DefaultShardManagerBuilder.applyLavakord(shardManager: LavaKordShardManager): DefaultShardManagerBuilder =
+    apply {
+        addEventListeners(shardManager)
+        setVoiceDispatchInterceptor(shardManager)
+    }
+
+/**
+ * Applies all needed options of this [jda] to this [JDABuilder].
+ *
+ * @see buildWithLavakord
+ */
+public fun JDABuilder.applyLavakord(jda: LavaKordJDA): JDABuilder =
+    apply {
+        addEventListeners(jda)
+        setVoiceDispatchInterceptor(jda)
+    }
+
+/**
+ * Builds the [LavaKord] instance for this [ShardManager].
+ *
+ * Example usage:
+ * ```kotlin
+ * val lavakordShardManager = LavaKordShardManager()
+ * val shardManager = DefaultShardManagerBuilder.createDefault(token)
+ *    // you don't need to call this and add "lavakordShardManager" as an event listener and VoiceDispatchInterceptor yourself
+ *   .applyLavakord(lavakordShardManager)
+ *   .build()
+ *
+ * val lavakord = shardManager.lavakord(lavakordShardManager)
+ */
+public suspend fun ShardManager.lavakord(
+    shardManager: LavaKordShardManager,
+    executor: CoroutineContext? = null,
+    options: MutableLavaKordOptions = MutableLavaKordOptions(),
+    builder: LavaKordOptions.() -> Unit = {}
+): LavaKord {
+    shardManager.shardManager = this
+    val jdaProvider: (Int) -> JDA =
+        { shardId -> getShardById(shardId) ?: error("Could not find shard with id: $shardId") }
+
     val settings = options.apply(builder).seal()
-    val lavakordJda = LavaKordJDA()
-    addEventListeners(lavakordJda)
-    setVoiceDispatchInterceptor(lavakordJda)
-    val jda = build()
-    val coroutineContext = executor ?: jda.gatewayPool.asCoroutineDispatcher()
-    lavakordJda.jda = jda
-    val jdaProvider: (Int) -> JDA = { jda }
     val lavakord = JDALavakord(
         jdaProvider,
-        coroutineContext,
-        jda.selfUser.idLong.toULong(),
-        jda.shardInfo.shardTotal,
+        executor ?: (Dispatchers.IO + SupervisorJob()),
+        retrieveApplicationInfo().submit().await().idLong.toULong(),
+        shardsTotal,
         settings
     )
-    lavakordJda.internalLavakord = lavakord
+    shardManager.internalLavakord = lavakord
+    return lavakord
+}
 
-    return lavakordJda
+/**
+ * Builds the [LavaKord] instance for this [ShardManager].
+ *
+ * Example usage:
+ * ```kotlin
+ * val lavakordJDA = LavaKordJDA()
+ * val jda = JDABuilder.createDefault(token)
+ *    // you don't need to call this and add "LavaKordJDA" as an event listener and VoiceDispatchInterceptor yourself
+ *   .applyLavakord(lavakordShardManager)
+ *   .build()
+ *
+ * val lavakord = jda.lavakord(lavakordJDA)
+ */
+public suspend fun JDA.lavakord(
+    jda: LavaKordJDA,
+    executor: CoroutineContext? = null,
+    options: MutableLavaKordOptions = MutableLavaKordOptions(),
+    builder: LavaKordOptions.() -> Unit = {}
+): LavaKord {
+    if (shardManager != null) {
+        LOG.warn { "JDA.lavakord() was called on a shard managed instance, consider using ShardManager.lavakord()" }
+    }
+    jda.jda = this
+    val jdaProvider: (Int) -> JDA = { this }
+
+    val settings = options.apply(builder).seal()
+    val lavakord = JDALavakord(
+        jdaProvider,
+        executor ?: (Dispatchers.IO + SupervisorJob()),
+        retrieveApplicationInfo().submit().await().idLong.toULong(),
+        1,
+        settings
+    )
+    jda.internalLavakord = lavakord
+    return lavakord
 }
 
 /**
@@ -56,27 +142,16 @@ public fun JDABuilder.buildWithLavakord(
  *
  * @see LavaKordShardManager
  */
-public fun DefaultShardManagerBuilder.buildWithLavakord(
+public suspend fun DefaultShardManagerBuilder.buildWithLavakord(
     executor: CoroutineContext? = null,
     options: MutableLavaKordOptions = MutableLavaKordOptions(),
     builder: LavaKordOptions.() -> Unit = {}
 ): LShardManager {
-    val settings = options.apply(builder).seal()
     val lavakordShardManager = LavaKordShardManager()
-    addEventListeners(lavakordShardManager)
-    setVoiceDispatchInterceptor(lavakordShardManager)
+    applyLavakord(lavakordShardManager)
     val shardManager = build()
-    lavakordShardManager.shardManager = shardManager
-    val jdaProvider: (Int) -> JDA =
-        { shardId -> shardManager.getShardById(shardId) ?: error("Could not find shard with id: $shardId") }
-    val lavakord = JDALavakord(
-        jdaProvider,
-        executor ?: (Dispatchers.IO + SupervisorJob()),
-        shardManager.retrieveApplicationInfo().complete().idLong.toULong(),
-        shardManager.shardsTotal,
-        settings
-    )
 
-    lavakordShardManager.internalLavakord = lavakord
+    shardManager.lavakord(lavakordShardManager, executor, options, builder)
+
     return lavakordShardManager
 }
