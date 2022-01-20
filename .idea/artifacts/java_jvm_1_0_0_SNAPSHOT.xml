@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="java-jvm-1.0.0-SNAPSHOT">
-    <output-path>C:\Users\micha\IdeaProjects\Lavalink.kt\java\build\libs</output-path>
-    <root id="archive" name="java-jvm-1.0.0-SNAPSHOT.jar">
-      <element id="module-output" name="lavakord.java.jvmMain" />
-    </root>
-  </artifact>
-</component>

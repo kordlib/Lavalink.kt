@@ -37,7 +37,7 @@ public interface LShardManager : LavakordJdaBase {
 /**
  * Internal class.
  */
-internal sealed class AbstractLavakordJda : VoiceDispatchInterceptor, EventListener, LavakordJdaBase {
+public sealed class AbstractLavakordJda : VoiceDispatchInterceptor, EventListener, LavakordJdaBase {
     /**
      * The [LavaKord] instance that for this [JDA]/[ShardManager].
      */
@@ -69,7 +69,7 @@ internal sealed class AbstractLavakordJda : VoiceDispatchInterceptor, EventListe
  *
  * @property jda the [JDA] instance that has been built
  */
-internal class LavaKordJDA : AbstractLavakordJda(), LJDA {
+public class LavaKordJDA : AbstractLavakordJda(), LJDA {
     override lateinit var jda: JDA
         internal set
 }
@@ -81,7 +81,7 @@ internal class LavaKordJDA : AbstractLavakordJda(), LJDA {
  *
  * @property shardManager the [ShardManager] instance that has been built
  */
-internal class LavaKordShardManager : AbstractLavakordJda(), LShardManager {
+public class LavaKordShardManager : AbstractLavakordJda(), LShardManager {
     override lateinit var shardManager: ShardManager
         internal set
 }
