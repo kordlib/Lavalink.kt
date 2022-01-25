@@ -7,6 +7,9 @@ import dev.schlaubi.lavakord.audio.StatsEvent.*
 import dev.schlaubi.lavakord.audio.TrackEndEvent.EndReason
 import dev.schlaubi.lavakord.audio.internal.GatewayPayload
 import dev.schlaubi.lavakord.audio.player.Track
+import dev.schlaubi.lavakord.audio.on as defaultOn
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.serialization.Serializable
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
@@ -245,3 +248,13 @@ public interface StatsEvent {
         val deficit: Int
     )
 }
+
+/**
+ * Listens for a [TrackEvent]
+ *
+ * @see defaultOn
+ */
+public inline fun <reified T : TrackEvent> EventSource<TrackEvent>.on(
+    scope: CoroutineScope = coroutineScope,
+    noinline consumer: suspend T.() -> Unit
+): Job = defaultOn<TrackEvent, T>(scope, consumer)
