@@ -190,6 +190,7 @@ public data class TrackResponse(
          * @property position the current position of the track in milliseconds
          * @property title the title of the track
          * @property uri the uri to the track
+         * @property sourceName the name of the lavaplayer source, lavalink used to provide this track
          */
         @Serializable
         public data class Info(
@@ -200,7 +201,8 @@ public data class TrackResponse(
             val isStream: Boolean,
             val position: Int,
             val title: String,
-            val uri: String
+            val uri: String,
+            val sourceName: String
         )
     }
 }

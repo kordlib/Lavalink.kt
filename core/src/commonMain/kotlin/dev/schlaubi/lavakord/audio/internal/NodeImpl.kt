@@ -49,7 +49,7 @@ internal class NodeImpl(
                 header("Authorization", authenticationHeader)
                 header("Num-Shards", lavakord.shardsTotal)
                 header("User-Id", lavakord.userId)
-                header("Client-Name", "Lavakord")
+                header("Client-Name", "Lavalink.kt")
                 if (resume) {
                     header("Resume-Key", resumeKey)
                 }

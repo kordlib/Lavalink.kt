@@ -16,7 +16,8 @@ val neverGonnaGiveYouUp = TrackResponse.PartialTrack(
         false,
         0,
         "Rick Astley - Never Gonna Give You Up",
-        "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "youtube"
     )
 )
 

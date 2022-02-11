@@ -12,7 +12,7 @@ class EventsTest {
     @Test
     fun `test player update event serialization`() {
         testPayload<GatewayPayload.PlayerUpdateEvent>(PLAYER_UPDATE_EVENT) {
-            state shouldBe GatewayPayload.PlayerUpdateEvent.State(1500467109, 1500467109)
+            state shouldBe GatewayPayload.PlayerUpdateEvent.State(1500467109, 1500467109, true)
         }
     }
 

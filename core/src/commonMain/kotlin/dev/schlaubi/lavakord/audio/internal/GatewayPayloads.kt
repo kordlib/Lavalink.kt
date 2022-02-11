@@ -261,7 +261,7 @@ internal sealed class GatewayPayload {
         override val guildId: String, val state: State
     ) : GatewayPayload() {
         @Serializable
-        data class State(val time: Long, val position: Long? = null)
+        data class State(val time: Long, val position: Long? = null, val connected: Boolean)
     }
 
     @Serializable

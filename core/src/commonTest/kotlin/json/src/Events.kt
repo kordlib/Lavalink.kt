@@ -7,7 +7,8 @@ const val PLAYER_UPDATE_EVENT: String = """
     "guildId": "$GUILD_ID",
     "state": {
         "time": 1500467109,
-        "position": 1500467109
+        "position": 1500467109,
+        "connected": true
     }
 }
 """
