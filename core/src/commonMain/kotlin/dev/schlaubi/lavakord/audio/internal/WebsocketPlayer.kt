@@ -90,7 +90,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     }
 
     override suspend fun setVolume(volume: Int) {
-        require(volume > 0) { "Volume can't be negative" }
+        require(volume >= 0) { "Volume can't be negative" }
         require(volume <= 1000) { "Volume can't be greater than 1000" }
         this.volume = volume
 
