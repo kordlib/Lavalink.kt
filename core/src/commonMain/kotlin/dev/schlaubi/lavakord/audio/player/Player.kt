@@ -78,6 +78,7 @@ public interface Player : EventSource<TrackEvent> {
     /**
      * Changes the volume of the current player.
      */
+    @Deprecated("Please use the new filters system to specify volume")
     public suspend fun setVolume(volume: Int)
 
 }

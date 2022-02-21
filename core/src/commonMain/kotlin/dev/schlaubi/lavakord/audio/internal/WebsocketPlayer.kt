@@ -30,7 +30,12 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
             return lastPosition + elapsedSinceUpdate
         }
 
-    override var volume: Int = 100
+    override var volume: Int
+        @Deprecated("Please use the new filters system to specify volume")
+        set(value) {
+            filters.volume = value / 100f
+        }
+        get() = ((filters.volume ?: 1.0f) * 100).toInt()
 
     @Suppress("unused")
     internal var filters: GatewayPayload.FiltersCommand = GatewayPayload.FiltersCommand(guildId.toString())
@@ -54,8 +59,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         node.send(
             GatewayPayload.PlayCommand(
                 guildId.toString(),
-                track,
-                volume = volume
+                track
             )
         )
     }
@@ -90,11 +94,11 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     }
 
     override suspend fun setVolume(volume: Int) {
-        require(volume > 0) { "Volume can't be negative" }
-        require(volume <= 1000) { "Volume can't be greater than 1000" }
-        this.volume = volume
+        require(volume >= 0) { "Volume can't be negative" }
+        require(volume <= 500) { "Volume can't be greater than 500" } // Volume <= 5.0
 
-        node.send(GatewayPayload.VolumeCommand(guildId.toString(), volume))
+        filters.volume = volume / 100f
+        node.send(filters)
     }
 
     internal fun provideState(state: GatewayPayload.PlayerUpdateEvent.State) {
