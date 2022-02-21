@@ -3,6 +3,7 @@ package dev.schlaubi.lavakord.kord
 import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Permissions
 import dev.kord.common.entity.Snowflake
+import dev.kord.core.entity.channel.TopGuildChannel
 import dev.kord.core.entity.channel.VoiceChannel
 import dev.kord.gateway.UpdateVoiceStatus
 import dev.schlaubi.lavakord.audio.Link
@@ -20,7 +21,7 @@ internal class KordLink(
 
     override suspend fun connectAudio(voiceChannelId: ULong) {
         lastChannelId = voiceChannelId
-        val channel = lavakord.kord.getChannel(Snowflake(voiceChannelId)) as VoiceChannel?
+        val channel = lavakord.kord.getChannel(Snowflake(voiceChannelId)) as TopGuildChannel?
         checkChannel(channel)
         val guild = channel.getGuild()
 
@@ -38,7 +39,7 @@ internal class KordLink(
     }
 
     @OptIn(ExperimentalContracts::class)
-    private suspend fun checkChannel(channel: VoiceChannel?) {
+    private suspend fun checkChannel(channel: TopGuildChannel?) {
         contract {
             returns() implies (channel != null)
         }
@@ -60,7 +61,7 @@ internal class KordLink(
         val voiceState = channel.getGuild().getMember(lavakord.kord.selfId).getVoiceStateOrNull()
         if (channel.id == voiceState?.channelId) return
 
-        if (voiceState?.channelId != null) {
+        if (channel is VoiceChannel && voiceState?.channelId != null) {
             val limit = channel.userLimit
             if (!permissions.contains(Permission.Administrator)) {
                 if (limit > 0

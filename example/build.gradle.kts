@@ -20,8 +20,7 @@ dependencies {
     implementation(libs.sl4fj.simple)
     implementation(libs.kord.core)
 
-    implementation("dev.kord.x:commands-runtime-kord:0.4.0-SNAPSHOT")
-    implementation("org.codehaus.groovy", "groovy-all", "2.4.15")
+    implementation("org.codehaus.groovy:groovy-all:3.0.8")
     kapt("dev.kord.x:commands-processor:0.4.0-SNAPSHOT")
 
     implementation("net.dv8tion:JDA:5.0.0-alpha.3") {
