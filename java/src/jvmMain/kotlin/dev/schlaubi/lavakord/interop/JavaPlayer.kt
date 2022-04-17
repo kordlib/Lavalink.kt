@@ -71,7 +71,7 @@ public class JavaPlayer(internal val suspendingPlayer: Player) : CoroutineScope 
     /**
      * Seeks to a specific [position] in the current playback.
      */
-    public suspend fun seekTo(position: Duration): CompletableFuture<Void> = seekTo(position.toMillis())
+    public fun seekTo(position: Duration): CompletableFuture<Void> = seekTo(position.toMillis())
 
     /**
      * Seeks to a specific [position] in the current playback.
@@ -83,6 +83,8 @@ public class JavaPlayer(internal val suspendingPlayer: Player) : CoroutineScope 
     /**
      * Changes the volume of the current player.
      */
+    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+    @Deprecated("Please use the new filters system to specify volume")
     public fun setVolume(volume: Int): CompletableFuture<Void> = run { suspendingPlayer.setVolume(volume) }
 
     /**

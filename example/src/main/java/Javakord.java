@@ -3,10 +3,10 @@ import dev.schlaubi.lavakord.interop.JavaLavakord;
 import dev.schlaubi.lavakord.interop.TrackUtil;
 import dev.schlaubi.lavakord.interop.jda.LavakordJDABuilder;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.jetbrains.annotations.NotNull;
 
 public class Javakord extends ListenerAdapter {
@@ -27,17 +27,17 @@ public class Javakord extends ListenerAdapter {
         var jda = container.getJda();
         jda.updateCommands()
                 .addCommands(
-                        new CommandData("connect", "Joins the current channel"),
-                        new CommandData("play", "Plays a new song")
+                        Commands.slash("connect", "Joins the current channel"),
+                        Commands.slash("play", "Plays a new song")
                                 .addOption(OptionType.STRING, "query", "The query you want to play"),
-                        new CommandData("destroy", "Let the bot leave the channel"),
-                        new CommandData("pause", "Pauses or unpauses playpack")
+                        Commands.slash("destroy", "Let the bot leave the channel"),
+                        Commands.slash("pause", "Pauses or unpauses playpack")
                 )
                 .queue();
     }
 
     @Override
-    public void onSlashCommand(@NotNull SlashCommandEvent event) {
+    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
         var invoke = event.getName();
         var link = lavakord.getLink(event.getGuild().getIdLong());
         var player = link.getPlayer();
@@ -61,7 +61,8 @@ public class Javakord extends ListenerAdapter {
                         case TRACK_LOADED -> player.playTrack(track.getTrack());
                         case PLAYLIST_LOADED, SEARCH_RESULT -> player.playTrack(track.getTracks().get(0));
                         case NO_MATCHES -> event.getChannel().sendMessage("No tracks found!").queue();
-                        case LOAD_FAILED -> event.getChannel().sendMessage("Load failed: %s".formatted(track.getException().getMessage())).queue();
+                        case LOAD_FAILED ->
+                                event.getChannel().sendMessage("Load failed: %s".formatted(track.getException().getMessage())).queue();
                     }
                 });
             }

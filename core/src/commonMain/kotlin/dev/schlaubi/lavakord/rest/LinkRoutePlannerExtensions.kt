@@ -4,6 +4,7 @@ import dev.schlaubi.lavakord.NoRoutePlannerException
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.RestNode
+import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
@@ -89,7 +90,7 @@ public suspend fun RestNode.unmarkAddress(address: String) {
 
     return post(url) {
         contentType(ContentType.Application.Json)
-        body = UnmarkAddressBody(address)
+        setBody(UnmarkAddressBody(address))
     }
 }
 

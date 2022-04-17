@@ -12,11 +12,11 @@ import dev.schlaubi.lavakord.internal.RestNodeImpl
 import dev.schlaubi.lavakord.rest.RoutePlannerModule
 import io.ktor.client.*
 import io.ktor.client.engine.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.features.logging.*
-import io.ktor.client.features.websocket.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.logging.*
+import io.ktor.client.plugins.websocket.*
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.launch
 import kotlinx.serialization.modules.plus
@@ -57,8 +57,8 @@ public abstract class AbstractLavakord internal constructor(
 
 
     internal val restClient = HttpClient(httpClientEngine) {
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(json)
+        install(ContentNegotiation) {
+            json(json)
         }
 
         install(Logging) {

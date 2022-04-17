@@ -31,32 +31,33 @@ dependencyResolutionManagement {
         create("libs") {
             kotlinx()
             ktor()
-            alias("kord-core").to("dev.kord", "kord-core").version("0.8.x-SNAPSHOT")
-            alias("junit-jupiter-engine").to("org.junit.jupiter", "junit-jupiter-engine").version("5.8.2")
-            alias("kotlinlogging").to("io.github.microutils", "kotlin-logging").version("2.1.21")
-            alias("sl4fj-simple").to("org.slf4j", "slf4j-simple").version("1.7.30")
+            library("kord-core", "dev.kord", "kord-core").version("0.8.0-M13")
+            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.8.2")
+            library("kotlinlogging", "io.github.microutils", "kotlin-logging").version("2.1.21")
+            library("sl4fj-simple", "org.slf4j", "slf4j-simple").version("1.7.30")
         }
     }
 }
 
 fun VersionCatalogBuilder.kotlinx() {
-    val coroutines = version("coroutines", "1.6.0")
-    alias("kotlinx-coroutines-core").to("org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutines)
-    alias("kotlinx-coroutines-jdk8").to("org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
-    alias("kotlinx-coroutines-test").to("org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
-    alias("kotlinx-serialization-json").to("org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.3.2")
-    alias("kotlinx-datetime").to("org.jetbrains.kotlinx", "kotlinx-datetime").version("0.3.2")
+    val coroutines = version("coroutines", "1.6.1")
+    library("kotlinx-coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutines)
+    library("kotlinx-coroutines-jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
+    library("kotlinx-coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
+    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.3.2")
+    library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.3.2")
 }
 
 fun VersionCatalogBuilder.ktor() {
-    val ktor = version("ktor", "1.6.7")
-    alias("ktor-io").to("io.ktor", "ktor-io").versionRef(ktor)
-    alias("ktor-utils").to("io.ktor", "ktor-utils").versionRef(ktor)
-    alias("ktor-client-websockets").to("io.ktor", "ktor-client-websockets").versionRef(ktor)
-    alias("ktor-client-core").to("io.ktor", "ktor-client-core").versionRef(ktor)
-    alias("ktor-client-serialization").to("io.ktor", "ktor-client-serialization").versionRef(ktor)
-    alias("ktor-client-logging").to("io.ktor", "ktor-client-logging").versionRef(ktor)
-    alias("ktor-client-cio").to("io.ktor", "ktor-client-cio").versionRef(ktor)
-    alias("ktor-client-js").to("io.ktor", "ktor-client-js").versionRef(ktor)
-    alias("ktor-client-mock").to("io.ktor", "ktor-client-mock").versionRef(ktor)
+    val ktor = version("ktor", "2.0.0")
+    library("ktor-io", "io.ktor", "ktor-io").versionRef(ktor)
+    library("ktor-utils", "io.ktor", "ktor-utils").versionRef(ktor)
+    library("ktor-client-websockets", "io.ktor", "ktor-client-websockets").versionRef(ktor)
+    library("ktor-client-core", "io.ktor", "ktor-client-core").versionRef(ktor)
+    library("ktor-serialization-kotlinx-json", "io.ktor", "ktor-serialization-kotlinx-json").versionRef(ktor)
+    library("ktor-client-content-negotiation", "io.ktor", "ktor-client-content-negotiation").versionRef(ktor)
+    library("ktor-client-logging", "io.ktor", "ktor-client-logging").versionRef(ktor)
+    library("ktor-client-cio", "io.ktor", "ktor-client-cio").versionRef(ktor)
+    library("ktor-client-js", "io.ktor", "ktor-client-js").versionRef(ktor)
+    library("ktor-client-mock", "io.ktor", "ktor-client-mock").versionRef(ktor)
 }

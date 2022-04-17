@@ -93,6 +93,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         node.send(GatewayPayload.SeekCommand(guildId.toString(), position))
     }
 
+    @Deprecated("Please use the new filters system to specify volume")
     override suspend fun setVolume(volume: Int) {
         require(volume >= 0) { "Volume can't be negative" }
         require(volume <= 500) { "Volume can't be greater than 500" } // Volume <= 5.0

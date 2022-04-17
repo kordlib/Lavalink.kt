@@ -20,7 +20,8 @@ kotlin {
                 implementation(libs.ktor.utils)
                 implementation(libs.ktor.client.websockets)
                 implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.serialization)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.client.logging)
 
                 implementation(libs.kotlinlogging)

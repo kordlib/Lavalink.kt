@@ -40,7 +40,6 @@ public data class Track constructor(
          *
          * @see Track.track
          */
-        @OptIn(InternalAPI::class)
         @Suppress("ReplaceNotNullAssertionWithElvisReturn")
         public suspend fun fromLavalink(encoded: String): Track {
             val bytes = encoded.decodeBase64Bytes()

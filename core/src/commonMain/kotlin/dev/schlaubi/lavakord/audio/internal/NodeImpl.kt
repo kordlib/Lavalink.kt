@@ -1,15 +1,18 @@
 package dev.schlaubi.lavakord.audio.internal
 
 import dev.schlaubi.lavakord.audio.*
-import io.ktor.client.features.*
-import io.ktor.client.features.websocket.*
+import io.ktor.client.network.sockets.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.http.cio.websocket.*
-import io.ktor.network.sockets.*
-import kotlinx.coroutines.*
+import io.ktor.websocket.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -17,7 +20,6 @@ import mu.KotlinLogging
 
 internal val LOG = KotlinLogging.logger { }
 
-@OptIn(ExperimentalCoroutinesApi::class)
 internal class NodeImpl(
     override val host: Url,
     override val name: String,
@@ -37,11 +39,9 @@ internal class NodeImpl(
     override val coroutineScope: CoroutineScope
         get() = lavakord
 
-    @OptIn(FlowPreview::class)
     override val events: SharedFlow<TrackEvent>
         get() = eventPublisher.asSharedFlow()
 
-    @OptIn(InternalCoroutinesApi::class)
     internal suspend fun connect(resume: Boolean = false) {
         session = try {
             lavakord.gatewayClient.webSocketSession {

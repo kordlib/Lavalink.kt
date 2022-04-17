@@ -132,3 +132,5 @@ gradle-app.setting
 ## Docs are only supposed to be there on gh-pages branch or on CI runners
 docs/
 !docs/index.html
+
+.idea/artifacts

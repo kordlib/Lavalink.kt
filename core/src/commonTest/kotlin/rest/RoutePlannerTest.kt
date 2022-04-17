@@ -28,7 +28,7 @@ class RoutePlannerTest {
     private val engine = RestHttpEngine {
         addHandler { request ->
             checkAuth(request) {
-                when (request.url.fullPath.substringAfter('/').substringBefore('?')) {
+                when (request.url.fullPath) {
                     "/routeplanner/free/all" -> respond("", HttpStatusCode.NoContent)
                     "/routeplanner/free/address" -> {
                         val body = request.body.toByteArray().decodeToString()
