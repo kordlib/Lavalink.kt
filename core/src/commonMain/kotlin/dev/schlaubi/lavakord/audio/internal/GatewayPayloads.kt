@@ -91,6 +91,50 @@ internal sealed class GatewayPayload {
         override var lowPass: LowPass? = null
     ) : GatewayPayload(), Filters {
 
+        override fun reset() {
+            super.reset()
+            karaoke = null
+            timescale = null
+            tremolo = null
+            vibrato = null
+            rotation = null
+            distortion = null
+            channelMix = null
+            lowPass = null
+        }
+
+        override fun unsetKaraoke() {
+            karaoke = null
+        }
+
+        override fun unsetTimescale() {
+            timescale = null
+        }
+
+        override fun unsetTremolo() {
+            tremolo = null
+        }
+
+        override fun unsetVibrato() {
+            vibrato = null
+        }
+
+        override fun unsetRotation() {
+            rotation = null
+        }
+
+        override fun unsetDistortion() {
+            distortion = null
+        }
+
+        override fun unsetChannelMix() {
+            channelMix = null
+        }
+
+        override fun unsetLowPass() {
+            lowPass = null
+        }
+
         @Serializable
         data class Karaoke(
             override var level: Float,
@@ -207,6 +251,10 @@ internal sealed class GatewayPayload {
         @Serializable
         data class Rotation(override var rotationHz: Float) : Filters.Rotation {
             constructor() : this(0.0f)
+
+            override fun reset() {
+                rotationHz = 0.0f
+            }
         }
 
         @Serializable
@@ -218,9 +266,20 @@ internal sealed class GatewayPayload {
             override var tanOffset: Float,
             override var tanScale: Float,
             override var offset: Float,
-            override var scal: Float
+            override var scale: Float
         ) : Filters.Distortion {
             constructor() : this(0f, 1f, 0f, 1f, 0f, 1f, 0f, 1f)
+
+            override fun reset() {
+                sinOffset = 0f
+                sinScale = 1f
+                cosOffset = 0f
+                cosScale = 1f
+                tanOffset = 0f
+                tanScale = 1f
+                offset = 0f
+                scale = 1f
+            }
         }
 
         @Serializable
@@ -231,11 +290,22 @@ internal sealed class GatewayPayload {
             override var rightToRight: Float
         ) : Filters.ChannelMix {
             constructor() : this(1f, 0f, 0f, 1f)
+
+            override fun reset() {
+                leftToLeft = 1f
+                leftToRight = 0f
+                rightToLeft = 0f
+                rightToRight = 1f
+            }
         }
 
         @Serializable
         data class LowPass(override var smoothing: Float) : Filters.LowPass {
             constructor() : this(20.0f)
+
+            override fun reset() {
+                smoothing = 20.0f
+            }
         }
     }
 
@@ -275,7 +345,7 @@ internal sealed class GatewayPayload {
         override val frameStats: PublicStatsEvent.FrameStats? = null
     ) : GatewayPayload(), dev.schlaubi.lavakord.audio.StatsEvent {
         override val guildId: String
-            get() = throw UnsupportedOperationException("Stats event does not provide a guild id but all other events to thank you Lavalink")
+            get() = throw UnsupportedOperationException("Stats event does not provide a guild id but all other events do, thank you Lavalink")
     }
 
     @Serializable

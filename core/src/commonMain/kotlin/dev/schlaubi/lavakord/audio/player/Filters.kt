@@ -26,18 +26,16 @@ public interface Filters : EqualizerBuilder {
      */
     public interface Filter {
         /**
-         * Resets this filter to it's default state.
+         * Resets this filter to its default state.
          */
         public fun reset()
     }
 
+    /**
+     * Unsets all filters and resets equalizer bands
+     */
     public override fun reset() {
-        require(this is GatewayPayload.FiltersCommand)
         super.reset()
-        karaoke = null
-        timescale = null
-        tremolo = null
-        vibrato = null
     }
 
     /**
@@ -84,14 +82,14 @@ public interface Filters : EqualizerBuilder {
      *
      * @property rotationHz The frequency of the audio rotating around the listener in Hz. 0.2 is similar to the example video above.
      */
-    public interface Rotation {
+    public interface Rotation : Filter {
         public var rotationHz: Float
     }
 
     /**
      * Distortion effect. It can generate some pretty unique audio effects.
      */
-    public interface Distortion {
+    public interface Distortion : Filter {
         public var sinOffset: Float
         public var sinScale: Float
         public var cosOffset: Float
@@ -99,7 +97,7 @@ public interface Filters : EqualizerBuilder {
         public var tanOffset: Float
         public var tanScale: Float
         public var offset: Float
-        public var scal: Float
+        public var scale: Float
     }
 
     /**
@@ -107,7 +105,7 @@ public interface Filters : EqualizerBuilder {
      * With the defaults, both channels are kept independent from each other.
      * Setting all factors to 0.5 means both channels get the same audio.
      */
-    public interface ChannelMix {
+    public interface ChannelMix : Filter {
         public var leftToLeft: Float
         public var leftToRight: Float
         public var rightToLeft: Float
@@ -117,9 +115,49 @@ public interface Filters : EqualizerBuilder {
     /**
      * Higher frequencies get suppressed, while lower frequencies pass through this filter, thus the name low pass.
      */
-    public interface LowPass {
+    public interface LowPass : Filter {
         public var smoothing: Float
     }
+
+    /**
+     * Unsets the [Karaoke] filter, this disables the filter
+     */
+    public fun unsetKaraoke()
+
+    /**
+     * Unsets the [Timescale] filter, this disables the filter
+     */
+    public fun unsetTimescale()
+
+    /**
+     * Unsets the [Tremolo] filter, this disables the filter
+     */
+    public fun unsetTremolo()
+
+    /**
+     * Unsets the [Vibrato] filter, this disables the filter
+     */
+    public fun unsetVibrato()
+
+    /**
+     * Unsets the [Rotation] filter, this disables the filter
+     */
+    public fun unsetRotation()
+
+    /**
+     * Unsets the [Distortion] filter, this disables the filter
+     */
+    public fun unsetDistortion()
+
+    /**
+     * Unsets the [ChannelMix] filter, this disables the filter
+     */
+    public fun unsetChannelMix()
+
+    /**
+     * Unsets the [LowPass] filter, this disables the filter
+     */
+    public fun unsetLowPass()
 }
 
 
