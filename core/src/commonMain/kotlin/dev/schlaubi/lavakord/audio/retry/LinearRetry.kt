@@ -41,8 +41,11 @@ internal class LinearRetry constructor(
     override suspend fun retry() {
         if (!hasNext) error("max retries exceeded")
 
-        var diff = (maxBackoff - firstBackoff).inWholeMilliseconds / maxTries
-        diff *= tries.incrementAndGet()
+        // tries/maxTries ratio * (backOffDiff) = retryProgress
+        val retryProgress =
+            (tries.incrementAndGet() / maxTries) * (maxBackoff.inWholeMilliseconds - firstBackoff.inWholeMilliseconds)
+        val diff = firstBackoff.inWholeMilliseconds + retryProgress
+
         LOG.info { "retry attempt ${tries.value}/$maxTries, delaying for $diff ms." }
         delay(diff)
     }
