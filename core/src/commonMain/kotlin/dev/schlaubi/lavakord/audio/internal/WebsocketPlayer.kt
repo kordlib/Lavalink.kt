@@ -5,6 +5,7 @@ import dev.schlaubi.lavakord.audio.TrackEvent
 import dev.schlaubi.lavakord.audio.TrackStartEvent
 import dev.schlaubi.lavakord.audio.on
 import dev.schlaubi.lavakord.audio.player.Band
+import dev.schlaubi.lavakord.audio.player.Filters
 import dev.schlaubi.lavakord.audio.player.Player
 import dev.schlaubi.lavakord.audio.player.Track
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +39,8 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         get() = ((filters.volume ?: 1.0f) * 100).toInt()
 
     @Suppress("unused")
-    internal var filters: GatewayPayload.FiltersCommand = GatewayPayload.FiltersCommand(guildId.toString())
+    override var filters: Filters = GatewayPayload.FiltersCommand(guildId.toString())
+        internal set
 
     override val equalizers: Map<Int, Float>
         get() = filters.bands
@@ -99,7 +101,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         require(volume <= 500) { "Volume can't be greater than 500" } // Volume <= 5.0
 
         filters.volume = volume / 100f
-        node.send(filters)
+        node.send(filters as GatewayPayload.FiltersCommand)
     }
 
     internal fun provideState(state: GatewayPayload.PlayerUpdateEvent.State) {

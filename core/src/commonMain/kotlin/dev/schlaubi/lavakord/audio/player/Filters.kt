@@ -181,7 +181,7 @@ public suspend fun Player.applyFilters(block: Filters.() -> Unit) {
     val filters = filters
     filters.apply(block)
 
-    node.send(filters)
+    node.send(filters as GatewayPayload.FiltersCommand)
 }
 
 /**

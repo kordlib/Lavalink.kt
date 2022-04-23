@@ -81,4 +81,8 @@ public interface Player : EventSource<TrackEvent> {
     @Deprecated("Please use the new filters system to specify volume")
     public suspend fun setVolume(volume: Int)
 
+    /**
+     * The current [Filters] settings.
+     */
+    public val filters: Filters
 }
