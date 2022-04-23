@@ -207,6 +207,7 @@ internal sealed class GatewayPayload {
                 get() = _frequency
                 set(value) {
                     require(value > 0) { "Frequency must be greater than 0" }
+                    _frequency = value
                 }
 
             override var depth: Float
@@ -232,7 +233,8 @@ internal sealed class GatewayPayload {
             override var frequency: Float
                 get() = _frequency
                 set(value) {
-                    require(value > 0) { "Frequency must be greater than 0" }
+                    require(value > 0 && value <= 14) { "Frequency must be between 0 and 14" }
+                    _frequency = value
                 }
 
             override var depth: Float
