@@ -44,7 +44,7 @@ internal class NodeImpl(
 
     internal suspend fun connect(resume: Boolean = false) {
         session = try {
-            lavakord.gatewayClient.webSocketSession {
+            connect(resume) {
                 url(this@NodeImpl.host)
                 header("Authorization", authenticationHeader)
                 header("Num-Shards", lavakord.shardsTotal)
@@ -54,21 +54,11 @@ internal class NodeImpl(
                     header("Resume-Key", resumeKey)
                 }
             }
-        } catch (e: ServerResponseException) {
-            reconnect(
-                IllegalArgumentException(
-                    "The provided server responded with an invalid response code",
-                    e
-                ), resume
-            )
-            return
-        } catch (e: ConnectTimeoutException) {
-            reconnect(IllegalStateException("The connection to the node timed out", e), resume)
-            return
-        } catch (e: ClientRequestException) {
-            reconnect(e, resume)
+        } catch (e: ReconnectException) {
+            reconnect(e.cause, resume)
             return
         }
+
         retry.reset()
         available = true
 
