@@ -45,6 +45,9 @@ internal class NodeImpl(
     internal suspend fun connect(resume: Boolean = false) {
         session = try {
             connect(resume) {
+                timeout {
+                    requestTimeoutMillis = HttpTimeout.INFINITE_TIMEOUT_MS
+                }
                 url(this@NodeImpl.host)
                 header("Authorization", authenticationHeader)
                 header("Num-Shards", lavakord.shardsTotal)

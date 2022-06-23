@@ -31,7 +31,7 @@ dependencyResolutionManagement {
         create("libs") {
             kotlinx()
             ktor()
-            library("kord-core", "dev.kord", "kord-core").version("0.8.0-M13")
+            library("kord-core", "dev.kord", "kord-core").version("0.8.x-SNAPSHOT")
             library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.8.2")
             library("kotlinlogging", "io.github.microutils", "kotlin-logging").version("2.1.21")
             library("sl4fj-simple", "org.slf4j", "slf4j-simple").version("1.7.30")
@@ -40,16 +40,16 @@ dependencyResolutionManagement {
 }
 
 fun VersionCatalogBuilder.kotlinx() {
-    val coroutines = version("coroutines", "1.6.1")
+    val coroutines = version("coroutines", "1.6.3")
     library("kotlinx-coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutines)
     library("kotlinx-coroutines-jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     library("kotlinx-coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
-    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.3.2")
-    library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.3.2")
+    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.3.3")
+    library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.3.3")
 }
 
 fun VersionCatalogBuilder.ktor() {
-    val ktor = version("ktor", "2.0.0")
+    val ktor = version("ktor", "2.0.2")
     library("ktor-io", "io.ktor", "ktor-io").versionRef(ktor)
     library("ktor-utils", "io.ktor", "ktor-utils").versionRef(ktor)
     library("ktor-client-websockets", "io.ktor", "ktor-client-websockets").versionRef(ktor)

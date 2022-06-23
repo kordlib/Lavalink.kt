@@ -12,6 +12,7 @@ import dev.schlaubi.lavakord.internal.RestNodeImpl
 import dev.schlaubi.lavakord.rest.RoutePlannerModule
 import io.ktor.client.*
 import io.ktor.client.engine.*
+import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.plugins.websocket.*
@@ -79,6 +80,7 @@ public abstract class AbstractLavakord internal constructor(
     internal val gatewayClient = HttpClient(HttpEngine) {
         install(WebSockets)
 
+        install(HttpTimeout)
         install(Logging) {
             level = LogLevel.INFO
             logger = object : Logger {
