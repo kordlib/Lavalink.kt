@@ -8,6 +8,7 @@ include("core")
 include("java")
 include("jda")
 include("jda-java")
+include("dispers")
 
 enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -15,6 +16,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
     resolutionStrategy {
         repositories {
+            mavenLocal()
             gradlePluginPortal()
         }
 
@@ -31,6 +33,7 @@ dependencyResolutionManagement {
         create("libs") {
             kotlinx()
             ktor()
+            library("dispers", "dev.bitflow.dispers", "dispers-client-kt").version("1.0-SNAPSHOT")
             library("kord-core", "dev.kord", "kord-core").version("0.8.x-SNAPSHOT")
             library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.8.2")
             library("kotlinlogging", "io.github.microutils", "kotlin-logging").version("2.1.21")
