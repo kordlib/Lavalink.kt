@@ -20,9 +20,8 @@ import kotlin.coroutines.CoroutineContext
 internal class KordLavaKord(
     internal val kord: Kord,
     userId: ULong,
-    shardsTotal: Int,
     options: LavaKordOptions
-) : AbstractLavakord(userId, shardsTotal, options) {
+) : AbstractLavakord(userId, options) {
 
     override val coroutineContext: CoroutineContext = Dispatchers.IO + SupervisorJob()
 

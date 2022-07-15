@@ -11,13 +11,11 @@ import kotlinx.coroutines.CoroutineScope
  *
  * @property nodes list of [Node]s in this cluster
  * @property userId the id of the Discord bot user
- * @property shardsTotal the total amount of shards of the Discord bot
  * @property options Configuration options (See [LavaKordOptions]
  */
 public interface LavaKord : CoroutineScope {
     public val nodes: List<Node>
     public val userId: ULong
-    public val shardsTotal: Int
     public val options: LavaKordOptions
 
     /**

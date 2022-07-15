@@ -15,7 +15,6 @@ public fun Kord.lavakord(configure: MutableLavaKordOptions.() -> Unit = {}): Lav
     return KordLavaKord(
         this,
         this.selfId.value,
-        resources.shards.totalShards,
         options
     )
 }

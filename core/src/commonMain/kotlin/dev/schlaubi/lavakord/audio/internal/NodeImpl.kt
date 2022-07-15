@@ -50,7 +50,6 @@ internal class NodeImpl(
                 }
                 url(this@NodeImpl.host)
                 header("Authorization", authenticationHeader)
-                header("Num-Shards", lavakord.shardsTotal)
                 header("User-Id", lavakord.userId)
                 header("Client-Name", "Lavalink.kt")
                 if (resume) {
