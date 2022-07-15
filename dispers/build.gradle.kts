@@ -4,7 +4,10 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
+    maven {
+        name = "ZeroTwo Public Snapshots"
+        url = uri("https://nexus.zerotwo.bot/repository/m2-public-snapshots/")
+    }
 }
 
 kotlin {
@@ -15,7 +18,7 @@ kotlin {
             }
         }
 
-        commonTest  {
+        commonTest {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -24,7 +27,7 @@ kotlin {
 
         jvmMain {
             dependencies {
-                implementation(libs.dispers)
+                implementation("dev.bitflow.dispers:dispers-client-kt:1.0-SNAPSHOT")
             }
         }
     }
