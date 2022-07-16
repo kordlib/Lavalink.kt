@@ -23,12 +23,6 @@ public class JavaLavakord(private val parent: LavaKord) {
         get() = parent.userId.toLong()
 
     /**
-     * @see LavaKord.shardsTotal
-     */
-    public val shardsTotal: Int
-        get() = parent.shardsTotal
-
-    /**
      * @see LavaKord.options
      */
     public val options: LavaKordOptions
