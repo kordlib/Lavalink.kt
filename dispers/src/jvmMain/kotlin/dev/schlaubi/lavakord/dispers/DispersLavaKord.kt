@@ -25,19 +25,13 @@ import kotlin.coroutines.CoroutineContext
 internal class DispersLavaKord(
     private val client: DispersClient,
     userId: ULong,
-    shardsTotal: Int,
+    private val shardsTotal: Int,
     options: LavaKordOptions
-) : AbstractLavakord(userId, shardsTotal, options) {
+) : AbstractLavakord(userId, options) {
 
     override val coroutineContext: CoroutineContext = Dispatchers.IO + SupervisorJob()
 
     init {
-
-
-        client.events
-            .onEach { LoggerFactory.getLogger(javaClass).debug(it.event.toString()) }
-            .launchIn(this)
-
         client.events
             .filter { it.event is Reconnect }
             .onEach { onReconnect(client) }
