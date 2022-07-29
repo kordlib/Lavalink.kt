@@ -43,7 +43,9 @@ internal class DispersLink(
         require(channel.guildId.value == Snowflake(guildId)) {
             "The provided VoiceChannel is not a part of the Guild that this AudioManager handles. Please provide a VoiceChannel from the proper Guild"
         }
-/*        val permissions = channel.getEffectivePermissions(lavakord.kord.selfId)
+/*
+        // todo: implement permission checking
+        val permissions = channel.getEffectivePermissions(lavakord.kord.selfId)
         if (!permissions.contains(Permission.Connect) && !permissions.contains(Permission.MoveMembers)) {
             throw dev.schlaubi.lavakord.InsufficientPermissionException(
                 Permissions(
