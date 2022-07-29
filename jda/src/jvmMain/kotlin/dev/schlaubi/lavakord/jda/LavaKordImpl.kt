@@ -14,13 +14,13 @@ import net.dv8tion.jda.api.hooks.SubscribeEvent
 import net.dv8tion.jda.api.hooks.VoiceDispatchInterceptor
 import kotlin.coroutines.CoroutineContext
 
-internal class JDALavakord(
+public class JDALavakord(
     internal val jdaProvider: (Int) -> JDA,
     override val coroutineContext: CoroutineContext,
     userId: ULong,
-    shardsTotal: Int,
+    public val shardsTotal: Int,
     options: LavaKordOptions
-) : AbstractLavakord(userId, shardsTotal, options), VoiceDispatchInterceptor, EventListener {
+) : AbstractLavakord(userId, options), VoiceDispatchInterceptor, EventListener {
 
     override fun buildNewLink(guildId: ULong, node: Node): Link = JDALink(this, node, guildId)
 

@@ -30,7 +30,6 @@ import kotlinx.serialization.modules.plus
  */
 public abstract class AbstractLavakord internal constructor(
     override val userId: ULong,
-    override val shardsTotal: Int,
     httpClientEngine: HttpClientEngineFactory<HttpClientEngineConfig>,
     override val options: LavaKordOptions
 ) : LavaKord {
@@ -43,9 +42,8 @@ public abstract class AbstractLavakord internal constructor(
      */
     public constructor(
         userId: ULong,
-        shardsTotal: Int,
         options: LavaKordOptions
-    ) : this(userId, shardsTotal, HttpEngine, options)
+    ) : this(userId, HttpEngine, options)
 
     private val nodeCounter = atomic(0)
     private val nodesMap = mutableMapOf<String, Node>()
