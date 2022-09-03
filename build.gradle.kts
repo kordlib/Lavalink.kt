@@ -2,12 +2,12 @@ import org.ajoberstar.gradle.git.publish.GitPublishExtension
 
 plugins {
     id("org.jetbrains.dokka")
-    id("kotlinx-atomicfu") version "0.17.0" apply false
+    id("kotlinx-atomicfu") version "0.18.3" apply false
     id("org.ajoberstar.git-publish") version "2.1.3"
 }
 
 group = "dev.schlaubi.lavakord"
-version = "3.6.3"
+version = "3.7.0"
 
 allprojects {
     repositories {

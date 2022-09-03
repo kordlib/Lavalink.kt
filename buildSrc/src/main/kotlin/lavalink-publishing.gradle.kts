@@ -66,9 +66,9 @@ signing {
             String(java.util.Base64.getDecoder().decode(signingKey.toByteArray())),
             signingPassword
         )
-    }
 
-    publishing.publications.withType<MavenPublication> {
-        sign(this)
+        publishing.publications.withType<MavenPublication> {
+            sign(this)
+        }
     }
 }

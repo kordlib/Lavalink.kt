@@ -9,7 +9,7 @@ import io.ktor.http.*
 import kotlinx.serialization.json.Json
 
 internal suspend inline fun <reified T> RestNode.get(noinline urlBuilder: URLBuilder.() -> Unit): T =
-    restClient.get(buildUrl(urlBuilder).build()) {
+    restClient.get(buildUrl(urlBuilder).build()) lambda@{
         addHeader(this@get); accept(ContentType.Application.JavaScript)
     }.body()
 
