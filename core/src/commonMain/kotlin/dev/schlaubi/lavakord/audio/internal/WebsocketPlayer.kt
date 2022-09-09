@@ -4,10 +4,7 @@ import dev.schlaubi.lavakord.audio.TrackEndEvent
 import dev.schlaubi.lavakord.audio.TrackEvent
 import dev.schlaubi.lavakord.audio.TrackStartEvent
 import dev.schlaubi.lavakord.audio.on
-import dev.schlaubi.lavakord.audio.player.Band
-import dev.schlaubi.lavakord.audio.player.Filters
-import dev.schlaubi.lavakord.audio.player.Player
-import dev.schlaubi.lavakord.audio.player.Track
+import dev.schlaubi.lavakord.audio.player.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
@@ -57,11 +54,17 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         on(consumer = ::handleTrackEnd)
     }
 
-    override suspend fun playTrack(track: String) {
+    override suspend fun playTrack(track: String, playOptionsBuilder: PlayOptions.() -> Unit) {
+        val options = PlayOptions().apply(playOptionsBuilder)
         node.send(
             GatewayPayload.PlayCommand(
                 guildId.toString(),
-                track
+                track,
+                options.startTime,
+                options.endTime,
+                options.volume,
+                options.noReplace,
+                options.pause
             )
         )
     }

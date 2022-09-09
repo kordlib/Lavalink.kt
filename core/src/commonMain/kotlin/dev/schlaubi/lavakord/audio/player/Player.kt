@@ -30,19 +30,23 @@ public interface Player : EventSource<TrackEvent> {
     /**
      * Changes the currently playing track to [track].
      */
-    public suspend fun playTrack(track: Track): Unit = playTrack(track.track)
+    public suspend fun playTrack(track: Track, playOptionsBuilder: PlayOptions.() -> Unit = {}): Unit =
+        playTrack(track.track, playOptionsBuilder)
 
     /**
      * Changes the currently playing track to [track].
      */
-    public suspend fun playTrack(track: TrackResponse.PartialTrack): Unit = playTrack(track.track)
+    public suspend fun playTrack(
+        track: TrackResponse.PartialTrack,
+        playOptionsBuilder: PlayOptions.() -> Unit = {}
+    ): Unit = playTrack(track.track, playOptionsBuilder)
 
     /**
      * Changes the currently playing track to [track].
      *
      * @param track the lavalink encoded track
      */
-    public suspend fun playTrack(track: String)
+    public suspend fun playTrack(track: String, playOptionsBuilder: PlayOptions.() -> Unit = {})
 
     /**
      * Stops playback of the currently playing track.
