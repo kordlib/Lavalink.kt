@@ -42,7 +42,7 @@ public interface Player : EventSource<TrackEvent> {
      *
      * @param track the lavalink encoded track
      */
-    public suspend fun playTrack(track: String)
+    public suspend fun playTrack(track: String, playOptionsBuilder: PlayOptions.() -> Unit = {})
 
     /**
      * Stops playback of the currently playing track.
