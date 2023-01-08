@@ -20,7 +20,7 @@ dependencies {
     implementation(libs.sl4fj.simple)
     implementation(libs.kord.core)
 
-    implementation("org.codehaus.groovy:groovy-all:3.0.8")
+    implementation("org.apache.groovy:groovy-all:4.0.7")
     kapt("dev.kord.x:commands-processor:0.4.0-SNAPSHOT")
 
     implementation("net.dv8tion:JDA:5.0.0-alpha.3") {
@@ -28,11 +28,6 @@ dependencies {
     }
 }
 
-tasks {
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-        }
-    }
+kotlin {
+    jvmToolchain(19)
 }

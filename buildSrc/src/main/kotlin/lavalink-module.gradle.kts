@@ -14,13 +14,8 @@ repositories {
 kotlin {
     explicitApi()
 
+    jvmToolchain(8)
     jvm {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-
         tasks {
             withType<Test> {
                 useJUnitPlatform()

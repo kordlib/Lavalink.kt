@@ -51,19 +51,24 @@ suspend fun main() {
 
                 link.connectAudio(channelId.value)
             }
+
             "!pause" -> {
                 player.pause(!player.paused)
             }
+
             "!stop" -> {
                 player.stopTrack()
             }
+
             "!leave" -> {
                 link.destroy()
             }
+
             "!volume" -> {
                 val volume = args[1].toInt()
                 player.setVolume(volume)
             }
+
             "!play" -> {
                 val query = args.drop(1).joinToString(" ")
                 val search = if (query.startsWith("http")) {

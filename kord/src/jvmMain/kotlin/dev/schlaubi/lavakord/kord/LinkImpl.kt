@@ -75,7 +75,7 @@ internal class KordLink(
 
     override suspend fun disconnectAudio() {
         state = Link.State.DISCONNECTING
-        val guild = lavakord.kord.getGuild(Snowflake(guildId)) ?: error("Could not find Guild $guildId")
+        val guild = lavakord.kord.getGuildOrNull(Snowflake(guildId)) ?: error("Could not find Guild $guildId")
         lastChannelId = null
         // Hope broke the UpdateVoiceStatus command
         val command = UpdateVoiceStatus(

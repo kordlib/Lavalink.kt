@@ -1,11 +1,11 @@
 package dev.schlaubi.lavakord.audio.internal
 
 import dev.schlaubi.lavakord.audio.*
-import io.ktor.client.network.sockets.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.serialization.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
@@ -13,9 +13,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
 import mu.KotlinLogging
 
 internal val LOG = KotlinLogging.logger { }
@@ -68,12 +65,11 @@ internal class NodeImpl(
 
         send(GatewayPayload.ConfigureResumingCommand(resumeKey, resumeTimeout))
 
-        for (message in session.incoming) {
-            when (message) {
-                is Frame.Text -> onMessage(message)
-                else -> {
-                    LOG.warn { "Received unexpected websocket frame: $message" }
-                }
+        while (!session.incoming.isClosedForReceive) {
+            try {
+                onEvent(session.receiveDeserialized())
+            } catch (e: WebsocketDeserializeException) {
+                LOG.warn(e) { "An error occurred whilst decoding incoming websocket packet" }
             }
         }
         val reason = session.closeReason.await()
@@ -95,29 +91,13 @@ internal class NodeImpl(
     }
 
     internal suspend fun send(command: GatewayPayload) {
-        val jsonCommand = lavakord.json.encodeToString(command)
         if (command is SanitizablePayload<*>) { // sanitize tokens or keys
             val sanitizedCommand by lazy { command.sanitize() }
             LOG.trace { "Sending command $sanitizedCommand" }
-            LOG.trace { "Gateway >>> ${lavakord.json.encodeToString(sanitizedCommand)}" }
         } else {
             LOG.trace { "Sending command $command" }
-            LOG.trace { "Gateway >>> $jsonCommand" }
         }
-        session.outgoing.send(Frame.Text(jsonCommand))
-    }
-
-    private suspend fun onMessage(frame: Frame.Text) {
-        val text = frame.readText()
-        LOG.trace { "Gateway <<< $text" }
-        val payload = try {
-            lavakord.json.decodeFromString<GatewayPayload>(text)
-        } catch (e: SerializationException) {
-            LOG.warn(e) { "Error whilst handling websocket packet" }
-            return
-        }
-
-        onEvent(payload)
+        session.sendSerialized(command)
     }
 
     private suspend fun onEvent(event: GatewayPayload) {
@@ -126,25 +106,32 @@ internal class NodeImpl(
             is GatewayPayload.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer).provideState(
                 event.state
             )
+
             is GatewayPayload.StatsEvent -> {
                 LOG.debug { "Received node statistics for $name: $event" }
                 lastStatsEvent = event
             }
+
             is GatewayPayload.EmittedEvent -> {
                 val emittedEvent = when (event.type) {
                     GatewayPayload.EmittedEvent.Type.TRACK_START_EVENT ->
                         TrackStartEvent(event)
+
                     GatewayPayload.EmittedEvent.Type.TRACK_END_EVENT ->
                         TrackEndEvent(event)
+
                     GatewayPayload.EmittedEvent.Type.TRACK_EXCEPTION_EVENT ->
                         TrackExceptionEvent(event)
+
                     GatewayPayload.EmittedEvent.Type.TRACK_STUCK_EVENT ->
                         TrackStuckEvent(event)
+
                     GatewayPayload.EmittedEvent.Type.WEBSOCKET_CLOSED_EVENT -> WebsocketClosedEvent(event)
                 }
 
                 eventPublisher.tryEmit(emittedEvent)
             }
+
             else -> LOG.warn { "Received unexpected event: $event" }
         }
     }

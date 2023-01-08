@@ -17,6 +17,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.launch
@@ -76,7 +77,9 @@ public abstract class AbstractLavakord internal constructor(
     }
 
     internal val gatewayClient = HttpClient(HttpEngine) {
-        install(WebSockets)
+        install(WebSockets) {
+            contentConverter = KotlinxWebsocketSerializationConverter(json)
+        }
 
         install(HttpTimeout)
         install(Logging) {

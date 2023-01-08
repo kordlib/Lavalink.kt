@@ -7,14 +7,13 @@ import dev.kord.core.event.guild.VoiceServerUpdateEvent
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.on
 import dev.schlaubi.lavakord.LavaKordOptions
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 internal class KordLavaKord(
@@ -36,7 +35,7 @@ internal class KordLavaKord(
             if (options.link.autoReconnect) {
                 linksMap.forEach { (guildId, link) ->
                     val lastChannel = link.lastChannelId
-                    if (lastChannel != null && event.kord.getGuild(Snowflake(guildId)) != null) {
+                    if (lastChannel != null && event.kord.getGuildOrNull(Snowflake(guildId)) != null) {
                         try {
                             link.connectAudio(lastChannel)
                         } catch (e: Exception) {
