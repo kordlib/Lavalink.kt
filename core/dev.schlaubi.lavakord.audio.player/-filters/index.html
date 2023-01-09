@@ -4,10 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Filters</title>
 <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -18,14 +26,15 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../../index.html">
 <span>lavakord</span>            </a>    </div>
-    <div>3.7.0
+    <div>3.8.0
     </div>
     <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section">
@@ -41,12 +50,10 @@ if(savedDarkMode === true){
     </div>
     <div id="main">
 <div class="main-content" id="content" pageids="core::dev.schlaubi.lavakord.audio.player/Filters///PointingToDeclaration//-2011752812">
-  <div class="breadcrumbs"><a href="../../index.html">core</a><span class="delimiter">/</span><a href="../index.html">dev.schlaubi.lavakord.audio.player</a><span class="delimiter">/</span><a href="index.html">Filters</a></div>
+  <div class="breadcrumbs"><a href="../../index.html">core</a><span class="delimiter">/</span><a href="../index.html">dev.schlaubi.lavakord.audio.player</a><span class="delimiter">/</span><span class="current">Filters</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Filters</span></span></h1>
-    <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Filters</a> : <a href="../-equalizer-builder/index.html">EqualizerBuilder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Representation of the filter configuration.</p></div>    </div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Filters</a> : <a href="../-equalizer-builder/index.html">EqualizerBuilder</a></div><p class="paragraph">Representation of the filter configuration.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button></div>
@@ -62,9 +69,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-channel-mix/index.html">ChannelMix</a> : <a href="-filter/index.html">Filters.Filter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Mixes both channels (left and right), with a configurable factor on how much each channel affects the other. With the defaults, both channels are kept independent from each other. Setting all factors to 0.5 means both channels get the same audio.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-channel-mix/index.html">ChannelMix</a> : <a href="-filter/index.html">Filters.Filter</a></div><div class="brief "><p class="paragraph">Mixes both channels (left and right), with a configurable factor on how much each channel affects the other. With the defaults, both channels are kept independent from each other. Setting all factors to 0.5 means both channels get the same audio.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -79,9 +84,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-distortion/index.html">Distortion</a> : <a href="-filter/index.html">Filters.Filter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Distortion effect. It can generate some pretty unique audio effects.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-distortion/index.html">Distortion</a> : <a href="-filter/index.html">Filters.Filter</a></div><div class="brief "><p class="paragraph">Distortion effect. It can generate some pretty unique audio effects.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -96,9 +99,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-filter/index.html">Filter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Root interface for a resettable filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-filter/index.html">Filter</a></div><div class="brief "><p class="paragraph">Root interface for a resettable filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -113,9 +114,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-karaoke/index.html">Karaoke</a> : <a href="-filter/index.html">Filters.Filter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Uses equalization to eliminate part of a band, usually targeting vocals.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-karaoke/index.html">Karaoke</a> : <a href="-filter/index.html">Filters.Filter</a></div><div class="brief "><p class="paragraph">Uses equalization to eliminate part of a band, usually targeting vocals.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -130,9 +129,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-low-pass/index.html">LowPass</a> : <a href="-filter/index.html">Filters.Filter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Higher frequencies get suppressed, while lower frequencies pass through this filter, thus the name low pass.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-low-pass/index.html">LowPass</a> : <a href="-filter/index.html">Filters.Filter</a></div><div class="brief "><p class="paragraph">Higher frequencies get suppressed, while lower frequencies pass through this filter, thus the name low pass.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -147,9 +144,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rotation/index.html">Rotation</a> : <a href="-filter/index.html">Filters.Filter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Rotates the sound around the stereo channels/user headphones aka Audio Panning. It can produce an effect similar to: https://youtu.be/QB9EB8mTKcc (without the reverb)</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-rotation/index.html">Rotation</a> : <a href="-filter/index.html">Filters.Filter</a></div><div class="brief "><p class="paragraph">Rotates the sound around the stereo channels/user headphones aka Audio Panning. It can produce an effect similar to: https://youtu.be/QB9EB8mTKcc (without the reverb)</p></div></div></div>
               </div>
             </div>
           </div>
@@ -164,9 +159,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-timescale/index.html">Timescale</a> : <a href="-filter/index.html">Filters.Filter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Changes the speed, pitch, and rate. All default to 1.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-timescale/index.html">Timescale</a> : <a href="-filter/index.html">Filters.Filter</a></div><div class="brief "><p class="paragraph">Changes the speed, pitch, and rate. All default to 1.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -181,9 +174,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-tremolo/index.html">Tremolo</a> : <a href="-filter/index.html">Filters.Filter</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Uses amplification to create a shuddering effect, where the volume quickly oscillates. Example: https://en.wikipedia.org/wiki/File:Fuse_Electronics_Tremolo_MK-III_Quick_Demo.ogv</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-tremolo/index.html">Tremolo</a> : <a href="-filter/index.html">Filters.Filter</a></div><div class="brief "><p class="paragraph">Uses amplification to create a shuddering effect, where the volume quickly oscillates. Example: https://en.wikipedia.org/wiki/File:Fuse_Electronics_Tremolo_MK-III_Quick_Demo.ogv</p></div></div></div>
               </div>
             </div>
           </div>
@@ -198,9 +189,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-vibrato/index.html">Vibrato</a> : <a href="-tremolo/index.html">Filters.Tremolo</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Similar to <a href="-tremolo/index.html">Tremolo</a>. While tremolo oscillates the volume, vibrato oscillates the pitch.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-vibrato/index.html">Vibrato</a> : <a href="-tremolo/index.html">Filters.Tremolo</a></div><div class="brief "><p class="paragraph">Similar to <a href="-tremolo/index.html">Tremolo</a>. While tremolo oscillates the volume, vibrato oscillates the pitch.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -217,9 +206,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-equalizer-builder/band.html"><span class="token function">band</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">band<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-equalizer-builder/-band-configurator/index.html">EqualizerBuilder.BandConfigurator</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Gives you a <a href="../-equalizer-builder/-band-configurator/index.html">BandConfigurator</a> to configure this band.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-equalizer-builder/band.html"><span class="token function">band</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">band<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-equalizer-builder/-band-configurator/index.html">EqualizerBuilder.BandConfigurator</a></div><div class="brief "><p class="paragraph">Gives you a <a href="../-equalizer-builder/-band-configurator/index.html">BandConfigurator</a> to configure this band.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -234,9 +221,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">infix </span><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">.</span><a href="../-equalizer-builder/gain.html"><span class="token function">gain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gain<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Sets the gain of the band with this int as it's id to <a href="../-equalizer-builder/gain.html">gain</a>.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">infix </span><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">.</span><a href="../-equalizer-builder/gain.html"><span class="token function">gain</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gain<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Sets the gain of the band with this int as it's id to <a href="../-equalizer-builder/gain.html">gain</a>.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -251,9 +236,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="reset.html"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets all filters and resets equalizer bands</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="reset.html"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets all filters and resets equalizer bands</p></div></div></div>
               </div>
             </div>
           </div>
@@ -268,9 +251,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-channel-mix.html"><span class="token function">unsetChannelMix</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets the <a href="-channel-mix/index.html">ChannelMix</a> filter, this disables the filter</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-channel-mix.html"><span class="token function">unsetChannelMix</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets the <a href="-channel-mix/index.html">ChannelMix</a> filter, this disables the filter</p></div></div></div>
               </div>
             </div>
           </div>
@@ -285,9 +266,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-distortion.html"><span class="token function">unsetDistortion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets the <a href="-distortion/index.html">Distortion</a> filter, this disables the filter</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-distortion.html"><span class="token function">unsetDistortion</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets the <a href="-distortion/index.html">Distortion</a> filter, this disables the filter</p></div></div></div>
               </div>
             </div>
           </div>
@@ -302,9 +281,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-karaoke.html"><span class="token function">unsetKaraoke</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets the <a href="-karaoke/index.html">Karaoke</a> filter, this disables the filter</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-karaoke.html"><span class="token function">unsetKaraoke</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets the <a href="-karaoke/index.html">Karaoke</a> filter, this disables the filter</p></div></div></div>
               </div>
             </div>
           </div>
@@ -319,9 +296,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-low-pass.html"><span class="token function">unsetLowPass</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets the <a href="-low-pass/index.html">LowPass</a> filter, this disables the filter</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-low-pass.html"><span class="token function">unsetLowPass</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets the <a href="-low-pass/index.html">LowPass</a> filter, this disables the filter</p></div></div></div>
               </div>
             </div>
           </div>
@@ -336,9 +311,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-rotation.html"><span class="token function">unsetRotation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets the <a href="-rotation/index.html">Rotation</a> filter, this disables the filter</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-rotation.html"><span class="token function">unsetRotation</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets the <a href="-rotation/index.html">Rotation</a> filter, this disables the filter</p></div></div></div>
               </div>
             </div>
           </div>
@@ -353,9 +326,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-timescale.html"><span class="token function">unsetTimescale</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets the <a href="-timescale/index.html">Timescale</a> filter, this disables the filter</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-timescale.html"><span class="token function">unsetTimescale</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets the <a href="-timescale/index.html">Timescale</a> filter, this disables the filter</p></div></div></div>
               </div>
             </div>
           </div>
@@ -370,9 +341,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-tremolo.html"><span class="token function">unsetTremolo</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets the <a href="-tremolo/index.html">Tremolo</a> filter, this disables the filter</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-tremolo.html"><span class="token function">unsetTremolo</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets the <a href="-tremolo/index.html">Tremolo</a> filter, this disables the filter</p></div></div></div>
               </div>
             </div>
           </div>
@@ -387,9 +356,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-vibrato.html"><span class="token function">unsetVibrato</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Unsets the <a href="-vibrato/index.html">Vibrato</a> filter, this disables the filter</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="unset-vibrato.html"><span class="token function">unsetVibrato</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unsets the <a href="-vibrato/index.html">Vibrato</a> filter, this disables the filter</p></div></div></div>
               </div>
             </div>
           </div>
@@ -406,9 +373,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-647482527%2FProperties%2F-2011752812" anchor-label="bands" id="-647482527%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-equalizer-builder/bands.html">bands</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-band/index.html">Band</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-647482527%2FProperties%2F-2011752812" anchor-label="bands" id="-647482527%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The bands to modify.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-647482527%2FProperties%2F-2011752812" anchor-label="bands" id="-647482527%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-equalizer-builder/bands.html">bands</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-band/index.html">Band</a><span class="token operator">&gt;</span></div><div class="brief "><a data-name="-647482527%2FProperties%2F-2011752812" anchor-label="bands" id="-647482527%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The bands to modify.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -423,9 +388,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1826725428%2FProperties%2F-2011752812" anchor-label="channelMix" id="-1826725428%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="channel-mix.html">channelMix</a><span class="token operator">: </span><a href="-channel-mix/index.html">Filters.ChannelMix</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1826725428%2FProperties%2F-2011752812" anchor-label="channelMix" id="-1826725428%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="channel-mix.html">channelMix</a><span class="token operator">: </span><a href="-channel-mix/index.html">Filters.ChannelMix</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -440,9 +403,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1171665928%2FProperties%2F-2011752812" anchor-label="distortion" id="1171665928%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="distortion.html">distortion</a><span class="token operator">: </span><a href="-distortion/index.html">Filters.Distortion</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1171665928%2FProperties%2F-2011752812" anchor-label="distortion" id="1171665928%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="distortion.html">distortion</a><span class="token operator">: </span><a href="-distortion/index.html">Filters.Distortion</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -457,9 +418,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1329195759%2FProperties%2F-2011752812" anchor-label="karaoke" id="-1329195759%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="karaoke.html">karaoke</a><span class="token operator">: </span><a href="-karaoke/index.html">Filters.Karaoke</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1329195759%2FProperties%2F-2011752812" anchor-label="karaoke" id="-1329195759%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="karaoke.html">karaoke</a><span class="token operator">: </span><a href="-karaoke/index.html">Filters.Karaoke</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -474,9 +433,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1539252368%2FProperties%2F-2011752812" anchor-label="lowPass" id="1539252368%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="low-pass.html">lowPass</a><span class="token operator">: </span><a href="-low-pass/index.html">Filters.LowPass</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1539252368%2FProperties%2F-2011752812" anchor-label="lowPass" id="1539252368%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="low-pass.html">lowPass</a><span class="token operator">: </span><a href="-low-pass/index.html">Filters.LowPass</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -491,9 +448,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-208906681%2FProperties%2F-2011752812" anchor-label="rotation" id="-208906681%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="rotation.html">rotation</a><span class="token operator">: </span><a href="-rotation/index.html">Filters.Rotation</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-208906681%2FProperties%2F-2011752812" anchor-label="rotation" id="-208906681%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="rotation.html">rotation</a><span class="token operator">: </span><a href="-rotation/index.html">Filters.Rotation</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -508,9 +463,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1281163384%2FProperties%2F-2011752812" anchor-label="timescale" id="1281163384%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="timescale.html">timescale</a><span class="token operator">: </span><a href="-timescale/index.html">Filters.Timescale</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1281163384%2FProperties%2F-2011752812" anchor-label="timescale" id="1281163384%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="timescale.html">timescale</a><span class="token operator">: </span><a href="-timescale/index.html">Filters.Timescale</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -525,9 +478,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="280358697%2FProperties%2F-2011752812" anchor-label="tremolo" id="280358697%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="tremolo.html">tremolo</a><span class="token operator">: </span><a href="-tremolo/index.html">Filters.Tremolo</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="280358697%2FProperties%2F-2011752812" anchor-label="tremolo" id="280358697%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="tremolo.html">tremolo</a><span class="token operator">: </span><a href="-tremolo/index.html">Filters.Tremolo</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -542,9 +493,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-796199140%2FProperties%2F-2011752812" anchor-label="vibrato" id="-796199140%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="vibrato.html">vibrato</a><span class="token operator">: </span><a href="-vibrato/index.html">Filters.Vibrato</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-796199140%2FProperties%2F-2011752812" anchor-label="vibrato" id="-796199140%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="vibrato.html">vibrato</a><span class="token operator">: </span><a href="-vibrato/index.html">Filters.Vibrato</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -559,9 +508,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1467320277%2FProperties%2F-2011752812" anchor-label="volume" id="-1467320277%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">var </span><a href="volume.html">volume</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1467320277%2FProperties%2F-2011752812" anchor-label="volume" id="-1467320277%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">var </span><a href="volume.html">volume</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a><span class="token operator">?</span></div></div></div>
               </div>
             </div>
           </div>
@@ -578,9 +525,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../channel-mix.html"><span class="token function">channelMix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-channel-mix/index.html">Filters.ChannelMix</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Configures the <a href="-channel-mix/index.html">Filters.ChannelMix</a> filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../channel-mix.html"><span class="token function">channelMix</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-channel-mix/index.html">Filters.ChannelMix</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures the <a href="-channel-mix/index.html">Filters.ChannelMix</a> filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -595,9 +540,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../distortion.html"><span class="token function">distortion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-distortion/index.html">Filters.Distortion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Configures the <a href="-distortion/index.html">Filters.Distortion</a> filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../distortion.html"><span class="token function">distortion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-distortion/index.html">Filters.Distortion</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures the <a href="-distortion/index.html">Filters.Distortion</a> filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -612,9 +555,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../karaoke.html"><span class="token function">karaoke</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-karaoke/index.html">Filters.Karaoke</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Configures the <a href="-karaoke/index.html">Filters.Karaoke</a> filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../karaoke.html"><span class="token function">karaoke</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-karaoke/index.html">Filters.Karaoke</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures the <a href="-karaoke/index.html">Filters.Karaoke</a> filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -629,9 +570,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../low-pass.html"><span class="token function">lowPass</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-low-pass/index.html">Filters.LowPass</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Configures the <a href="-low-pass/index.html">Filters.LowPass</a> filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../low-pass.html"><span class="token function">lowPass</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-low-pass/index.html">Filters.LowPass</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures the <a href="-low-pass/index.html">Filters.LowPass</a> filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -646,9 +585,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../rotation.html"><span class="token function">rotation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-rotation/index.html">Filters.Rotation</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Configures the <a href="-rotation/index.html">Filters.Rotation</a> filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../rotation.html"><span class="token function">rotation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-rotation/index.html">Filters.Rotation</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures the <a href="-rotation/index.html">Filters.Rotation</a> filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -663,9 +600,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../timescale.html"><span class="token function">timescale</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-timescale/index.html">Filters.Timescale</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Configures the <a href="-timescale/index.html">Filters.Timescale</a> filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../timescale.html"><span class="token function">timescale</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-timescale/index.html">Filters.Timescale</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures the <a href="-timescale/index.html">Filters.Timescale</a> filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -680,9 +615,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../tremolo.html"><span class="token function">tremolo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-tremolo/index.html">Filters.Tremolo</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Configures the <a href="-tremolo/index.html">Filters.Tremolo</a> filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../tremolo.html"><span class="token function">tremolo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-tremolo/index.html">Filters.Tremolo</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures the <a href="-tremolo/index.html">Filters.Tremolo</a> filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -697,9 +630,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../vibrato.html"><span class="token function">vibrato</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-vibrato/index.html">Filters.Vibrato</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Configures the <a href="-vibrato/index.html">Filters.Vibrato</a> filter.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html">Filters</a><span class="token punctuation">.</span><a href="../vibrato.html"><span class="token function">vibrato</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token keyword"></span><a href="-vibrato/index.html">Filters.Vibrato</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Configures the <a href="-vibrato/index.html">Filters.Vibrato</a> filter.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -709,7 +640,7 @@ if(savedDarkMode === true){
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
 </div>

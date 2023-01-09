@@ -4,10 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>TrackStuckEvent</title>
 <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -18,14 +26,15 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../../index.html">
 <span>lavakord</span>            </a>    </div>
-    <div>3.7.0
+    <div>3.8.0
     </div>
     <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section">
@@ -41,21 +50,17 @@ if(savedDarkMode === true){
     </div>
     <div id="main">
 <div class="main-content" id="content" pageids="core::dev.schlaubi.lavakord.audio/TrackStuckEvent///PointingToDeclaration//-2011752812">
-  <div class="breadcrumbs"><a href="../../index.html">core</a><span class="delimiter">/</span><a href="../index.html">dev.schlaubi.lavakord.audio</a><span class="delimiter">/</span><a href="index.html">TrackStuckEvent</a></div>
+  <div class="breadcrumbs"><a href="../../index.html">core</a><span class="delimiter">/</span><a href="../index.html">dev.schlaubi.lavakord.audio</a><span class="delimiter">/</span><span class="current">TrackStuckEvent</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Track</span><wbr><span>Stuck</span><wbr><span><span>Event</span></span></h1>
-    <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">TrackStuckEvent</a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>guildId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>track<span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;<span class="token keyword">val </span>threshold<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a></span></span><span class="token punctuation">)</span> : <a href="../-track-event/index.html">TrackEvent</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Event that is fired when a track was started, but no audio frames from it have arrived in a ULong time</p></div>    </div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">TrackStuckEvent</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>guildId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>track<span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>threshold<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a></span></span><span class="token punctuation">)</span> : <a href="../-track-event/index.html">TrackEvent</a></div><p class="paragraph">Event that is fired when a track was started, but no audio frames from it have arrived in a ULong time</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="See also">See also</button></div>
     <div class="tabs-section-body">
-      <h2 class="">See also</h2>
+      <h4 class="">See also</h4>
       <div data-togglable="See also">
-        <div class="platform-hinted WithExtraAttributes with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="See also">
-          <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><a href="../-track-event/index.html"><span>dev.</span><wbr><span>schlaubi.</span><wbr><span>lavakord.</span><wbr><span>audio.</span><wbr><span>TrackEvent</span></a></div></span></div><div><div class="title"><div data-togglable="See also"></div></div></div></div></div></div></div></div>        </div>
+        <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="See also"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><a href="../-track-event/index.html"><span>Track</span><wbr><span><span>Event</span></span></a></div></span></div><div></div></div></div></div></div></div></div>
       </div>
       <h2 class="tabbedcontent">Constructors</h2>
       <div class="table" data-togglable="Constructors"><a data-name="1436351457%2FConstructors%2F-2011752812" anchor-label="TrackStuckEvent" id="1436351457%2FConstructors%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
@@ -68,9 +73,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-track-stuck-event.html"><span class="token function">TrackStuckEvent</span></a><span class="token punctuation">(</span><span class="parameters wrapped"><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;guildId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;track<span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a><span class="token punctuation">, </span></span><span class="parameter indented">&nbsp;&nbsp;&nbsp;&nbsp;threshold<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-track-stuck-event.html"><span class="token function">TrackStuckEvent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">guildId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a><span class="token punctuation">, </span></span><span class="parameter ">track<span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a><span class="token punctuation">, </span></span><span class="parameter ">threshold<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a></span></span><span class="token punctuation">)</span></div></div></div>
               </div>
             </div>
           </div>
@@ -87,9 +90,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="954567584%2FProperties%2F-2011752812" anchor-label="guildId" id="954567584%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="guild-id.html">guildId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="954567584%2FProperties%2F-2011752812" anchor-label="guildId" id="954567584%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">the id of the guild the even got fired on</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="954567584%2FProperties%2F-2011752812" anchor-label="guildId" id="954567584%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="guild-id.html">guildId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a></div><div class="brief "><a data-name="954567584%2FProperties%2F-2011752812" anchor-label="guildId" id="954567584%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">the id of the guild the even got fired on</p></div></div></div>
               </div>
             </div>
           </div>
@@ -104,9 +105,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-437919229%2FProperties%2F-2011752812" anchor-label="threshold" id="-437919229%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="threshold.html">threshold</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-437919229%2FProperties%2F-2011752812" anchor-label="threshold" id="-437919229%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The wait threshold that was exceeded for this event to trigger</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-437919229%2FProperties%2F-2011752812" anchor-label="threshold" id="-437919229%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="threshold.html">threshold</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.time/-duration/index.html">Duration</a></div><div class="brief "><a data-name="-437919229%2FProperties%2F-2011752812" anchor-label="threshold" id="-437919229%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The wait threshold that was exceeded for this event to trigger</p></div></div></div>
               </div>
             </div>
           </div>
@@ -121,9 +120,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1158225501%2FProperties%2F-2011752812" anchor-label="track" id="-1158225501%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="track.html">track</a><span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1158225501%2FProperties%2F-2011752812" anchor-label="track" id="-1158225501%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">the <a href="../../dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a> the even is about</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1158225501%2FProperties%2F-2011752812" anchor-label="track" id="-1158225501%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="track.html">track</a><span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a></div><div class="brief "><a data-name="-1158225501%2FProperties%2F-2011752812" anchor-label="track" id="-1158225501%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">the <a href="../../dev.schlaubi.lavakord.audio.player/-track/index.html">Track</a> the even is about</p></div></div></div>
               </div>
             </div>
           </div>
@@ -133,7 +130,7 @@ if(savedDarkMode === true){
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
 </div>

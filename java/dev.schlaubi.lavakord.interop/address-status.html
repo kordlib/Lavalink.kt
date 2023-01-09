@@ -4,10 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>addressStatus</title>
 <link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -18,14 +26,15 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../scripts/prism.js" async></script></head>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../index.html">
 <span>lavakord</span>            </a>    </div>
-    <div>3.7.0
+    <div>3.8.0
     </div>
     <div class="pull-right d-flex">
         <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
@@ -38,14 +47,14 @@ if(savedDarkMode === true){
     </div>
     <div id="main">
 <div class="main-content" id="content" pageids="java::dev.schlaubi.lavakord.interop//addressStatus/#dev.schlaubi.lavakord.audio.Node/PointingToDeclaration//-875782939">
-  <div class="breadcrumbs"><a href="../index.html">java</a><span class="delimiter">/</span><a href="index.html">dev.schlaubi.lavakord.interop</a><span class="delimiter">/</span><a href="address-status.html">addressStatus</a></div>
+  <div class="breadcrumbs"><a href="../index.html">java</a><span class="delimiter">/</span><a href="index.html">dev.schlaubi.lavakord.interop</a><span class="delimiter">/</span><span class="current">addressStatus</span></div>
   <div class="cover ">
     <h1 class="cover"><span>address</span><wbr><span><span>Status</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="address-status.html"><span class="token function">addressStatus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">node<span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord.audio/-node/index.html">Node</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../core/dev.schlaubi.lavakord.rest/-route-planner-status/index.html">RoutePlannerStatus</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="../../core/dev.schlaubi.lavakord.rest/-route-planner-status/-data/index.html">RoutePlannerStatus.Data</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Retrieves the current address status of the route planner api. Can be null if no Route planner is set.</p><h2 class="">See also</h2><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><a href="../../core/dev.schlaubi.lavakord.rest/-route-planner-status/index.html"><span>dev.</span><wbr><span>schlaubi.</span><wbr><span>lavakord.</span><wbr><span>rest.</span><wbr><span>Route</span><wbr><span>Planner</span><wbr><span><span>Status</span></span></a></div></span></div><div><div class="title"><div data-togglable="See also"></div></div></div></div></div><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><a href="../../core/dev.schlaubi.lavakord.rest/index.html"><span>Node.</span><wbr><span>address</span><wbr><span>Status</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div></span></div><div><div class="title"><div data-togglable="See also"></div></div></div></div></div></div></div><h2 class="">Parameters</h2><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><span><span>node</span></span></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">the <a href="../../core/dev.schlaubi.lavakord.audio/-node/index.html">Node</a> to retrieve the <a href="../../core/dev.schlaubi.lavakord.rest/-route-planner-status/index.html">RoutePlannerStatus</a> from</p></div></div></div></div></div></div></div><h2 class="">Throws</h2><div class="table"><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../core/dev.schlaubi.lavakord/-no-route-planner-exception/index.html"><span>dev.</span><wbr><span>schlaubi.</span><wbr><span>lavakord.</span><wbr><span>No</span><wbr><span>Route</span><wbr><span>Planner</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">when no route planner is set</p></div></div></div></div></div></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":java:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="address-status.html"><span class="token function">addressStatus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">node<span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord.audio/-node/index.html">Node</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../core/dev.schlaubi.lavakord.rest/-route-planner-status/index.html">RoutePlannerStatus</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="../../core/dev.schlaubi.lavakord.rest/-route-planner-status/-data/index.html">RoutePlannerStatus.Data</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><p class="paragraph">Retrieves the current address status of the route planner api. Can be null if no Route planner is set.</p><h4 class="">See also</h4><div data-togglable="See also"><div class="table" data-togglable="See also"><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><a href="../../core/dev.schlaubi.lavakord.rest/-route-planner-status/index.html"><span>Route</span><wbr><span>Planner</span><wbr><span><span>Status</span></span></a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><a href="../../core/dev.schlaubi.lavakord.rest/index.html"><span>address</span><wbr><span>Status</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div></span></div><div></div></div></div></div></div><h4 class="">Parameters</h4><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>node</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">the <a href="../../core/dev.schlaubi.lavakord.audio/-node/index.html">Node</a> to retrieve the <a href="../../core/dev.schlaubi.lavakord.rest/-route-planner-status/index.html">RoutePlannerStatus</a> from</p></div></div></div></div></div></div></div><h4 class="">Throws</h4><div class="table" data-togglable="Throws"><div class="table-row" data-filterable-current=":java:dokkaHtmlPartial/jvmMain" data-filterable-set=":java:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../core/dev.schlaubi.lavakord/-no-route-planner-exception/index.html"><span>No</span><wbr><span>Route</span><wbr><span>Planner</span><wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">when no route planner is set</p></div></div></div></div></div></div></div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
 </div>

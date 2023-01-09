@@ -4,10 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Node</title>
 <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../../styles/style.css" rel="Stylesheet">
 <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -18,14 +26,15 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../../scripts/prism.js" async></script></head>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../../index.html">
 <span>lavakord</span>            </a>    </div>
-    <div>3.7.0
+    <div>3.8.0
     </div>
     <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section">
@@ -41,15 +50,13 @@ if(savedDarkMode === true){
     </div>
     <div id="main">
 <div class="main-content" id="content" pageids="core::dev.schlaubi.lavakord.audio/Node///PointingToDeclaration//-2011752812">
-  <div class="breadcrumbs"><a href="../../index.html">core</a><span class="delimiter">/</span><a href="../index.html">dev.schlaubi.lavakord.audio</a><span class="delimiter">/</span><a href="index.html">Node</a></div>
+  <div class="breadcrumbs"><a href="../../index.html">core</a><span class="delimiter">/</span><a href="../index.html">dev.schlaubi.lavakord.audio</a><span class="delimiter">/</span><span class="current">Node</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Node</span></span></h1>
-    <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-      <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Node</a> : <a href="../-rest-node/index.html">RestNode</a>, <a href="../-event-source/index.html">EventSource</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-track-event/index.html">TrackEvent</a><span class="token operator">&gt; </span>, <span data-unresolved-link="io.ktor.utils.io.core/Closeable///PointingToDeclaration/">Closeable</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Representation of a Lavalink node, supporting rest calls and a websocket connection.</p></div>    </div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Node</a> : <a href="../-rest-node/index.html">RestNode</a>, <a href="../-event-source/index.html">EventSource</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-track-event/index.html">TrackEvent</a><span class="token operator">&gt; </span>, <span data-unresolved-link="io.ktor.utils.io.core/Closeable///PointingToDeclaration/">Closeable</span></div><p class="paragraph">Representation of a Lavalink node, supporting rest calls and a websocket connection.</p></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button></div>
     <div class="tabs-section-body">
       <h2 class="">Functions</h2>
       <div class="table" data-togglable="Functions"><a data-name="539526881%2FFunctions%2F-2011752812" anchor-label="close" id="539526881%2FFunctions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
@@ -62,9 +69,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#539526881%2FFunctions%2F-2011752812"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index.html#539526881%2FFunctions%2F-2011752812"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
               </div>
             </div>
           </div>
@@ -81,9 +86,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1583464170%2FProperties%2F-2011752812" anchor-label="authenticationHeader" id="1583464170%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-rest-node/authentication-header.html">authenticationHeader</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1583464170%2FProperties%2F-2011752812" anchor-label="authenticationHeader" id="1583464170%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The password for communicating with the node.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1583464170%2FProperties%2F-2011752812" anchor-label="authenticationHeader" id="1583464170%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-rest-node/authentication-header.html">authenticationHeader</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><a data-name="1583464170%2FProperties%2F-2011752812" anchor-label="authenticationHeader" id="1583464170%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The password for communicating with the node.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -98,9 +101,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="961349270%2FProperties%2F-2011752812" anchor-label="available" id="961349270%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="available.html">available</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="961349270%2FProperties%2F-2011752812" anchor-label="available" id="961349270%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">Whether this node is currently available or not (e.g. reconnecting).</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="961349270%2FProperties%2F-2011752812" anchor-label="available" id="961349270%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="available.html">available</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><a data-name="961349270%2FProperties%2F-2011752812" anchor-label="available" id="961349270%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">Whether this node is currently available or not (e.g. reconnecting).</p></div></div></div>
               </div>
             </div>
           </div>
@@ -115,9 +116,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-653068548%2FProperties%2F-2011752812" anchor-label="coroutineScope" id="-653068548%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-event-source/coroutine-scope.html">coroutineScope</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-653068548%2FProperties%2F-2011752812" anchor-label="coroutineScope" id="-653068548%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">the default <span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span> to launch listeners in</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-653068548%2FProperties%2F-2011752812" anchor-label="coroutineScope" id="-653068548%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-event-source/coroutine-scope.html">coroutineScope</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span></div><div class="brief "><a data-name="-653068548%2FProperties%2F-2011752812" anchor-label="coroutineScope" id="-653068548%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">the default <span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span> to launch listeners in</p></div></div></div>
               </div>
             </div>
           </div>
@@ -132,9 +131,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1762267615%2FProperties%2F-2011752812" anchor-label="events" id="1762267615%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-event-source/events.html">events</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-track-event/index.html">TrackEvent</a><span class="token operator">&gt;</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="1762267615%2FProperties%2F-2011752812" anchor-label="events" id="1762267615%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">a <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span> of events</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="1762267615%2FProperties%2F-2011752812" anchor-label="events" id="1762267615%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-event-source/events.html">events</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-track-event/index.html">TrackEvent</a><span class="token operator">&gt;</span></div><div class="brief "><a data-name="1762267615%2FProperties%2F-2011752812" anchor-label="events" id="1762267615%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">a <span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span> of events</p></div></div></div>
               </div>
             </div>
           </div>
@@ -149,9 +146,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1436308025%2FProperties%2F-2011752812" anchor-label="host" id="-1436308025%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-rest-node/host.html">host</a><span class="token operator">: </span><span data-unresolved-link="io.ktor.http/Url///PointingToDeclaration/">Url</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1436308025%2FProperties%2F-2011752812" anchor-label="host" id="-1436308025%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The host of the node.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1436308025%2FProperties%2F-2011752812" anchor-label="host" id="-1436308025%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-rest-node/host.html">host</a><span class="token operator">: </span><span data-unresolved-link="io.ktor.http/Url///PointingToDeclaration/">Url</span></div><div class="brief "><a data-name="-1436308025%2FProperties%2F-2011752812" anchor-label="host" id="-1436308025%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The host of the node.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -166,9 +161,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1170368470%2FProperties%2F-2011752812" anchor-label="lastStatsEvent" id="-1170368470%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="last-stats-event.html">lastStatsEvent</a><span class="token operator">: </span><a href="../-stats-event/index.html">StatsEvent</a><span class="token operator">?</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1170368470%2FProperties%2F-2011752812" anchor-label="lastStatsEvent" id="-1170368470%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The last <a href="../-stats-event/index.html">StatsEvent</a> received from this node or null if no event has been received yet.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1170368470%2FProperties%2F-2011752812" anchor-label="lastStatsEvent" id="-1170368470%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="last-stats-event.html">lastStatsEvent</a><span class="token operator">: </span><a href="../-stats-event/index.html">StatsEvent</a><span class="token operator">?</span></div><div class="brief "><a data-name="-1170368470%2FProperties%2F-2011752812" anchor-label="lastStatsEvent" id="-1170368470%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The last <a href="../-stats-event/index.html">StatsEvent</a> received from this node or null if no event has been received yet.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -183,9 +176,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1232779079%2FProperties%2F-2011752812" anchor-label="lavakord" id="-1232779079%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-rest-node/lavakord.html">lavakord</a><span class="token operator">: </span><a href="../../dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1232779079%2FProperties%2F-2011752812" anchor-label="lavakord" id="-1232779079%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The <a href="../../dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a> instance which created this node.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="-1232779079%2FProperties%2F-2011752812" anchor-label="lavakord" id="-1232779079%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-rest-node/lavakord.html">lavakord</a><span class="token operator">: </span><a href="../../dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a></div><div class="brief "><a data-name="-1232779079%2FProperties%2F-2011752812" anchor-label="lavakord" id="-1232779079%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The <a href="../../dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a> instance which created this node.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -200,9 +191,99 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted" data-togglable="Properties">
-                  <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark common-like" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain" data-active="" data-toggle=":core:dokkaHtmlPartial/commonMain">common</button></div>
-<div class="content sourceset-depenent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="53632580%2FProperties%2F-2011752812" anchor-label="name" id="53632580%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-rest-node/name.html">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="53632580%2FProperties%2F-2011752812" anchor-label="name" id="53632580%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The name of the node.</p></div></div>                </div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><a data-name="53632580%2FProperties%2F-2011752812" anchor-label="name" id="53632580%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-rest-node/name.html">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><a data-name="53632580%2FProperties%2F-2011752812" anchor-label="name" id="53632580%2FProperties%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a><p class="paragraph">The name of the node.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="tabbedcontent">Extensions</h2>
+      <div class="table" data-togglable="Extensions"><a data-name="-980101251%2FExtensions%2F-2011752812" anchor-label="addressStatus" id="-980101251%2FExtensions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.schlaubi.lavakord.rest/address-status.html"><span>address</span><wbr><span><span>Status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-980101251%2FExtensions%2F-2011752812"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../-rest-node/index.html">RestNode</a><span class="token punctuation">.</span><a href="../../dev.schlaubi.lavakord.rest/address-status.html"><span class="token function">addressStatus</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.rest/-route-planner-status/index.html">RoutePlannerStatus</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="../../dev.schlaubi.lavakord.rest/-route-planner-status/-data/index.html">RoutePlannerStatus.Data</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Retrieves the current address status of the route planner api.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="675044755%2FExtensions%2F-2011752812" anchor-label="addressStatusOrNull" id="675044755%2FExtensions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.schlaubi.lavakord.rest/address-status-or-null.html"><span>address</span><wbr><span>Status</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="675044755%2FExtensions%2F-2011752812"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../-rest-node/index.html">RestNode</a><span class="token punctuation">.</span><a href="../../dev.schlaubi.lavakord.rest/address-status-or-null.html"><span class="token function">addressStatusOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.rest/-route-planner-status/index.html">RoutePlannerStatus</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="../../dev.schlaubi.lavakord.rest/-route-planner-status/-data/index.html">RoutePlannerStatus.Data</a><span class="token operator">&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">} Retrieves the current address status of the route planner api. Can be null if no Route planner is set</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="17228742%2FExtensions%2F-2011752812" anchor-label="loadItem" id="17228742%2FExtensions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.schlaubi.lavakord.rest/load-item.html"><span>load</span><wbr><span><span>Item</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="17228742%2FExtensions%2F-2011752812"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../-rest-node/index.html">RestNode</a><span class="token punctuation">.</span><a href="../../dev.schlaubi.lavakord.rest/load-item.html"><span class="token function">loadItem</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">query<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.rest/-track-response/index.html">TrackResponse</a></div><div class="brief "><p class="paragraph">Loads an audio item from this <a href="../-link/index.html">Link</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-619703262%2FExtensions%2F-2011752812" anchor-label="on" id="-619703262%2FExtensions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../on.html"><span><span>on</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-619703262%2FExtensions%2F-2011752812"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../on.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../on.html">E</a><span class="token operator"> : </span><a href="../on.html">T</a><span class="token operator">&gt; </span><a href="../-event-source/index.html">EventSource</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../on.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../on.html"><span class="token function">on</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token operator"> = </span>coroutineScope<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>consumer<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token keyword"></span><a href="../on.html">E</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/Job///PointingToDeclaration/">Job</span></div><div class="brief "><p class="paragraph">Convenience method that will invoke the <a href="../on.html">consumer</a> on every event <a href="../on.html">T</a> created by <a href="../-event-source/events.html">EventSource.events</a>.</p></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../on.html">T</a><span class="token operator"> : </span><a href="../-track-event/index.html">TrackEvent</a><span class="token operator">&gt; </span><a href="../-event-source/index.html">EventSource</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-track-event/index.html">TrackEvent</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../on.html"><span class="token function">on</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scope<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span><span class="token operator"> = </span>coroutineScope<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">noinline </span>consumer<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token keyword"></span><a href="../on.html">T</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/Job///PointingToDeclaration/">Job</span></div><div class="brief "><p class="paragraph">Listens for a <a href="../-track-event/index.html">TrackEvent</a></p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1319973425%2FExtensions%2F-2011752812" anchor-label="unmarkAddress" id="-1319973425%2FExtensions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.schlaubi.lavakord.rest/unmark-address.html"><span>unmark</span><wbr><span><span>Address</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1319973425%2FExtensions%2F-2011752812"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../-rest-node/index.html">RestNode</a><span class="token punctuation">.</span><a href="../../dev.schlaubi.lavakord.rest/unmark-address.html"><span class="token function">unmarkAddress</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">address<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unmarks the route planner <a href="../../dev.schlaubi.lavakord.rest/unmark-address.html">address</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="188706384%2FExtensions%2F-2011752812" anchor-label="unmarkAllAddresses" id="188706384%2FExtensions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../dev.schlaubi.lavakord.rest/unmark-all-addresses.html"><span>unmark</span><wbr><span>All</span><wbr><span><span>Addresses</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="188706384%2FExtensions%2F-2011752812"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../-rest-node/index.html">RestNode</a><span class="token punctuation">.</span><a href="../../dev.schlaubi.lavakord.rest/unmark-all-addresses.html"><span class="token function">unmarkAllAddresses</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Unmarks all failed route planner addresses.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -212,7 +293,7 @@ if(savedDarkMode === true){
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
 </div>

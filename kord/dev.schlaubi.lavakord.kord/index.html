@@ -4,10 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>dev.schlaubi.lavakord.kord</title>
 <link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -18,14 +26,15 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../scripts/main.js" defer></script>
-<script type="text/javascript" src="../../scripts/prism.js" async></script></head>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
     <div id="leftToggler"><span class="icon-toggler"></span></div>
     <div class="library-name">
 <a href="../../index.html">
 <span>lavakord</span>            </a>    </div>
-    <div>3.7.0
+    <div>3.8.0
     </div>
     <div class="pull-right d-flex">
         <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
@@ -38,9 +47,9 @@ if(savedDarkMode === true){
     </div>
     <div id="main">
 <div class="main-content" id="content" pageids="kord::dev.schlaubi.lavakord.kord////PointingToDeclaration//1323414361">
-  <div class="breadcrumbs"><a href="../index.html">kord</a><span class="delimiter">/</span><a href="index.html">dev.schlaubi.lavakord.kord</a></div>
+  <div class="breadcrumbs"><a href="../index.html">kord</a><span class="delimiter">/</span><span class="current">dev.schlaubi.lavakord.kord</span></div>
   <div class="cover ">
-    <h1 class="cover"><span><span>Package</span></span> <span>dev.</span><wbr><span>schlaubi.</span><wbr><span>lavakord.</span><wbr><span>kord</span></h1>
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
@@ -56,7 +65,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":kord:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a><span class="token punctuation">.</span><a href="connect-audio.html"><span class="token function">connectAudio</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">snowflake<span class="token operator">: </span><span data-unresolved-link="dev.kord.common.entity/Snowflake///PointingToDeclaration/">Snowflake</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Connects this link to the voice channel with the specified <a href="connect-audio.html">snowflake</a>.</p></div><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a><span class="token punctuation">.</span><a href="connect-audio.html"><span class="token function">connectAudio</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">voiceChannel<span class="token operator">: </span><span data-unresolved-link="dev.kord.core.entity.channel/VoiceChannel///PointingToDeclaration/">VoiceChannel</span></span></span><span class="token punctuation">)</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Connects this link to the <a href="connect-audio.html">voiceChannel</a>.</p></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kord:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a><span class="token punctuation">.</span><a href="connect-audio.html"><span class="token function">connectAudio</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">snowflake<span class="token operator">: </span><span data-unresolved-link="dev.kord.common.entity/Snowflake///PointingToDeclaration/">Snowflake</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Connects this link to the voice channel with the specified <a href="connect-audio.html">snowflake</a>.</p></div><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a><span class="token punctuation">.</span><a href="connect-audio.html"><span class="token function">connectAudio</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">voiceChannel<span class="token operator">: </span><span data-unresolved-link="dev.kord.core.entity.channel/VoiceChannel///PointingToDeclaration/">VoiceChannel</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Connects this link to the <a href="connect-audio.html">voiceChannel</a>.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -71,7 +80,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":kord:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span data-unresolved-link="dev.kord.core.behavior/GuildBehavior///PointingToDeclaration/">GuildBehavior</span><span class="token punctuation">.</span><a href="get-link.html"><span class="token function">getLink</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">lavalink<span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Creates or returns an existing <a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a> for this <span data-unresolved-link="dev.kord.core.entity/Guild///PointingToDeclaration/">Guild</span> using the <a href="get-link.html">lavalink</a> instance.</p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../core/dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a><span class="token punctuation">.</span><a href="get-link.html"><span class="token function">getLink</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">guildId<span class="token operator">: </span><span data-unresolved-link="dev.kord.common.entity/Snowflake///PointingToDeclaration/">Snowflake</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Creates or returns an existing <a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a> for the guild with the specified <a href="get-link.html">guildId</a>.</p></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kord:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span data-unresolved-link="dev.kord.core.behavior/GuildBehavior///PointingToDeclaration/">GuildBehavior</span><span class="token punctuation">.</span><a href="get-link.html"><span class="token function">getLink</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">lavalink<span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a></div><div class="brief "><p class="paragraph">Creates or returns an existing <a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a> for this <span data-unresolved-link="dev.kord.core.entity/Guild///PointingToDeclaration/">Guild</span> using the <a href="get-link.html">lavalink</a> instance.</p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../core/dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a><span class="token punctuation">.</span><a href="get-link.html"><span class="token function">getLink</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">guildId<span class="token operator">: </span><span data-unresolved-link="dev.kord.common.entity/Snowflake///PointingToDeclaration/">Snowflake</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a></div><div class="brief "><p class="paragraph">Creates or returns an existing <a href="../../core/dev.schlaubi.lavakord.audio/-link/index.html">Link</a> for the guild with the specified <a href="get-link.html">guildId</a>.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -86,7 +95,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":kord:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span data-unresolved-link="dev.kord.core/Kord///PointingToDeclaration/">Kord</span><span class="token punctuation">.</span><a href="lavakord.html"><span class="token function">lavakord</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">configure<span class="token operator">: </span><span class="token keyword"></span><a href="../../core/dev.schlaubi.lavakord/-mutable-lava-kord-options/index.html">MutableLavaKordOptions</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><p class="paragraph">Creates a <a href="../../core/dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a> instance for this <span data-unresolved-link="dev.kord.core/Kord///PointingToDeclaration/">Kord</span> instance.</p></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kord:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span data-unresolved-link="dev.kord.core/Kord///PointingToDeclaration/">Kord</span><span class="token punctuation">.</span><a href="lavakord.html"><span class="token function">lavakord</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">configure<span class="token operator">: </span><span class="token keyword"></span><a href="../../core/dev.schlaubi.lavakord/-mutable-lava-kord-options/index.html">MutableLavaKordOptions</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../core/dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a></div><div class="brief "><p class="paragraph">Creates a <a href="../../core/dev.schlaubi.lavakord/-lava-kord/index.html">LavaKord</a> instance for this <span data-unresolved-link="dev.kord.core/Kord///PointingToDeclaration/">Kord</span> instance.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -103,7 +112,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":kord:dokkaHtmlPartial/jvmMain"><a data-name="-1947314857%2FProperties%2F1323414361" anchor-label="kordPermission" id="-1947314857%2FProperties%2F1323414361" data-filterable-set=":kord:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../core/dev.schlaubi.lavakord/-insufficient-permission-exception/index.html">InsufficientPermissionException</a><span class="token punctuation">.</span><a href="kord-permission.html">kordPermission</a><span class="token operator">: </span><span data-unresolved-link="dev.kord.common.entity/Permissions///PointingToDeclaration/">Permissions</span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="-1947314857%2FProperties%2F1323414361" anchor-label="kordPermission" id="-1947314857%2FProperties%2F1323414361" data-filterable-set=":kord:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">The <span data-unresolved-link="dev.kord.common.entity/Permissions///PointingToDeclaration/">Permissions</span> that were missing.</p></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kord:dokkaHtmlPartial/jvmMain"><a data-name="-1947314857%2FProperties%2F1323414361" anchor-label="kordPermission" id="-1947314857%2FProperties%2F1323414361" data-filterable-set=":kord:dokkaHtmlPartial/jvmMain"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../core/dev.schlaubi.lavakord/-insufficient-permission-exception/index.html">InsufficientPermissionException</a><span class="token punctuation">.</span><a href="kord-permission.html">kordPermission</a><span class="token operator">: </span><span data-unresolved-link="dev.kord.common.entity/Permissions///PointingToDeclaration/">Permissions</span></div><div class="brief "><a data-name="-1947314857%2FProperties%2F1323414361" anchor-label="kordPermission" id="-1947314857%2FProperties%2F1323414361" data-filterable-set=":kord:dokkaHtmlPartial/jvmMain"></a><p class="paragraph">The <span data-unresolved-link="dev.kord.common.entity/Permissions///PointingToDeclaration/">Permissions</span> that were missing.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -113,7 +122,7 @@ if(savedDarkMode === true){
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
     </div>
 </div>
