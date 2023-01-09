@@ -16,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    implementation(kotlin("gradle-plugina-api"))
     implementation(kotlin("gradle-plugin"))
     implementation(kotlin("serialization"))
     implementation("org.jetbrains.dokka", "dokka-gradle-plugin", "1.7.20")
