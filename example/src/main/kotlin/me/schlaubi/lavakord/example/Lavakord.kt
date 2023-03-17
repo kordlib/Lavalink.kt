@@ -6,24 +6,24 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
+import dev.kord.gateway.Intent
+import dev.kord.gateway.PrivilegedIntent
 import dev.schlaubi.lavakord.LavaKord
 import dev.schlaubi.lavakord.audio.Link
-import dev.schlaubi.lavakord.audio.TrackEvent
 import dev.schlaubi.lavakord.audio.on
 import dev.schlaubi.lavakord.kord.lavakord
-import dev.schlaubi.lavakord.rest.TrackResponse
 import dev.schlaubi.lavakord.rest.loadItem
+import dev.schlaubi.lavakord.rest.models.TrackResponse
 
 lateinit var lavalink: LavaKord
 
+@OptIn(PrivilegedIntent::class)
 suspend fun main() {
     val kord = Kord(System.getenv("token"))
     val listenedGuilds = mutableListOf<Snowflake>()
-    lavalink = kord.lavakord {
+    lavalink = kord.lavakord()
 
-    }
-
-    lavalink.addNode("ws://localhost:2333 ", "youshallnotpass")
+    lavalink.addNode("wss://9764-5-253-115-167.eu.ngrok.io", "youshallnotpass")
 
     kord.on<MessageCreateEvent> {
         val args = message.content.split(" ")
@@ -33,7 +33,7 @@ suspend fun main() {
         val guildId = guildId ?: return@on
 
         if (guildId !in listenedGuilds) {
-            player.on<TrackEvent> {
+            player.on {
                 message.getChannel().createMessage("Event: $this")
             }
             listenedGuilds.add(guildId)
@@ -64,11 +64,6 @@ suspend fun main() {
                 link.destroy()
             }
 
-            "!volume" -> {
-                val volume = args[1].toInt()
-                player.setVolume(volume)
-            }
-
             "!play" -> {
                 val query = args.drop(1).joinToString(" ")
                 val search = if (query.startsWith("http")) {
@@ -85,17 +80,22 @@ suspend fun main() {
                 val item = link.loadItem(search)
 
                 when (item.loadType) {
-                    TrackResponse.LoadType.TRACK_LOADED -> player.playTrack(item.tracks.first())
-                    TrackResponse.LoadType.PLAYLIST_LOADED -> player.playTrack(item.tracks.first())
-                    TrackResponse.LoadType.SEARCH_RESULT -> player.playTrack(item.tracks.first())
+                    TrackResponse.LoadType.TRACK_LOADED,
+                    TrackResponse.LoadType.PLAYLIST_LOADED,
+                    TrackResponse.LoadType.SEARCH_RESULT -> player.playTrack(
+                        item.tracks.first()
+                    )
+
                     TrackResponse.LoadType.NO_MATCHES -> message.channel.createMessage("No matches")
                     TrackResponse.LoadType.LOAD_FAILED -> message.channel.createMessage(
-                        item.exception?.message ?: "Error"
+                        item.exception?.message ?: "Exception"
                     )
                 }
             }
         }
     }
 
-    kord.login()
+    kord.login {
+        intents += Intent.MessageContent
+    }
 }

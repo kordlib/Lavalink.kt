@@ -1,10 +1,16 @@
 package dev.schlaubi.lavakord.audio.internal
 
-import dev.schlaubi.lavakord.audio.*
+import dev.schlaubi.lavakord.audio.Event
+import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.rest.models.UpdateSessionRequest
+import dev.schlaubi.lavakord.rest.routes.V3Api
+import dev.schlaubi.lavakord.rest.updateSession
 import io.ktor.client.plugins.*
+import io.ktor.client.plugins.resources.Resources
 import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.resources.*
 import io.ktor.serialization.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.CoroutineScope
@@ -14,8 +20,19 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 internal val LOG = KotlinLogging.logger { }
+
+private data class SessionIdContainer(private var value: String? = null) : ReadWriteProperty<Any?, String> {
+    override fun getValue(thisRef: Any?, property: KProperty<*>): String = value
+        ?: error("WebSocket connection is not ready yet, please wait for the connection to finish")
+
+    override fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
+        this.value = value
+    }
+}
 
 internal class NodeImpl(
     override val host: Url,
@@ -28,24 +45,25 @@ internal class NodeImpl(
     private val retry = lavakord.options.link.retry
 
     private val resumeKey = generateResumeKey()
+    override var sessionId: String by SessionIdContainer()
     override var available: Boolean = true
     override var lastStatsEvent: GatewayPayload.StatsEvent? = null
-    private var eventPublisher: MutableSharedFlow<TrackEvent> =
+    private var eventPublisher: MutableSharedFlow<Event> =
         MutableSharedFlow(extraBufferCapacity = Channel.UNLIMITED)
     private lateinit var session: DefaultClientWebSocketSession
     override val coroutineScope: CoroutineScope
         get() = lavakord
 
-    override val events: SharedFlow<TrackEvent>
+    override val events: SharedFlow<Event>
         get() = eventPublisher.asSharedFlow()
 
     internal suspend fun connect(resume: Boolean = false) {
         session = try {
             connect(resume) {
+                addUrl()
                 timeout {
                     requestTimeoutMillis = HttpTimeout.INFINITE_TIMEOUT_MS
                 }
-                url(this@NodeImpl.host)
                 header("Authorization", authenticationHeader)
                 header("User-Id", lavakord.userId)
                 header("Client-Name", "Lavalink.kt")
@@ -63,8 +81,6 @@ internal class NodeImpl(
 
         LOG.debug { "Successfully connected to node: $name ($host)" }
 
-        send(GatewayPayload.ConfigureResumingCommand(resumeKey, resumeTimeout))
-
         while (!session.incoming.isClosedForReceive) {
             try {
                 onEvent(session.receiveDeserialized())
@@ -80,7 +96,7 @@ internal class NodeImpl(
     }
 
     private suspend fun reconnect(e: Throwable? = null, resume: Boolean = false) {
-        LOG.error(e) { "Error whilst trying to connect. Reconnecting" }
+        LOG.error(e) { "Exception whilst trying to connect. Reconnecting" }
         if (retry.hasNext) {
             retry.retry()
             connect(resume)
@@ -88,16 +104,6 @@ internal class NodeImpl(
             lavakord.removeNode(this)
             error("Could not reconnect to websocket after to many attempts")
         }
-    }
-
-    internal suspend fun send(command: GatewayPayload) {
-        if (command is SanitizablePayload<*>) { // sanitize tokens or keys
-            val sanitizedCommand by lazy { command.sanitize() }
-            LOG.trace { "Sending command $sanitizedCommand" }
-        } else {
-            LOG.trace { "Sending command $command" }
-        }
-        session.sendSerialized(command)
     }
 
     private suspend fun onEvent(event: GatewayPayload) {
@@ -113,26 +119,13 @@ internal class NodeImpl(
             }
 
             is GatewayPayload.EmittedEvent -> {
-                val emittedEvent = when (event.type) {
-                    GatewayPayload.EmittedEvent.Type.TRACK_START_EVENT ->
-                        TrackStartEvent(event)
-
-                    GatewayPayload.EmittedEvent.Type.TRACK_END_EVENT ->
-                        TrackEndEvent(event)
-
-                    GatewayPayload.EmittedEvent.Type.TRACK_EXCEPTION_EVENT ->
-                        TrackExceptionEvent(event)
-
-                    GatewayPayload.EmittedEvent.Type.TRACK_STUCK_EVENT ->
-                        TrackStuckEvent(event)
-
-                    GatewayPayload.EmittedEvent.Type.WEBSOCKET_CLOSED_EVENT -> WebsocketClosedEvent(event)
-                }
-
-                eventPublisher.tryEmit(emittedEvent)
+                eventPublisher.tryEmit(event)
             }
 
-            else -> LOG.warn { "Received unexpected event: $event" }
+            is GatewayPayload.ReadyEvent -> {
+                sessionId = event.sessionId
+                updateSession(UpdateSessionRequest(resumeKey, lavakord.options.link.resumeTimeout))
+            }
         }
     }
 
@@ -148,6 +141,14 @@ internal class NodeImpl(
             return (1..25)
                 .map { allowedChars.random() }
                 .joinToString("")
+        }
+    }
+
+    private fun HttpRequestBuilder.addUrl() {
+        val resources = lavakord.gatewayClient.plugin(Resources)
+        url {
+            takeFrom(this@NodeImpl.host)
+            href(resources.resourcesFormat, V3Api.WebSocket(), this)
         }
     }
 }

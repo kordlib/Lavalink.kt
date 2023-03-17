@@ -2,29 +2,38 @@
 
 package dev.schlaubi.lavakord.audio
 
-import dev.schlaubi.lavakord.RemoteTrackException
+import dev.schlaubi.lavakord.Exception
 import dev.schlaubi.lavakord.audio.StatsEvent.*
 import dev.schlaubi.lavakord.audio.TrackEndEvent.EndReason
-import dev.schlaubi.lavakord.audio.internal.GatewayPayload
 import dev.schlaubi.lavakord.audio.player.Track
-import dev.schlaubi.lavakord.audio.on as defaultOn
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.serialization.Serializable
 import kotlin.time.Duration
-import kotlin.time.DurationUnit
-import kotlin.time.ExperimentalTime
-import kotlin.time.toDuration
+import dev.schlaubi.lavakord.audio.on as defaultOn
 
 /**
- * Base class for all events.
+ * Bae class for all events.
  *
  * @property guildId the id of the guild the even got fired on
- * @property track the [Track] the even is about
  */
-public sealed class TrackEvent {
-    public abstract val guildId: ULong
-    public abstract val track: Track
+public interface Event {
+    public val guildId: ULong
+}
+
+/**
+ * Base class for events for a Track.
+ *
+ * @property guildId the id of the guild the even got fired on
+ * @property encodedTrack the base64 encoded track
+ */
+public interface TrackEvent : Event {
+    public val encodedTrack: String
+
+    /**
+     * Converts [encodedTrack] into a [Track].
+     */
+    public suspend fun getTrack(): Track = Track.fromLavalink(encodedTrack)
 }
 
 /**
@@ -32,14 +41,7 @@ public sealed class TrackEvent {
  *
  * @see TrackEvent
  */
-public data class TrackStartEvent(override val guildId: ULong, override val track: Track) : TrackEvent() {
-    internal companion object {
-        suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackStartEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_START_EVENT && event.track != null) { "Event needs to be track start event" }
-            return TrackStartEvent(event.guildId.toULong(), Track.fromLavalink(event.track))
-        }
-    }
-}
+public interface TrackStartEvent : TrackEvent
 
 /**
  * Track fired when a track ended.
@@ -47,11 +49,8 @@ public data class TrackStartEvent(override val guildId: ULong, override val trac
  * @property reason the [EndReason] for this track ending
  * @see TrackEvent
  */
-public data class TrackEndEvent(
-    override val guildId: ULong,
-    override val track: Track,
+public interface TrackEndEvent : TrackEvent {
     public val reason: EndReason
-) : TrackEvent() {
 
     /**
      * Representation of a Track end reason.
@@ -91,45 +90,16 @@ public data class TrackEndEvent(
          */
         CLEANUP(false);
     }
-
-    /**
-     * This means that the track itself emitted a terminator. This is usually caused by the track reaching the end,
-     * however it will also be used when it ends due to an exception.
-     */
-    internal companion object {
-        suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackEndEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_END_EVENT && event.reason != null && event.track != null) { "Event needs to be track end event" }
-            return TrackEndEvent(
-                event.guildId.toULong(),
-                Track.fromLavalink(event.track),
-                EndReason.valueOf(event.reason)
-            )
-        }
-    }
 }
 
 /**
- * Event fired when an [RemoteTrackException] occurs whilst trying to play a track.
+ * Event fired when an [Exception] occurs whilst trying to play a track.
  *
- * @property exception the [RemoteTrackException] thrown
+ * @property exception the [Exception] thrown
  * @see TrackEvent
  */
-public data class TrackExceptionEvent(
-    override val guildId: ULong,
-    override val track: Track,
-    public val exception: RemoteTrackException
-) : TrackEvent() {
-
-    internal companion object {
-        suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackExceptionEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_EXCEPTION_EVENT && event.error != null && event.track != null) { "Event has to be track exception event" }
-            return TrackExceptionEvent(
-                event.guildId.toULong(),
-                Track.fromLavalink(event.track),
-                RemoteTrackException(event.error)
-            )
-        }
-    }
+public interface TrackExceptionEvent : TrackEvent {
+    public val exception: Exception
 }
 
 /**
@@ -138,51 +108,21 @@ public data class TrackExceptionEvent(
  * @property threshold The wait threshold that was exceeded for this event to trigger
  * @see TrackEvent
  */
-@OptIn(ExperimentalTime::class)
-public data class TrackStuckEvent(
-    override val guildId: ULong, override val track: Track, public val threshold: Duration
-) : TrackEvent() {
-
-    internal companion object {
-        suspend operator fun invoke(event: GatewayPayload.EmittedEvent): TrackStuckEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.TRACK_STUCK_EVENT && event.thresholdMs != null && event.track != null) { "Event has to be track stuck event" }
-            return TrackStuckEvent(
-                event.guildId.toULong(),
-                Track.fromLavalink(event.track),
-                event.thresholdMs.toDuration(DurationUnit.MILLISECONDS)
-            )
-        }
-    }
+public interface TrackStuckEvent : TrackEvent {
+    public val threshold: Duration
 }
 
 /**
  * Event fired when Discord closes the websocket connection.
  *
- * @property code the websocket close code
+ * @property code the [Discord Websocket close code](https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes)
  * @property reason the detailed reason why the connection was closed
  * @property byRemote whether the connection was closed by the remote or not
  */
-public data class WebsocketClosedEvent(
-    override val guildId: ULong,
-    public val code: Int,
-    public val reason: String,
+public interface WebSocketClosedEvent : Event {
+    public val code: Int
+    public val reason: String
     public val byRemote: Boolean
-) : TrackEvent() {
-    override val track: Nothing
-        get() = throw UnsupportedOperationException("Not supported by this event")
-
-    internal companion object {
-        operator fun invoke(event: GatewayPayload.EmittedEvent): WebsocketClosedEvent {
-            require(event.type == GatewayPayload.EmittedEvent.Type.WEBSOCKET_CLOSED_EVENT && event.code != null && event.reason != null && event.byRemote != null) { "Event has to be track stuck event" }
-            return WebsocketClosedEvent(
-                event.guildId.toULong(),
-                event.code,
-                event.reason,
-                event.byRemote
-            )
-        }
-    }
-
 }
 
 /**

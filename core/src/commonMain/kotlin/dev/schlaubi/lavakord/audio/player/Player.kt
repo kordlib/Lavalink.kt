@@ -1,9 +1,10 @@
 package dev.schlaubi.lavakord.audio.player
 
+import dev.schlaubi.lavakord.audio.Event
 import dev.schlaubi.lavakord.audio.EventSource
-import dev.schlaubi.lavakord.audio.TrackEvent
-import dev.schlaubi.lavakord.rest.TrackResponse
-//import lavalink.client.LavalinkUtil
+import dev.schlaubi.lavakord.rest.models.PartialTrack
+import dev.schlaubi.lavakord.rest.loadItem
+import dev.schlaubi.lavakord.rest.models.TrackResponse
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
@@ -17,7 +18,7 @@ import kotlin.time.DurationUnit
  * @property positionDuration the position of the current song the player is at (-1 if [playingTrack] is null)
  * @property equalizers the applied equalizers in this player
  */
-public interface Player : EventSource<TrackEvent> {
+public interface Player : EventSource<Event> {
     public val playingTrack: Track?
     public val paused: Boolean
     public val volume: Int
@@ -37,9 +38,9 @@ public interface Player : EventSource<TrackEvent> {
      * Changes the currently playing track to [track].
      */
     public suspend fun playTrack(
-        track: TrackResponse.PartialTrack,
+        track: PartialTrack,
         playOptionsBuilder: PlayOptions.() -> Unit = {}
-    ): Unit = playTrack(track.track, playOptionsBuilder)
+    ): Unit = playTrack(track.encoded, playOptionsBuilder)
 
     /**
      * Changes the currently playing track to [track].
@@ -47,6 +48,14 @@ public interface Player : EventSource<TrackEvent> {
      * @param track the lavalink encoded track
      */
     public suspend fun playTrack(track: String, playOptionsBuilder: PlayOptions.() -> Unit = {})
+
+    /**
+     * Directly plays a single track.
+     *
+     * **Important:** This only works if [loadItem] would return with [TrackResponse.LoadType.TRACK_LOADED], for search
+     * and playlists use [loadItem]
+     */
+    public suspend fun searchAndPlayTrack(identifier: String, playOptionsBuilder: PlayOptions.() -> Unit)
 
     /**
      * Stops playback of the currently playing track.
@@ -78,12 +87,6 @@ public interface Player : EventSource<TrackEvent> {
      * @param position the position in the track in milliseconds
      */
     public suspend fun seekTo(position: Long)
-
-    /**
-     * Changes the volume of the current player.
-     */
-    @Deprecated("Please use the new filters system to specify volume")
-    public suspend fun setVolume(volume: Int)
 
     /**
      * The current [Filters] settings.

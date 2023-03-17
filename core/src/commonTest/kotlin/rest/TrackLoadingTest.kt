@@ -3,8 +3,9 @@ package rest
 import RestTestLavakord
 import TestNode
 import Tests
+import dev.schlaubi.lavakord.Exception
 import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
-import dev.schlaubi.lavakord.rest.TrackResponse
+import dev.schlaubi.lavakord.rest.models.TrackResponse
 import dev.schlaubi.lavakord.rest.loadItem
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
@@ -87,7 +88,7 @@ class TrackLoadingTest {
             val exception = getException()
             exception {
                 message shouldBe "The uploader has not made this video available in your country."
-                severity shouldBe TrackResponse.Error.Severity.COMMON
+                severity shouldBe Exception.Severity.COMMON
             }
         }
     }
@@ -107,7 +108,7 @@ class TrackLoadingTest {
 private fun MockEngineConfig.loadItem() {
     addHandler { request ->
         checkAuth(request) {
-            if (request.url.fullPath.substringAfter('/').substringBefore('?') == "loadtracks") {
+            if (request.url.fullPath.substringAfterLast('/').substringBefore('?') == "loadtracks") {
                 val identifier = request.url.parameters["identifier"]
                     ?: return@checkAuth respond("Bad Request (missing identifier)", HttpStatusCode.BadRequest)
 

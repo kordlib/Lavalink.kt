@@ -1,10 +1,14 @@
 package json
 
+import dev.schlaubi.lavakord.Exception
+import dev.schlaubi.lavakord.audio.*
 import dev.schlaubi.lavakord.audio.internal.GatewayPayload
 import json.src.*
+import kotlin.contracts.ExperimentalContracts
 import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertNotNull
+import kotlin.time.Duration.Companion.milliseconds
 
 class EventsTest {
 
@@ -12,7 +16,7 @@ class EventsTest {
     @Test
     fun `test player update event serialization`() {
         testPayload<GatewayPayload.PlayerUpdateEvent>(PLAYER_UPDATE_EVENT) {
-            state shouldBe GatewayPayload.PlayerUpdateEvent.State(1500467109, 1500467109, true)
+            state shouldBe GatewayPayload.PlayerUpdateEvent.State(1500467109, 1500467109, true, 1337)
         }
     }
 
@@ -52,40 +56,51 @@ class EventsTest {
         }
     }
 
+    @OptIn(ExperimentalContracts::class)
+    private inline fun <reified T : Event> GatewayPayload.EmittedEvent.validateBasic(validator: T.() -> Unit = {}) {
+        if (this is TrackEvent) {
+            encodedTrack shouldBe TRACK
+        }
+        type shouldBe type
+        validator(this as T)
+    }
+
     @JsName("testEmittedEvent")
     @Test
     fun `test emitted event serialization`() {
-        fun GatewayPayload.EmittedEvent.validateBasic(type: String) {
-            if (type != "WebSocketClosedEvent") {
-                track shouldBe TRACK
-            }
-            type shouldBe type
-        }
 
         testPayload<GatewayPayload.EmittedEvent>(TRACK_START_EVENT) {
-            validateBasic("TrackStartEvent")
+            validateBasic<TrackStartEvent>()
         }
 
         testPayload<GatewayPayload.EmittedEvent>(TRACK_END_EVENT) {
-            validateBasic("TrackEndEvent")
-            reason shouldBe "FINISHED"
+            validateBasic<TrackEndEvent> {
+                reason shouldBe TrackEndEvent.EndReason.FINISHED
+            }
         }
 
         testPayload<GatewayPayload.EmittedEvent>(TRACK_EXCEPTION_EVENT) {
-            validateBasic("TrackExceptionEvent")
-            error shouldBe "An error occurred"
+            validateBasic<TrackExceptionEvent> {
+                exception {
+                    message shouldBe "..."
+                    severity shouldBe Exception.Severity.COMMON
+                    cause shouldBe "..."
+                }
+            }
         }
 
         testPayload<GatewayPayload.EmittedEvent>(TRACK_STUCK_EVENT) {
-            validateBasic("TrackStuckEvent")
-            thresholdMs shouldBe 500
+            validateBasic<TrackStuckEvent> {
+                threshold shouldBe 500.milliseconds
+            }
         }
 
         testPayload<GatewayPayload.EmittedEvent>(WEBSOCKET_CLOSED_EVENT) {
-            validateBasic("WebSocketClosedEvent")
-            code shouldBe 4006
-            reason shouldBe "Your session is no longer valid."
-            byRemote shouldBe true
+            validateBasic<WebSocketClosedEvent> {
+                code shouldBe 4006
+                reason shouldBe "Your session is no longer valid."
+                byRemote shouldBe true
+            }
         }
     }
 }

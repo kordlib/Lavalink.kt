@@ -3,6 +3,7 @@ package dev.schlaubi.lavakord.audio.internal
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.player.Player
+import dev.schlaubi.lavakord.rest.destroyPlayer
 
 /**
  * Abstract implementation of [Link].
@@ -15,7 +16,7 @@ public abstract class AbstractLink(final override val node: Node, final override
 
     override suspend fun onDisconnected() {
         state = Link.State.NOT_CONNECTED
-        (node as NodeImpl).send(GatewayPayload.DestroyCommand(guildId.toString()))
+        node.destroyPlayer(guildId)
     }
 
     override suspend fun destroy() {
@@ -24,7 +25,7 @@ public abstract class AbstractLink(final override val node: Node, final override
         if (shouldDisconnect) {
             disconnectAudio()
         }
-        (node as NodeImpl).send(GatewayPayload.DestroyCommand(guildId.toString()))
+        node.destroyPlayer(guildId)
         lavakord.removeDestroyedLink(this)
         state = Link.State.DESTROYED
     }

@@ -5,7 +5,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven("https://m2.dv8tion.net/releases")
 }
 
 kotlin {
@@ -15,7 +14,7 @@ kotlin {
                 api(projects.core)
                 api(libs.kotlinlogging)
                 api(libs.kotlinx.coroutines.jdk8)
-                implementation("net.dv8tion:JDA:5.0.0-alpha.5") {
+                implementation("net.dv8tion:JDA:5.0.0-beta.5") {
                     exclude(module = "opus-java")
                 }
             }

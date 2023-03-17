@@ -7,14 +7,22 @@ import dev.kord.core.entity.Guild
 import dev.kord.core.entity.channel.VoiceChannel
 import dev.schlaubi.lavakord.InsufficientPermissionException
 import dev.schlaubi.lavakord.LavaKord
+import dev.schlaubi.lavakord.UnsafeRestApi
 import dev.schlaubi.lavakord.audio.Link
+import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.audio.RestNode
+import dev.schlaubi.lavakord.rest.destroyPlayer
+import dev.schlaubi.lavakord.rest.getPlayer
+import dev.schlaubi.lavakord.rest.models.Player
+import dev.schlaubi.lavakord.rest.models.UpdatePlayerRequest
+import dev.schlaubi.lavakord.rest.updatePlayer
 
 /**
  * Creates or returns an existing [Link] for the guild with the specified [guildId].
  *
  * @see LavaKord.getLink
  */
-public fun LavaKord.getLink(guildId: Snowflake): Link = getLink(guildId.toString())
+public fun LavaKord.getLink(guildId: Snowflake): Link = getLink(guildId.value)
 
 /**
  * Creates or returns an existing [Link] for this [Guild] using the [lavalink] instance.
@@ -36,3 +44,49 @@ public suspend fun Link.connectAudio(snowflake: Snowflake): Unit = connectAudio(
  */
 public val InsufficientPermissionException.kordPermission: Permissions
     get() = Permissions(permission)
+
+
+/**
+ * Returns the [Player] for this guild in this session.
+ */
+public suspend fun RestNode.getPlayer(guildId: Snowflake, sessionId: String): Player =
+    getPlayer(guildId.value, sessionId)
+
+/**
+ * Returns the [Player] for this guild in this session.
+ */
+public suspend fun Node.getPlayer(guildId: Snowflake): Player = getPlayer(guildId.value)
+
+/**
+ * Updates or creates the player for this guild if it doesn't already exist.
+ */
+@UnsafeRestApi
+public suspend fun RestNode.updatePlayer(
+    guildId: Snowflake,
+    sessionId: String,
+    noReplace: Boolean? = null,
+    request: UpdatePlayerRequest
+): Player = updatePlayer(guildId.value, sessionId, noReplace, request)
+
+/**
+ * Updates or creates the player for this guild if it doesn't already exist.
+ */
+@UnsafeRestApi
+public suspend fun Node.updatePlayer(
+    guildId: Snowflake,
+    noReplace: Boolean? = null,
+    request: UpdatePlayerRequest
+): Player = updatePlayer(guildId.value, noReplace, request)
+
+/**
+ * Destroys the player for this guild in this session.
+ */
+@UnsafeRestApi
+public suspend fun RestNode.destroyPlayer(guildId: Snowflake, sessionId: String): Unit =
+    destroyPlayer(guildId.value, sessionId)
+
+/**
+ * Destroys the player for this guild in this session.
+ */
+@UnsafeRestApi
+public suspend fun Node.destroyPlayer(guildId: Snowflake): Unit = destroyPlayer(guildId.value)

@@ -1,6 +1,7 @@
 package dev.schlaubi.lavakord
 
 import dev.schlaubi.lavakord.audio.Link
+import io.ktor.client.request.*
 
 
 /**
@@ -17,6 +18,9 @@ public class InsufficientPermissionException(@Suppress("MemberVisibilityCanBePri
 public class NoRoutePlannerException : RuntimeException("No route planner was set")
 
 /**
- * Forwarded Exception from Lavalink player thrown if an error occurs whilst playing a track.
+ * Exception indicating a REST request failed.
+ *
+ * @property error the [RestError] response
+ * @property request the [HttpRequest] which failed
  */
-public class RemoteTrackException(message: String? = null) : RuntimeException(message)
+public data class RestException(val error: RestError, val request: HttpRequest) : RuntimeException(error.message)

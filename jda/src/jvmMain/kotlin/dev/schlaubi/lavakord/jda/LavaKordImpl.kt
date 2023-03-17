@@ -8,17 +8,17 @@ import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
 import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.events.GenericEvent
-import net.dv8tion.jda.api.events.ReconnectedEvent
+import net.dv8tion.jda.api.events.session.SessionRecreateEvent
 import net.dv8tion.jda.api.hooks.EventListener
 import net.dv8tion.jda.api.hooks.SubscribeEvent
 import net.dv8tion.jda.api.hooks.VoiceDispatchInterceptor
 import kotlin.coroutines.CoroutineContext
 
-public class JDALavakord(
+internal class JDALavakord(
     internal val jdaProvider: (Int) -> JDA,
     override val coroutineContext: CoroutineContext,
     userId: ULong,
-    public val shardsTotal: Int,
+    val shardsTotal: Int,
     options: LavaKordOptions
 ) : AbstractLavakord(userId, options), VoiceDispatchInterceptor, EventListener {
 
@@ -30,7 +30,7 @@ public class JDALavakord(
         launch {
             forwardVoiceEvent(
                 link,
-                update.guildId,
+                update.guildIdLong.toULong(),
                 update.sessionId,
                 DiscordVoiceServerUpdateData(
                     update.token,
@@ -61,7 +61,7 @@ public class JDALavakord(
 
     @SubscribeEvent
     override fun onEvent(event: GenericEvent) {
-        if (event is ReconnectedEvent) {
+        if (event is SessionRecreateEvent) {
             launch {
                 if (options.link.autoReconnect) {
                     linksMap.forEach { (_, link) ->

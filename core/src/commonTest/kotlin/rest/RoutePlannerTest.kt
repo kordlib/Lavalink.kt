@@ -29,8 +29,8 @@ class RoutePlannerTest {
         addHandler { request ->
             checkAuth(request) {
                 when (request.url.fullPath) {
-                    "/routeplanner/free/all" -> respond("", HttpStatusCode.NoContent)
-                    "/routeplanner/free/address" -> {
+                    "/v3/routeplanner/free/all" -> respond("", HttpStatusCode.NoContent)
+                    "/v3/routeplanner/free/address" -> {
                         val body = request.body.toByteArray().decodeToString()
                         val json = json.parseToJsonElement(body) as JsonObject
                         if ((json["address"] as? JsonPrimitive).toString().replace("\"", "") == ADDRESS) {
@@ -39,7 +39,8 @@ class RoutePlannerTest {
                             respondError(HttpStatusCode.BadRequest)
                         }
                     }
-                    "/routeplanner/status" -> {
+
+                    "/v3/routeplanner/status" -> {
                         when (routePlannerClass.value) {
                             null -> respondJson("{}")
                             RoutePlannerStatus.Class.RotatingIpRoutePlanner -> respondJson(ROTATING_IP_ROUTE_PLANNER)
@@ -49,6 +50,7 @@ class RoutePlannerTest {
                             )
                         }
                     }
+
                     else -> respondError(HttpStatusCode.NotFound)
                 }
             }

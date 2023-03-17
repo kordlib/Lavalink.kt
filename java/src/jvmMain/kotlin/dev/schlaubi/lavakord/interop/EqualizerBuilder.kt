@@ -15,7 +15,7 @@ public class EqualizerBuilder(
     private val bands: MutableMap<Int, Float> = mutableMapOf()
 ) {
     /**
-     * Resets all bands.
+     * Resets all equalizers.
      */
     public fun reset(): Unit = bands.clear()
 
@@ -25,7 +25,7 @@ public class EqualizerBuilder(
      * @throws IllegalArgumentException if band is not between 0-14 or gain is not between -0.25F and 1F
      */
     public fun setBand(band: Int, gain: Float): EqualizerBuilder {
-        require(band in 0..14) { "There are 15 bands (0-14)" }
+        require(band in 0..14) { "There are 15 equalizers (0-14)" }
         require(gain in -.25F..1F) { "Gain needs to be between -0.25 (muted) and 1. 0 = normal; 0.25 = double" }
         bands[band] = gain
         return this
@@ -36,7 +36,7 @@ public class EqualizerBuilder(
      */
     public fun apply(player: JavaPlayer): CompletableFuture<Void> {
         val builder: KotlinEqualizerBuilder.() -> Unit = {
-            bands.forEach { (band, gain) -> band(band) gain gain }
+            equalizers.forEach { (band, gain) -> band(band) gain gain }
         }
 
         return player.run {

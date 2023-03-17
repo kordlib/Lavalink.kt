@@ -67,10 +67,6 @@ public class Javakord extends ListenerAdapter {
                 });
             }
             case "pause" -> player.pause(!player.getPaused());
-            case "volume" -> {
-                var volume = event.getOption("volume").getAsLong();
-                player.setVolume((int) volume);
-            }
             case "seek" -> {
                 var lng = event.getOption("position").getAsLong() * 1000;
                 var track = player.getPlayingTrack();

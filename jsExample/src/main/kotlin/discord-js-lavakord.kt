@@ -7,20 +7,17 @@ import dev.schlaubi.lavakord.audio.Link as ILink
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
 import dev.schlaubi.lavakord.audio.internal.AbstractLink
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.await
-import kotlinx.coroutines.launch
+import io.ktor.client.engine.js.*
+import kotlinx.coroutines.*
 
 fun Discord.Client.lavakord(configure: MutableLavaKordOptions.() -> Unit): LavaKord =
-    LavaKord(user.id.toLong(), MutableLavaKordOptions().apply(configure).seal(), this)
+    LavaKord(user.id.toULong(), MutableLavaKordOptions().apply(configure).seal(), this)
 
-class LavaKord(userId: Long, options: LavaKordOptions, internal val client: Discord.Client) :
+class LavaKord(userId: ULong, options: LavaKordOptions, internal val client: Discord.Client) :
     AbstractLavakord(
         userId,
-        1, // Because of how d.js sharding works this K/JS wrapper will always have 1 shard
         options
-    ), CoroutineScope by GlobalScope {
+    ), CoroutineScope by CoroutineScope(Dispatchers.Default) {
 
     private val sessionIds = mutableMapOf<String, String>()
 
@@ -28,7 +25,7 @@ class LavaKord(userId: Long, options: LavaKordOptions, internal val client: Disc
         client.on("raw", ::forwardEvent)
     }
 
-    override fun buildNewLink(guildId: Long, node: Node): Link = Link(node, guildId, this)
+    override fun buildNewLink(guildId: ULong, node: Node): Link = Link(node, guildId, this)
 
     private fun forwardEvent(payload: dynamic) {
         launch {
@@ -36,34 +33,33 @@ class LavaKord(userId: Long, options: LavaKordOptions, internal val client: Disc
             println(payload.t.toString())
             when (payload.t.toString()) {
                 "VOICE_SERVER_UPDATE" -> {
-                    @Suppress("UnsafeCastFromDynamic") // Any? means literally anything
                     println(JSON.stringify(payload))
-                    val link = linksMap[event.guild_id.toString().toLong()] ?: return@launch
+                    val link = linksMap[event.guild_id.toString().toULong()] ?: return@launch
                     val sessionId = client.guilds.fetch(event.guild_id.toString()).await().me.voice.sessionID.toString()
                     forwardVoiceEvent(
                         link,
-                        event.guild_id.toString(),
+                        event.guild_id.toString().toULong(),
                         sessionId,
                         DiscordVoiceServerUpdateData(
                             event.token.toString(), event.guild_id.toString(), event.endpoint?.toString()
                         )
                     )
                 }
+
                 "VOICE_STATE_UPDATE" -> {
                     if (event.member.user.id.toString() != client.user.id) return@launch
-                    @Suppress("UnsafeCastFromDynamic") // Any? means literally anything
                     println(JSON.stringify(payload))
                     val guildId = event.guild_id.toString()
                     val sessionId = event.session_id.toString()
                     sessionIds[guildId] = sessionId
 
-                    val link = linksMap[event.guild_id.toString().toLong()] as Link
+                    val link = linksMap[event.guild_id.toString().toULong()] as Link
                     if (event.channel_id == null) {
                         if (link.state != ILink.State.DESTROYED) {
                             link.onDisconnected()
                         }
                     } else {
-                        link.lastChannelId = event.channel_id.toString().toLong()
+                        link.lastChannelId = event.channel_id.toString().toULong()
                         link.state = ILink.State.CONNECTED
                     }
                 }
@@ -73,12 +69,12 @@ class LavaKord(userId: Long, options: LavaKordOptions, internal val client: Disc
     }
 }
 
-class Link(node: Node, guildId: Long, override val lavakord: LavaKord) : AbstractLink(node, guildId) {
-    override suspend fun connectAudio(voiceChannelId: Long) {
+class Link(node: Node, guildId: ULong, override val lavakord: LavaKord) : AbstractLink(node, guildId) {
+    override suspend fun connectAudio(voiceChannelId: ULong) {
         state = ILink.State.CONNECTING
         val guild = lavakord.client.guilds.fetch(guildId.toString()).await()
 
-        guild.shard.send(makeVoiceStateCommand(voiceChannelId), true)
+        guild.shard.send(makeVoiceStateCommand(voiceChannelId.toLong()), true)
     }
 
     override suspend fun disconnectAudio() {

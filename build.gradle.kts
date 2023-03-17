@@ -1,13 +1,14 @@
 import org.ajoberstar.gradle.git.publish.GitPublishExtension
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("org.jetbrains.dokka")
-    id("kotlinx-atomicfu") version "0.19.0" apply false
-    id("org.ajoberstar.git-publish") version "2.1.3"
+    alias(libs.plugins.kotlinx.atomicfu) apply false
+    alias(libs.plugins.git.publish)
 }
 
 group = "dev.schlaubi.lavakord"
-version = "3.8.0"
+version = "4.0.0"
 
 allprojects {
     repositories {

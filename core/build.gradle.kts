@@ -9,6 +9,7 @@ kotlin {
     sourceSets {
         all {
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            languageSettings.optIn("dev.schlaubi.lavakord.UnsafeRestApi")
         }
         commonMain {
             dependencies {
@@ -20,6 +21,7 @@ kotlin {
                 implementation(libs.ktor.utils)
                 implementation(libs.ktor.client.websockets)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.resources)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.client.logging)
@@ -45,7 +47,6 @@ kotlin {
 
         jvmTest {
             dependencies {
-                implementation(kotlin("test"))
                 implementation(kotlin("test-junit5"))
                 runtimeOnly(libs.junit.jupiter.engine)
                 runtimeOnly(libs.sl4fj.simple)
@@ -55,7 +56,6 @@ kotlin {
         jsMain {
             dependencies {
                 implementation(libs.ktor.client.js)
-
             }
         }
 

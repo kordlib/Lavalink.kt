@@ -12,5 +12,5 @@ public data class DiscordVoiceServerUpdateData(
     val token: String,
     @SerialName("guild_id")
     val guildId: String,
-    val endpoint: String?,
+    val endpoint: String?
 )

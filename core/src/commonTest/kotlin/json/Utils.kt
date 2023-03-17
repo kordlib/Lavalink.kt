@@ -22,7 +22,7 @@ infix fun <T> T?.shouldBe(that: T?): Unit =
 operator fun <T> T.invoke(block: T.() -> Unit): Unit = run(block)
 
 internal fun <T : GatewayPayload> T.check(checker: T.() -> Unit) {
-    if (this !is GatewayPayload.StatsEvent) {
+    if (this is GatewayPayload.GuildAware) {
         guildId shouldBe GUILD_ID.toString()
     }
     checker(this)
@@ -33,8 +33,8 @@ val json: Json = Json {
     serializersModule = GatewayModule + RoutePlannerModule
 }
 
-fun MockRequestHandleScope.respondJson(json: String): HttpResponseData =
-    respond(json, HttpStatusCode.OK, headersOf("Content-Type" to listOf(ContentType.Application.Json.toString())))
+fun MockRequestHandleScope.respondJson(json: String, status: HttpStatusCode = HttpStatusCode.OK): HttpResponseData =
+    respond(json, status, headersOf("Content-Type" to listOf(ContentType.Application.Json.toString())))
 
 @JvmName("testGatewayPayload")
 internal inline fun <reified T : GatewayPayload> testPayload(input: String, crossinline checker: T.() -> Unit = {}) =

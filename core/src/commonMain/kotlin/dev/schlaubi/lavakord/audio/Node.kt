@@ -37,7 +37,7 @@ public interface RestNode {
 /**
  * Representation of a Lavalink node, supporting rest calls and a websocket connection.
  */
-public interface Node : RestNode, EventSource<TrackEvent>, Closeable {
+public interface Node : RestNode, EventSource<Event>, Closeable {
 
     /**
      * Whether this node is currently available or not (e.g. reconnecting).
@@ -48,5 +48,10 @@ public interface Node : RestNode, EventSource<TrackEvent>, Closeable {
      * The last [StatsEvent] received from this node or null if no event has been received yet.
      */
     public val lastStatsEvent: StatsEvent?
+
+    /**
+     * The id of the current websocket session.
+     */
+    public val sessionId: String
 
 }

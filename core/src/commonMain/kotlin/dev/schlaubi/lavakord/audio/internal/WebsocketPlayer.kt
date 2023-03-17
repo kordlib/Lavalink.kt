@@ -1,10 +1,11 @@
 package dev.schlaubi.lavakord.audio.internal
 
-import dev.schlaubi.lavakord.audio.TrackEndEvent
-import dev.schlaubi.lavakord.audio.TrackEvent
-import dev.schlaubi.lavakord.audio.TrackStartEvent
-import dev.schlaubi.lavakord.audio.on
+import dev.schlaubi.lavakord.audio.*
 import dev.schlaubi.lavakord.audio.player.*
+import dev.schlaubi.lavakord.rest.destroyPlayer
+import dev.schlaubi.lavakord.rest.models.FiltersObject
+import dev.schlaubi.lavakord.rest.models.UpdatePlayerRequest
+import dev.schlaubi.lavakord.rest.updatePlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
@@ -28,25 +29,21 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
             return lastPosition + elapsedSinceUpdate
         }
 
-    override var volume: Int
-        @Deprecated("Please use the new filters system to specify volume")
-        set(value) {
-            filters.volume = value / 100f
-        }
+    override val volume: Int
         get() = ((filters.volume ?: 1.0f) * 100).toInt()
 
     @Suppress("unused")
-    override var filters: Filters = GatewayPayload.FiltersCommand(guildId.toString())
+    override var filters: Filters = FiltersObject()
         internal set
 
     override val equalizers: Map<Int, Float>
-        get() = filters.bands
-            .associateBy(Band::band)
+        get() = filters.equalizers
+            .associateBy(Equalizer::band)
             .mapValues { (_, band) ->
                 band.gain
             }
 
-    override val events: Flow<TrackEvent>
+    override val events: Flow<Event>
         get() = node.events.filter { it.guildId == guildId }
 
     init {
@@ -54,25 +51,36 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         on(consumer = ::handleTrackEnd)
     }
 
-    override suspend fun playTrack(track: String, playOptionsBuilder: PlayOptions.() -> Unit) {
+    override suspend fun playTrack(track: String, playOptionsBuilder: PlayOptions.() -> Unit) =
+        playTrackInternal(track = track, playOptionsBuilder = playOptionsBuilder)
+
+    override suspend fun searchAndPlayTrack(identifier: String, playOptionsBuilder: PlayOptions.() -> Unit) =
+        playTrackInternal(identifier = identifier, playOptionsBuilder = playOptionsBuilder)
+
+    private suspend fun playTrackInternal(
+        track: String? = null,
+        identifier: String? = null,
+        playOptionsBuilder: PlayOptions.() -> Unit
+    ) {
         val options = PlayOptions().apply(playOptionsBuilder)
-        node.send(
-            GatewayPayload.PlayCommand(
-                guildId.toString(),
-                track,
-                options.startTime,
-                options.endTime,
-                options.volume,
-                options.noReplace,
-                options.pause
+        node.updatePlayer(
+            guildId, options.noReplace, UpdatePlayerRequest(
+                encodedTrack = track,
+                identifier = identifier,
+                position = options.position?.inWholeMilliseconds,
+                endTime = options.end?.inWholeMilliseconds,
+                volume = options.volume,
+                paused = options.pause,
+                filters = options.filters
             )
         )
     }
 
-    private fun handleNewTrack(event: TrackStartEvent) {
+    private suspend fun handleNewTrack(event: TrackStartEvent) {
         updateTime = Clock.System.now()
-        lastPosition = event.track.position
-        playingTrack = event.track
+        val track = event.getTrack()
+        lastPosition = track.position
+        playingTrack = track
     }
 
     private fun handleTrackEnd(@Suppress("UNUSED_PARAMETER") event: TrackEndEvent) {
@@ -81,13 +89,13 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     }
 
     override suspend fun stopTrack() {
-        node.send(GatewayPayload.StopCommand(guildId.toString()))
+        node.destroyPlayer(guildId)
         playingTrack = null
     }
 
     override suspend fun pause(doPause: Boolean) {
         if (paused == doPause) return
-        node.send(GatewayPayload.PauseCommand(guildId.toString(), doPause))
+        node.updatePlayer(guildId, request = UpdatePlayerRequest(paused = doPause))
         paused = doPause
     }
 
@@ -95,16 +103,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         checkNotNull(playingTrack) { "Not currently playing anything" }
         check(playingTrack?.isSeekable == true) { "Current track is not seekable" }
 
-        node.send(GatewayPayload.SeekCommand(guildId.toString(), position))
-    }
-
-    @Deprecated("Please use the new filters system to specify volume")
-    override suspend fun setVolume(volume: Int) {
-        require(volume >= 0) { "Volume can't be negative" }
-        require(volume <= 500) { "Volume can't be greater than 500" } // Volume <= 5.0
-
-        filters.volume = volume / 100f
-        node.send(filters as GatewayPayload.FiltersCommand)
+        node.updatePlayer(guildId, request = UpdatePlayerRequest(position = position))
     }
 
     internal fun provideState(state: GatewayPayload.PlayerUpdateEvent.State) {

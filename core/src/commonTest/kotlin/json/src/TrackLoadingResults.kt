@@ -3,7 +3,7 @@ package json.src
 //language=JSON
 private const val NEVER_GONNA_GIVE_YOU_UP: String = """
     {
-      "track": "QAAAjQIAJVJpY2sgQXN0bGV5IC0gTmV2ZXIgR29ubmEgR2l2ZSBZb3UgVXAADlJpY2tBc3RsZXlWRVZPAAAAAAADPCAAC2RRdzR3OVdnWGNRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9ZFF3NHc5V2dYY1EAB3lvdXR1YmUAAAAAAAAAAA==",
+      "encoded": "QAAAjQIAJVJpY2sgQXN0bGV5IC0gTmV2ZXIgR29ubmEgR2l2ZSBZb3UgVXAADlJpY2tBc3RsZXlWRVZPAAAAAAADPCAAC2RRdzR3OVdnWGNRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9ZFF3NHc5V2dYY1EAB3lvdXR1YmUAAAAAAAAAAA==",
       "info": {
         "identifier": "dQw4w9WgXcQ",
         "isSeekable": true,
@@ -75,7 +75,8 @@ const val LOAD_FAILED: String = """
   "tracks": [],
   "exception": {
     "message": "The uploader has not made this video available in your country.",
-    "severity": "COMMON"
+    "severity": "COMMON",
+    "cause": "..."
   }
 }
 """

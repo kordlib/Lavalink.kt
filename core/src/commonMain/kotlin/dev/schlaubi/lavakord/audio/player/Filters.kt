@@ -1,7 +1,14 @@
 package dev.schlaubi.lavakord.audio.player
 
-import dev.schlaubi.lavakord.audio.internal.GatewayPayload
 import dev.schlaubi.lavakord.checkImplementation
+import dev.schlaubi.lavakord.rest.models.FiltersObject
+import dev.schlaubi.lavakord.rest.models.UpdatePlayerRequest
+import dev.schlaubi.lavakord.rest.updatePlayer
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -10,6 +17,7 @@ import kotlin.contracts.contract
  * Representation of the filter configuration.
  */
 @Suppress("KDocMissingDocumentation", "KDocMissingDocumentation") // I don't know anything about music
+@Serializable(with = Filters.Serializer::class)
 public interface Filters : EqualizerBuilder {
     public var volume: Float?
     public val karaoke: Karaoke?
@@ -32,7 +40,7 @@ public interface Filters : EqualizerBuilder {
     }
 
     /**
-     * Unsets all filters and resets equalizer bands
+     * Unsets all filters and resets equalizer equalizers
      */
     public override fun reset() {
         super.reset()
@@ -158,6 +166,20 @@ public interface Filters : EqualizerBuilder {
      * Unsets the [LowPass] filter, this disables the filter
      */
     public fun unsetLowPass()
+
+    public companion object Serializer : KSerializer<Filters> {
+        private val delegate = FiltersObject.serializer()
+        override val descriptor: SerialDescriptor
+            get() = delegate.descriptor
+
+        override fun deserialize(decoder: Decoder): Filters =
+            delegate.deserialize(decoder)
+
+        override fun serialize(encoder: Encoder, value: Filters) {
+            require(value is FiltersObject) { "serialize() only supports default implementation" }
+            return delegate.serialize(encoder, value)
+        }
+    }
 }
 
 
@@ -181,7 +203,7 @@ public suspend fun Player.applyFilters(block: Filters.() -> Unit) {
     val filters = filters
     filters.apply(block)
 
-    node.send(filters as GatewayPayload.FiltersCommand)
+    node.updatePlayer(guildId, request = UpdatePlayerRequest(filters = filters))
 }
 
 /**
@@ -195,7 +217,7 @@ public fun Filters.karaoke(block: Filters.Karaoke.() -> Unit) {
 
     checkImplementation()
     if (karaoke == null) {
-        karaoke = GatewayPayload.FiltersCommand.Karaoke()
+        karaoke = FiltersObject.Karaoke()
     }
     val filter = karaoke ?: return
 
@@ -213,7 +235,7 @@ public fun Filters.timescale(block: Filters.Timescale.() -> Unit) {
 
     checkImplementation()
     if (timescale == null) {
-        timescale = GatewayPayload.FiltersCommand.Timescale()
+        timescale = FiltersObject.Timescale()
     }
     val filter = timescale ?: return
 
@@ -230,7 +252,7 @@ public fun Filters.tremolo(block: Filters.Tremolo.() -> Unit) {
     }
     checkImplementation()
     if (tremolo == null) {
-        tremolo = GatewayPayload.FiltersCommand.Tremolo()
+        tremolo = FiltersObject.Tremolo()
     }
     val filter = tremolo ?: return
 
@@ -247,7 +269,7 @@ public fun Filters.vibrato(block: Filters.Vibrato.() -> Unit) {
     }
     checkImplementation()
     if (vibrato == null) {
-        vibrato = GatewayPayload.FiltersCommand.Vibrato()
+        vibrato = FiltersObject.Vibrato()
     }
     val filter = vibrato ?: return
 
@@ -264,7 +286,7 @@ public fun Filters.rotation(block: Filters.Rotation.() -> Unit) {
     }
     checkImplementation()
     if (rotation == null) {
-        rotation = GatewayPayload.FiltersCommand.Rotation()
+        rotation = FiltersObject.Rotation()
     }
     val filter = rotation ?: return
 
@@ -281,7 +303,7 @@ public fun Filters.distortion(block: Filters.Distortion.() -> Unit) {
     }
     checkImplementation()
     if (distortion == null) {
-        distortion = GatewayPayload.FiltersCommand.Distortion()
+        distortion = FiltersObject.Distortion()
     }
     val filter = distortion ?: return
 
@@ -298,7 +320,7 @@ public fun Filters.channelMix(block: Filters.ChannelMix.() -> Unit) {
     }
     checkImplementation()
     if (channelMix == null) {
-        channelMix = GatewayPayload.FiltersCommand.ChannelMix()
+        channelMix = FiltersObject.ChannelMix()
     }
     val filter = channelMix ?: return
 
@@ -315,7 +337,7 @@ public fun Filters.lowPass(block: Filters.LowPass.() -> Unit) {
     }
     checkImplementation()
     if (lowPass == null) {
-        lowPass = GatewayPayload.FiltersCommand.LowPass()
+        lowPass = FiltersObject.LowPass()
     }
     val filter = lowPass ?: return
 
@@ -325,7 +347,7 @@ public fun Filters.lowPass(block: Filters.LowPass.() -> Unit) {
 @OptIn(ExperimentalContracts::class)
 private fun Filters.checkImplementation() {
     contract {
-        returns() implies (this@checkImplementation is GatewayPayload.FiltersCommand)
+        returns() implies (this@checkImplementation is FiltersObject)
     }
-    require(this is GatewayPayload.FiltersCommand) { "This has to be a internal implementation instance" }
+    require(this is FiltersObject) { "This has to be a internal implementation instance" }
 }

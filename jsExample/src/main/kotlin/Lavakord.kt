@@ -1,25 +1,21 @@
 @file:Suppress("KDocMissingDocumentation")
+@file:OptIn(DelicateCoroutinesApi::class)
 
-import dev.schlaubi.lavakord.LavaKord
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.player.*
-import dev.schlaubi.lavakord.rest.TrackResponse
 import dev.schlaubi.lavakord.rest.loadItem
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.await
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import dev.schlaubi.lavakord.rest.models.TrackResponse
+import js.core.get
+import kotlinx.coroutines.*
 import mu.KotlinLoggingConfiguration
 import mu.KotlinLoggingLevel
-import kotlin.time.ExperimentalTime
-import kotlin.time.Duration
+import node.process.process
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.DurationUnit
 
 // There is no Kotlin/JS Discord wrapper yet (See https://github.com/kordlib/kord/issues/69)
 // so this is just to test websocket connectivity and rest.
-@OptIn(ExperimentalTime::class)
 suspend fun main() {
-
     KotlinLoggingConfiguration.LOG_LEVEL = KotlinLoggingLevel.TRACE
 
     val client = Discord.Client()
@@ -38,12 +34,15 @@ suspend fun main() {
     // Normally your Discord API wrapper would run some sort of blocking operation on the main thread but
     // as kord does not support js rn and the lavalink nodes run on separate threads we will just delay this one for ever
     while (true) {
-        delay(Duration.minutes(1))
+        delay(1.minutes)
     }
 }
 
-@OptIn(ExperimentalTime::class, FiltersApi::class)
-private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schlaubi.lavakord.LavaKord, client: Discord.Client) {
+private suspend fun commandHandler(
+    message: Discord.Message,
+    lavakord: dev.schlaubi.lavakord.LavaKord,
+    client: Discord.Client
+) {
     val input = message.content
     val (command, args) = with(input.split("\\s+".toRegex())) { first() to drop(1) }
     val guild = message.guild
@@ -56,6 +55,7 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schla
             client.destroy()
             client.login(process.env["TOKEN"] ?: return)
         }
+
         "!connect" -> {
             val author = message.author
             val voiceState = guild.voiceStates.resolve(author.id)
@@ -63,10 +63,11 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schla
                 channel.send("Please connect to VC!")
                 return
             }
-            val channelId = voiceState.channelID?.toLong() ?: return
+            val channelId = voiceState.channelID?.toULong() ?: return
 
             link.connectAudio(channelId)
         }
+
         "!pause" -> {
             player.pause(!player.paused)
         }
@@ -74,13 +75,11 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schla
         "!stop" -> {
             player.stopTrack()
         }
+
         "!leave" -> {
             link.destroy()
         }
-        "!volume" -> {
-            val volume = args[0].toInt()
-            player.setVolume(volume)
-        }
+
         "!seek" -> {
             val long = args[0].toLong() * 1000
             val track = player.playingTrack
@@ -95,17 +94,19 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schla
             }
             player.seekTo(newPosition)
         }
+
         "!eq" -> {
             val band = args[0].toInt()
             val gain = args[1].toFloat()
 
-            player.applyEqualizer {
+            player.applyFilters {
                 band(band) gain gain
 
                 // you can also do
                 //2 gain 1F
             }
         }
+
         "!speed" -> {
             val float = args[0].toFloat()
             player.applyFilters {
@@ -114,6 +115,7 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schla
                 }
             }
         }
+
         "!karaoke" -> {
             player.applyFilters {
                 karaoke {
@@ -121,6 +123,7 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schla
                 }
             }
         }
+
         "!play" -> {
             val query = args.drop(1).joinToString(" ")
             val search = if (query.startsWith("http")) {
@@ -149,7 +152,6 @@ private suspend fun commandHandler(message: Discord.Message, lavakord: dev.schla
     }
 }
 
-@OptIn(ExperimentalTime::class)
 suspend fun startLavakord(client: Discord.Client) {
     val lavakord: dev.schlaubi.lavakord.LavaKord =
         client.lavakord { } // In an ideal world we would be able to use Kord here, but we can't see discord-js(-lavakord).kt

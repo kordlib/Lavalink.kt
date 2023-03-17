@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "1.8.0"
+    val kotlinVersion = "1.8.10"
     implementation(kotlin("gradle-plugin", kotlinVersion))
     implementation(kotlin("serialization", kotlinVersion))
     implementation(kotlin("gradle-plugin-api", kotlinVersion))

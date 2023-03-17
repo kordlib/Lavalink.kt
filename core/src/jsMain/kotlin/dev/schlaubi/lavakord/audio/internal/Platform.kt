@@ -23,4 +23,5 @@ internal actual suspend fun NodeImpl.connect(
         internalReconnect(IllegalStateException("The connection to the node timed out", e))
     } catch (e: ClientRequestException) {
         internalReconnect(e)
-    } }
+    }
+}

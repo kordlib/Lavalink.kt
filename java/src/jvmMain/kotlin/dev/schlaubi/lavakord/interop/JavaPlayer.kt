@@ -2,7 +2,7 @@ package dev.schlaubi.lavakord.interop
 
 import dev.schlaubi.lavakord.audio.player.Player
 import dev.schlaubi.lavakord.audio.player.Track
-import dev.schlaubi.lavakord.rest.TrackResponse
+import dev.schlaubi.lavakord.rest.models.PartialTrack
 import kotlinx.coroutines.CoroutineScope
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
@@ -33,13 +33,13 @@ public class JavaPlayer(internal val suspendingPlayer: Player) : CoroutineScope 
     /**
      * Changes the currently playing track to [track].
      */
-    public fun playTrack(track: Track): CompletableFuture<Void> = playTrack(track)
+    public fun playTrack(track: Track): CompletableFuture<Void> = playTrack(track.track)
 
 
     /**
      * Changes the currently playing track to [track].
      */
-    public fun playTrack(track: TrackResponse.PartialTrack): CompletableFuture<Void> = playTrack(track.track)
+    public fun playTrack(track: PartialTrack): CompletableFuture<Void> = playTrack(track.encoded)
 
     /**
      * Changes the currently playing track to [track].
@@ -79,13 +79,6 @@ public class JavaPlayer(internal val suspendingPlayer: Player) : CoroutineScope 
      * @param position the position in the track in milliseconds
      */
     public fun seekTo(position: Long): CompletableFuture<Void> = run { suspendingPlayer.seekTo(position) }
-
-    /**
-     * Changes the volume of the current player.
-     */
-    @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
-    @Deprecated("Please use the new filters system to specify volume")
-    public fun setVolume(volume: Int): CompletableFuture<Void> = run { suspendingPlayer.setVolume(volume) }
 
     /**
      * Creates an [EqualizerBuilder] to update equalizer config.

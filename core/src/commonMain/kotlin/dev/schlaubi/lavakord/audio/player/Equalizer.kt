@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 import kotlin.contracts.ExperimentalContracts
 
 /**
- * The default gain of all bands
+ * The default gain of all equalizers
  */
 public const val DEFAULT_GAIN: Float = 0F
 
 /**
- * There are 15 bands (0-14) that can be changed.
+ * There are 15 equalizers (0-14) that can be changed.
  *
  * @property band the number of the band
  * @property gain is the multiplier for the given band. The default value is 0. Valid values range from -0.25 to 1.0,
@@ -17,7 +17,7 @@ public const val DEFAULT_GAIN: Float = 0F
  *              also change the volume of the output.
  */
 @Serializable
-public data class Band(val band: Int, val gain: Float)
+public data class Equalizer(val band: Int, val gain: Float)
 
 
 /**
@@ -31,15 +31,15 @@ public data class Band(val band: Int, val gain: Float)
  */
 public interface EqualizerBuilder {
     /**
-     * The bands to modify.
+     * The equalizers to modify.
      */
-    public val bands: MutableList<Band>
+    public val equalizers: MutableList<Equalizer>
 
     /**
-     * Resets all bands configured in this builder.
+     * Resets all equalizers configured in this builder.
      */
     public fun reset() {
-        bands.clear()
+        equalizers.clear()
     }
 
     /**
@@ -48,8 +48,8 @@ public interface EqualizerBuilder {
      * @see BandConfigurator.gain
      */
     public fun band(band: Int): BandConfigurator {
-        require(band in 0..14) { "There are 15 bands (0-14)" }
-        bands.removeAll { it.band == band }
+        require(band in 0..14) { "There are 15 equalizers (0-14)" }
+        equalizers.removeAll { it.band == band }
         return BandConfigurator(band, this)
     }
 
@@ -83,7 +83,7 @@ public fun EqualizerBuilder.BandConfigurator.reset() {
  */
 public infix fun EqualizerBuilder.BandConfigurator.gain(gain: Float) {
     require(gain in -.25F..1F) { "Gain needs to be between -0.25 (muted) and 1. 0 = normal; 0.25 = double" }
-    builder.bands.add(Band(id, gain))
+    builder.equalizers.add(Equalizer(id, gain))
 }
 
 /**
@@ -91,10 +91,10 @@ public infix fun EqualizerBuilder.BandConfigurator.gain(gain: Float) {
  */
 @Deprecated(
     "Replaced by filters api",
-    ReplaceWith("applyFilters { bands.clear() }", "dev.schlaubi.lavakord.audio.player.applyFilters")
+    ReplaceWith("applyFilters { equalizers.clear() }", "dev.schlaubi.lavakord.audio.player.applyFilters")
 )
 public suspend fun Player.resetEqualizer() {
-    applyFilters { bands.clear() }
+    applyFilters { equalizers.clear() }
 }
 
 /**

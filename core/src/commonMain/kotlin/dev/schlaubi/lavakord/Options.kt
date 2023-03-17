@@ -34,6 +34,7 @@ public interface LavaKordOptions {
                 is MutableLavaKordOptions.LinkConfig -> {
                     (link as MutableLavaKordOptions.LinkConfig).autoReconnect = value
                 }
+
                 else -> error("Unknown implementation")
             }
         }
@@ -45,11 +46,6 @@ public interface LavaKordOptions {
      */
     public interface LoadBalancingConfig {
         public val penaltyProviders: List<PenaltyProvider>
-
-        /**
-         * Adds a new penalty provider.
-         */
-        public operator fun plus(provider: PenaltyProvider)
     }
 
     /**
@@ -58,11 +54,13 @@ public interface LavaKordOptions {
      * @property autoReconnect Whether to auto-reconnect links or not
      * @property resumeTimeout amount of seconds Lavalink will wait to kill all players if the client fails to resume it's connection
      * @property retry retry strategy (See [Retry] and [LinearRetry])
+     * @property showTrace whether [RestError.trace] should be populated
      */
     public interface LinkConfig {
         public val autoReconnect: Boolean
         public val resumeTimeout: Int
         public val retry: Retry
+        public val showTrace: Boolean
     }
 }
 
@@ -100,7 +98,7 @@ public data class MutableLavaKordOptions(
     }
 
     /**
-     * Makes thi
+     * Makes this configuration immutable.
      */
     public fun seal(): LavaKordOptions = ImmutableLavaKordOptions(loadBalancer.seal(), link.seal())
 
@@ -110,8 +108,11 @@ public data class MutableLavaKordOptions(
     public data class LoadBalancingConfig(override val penaltyProviders: MutableList<PenaltyProvider> = mutableListOf()) :
         MutableList<PenaltyProvider> by penaltyProviders,
         LavaKordOptions.LoadBalancingConfig {
-        override fun plus(provider: PenaltyProvider) {
-            penaltyProviders.plus(provider)
+        /**
+         * Adds a new [PenaltyProvider].
+         */
+        public operator fun PenaltyProvider.unaryPlus() {
+            penaltyProviders.plus(this)
         }
 
         internal fun seal(): LavaKordOptions.LoadBalancingConfig =
@@ -124,10 +125,11 @@ public data class MutableLavaKordOptions(
     public data class LinkConfig constructor(
         override var autoReconnect: Boolean = true,
         override var resumeTimeout: Int = 60,
-        override var retry: Retry = LinearRetry(2.seconds, 60.seconds, 10)
+        override var retry: Retry = LinearRetry(2.seconds, 60.seconds, 10),
+        override val showTrace: Boolean = false
     ) : LavaKordOptions.LinkConfig {
         internal fun seal(): LavaKordOptions.LinkConfig =
-            ImmutableLavaKordOptions.LinkConfig(autoReconnect, resumeTimeout, retry)
+            ImmutableLavaKordOptions.LinkConfig(autoReconnect, resumeTimeout, retry, showTrace)
 
         /**
          * Creates a linear [Retry] strategy.
@@ -161,10 +163,7 @@ private data class ImmutableLavaKordOptions(
      * Mutable implementation of [LavaKordOptions.LoadBalancingConfig].
      */
     data class LoadBalancingConfig(override val penaltyProviders: List<PenaltyProvider>) :
-        LavaKordOptions.LoadBalancingConfig {
-        override fun plus(provider: PenaltyProvider): Nothing =
-            throw UnsupportedOperationException("This config has been sealed")
-    }
+        LavaKordOptions.LoadBalancingConfig
 
     /**
      * Mutable implementation of [LavaKordOptions.LinkConfig].
@@ -172,6 +171,7 @@ private data class ImmutableLavaKordOptions(
     data class LinkConfig(
         override val autoReconnect: Boolean,
         override val resumeTimeout: Int,
-        override val retry: Retry
+        override val retry: Retry,
+        override val showTrace: Boolean
     ) : LavaKordOptions.LinkConfig
 }

@@ -2,366 +2,70 @@
 
 package dev.schlaubi.lavakord.audio.internal
 
-import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
-import dev.schlaubi.lavakord.audio.player.Band
-import dev.schlaubi.lavakord.audio.player.Filters
+import dev.schlaubi.lavakord.Exception
+import dev.schlaubi.lavakord.audio.Event
+import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonClassDiscriminator
+import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.SerializersModule
+import kotlin.time.Duration
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 import dev.schlaubi.lavakord.audio.StatsEvent as PublicStatsEvent
+import dev.schlaubi.lavakord.audio.TrackEndEvent as PublicTrackEndEvent
+import dev.schlaubi.lavakord.audio.TrackExceptionEvent as PublicTrackExceptionEvent
+import dev.schlaubi.lavakord.audio.TrackStartEvent as PublicTrackStartEvent
+import dev.schlaubi.lavakord.audio.TrackStuckEvent as PublicTrackStuckEvent
+import dev.schlaubi.lavakord.audio.WebSocketClosedEvent as PublicWebsocketClosedEvent
 
 internal interface SanitizablePayload<T : GatewayPayload> {
     fun sanitize(): T
 }
 
-// Workaround for https://github.com/DRSchlaubi/lavakord/issues/4
+// Workaround for weird kx.ser bug
 internal val GatewayModule = SerializersModule {
     contextual(GatewayPayload::class, GatewayPayload.serializer())
 }
 
-@Serializable
-@JsonClassDiscriminator("op")
+@Serializable(with = GatewayPayload.Serializer::class)
 internal sealed class GatewayPayload {
+    abstract val op: String
 
-    abstract val guildId: String?
-
-    @Serializable
-    @SerialName("voiceUpdate")
-    data class VoiceUpdateCommand(
-        override val guildId: String,
-        val sessionId: String,
-        val event: DiscordVoiceServerUpdateData
-    ) : GatewayPayload(), SanitizablePayload<VoiceUpdateCommand> {
-        override fun sanitize(): VoiceUpdateCommand = copy(
-            event = event.copy(token = "[REDACTED]")
-        )
+    interface GuildAware {
+        val guildId: ULong
     }
 
     @Serializable
-    @SerialName("play")
-    data class PlayCommand(
-        override val guildId: String,
-        val track: String,
-        val startTime: Long? = null,
-        val endTime: Long? = null,
-        val volume: Int? = null,
-        val noReplace: Boolean? = null,
-        val pause: Boolean? = null
+    data class ReadyEvent(
+        override val op: String,
+        val resumed: Boolean,
+        val sessionId: String
     ) : GatewayPayload()
 
     @Serializable
-    @SerialName("stop")
-    data class StopCommand(
-        override val guildId: String
-    ) : GatewayPayload()
-
-    @Serializable
-    @SerialName("pause")
-    data class PauseCommand(
-        override val guildId: String, val pause: Boolean
-    ) : GatewayPayload()
-
-    @Serializable
-    @SerialName("seek")
-    data class SeekCommand(
-        override val guildId: String, val position: Long
-    ) : GatewayPayload()
-
-    @Serializable
-    @SerialName("volume")
-    data class VolumeCommand(
-        override val guildId: String, val volume: Int
-    ) : GatewayPayload()
-
-    @Serializable
-    @SerialName("filters")
-    data class FiltersCommand(
-        override val guildId: String,
-        @SerialName("equalizer")
-        override val bands: MutableList<Band> = mutableListOf(),
-        override var volume: Float? = null,
-        override var karaoke: Karaoke? = null,
-        override var timescale: Timescale? = null,
-        override var tremolo: Tremolo? = null,
-        override var vibrato: Vibrato? = null,
-        override var rotation: Rotation? = null,
-        override var distortion: Distortion? = null,
-        override var channelMix: ChannelMix? = null,
-        override var lowPass: LowPass? = null
-    ) : GatewayPayload(), Filters {
-
-        override fun reset() {
-            super.reset()
-            karaoke = null
-            timescale = null
-            tremolo = null
-            vibrato = null
-            rotation = null
-            distortion = null
-            channelMix = null
-            lowPass = null
-        }
-
-        override fun unsetKaraoke() {
-            karaoke = null
-        }
-
-        override fun unsetTimescale() {
-            timescale = null
-        }
-
-        override fun unsetTremolo() {
-            tremolo = null
-        }
-
-        override fun unsetVibrato() {
-            vibrato = null
-        }
-
-        override fun unsetRotation() {
-            rotation = null
-        }
-
-        override fun unsetDistortion() {
-            distortion = null
-        }
-
-        override fun unsetChannelMix() {
-            channelMix = null
-        }
-
-        override fun unsetLowPass() {
-            lowPass = null
-        }
-
-        @Serializable
-        data class Karaoke(
-            override var level: Float,
-            override var monoLevel: Float,
-            override var filterBand: Float,
-            override var filterWidth: Float
-        ) : Filters.Karaoke {
-            constructor() : this(
-                1F,
-                1F,
-                220F,
-                100F
-            )
-
-            override fun reset() {
-                level = 1F
-                monoLevel = 1F
-                filterBand = 220F
-                filterWidth = 100F
-            }
-        }
-
-        @Serializable
-        data class Timescale(
-            @SerialName("speed")
-            private var _speed: Float,
-            @SerialName("pitch")
-            private var _pitch: Float,
-            @SerialName("rate")
-            private var _rate: Float
-        ) : Filters.Timescale {
-            constructor() : this(1F, 1F, 1F)
-
-            override var speed: Float
-                get() = _speed
-                set(value) {
-                    require(value > 0) { "Speed must be greater than 0" }
-                    _speed = value
-                }
-
-            override var pitch: Float
-                get() = _pitch
-                set(value) {
-                    require(value > 0) { "Pitch must be greater than 0" }
-                    _pitch = value
-                }
-
-            override var rate: Float
-                get() = _rate
-                set(value) {
-                    require(value > 0) { "Rate must be greater than 0" }
-                    _rate = value
-                }
-
-            override fun reset() {
-                _speed = 1F
-                _pitch = 1F
-                _rate = 1F
-            }
-        }
-
-        @Serializable
-        data class Tremolo(
-            @SerialName("frequency") private var _frequency: Float,
-            @SerialName("depth") private var _depth: Float
-        ) : Filters.Tremolo {
-            constructor() : this(2F, .5F)
-
-            override var frequency: Float
-                get() = _frequency
-                set(value) {
-                    require(value > 0) { "Frequency must be greater than 0" }
-                    _frequency = value
-                }
-
-            override var depth: Float
-                get() = _depth
-                set(value) {
-                    require(value > 0 && value <= 1) { "Frequency must be between 0 and 1" }
-                    _depth = value
-                }
-
-            override fun reset() {
-                _frequency = 2F
-                _depth = .5F
-            }
-        }
-
-        @Serializable
-        data class Vibrato(
-            @SerialName("frequency") private var _frequency: Float,
-            @SerialName("depth") private var _depth: Float
-        ) : Filters.Vibrato {
-            constructor() : this(2F, .5F)
-
-            override var frequency: Float
-                get() = _frequency
-                set(value) {
-                    require(value > 0 && value <= 14) { "Frequency must be between 0 and 14" }
-                    _frequency = value
-                }
-
-            override var depth: Float
-                get() = _depth
-                set(value) {
-                    require(value > 0 && value <= 1) { "Frequency must be between 0 and 1" }
-                    _depth = value
-                }
-
-            override fun reset() {
-                _frequency = 2F
-                _depth = .5F
-            }
-        }
-
-        @Serializable
-        data class Rotation(override var rotationHz: Float) : Filters.Rotation {
-            constructor() : this(0.0f)
-
-            override fun reset() {
-                rotationHz = 0.0f
-            }
-        }
-
-        @Serializable
-        data class Distortion(
-            override var sinOffset: Float,
-            override var sinScale: Float,
-            override var cosOffset: Float,
-            override var cosScale: Float,
-            override var tanOffset: Float,
-            override var tanScale: Float,
-            override var offset: Float,
-            override var scale: Float
-        ) : Filters.Distortion {
-            constructor() : this(0f, 1f, 0f, 1f, 0f, 1f, 0f, 1f)
-
-            override fun reset() {
-                sinOffset = 0f
-                sinScale = 1f
-                cosOffset = 0f
-                cosScale = 1f
-                tanOffset = 0f
-                tanScale = 1f
-                offset = 0f
-                scale = 1f
-            }
-        }
-
-        @Serializable
-        data class ChannelMix(
-            override var leftToLeft: Float,
-            override var leftToRight: Float,
-            override var rightToLeft: Float,
-            override var rightToRight: Float
-        ) : Filters.ChannelMix {
-            constructor() : this(1f, 0f, 0f, 1f)
-
-            override fun reset() {
-                leftToLeft = 1f
-                leftToRight = 0f
-                rightToLeft = 0f
-                rightToRight = 1f
-            }
-        }
-
-        @Serializable
-        data class LowPass(override var smoothing: Float) : Filters.LowPass {
-            constructor() : this(20.0f)
-
-            override fun reset() {
-                smoothing = 20.0f
-            }
-        }
-    }
-
-    @Serializable
-    @SerialName("destroy")
-    data class DestroyCommand(
-        override val guildId: String
-    ) : GatewayPayload()
-
-    @Serializable
-    @SerialName("configureResuming")
-    data class ConfigureResumingCommand(val key: String, val timeout: Int) : GatewayPayload(),
-        SanitizablePayload<ConfigureResumingCommand> {
-        override val guildId: String
-            get() = throw UnsupportedOperationException("guildId is not supported for this event")
-
-        override fun sanitize(): ConfigureResumingCommand = copy(key = "[REDACTED]")
-    }
-
-    @Serializable
-    @SerialName("playerUpdate")
     data class PlayerUpdateEvent(
-        override val guildId: String, val state: State
-    ) : GatewayPayload() {
+        override val op: String,
+        override val guildId: ULong, val state: State
+    ) : GatewayPayload(), GuildAware {
         @Serializable
-        data class State(val time: Long, val position: Long? = null, val connected: Boolean)
+        data class State(val time: Long, val position: Long? = null, val connected: Boolean, val ping: Int)
     }
 
     @Serializable
-    @SerialName("stats")
     data class StatsEvent(
+        override val op: String,
         override val players: Int,
         override val playingPlayers: Int,
         override val uptime: Long,
         override val memory: PublicStatsEvent.Memory,
         override val cpu: PublicStatsEvent.Cpu,
         override val frameStats: PublicStatsEvent.FrameStats? = null
-    ) : GatewayPayload(), dev.schlaubi.lavakord.audio.StatsEvent {
-        override val guildId: String
-            get() = throw UnsupportedOperationException("Stats event does not provide a guild id but all other events do, thank you Lavalink")
-    }
+    ) : GatewayPayload(), PublicStatsEvent
 
-    @Serializable
-    @SerialName("event")
-    data class EmittedEvent(
-        override val guildId: String,
-        val type: Type,
-        val track: String? = null,
-        val reason: String? = null,
-        val error: String? = null,
-        val thresholdMs: Long? = null,
-        val code: Int? = null,
-        val byRemote: Boolean? = null
-    ) : GatewayPayload() {
+    @Serializable(with = EmittedEvent.Serializer::class)
+    sealed class EmittedEvent : GatewayPayload(), GuildAware, Event {
+        abstract val type: Type
 
         @Serializable
         enum class Type {
@@ -380,5 +84,76 @@ internal sealed class GatewayPayload {
             @SerialName("WebSocketClosedEvent")
             WEBSOCKET_CLOSED_EVENT
         }
+
+        @Serializable
+        data class TrackStartEvent(
+            override val op: String,
+            override val guildId: ULong,
+            override val encodedTrack: String,
+            override val type: Type
+        ) : EmittedEvent(), PublicTrackStartEvent
+
+        @Serializable
+        data class TrackEndEvent(
+            override val op: String,
+            override val guildId: ULong,
+            override val encodedTrack: String,
+            override val reason: PublicTrackEndEvent.EndReason,
+            override val type: Type
+        ) : EmittedEvent(), PublicTrackEndEvent
+
+        @Serializable
+        data class TrackExceptionEvent(
+            override val op: String,
+            override val guildId: ULong,
+            override val encodedTrack: String,
+            override val exception: Exception,
+            override val type: Type
+        ) : EmittedEvent(), PublicTrackExceptionEvent
+
+        @Serializable
+        data class TrackStuckEvent(
+            override val op: String,
+            override val guildId: ULong,
+            override val encodedTrack: String,
+            val thresholdMs: Int,
+            override val type: Type
+        ) : EmittedEvent(), PublicTrackStuckEvent {
+            override val threshold: Duration by lazy { thresholdMs.toDuration(DurationUnit.MILLISECONDS) }
+        }
+
+        @Serializable
+        data class WebSocketClosedEvent(
+            override val op: String,
+            override val guildId: ULong,
+            override val code: Int,
+            override val reason: String,
+            override val byRemote: Boolean,
+            override val type: Type
+        ) : EmittedEvent(), PublicWebsocketClosedEvent
+
+        companion object Serializer : JsonContentPolymorphicSerializer<EmittedEvent>(EmittedEvent::class) {
+            override fun selectDeserializer(element: JsonElement): DeserializationStrategy<EmittedEvent> {
+                val type = element.jsonObject["type"] ?: error("Missing type")
+                return when (Json.decodeFromJsonElement<Type>(type)) {
+                    Type.TRACK_START_EVENT -> TrackStartEvent.serializer()
+                    Type.TRACK_END_EVENT -> TrackEndEvent.serializer()
+                    Type.TRACK_EXCEPTION_EVENT -> TrackExceptionEvent.serializer()
+                    Type.TRACK_STUCK_EVENT -> TrackStuckEvent.serializer()
+                    Type.WEBSOCKET_CLOSED_EVENT -> WebSocketClosedEvent.serializer()
+                }
+            }
+        }
+    }
+
+    companion object Serializer : JsonContentPolymorphicSerializer<GatewayPayload>(GatewayPayload::class) {
+        override fun selectDeserializer(element: JsonElement): DeserializationStrategy<GatewayPayload> =
+            when (val event = element.jsonObject["op"]!!.jsonPrimitive.content) {
+                "ready" -> ReadyEvent.serializer()
+                "stats" -> StatsEvent.serializer()
+                "playerUpdate" -> PlayerUpdateEvent.serializer()
+                "event" -> EmittedEvent.serializer()
+                else -> error("Unknown event: $event")
+            }
     }
 }

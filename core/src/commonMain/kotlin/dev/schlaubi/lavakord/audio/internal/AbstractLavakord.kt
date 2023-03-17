@@ -1,21 +1,25 @@
 package dev.schlaubi.lavakord.audio.internal
 
-import dev.schlaubi.lavakord.LavaKord
-import dev.schlaubi.lavakord.LavaKordOptions
+import dev.schlaubi.lavakord.*
 import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.RestNode
-import dev.schlaubi.lavakord.computeIfAbsent
 import dev.schlaubi.lavakord.internal.HttpEngine
 import dev.schlaubi.lavakord.internal.RestNodeImpl
 import dev.schlaubi.lavakord.rest.RoutePlannerModule
+import dev.schlaubi.lavakord.rest.models.UpdatePlayerRequest
+import dev.schlaubi.lavakord.rest.models.VoiceState
+import dev.schlaubi.lavakord.rest.updatePlayer
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.engine.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
+import io.ktor.client.plugins.resources.*
 import io.ktor.client.plugins.websocket.*
+import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
@@ -51,10 +55,20 @@ public abstract class AbstractLavakord internal constructor(
     protected val linksMap: MutableMap<ULong, Link> = mutableMapOf()
 
     internal val json = kotlinx.serialization.json.Json {
-        serializersModule = RoutePlannerModule + GatewayModule
         ignoreUnknownKeys = true
+        serializersModule = GatewayModule + RoutePlannerModule
     }
 
+    private fun HttpClientConfig<*>.commonConfig() {
+        install(Logging) {
+            level = LogLevel.INFO
+            logger = object : Logger {
+                override fun log(message: String) = LOG.debug { message }
+            }
+        }
+
+        install(Resources)
+    }
 
     internal val restClient = HttpClient(httpClientEngine) {
         install(ContentNegotiation) {
@@ -68,12 +82,27 @@ public abstract class AbstractLavakord internal constructor(
             }
         }
 
-        install(Logging) {
-            level = LogLevel.INFO
-            logger = object : Logger {
-                override fun log(message: String) = LOG.debug { message }
+        if (options.link.showTrace) {
+            defaultRequest {
+                url {
+                    parameters.append("trace", "true")
+                }
             }
         }
+
+        HttpResponseValidator {
+            handleResponseExceptionWithRequest { cause, request ->
+                if (cause is ResponseException) {
+                    val error = cause.response.body<RestError>()
+
+                    throw RestException(error, request)
+                }
+            }
+        }
+
+        expectSuccess = true
+
+        commonConfig()
     }
 
     internal val gatewayClient = HttpClient(HttpEngine) {
@@ -82,12 +111,7 @@ public abstract class AbstractLavakord internal constructor(
         }
 
         install(HttpTimeout)
-        install(Logging) {
-            level = LogLevel.INFO
-            logger = object : Logger {
-                override fun log(message: String) = LOG.debug { message }
-            }
-        }
+        commonConfig()
     }
 
 
@@ -137,15 +161,17 @@ public abstract class AbstractLavakord internal constructor(
      */
     protected suspend fun forwardVoiceEvent(
         link: Link,
-        guildId: String,
+        guildId: ULong,
         sessionId: String,
         event: DiscordVoiceServerUpdateData
     ) {
-        (link.node as NodeImpl).send(
-            GatewayPayload.VoiceUpdateCommand(
-                guildId,
-                sessionId,
-                event
+        link.node.updatePlayer(
+            guildId, request = UpdatePlayerRequest(
+                voice = VoiceState(
+                    event.token,
+                    event.endpoint,
+                    sessionId
+                )
             )
         )
     }

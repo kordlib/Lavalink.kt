@@ -1,15 +1,16 @@
-@file:Suppress("UnstableApiUsage")
+@file:Suppress("UnstableApiUsage", "KDocMissingDocumentation")
 
 rootProject.name = "lavakord"
-include("example")
-include("kord") // GitHub Actions gets mad about this and I can't reproduce this locally
-//include("jsExample") // kotlinx-nodejs is unavailable: https://github.com/Kotlin/kotlinx-nodejs/issues/16
-include("core")
-include("java")
-include("jda")
-include("jda-java")
+include(
+    "example",
+    "kord", // GitHub Actions gets mad about this and I can't reproduce this locally
+    "jsExample",
+    "core",
+    "java",
+    "jda",
+    "jda-java"
+)
 
-enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -32,9 +33,14 @@ dependencyResolutionManagement {
             kotlinx()
             ktor()
             library("kord-core", "dev.kord", "kord-core").version("0.8.x-SNAPSHOT")
-            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.9.1")
-            library("kotlinlogging", "io.github.microutils", "kotlin-logging").version("3.0.4")
+            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.9.2")
+            library("kotlinlogging", "io.github.microutils", "kotlin-logging").version("3.0.5")
             library("sl4fj-simple", "org.slf4j", "slf4j-simple").version("2.0.6")
+
+            library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("18.14.0-pre.502")
+
+            plugin("kotlinx-atomicfu", "kotlinx-atomicfu").version("0.20.0")
+            plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.0")
         }
     }
 }
@@ -44,16 +50,17 @@ fun VersionCatalogBuilder.kotlinx() {
     library("kotlinx-coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutines)
     library("kotlinx-coroutines-jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     library("kotlinx-coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
-    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.4.1")
+    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.5.0")
     library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.4.0")
 }
 
 fun VersionCatalogBuilder.ktor() {
-    val ktor = version("ktor", "2.2.2")
+    val ktor = version("ktor", "2.2.4")
     library("ktor-io", "io.ktor", "ktor-io").versionRef(ktor)
     library("ktor-utils", "io.ktor", "ktor-utils").versionRef(ktor)
     library("ktor-client-websockets", "io.ktor", "ktor-client-websockets").versionRef(ktor)
     library("ktor-client-core", "io.ktor", "ktor-client-core").versionRef(ktor)
+    library("ktor-client-resources", "io.ktor", "ktor-client-resources").versionRef(ktor)
     library("ktor-serialization-kotlinx-json", "io.ktor", "ktor-serialization-kotlinx-json").versionRef(ktor)
     library("ktor-client-content-negotiation", "io.ktor", "ktor-client-content-negotiation").versionRef(ktor)
     library("ktor-client-logging", "io.ktor", "ktor-client-logging").versionRef(ktor)

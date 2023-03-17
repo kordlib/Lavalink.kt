@@ -1,5 +1,12 @@
 package json.src
 
+const val GUILD_ID = 1UL
+
+// NEVVVA GONA GIVE YOU UP NEVVA GONNA LET YOU DOWN
+//language=text
+const val TRACK = "QAAAjQIAJVJpY2sgQXN0bGV5IC0gTmV2ZXIgR29ubmEgR2l2ZSBZb3UgVXAADlJpY2tBc3RsZXlWRVZPAAAAAAADPCAAC2RRdzR3OVdnWGNRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9ZFF3NHc5V2dYY1EAB3lvdXR1YmUAAAAAAAAAAA"
+
+
 //language=JSON
 const val PLAYER_UPDATE_EVENT: String = """
 {
@@ -8,7 +15,8 @@ const val PLAYER_UPDATE_EVENT: String = """
     "state": {
         "time": 1500467109,
         "position": 1500467109,
-        "connected": true
+        "connected": true,
+        "ping": 1337
     }
 }
 """
@@ -66,7 +74,7 @@ const val TRACK_START_EVENT: String = """
   "op": "event",
   "type": "TrackStartEvent",
   "guildId": "$GUILD_ID",
-  "track": "$TRACK"
+  "encodedTrack": "$TRACK"
 }
 """
 
@@ -76,7 +84,7 @@ const val TRACK_END_EVENT: String = """
   "op": "event",
   "type": "TrackEndEvent",
   "guildId": "$GUILD_ID",
-  "track": "$TRACK",
+  "encodedTrack": "$TRACK",
   "reason": "FINISHED"
 }
 """
@@ -87,10 +95,13 @@ const val TRACK_EXCEPTION_EVENT: String = """
   "op": "event",
   "type": "TrackExceptionEvent",
   "guildId": "$GUILD_ID",
-  "track": "$TRACK",
-  "error": "An error occurred"
-}
-"""
+  "encodedTrack": "$TRACK",
+  "exception": {
+    "message": "...",
+    "severity": "COMMON",
+    "cause": "..."
+  }
+}"""
 
 //language=JSON
 const val TRACK_STUCK_EVENT: String = """
@@ -98,7 +109,7 @@ const val TRACK_STUCK_EVENT: String = """
   "op": "event",
   "type": "TrackStuckEvent",
   "guildId": "$GUILD_ID",
-  "track": "$TRACK",
+  "encodedTrack": "$TRACK",
   "thresholdMs": 500
 }
 """

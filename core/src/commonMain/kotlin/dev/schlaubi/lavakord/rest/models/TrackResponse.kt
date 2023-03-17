@@ -1,12 +1,10 @@
-package dev.schlaubi.lavakord.rest
+package dev.schlaubi.lavakord.rest.models
 
-import dev.schlaubi.lavakord.rest.TrackResponse.*
-import dev.schlaubi.lavakord.rest.TrackResponse.Error.Severity
-import dev.schlaubi.lavakord.rest.TrackResponse.PartialTrack.Info
+import dev.schlaubi.lavakord.Exception
+import dev.schlaubi.lavakord.rest.models.TrackResponse.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmName
-import dev.schlaubi.lavakord.audio.player.Track as NewTrack
 
 /**
  * A Response from the Lavalink [Track Loading API](https://github.com/Frederikam/Lavalink/blob/master/IMPLEMENTATION.md#track-loading-api)
@@ -24,7 +22,7 @@ public data class TrackResponse(
     val playlistInfo: NullablePlaylistInfo,
     val tracks: List<PartialTrack>,
     @get:JvmName("getExceptionOrNull")
-    val exception: Error? = null
+    val exception: Exception? = null
 ) {
 
     /**
@@ -55,7 +53,7 @@ public data class TrackResponse(
      * @see exception
      * @throws IllegalStateException when the [loadType] is not [LoadType.LOAD_FAILED]
      */
-    public fun getException(): Error =
+    public fun getException(): Exception =
         if (loadType == LoadType.LOAD_FAILED) exception!! else error("Exception is only available for LoadType.LOAD_FAILED")
 
     /**
@@ -95,49 +93,6 @@ public data class TrackResponse(
     }
 
     /**
-     * An Error reported from lavalink/lavaplayer.
-     *
-     * @property message the message of the error
-     * @property severity the [Severity] of the error.
-     *
-     * @see LoadType.LOAD_FAILED
-     */
-    @Serializable
-    public data class Error(
-        val message: String,
-        val severity: Severity
-    ) {
-
-
-        /**
-         * Severity levels for FriendlyException
-         *
-         * Credit: https://github.com/sedmelluq/lavaplayer/blob/master/main/src/main/java/com/sedmelluq/discord/lavaplayer/tools/FriendlyException.java
-         */
-        @Serializable
-        @Suppress("unused")
-        public enum class Severity {
-            /**
-             * The cause is known and expected, indicates that there is nothing wrong with the library itself.
-             */
-            COMMON,
-
-            /**
-             * The cause might not be exactly known, but is possibly caused by outside factors. For example when an outside
-             * service responds in a format that we do not expect.
-             */
-            SUSPICIOUS,
-
-            /**
-             * If the probable cause is an issue with the library or when there is no way to tell what the cause might be.
-             * This is the default level and other levels are used in cases where the thrower has more in-depth knowledge
-             * about the error.
-             */
-            FAULT
-        }
-    }
-
-    /**
      * A [PlaylistInfo] that can contain nothing.
      *
      * @property name the name of the playlist
@@ -161,48 +116,4 @@ public data class TrackResponse(
         val name: String,
         val selectedTrack: Int
     )
-
-    /**
-     * A Track.
-     *
-     * @property track the base64 encoded track
-     * @property info the parsed [Info]
-     */
-    @Serializable
-    public data class PartialTrack(
-        val track: String,
-        val info: Info,
-    ) {
-
-        /**
-         * Converts this track to an [NewTrack].
-         */
-        public suspend fun toTrack(): NewTrack = NewTrack.fromLavalink(track)
-
-        /**
-         * The track information.
-         *
-         * @property identifier the identifier created by the tracks source
-         * @property isSeekable whether you can seek to a specific position or not
-         * @property author the author of the track
-         * @property length the length of the track in ms
-         * @property isStream whether the track is a stream or not
-         * @property position the current position of the track in milliseconds
-         * @property title the title of the track
-         * @property uri the uri to the track
-         * @property sourceName the name of the lavaplayer source, lavalink used to provide this track
-         */
-        @Serializable
-        public data class Info(
-            val identifier: String,
-            val isSeekable: Boolean,
-            val author: String,
-            val length: Long,
-            val isStream: Boolean,
-            val position: Int,
-            val title: String,
-            val uri: String,
-            val sourceName: String
-        )
-    }
 }
