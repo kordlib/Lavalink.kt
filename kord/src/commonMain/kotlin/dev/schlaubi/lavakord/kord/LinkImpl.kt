@@ -77,7 +77,6 @@ internal class KordLink(
         state = Link.State.DISCONNECTING
         val guild = lavakord.kord.getGuildOrNull(Snowflake(guildId)) ?: error("Could not find Guild $guildId")
         lastChannelId = null
-        // Hope broke the UpdateVoiceStatus command
         val command = UpdateVoiceStatus(
             Snowflake(guildId),
             null,
@@ -85,8 +84,6 @@ internal class KordLink(
             selfDeaf = false
         )
 
-        command.javaClass.getDeclaredField("channelId").apply { isAccessible = true }
-            .set(command, null)
         guild.gateway?.send(command)
     }
 }

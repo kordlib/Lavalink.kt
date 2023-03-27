@@ -8,6 +8,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(projects.core)
+                implementation(libs.kord.core)
             }
         }
 
@@ -15,12 +16,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-            }
-        }
-
-        jvmMain {
-            dependencies {
-                implementation(libs.kord.core)
             }
         }
     }
