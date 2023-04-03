@@ -1,7 +1,6 @@
 package dev.schlaubi.lavakord.jda
 
 import dev.schlaubi.lavakord.LavaKord
-import dev.schlaubi.lavakord.LavaKordOptions
 import dev.schlaubi.lavakord.MutableLavaKordOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -29,7 +28,7 @@ private val LOG = KotlinLogging.logger { }
 public suspend fun JDABuilder.buildWithLavakord(
     executor: CoroutineContext? = null,
     options: MutableLavaKordOptions = MutableLavaKordOptions(),
-    builder: LavaKordOptions.() -> Unit = {}
+    builder: MutableLavaKordOptions.() -> Unit = {}
 ): LJDA {
     val lavaKordJDA = LavaKordJDA()
     applyLavakord(lavaKordJDA)
@@ -78,7 +77,7 @@ public suspend fun ShardManager.lavakord(
     shardManager: LavaKordShardManager,
     executor: CoroutineContext? = null,
     options: MutableLavaKordOptions = MutableLavaKordOptions(),
-    builder: LavaKordOptions.() -> Unit = {}
+    builder: MutableLavaKordOptions.() -> Unit = {}
 ): LavaKord {
     shardManager.shardManager = this
     val jdaProvider: (Int) -> JDA =
@@ -113,7 +112,7 @@ public suspend fun JDA.lavakord(
     jda: LavaKordJDA,
     executor: CoroutineContext? = null,
     options: MutableLavaKordOptions = MutableLavaKordOptions(),
-    builder: LavaKordOptions.() -> Unit = {}
+    builder: MutableLavaKordOptions.() -> Unit = {}
 ): LavaKord {
     if (shardManager != null) {
         LOG.warn { "JDA.lavakord() was called on a shard managed instance, consider using ShardManager.lavakord()" }
@@ -145,7 +144,7 @@ public suspend fun JDA.lavakord(
 public suspend fun DefaultShardManagerBuilder.buildWithLavakord(
     executor: CoroutineContext? = null,
     options: MutableLavaKordOptions = MutableLavaKordOptions(),
-    builder: LavaKordOptions.() -> Unit = {}
+    builder: MutableLavaKordOptions.() -> Unit = {}
 ): LShardManager {
     val lavakordShardManager = LavaKordShardManager()
     applyLavakord(lavakordShardManager)

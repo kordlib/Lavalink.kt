@@ -71,7 +71,6 @@ public sealed class AbstractLavakordJda : VoiceDispatchInterceptor, EventListene
  */
 public class LavaKordJDA : AbstractLavakordJda(), LJDA {
     override lateinit var jda: JDA
-        internal set
 }
 
 /**
@@ -83,5 +82,4 @@ public class LavaKordJDA : AbstractLavakordJda(), LJDA {
  */
 public class LavaKordShardManager : AbstractLavakordJda(), LShardManager {
     override lateinit var shardManager: ShardManager
-        internal set
 }
