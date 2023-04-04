@@ -1,4 +1,4 @@
-# This workflow will upload docs to the gh-pages branch whenever something is pushed to master.
+# This workflow will upload docs to the gh-pages branch whenever something is pushed to main.
 
 name: Docs
 on:
