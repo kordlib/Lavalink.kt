@@ -3,10 +3,17 @@ plugins {
     signing
 }
 
-val dokkaJar by tasks.registering(Jar::class) {
-    dependsOn("dokkaHtml")
-    archiveClassifier.set("javadoc")
-    from(tasks.getByName("dokkaHtml"))
+fun MavenPublication.addDokkaIfNeeded() {
+    if (tasks.findByName("dokkaHtml") != null) {
+        val platform = name.substringAfterLast('-')
+        val dokkaJar = tasks.register("${platform}DokkaJar", Jar::class) {
+            dependsOn("dokkaHtml")
+            archiveClassifier.set("javadoc")
+            destinationDirectory.set(buildDir.resolve(platform))
+            from(tasks.getByName("dokkaHtml"))
+        }
+        artifact(dokkaJar)
+    }
 }
 
 publishing {
@@ -27,7 +34,7 @@ publishing {
 
     publications {
         withType<MavenPublication> {
-            artifact(dokkaJar)
+            addDokkaIfNeeded()
             pom {
                 name.set(project.name)
                 description.set("Coroutine based client for Lavalink (Kotlin and Java)")
