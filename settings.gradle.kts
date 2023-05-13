@@ -32,7 +32,7 @@ dependencyResolutionManagement {
         create("libs") {
             kotlinx()
             ktor()
-            library("kord-core", "dev.kord", "kord-core").version("feature-mpp-SNAPSHOT")
+            library("kord-core", "dev.kord", "kord-core").version("0.9.x-SNAPSHOT")
             library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.9.2")
             library("kotlinlogging", "io.github.microutils", "kotlin-logging").version("3.0.5")
             library("sl4fj-simple", "org.slf4j", "slf4j-simple").version("2.0.6")
