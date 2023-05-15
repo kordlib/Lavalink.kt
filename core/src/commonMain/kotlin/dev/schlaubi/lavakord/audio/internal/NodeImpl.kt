@@ -15,6 +15,7 @@ import io.ktor.serialization.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -27,7 +28,7 @@ internal val LOG = KotlinLogging.logger { }
 
 private data class SessionIdContainer(private var value: String? = null) : ReadWriteProperty<Any?, String> {
     override fun getValue(thisRef: Any?, property: KProperty<*>): String = value
-        ?: error("WebSocket connection is not ready yet, please wait for the connection to finish")
+        ?: error("WebSocket connection is not ready yet, please wait for the handshake to finish")
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
         this.value = value
@@ -58,41 +59,46 @@ internal class NodeImpl(
         get() = eventPublisher.asSharedFlow()
 
     internal suspend fun connect(resume: Boolean = false) {
-        session = try {
-            connect(resume) {
-                addUrl()
-                timeout {
-                    requestTimeoutMillis = HttpTimeout.INFINITE_TIMEOUT_MS
+        try {
+            session = try {
+                connect(resume) {
+                    addUrl()
+                    timeout {
+                        requestTimeoutMillis = HttpTimeout.INFINITE_TIMEOUT_MS
+                    }
+                    header("Authorization", authenticationHeader)
+                    header("User-Id", lavakord.userId)
+                    header("Client-Name", "Lavalink.kt")
+                    if (resume) {
+                        header("Resume-Key", resumeKey)
+                    }
                 }
-                header("Authorization", authenticationHeader)
-                header("User-Id", lavakord.userId)
-                header("Client-Name", "Lavalink.kt")
-                if (resume) {
-                    header("Resume-Key", resumeKey)
+            } catch (e: ReconnectException) {
+                reconnect(e.cause, resume)
+                return
+            }
+
+            retry.reset()
+            available = true
+
+            LOG.debug { "Successfully connected to node: $name ($host)" }
+
+            while (!session.incoming.isClosedForReceive) {
+                try {
+                    onEvent(session.receiveDeserialized())
+                } catch (e: WebsocketDeserializeException) {
+                    LOG.warn(e) { "An error occurred whilst decoding incoming websocket packet" }
                 }
             }
-        } catch (e: ReconnectException) {
-            reconnect(e.cause, resume)
-            return
+            val reason = session.closeReason.await()
+            if (reason?.knownReason == CloseReason.Codes.NORMAL) return
+            available = false
+            LOG.warn { "Disconnected from websocket for: $reason. Music will continue playing if we can reconnect within the next $resumeTimeout seconds" }
+            reconnect(resume = true)
+        } catch (e: ClosedReceiveChannelException) {
+            LOG.warn(e) { "WebSocket connection was closed abnormally" }
+            reconnect(resume = true)
         }
-
-        retry.reset()
-        available = true
-
-        LOG.debug { "Successfully connected to node: $name ($host)" }
-
-        while (!session.incoming.isClosedForReceive) {
-            try {
-                onEvent(session.receiveDeserialized())
-            } catch (e: WebsocketDeserializeException) {
-                LOG.warn(e) { "An error occurred whilst decoding incoming websocket packet" }
-            }
-        }
-        val reason = session.closeReason.await()
-        if (reason?.knownReason == CloseReason.Codes.NORMAL) return
-        available = false
-        LOG.warn { "Disconnected from websocket for: $reason. Music will continue playing if we can reconnect within the next $resumeTimeout seconds" }
-        reconnect(resume = true)
     }
 
     private suspend fun reconnect(e: Throwable? = null, resume: Boolean = false) {

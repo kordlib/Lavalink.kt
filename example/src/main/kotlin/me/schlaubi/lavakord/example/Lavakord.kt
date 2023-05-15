@@ -23,7 +23,7 @@ suspend fun main() {
     val listenedGuilds = mutableListOf<Snowflake>()
     lavalink = kord.lavakord()
 
-    lavalink.addNode("wss://9764-5-253-115-167.eu.ngrok.io", "youshallnotpass")
+    lavalink.addNode("wss://schlaubi.eu.ngrok.io", "youshallnotpass")
 
     kord.on<MessageCreateEvent> {
         val args = message.content.split(" ")

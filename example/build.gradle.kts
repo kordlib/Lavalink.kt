@@ -21,6 +21,7 @@ dependencies {
     implementation(libs.kord.core)
 
     implementation("org.apache.groovy:groovy-all:4.0.7")
+    implementation("org.jetbrains.kotlinx:atomicfu:0.20.2")
     kapt("dev.kord.x:commands-processor:0.4.0-SNAPSHOT")
 
     implementation("net.dv8tion:JDA:5.0.0-alpha.3") {

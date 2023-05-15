@@ -110,6 +110,8 @@ public abstract class AbstractLavakord internal constructor(
             contentConverter = KotlinxWebsocketSerializationConverter(json)
         }
 
+        expectSuccess = true
+
         install(HttpTimeout)
         commonConfig()
     }

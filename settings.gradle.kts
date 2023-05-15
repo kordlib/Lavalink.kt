@@ -46,16 +46,16 @@ dependencyResolutionManagement {
 }
 
 fun VersionCatalogBuilder.kotlinx() {
-    val coroutines = version("coroutines", "1.6.4")
+    val coroutines = version("coroutines", "1.7.1")
     library("kotlinx-coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutines)
     library("kotlinx-coroutines-jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     library("kotlinx-coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
-    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.5.0")
+    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.5.1")
     library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.4.0")
 }
 
 fun VersionCatalogBuilder.ktor() {
-    val ktor = version("ktor", "2.2.4")
+    val ktor = version("ktor", "2.3.0")
     library("ktor-io", "io.ktor", "ktor-io").versionRef(ktor)
     library("ktor-utils", "io.ktor", "ktor-utils").versionRef(ktor)
     library("ktor-client-websockets", "io.ktor", "ktor-client-websockets").versionRef(ktor)
