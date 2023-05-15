@@ -40,7 +40,7 @@ dependencyResolutionManagement {
             library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("18.14.0-pre.502")
 
             plugin("kotlinx-atomicfu", "kotlinx-atomicfu").version("0.20.0")
-            plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.0")
+            plugin("git-publish", "org.ajoberstar.git-publish").version("4.2.0")
         }
     }
 }
