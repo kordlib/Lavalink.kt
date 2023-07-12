@@ -32,15 +32,15 @@ dependencyResolutionManagement {
         create("libs") {
             kotlinx()
             ktor()
-            library("kord-core", "dev.kord", "kord-core").version("0.9.x-SNAPSHOT")
-            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.9.2")
+            library("kord-core", "dev.kord", "kord-core").version("0.10.0")
+            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.9.3")
             library("kotlinlogging", "io.github.microutils", "kotlin-logging").version("3.0.5")
-            library("sl4fj-simple", "org.slf4j", "slf4j-simple").version("2.0.6")
+            library("sl4fj-simple", "org.slf4j", "slf4j-simple").version("2.0.7")
 
-            library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("18.14.0-pre.502")
+            library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("18.16.12-pre.594")
 
-            plugin("kotlinx-atomicfu", "kotlinx-atomicfu").version("0.20.0")
-            plugin("git-publish", "org.ajoberstar.git-publish").version("4.2.0")
+            plugin("kotlinx-atomicfu", "kotlinx-atomicfu").version("0.21.0")
+            plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.0")
         }
     }
 }
@@ -50,12 +50,12 @@ fun VersionCatalogBuilder.kotlinx() {
     library("kotlinx-coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutines)
     library("kotlinx-coroutines-jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     library("kotlinx-coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
-    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.5.1")
+    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.5.0")
     library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.4.0")
 }
 
 fun VersionCatalogBuilder.ktor() {
-    val ktor = version("ktor", "2.3.0")
+    val ktor = version("ktor", "2.3.2")
     library("ktor-io", "io.ktor", "ktor-io").versionRef(ktor)
     library("ktor-utils", "io.ktor", "ktor-utils").versionRef(ktor)
     library("ktor-client-websockets", "io.ktor", "ktor-client-websockets").versionRef(ktor)

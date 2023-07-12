@@ -36,29 +36,29 @@ publishing {
         withType<MavenPublication> {
             addDokkaIfNeeded()
             pom {
-                name.set(project.name)
-                description.set("Coroutine based client for Lavalink (Kotlin and Java)")
-                url.set("https://github.com/DRSchlaubi/Lavalink.kt")
+                name = project.name
+                description = "Coroutine based client for Lavalink (Kotlin and Java)"
+                url = "https://github.com/DRSchlaubi/Lavalink.kt"
 
                 licenses {
                     license {
-                        name.set("MIT License")
-                        url.set("https://github.com/DRSchlaubi/Lavalink.kt/blob/main/LICENSE")
+                        name = "MIT License"
+                        url = "https://github.com/DRSchlaubi/Lavalink.kt/blob/main/LICENSE"
                     }
                 }
 
                 developers {
                     developer {
-                        name.set("Michael Rittmeister")
-                        email.set("mail@schlaubi.me")
-                        organizationUrl.set("https://michael.rittmeister.in")
+                        name = "Michael Rittmeister"
+                        email = "mail@schlaubi.me"
+                        organizationUrl = "https://michael.rittmeister.in"
                     }
                 }
 
                 scm {
-                    connection.set("scm:git:https://github.com/DRSchlaubi/Lavalink.kt.git")
-                    developerConnection.set("scm:git:https://github.com/DRSchlaubi/Lavalink.kt.git")
-                    url.set("https://github.com/DRSchlaubi/Lavalink.kt")
+                    connection = "scm:git:https://github.com/DRSchlaubi/Lavalink.kt.git"
+                    developerConnection = "scm:git:https://github.com/DRSchlaubi/Lavalin.kt.git"
+                    url = "https://github.com/DRSchlaubi/Lavalink.kt"
                 }
             }
         }

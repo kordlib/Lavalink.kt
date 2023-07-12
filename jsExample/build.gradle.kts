@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js")
+    kotlin("multiplatform")
 }
 
 group = "me.schlaubi.lavakord"
@@ -9,16 +9,20 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation(projects.core)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(npm("discord.js", "14.7.1"))
-    implementation(libs.kotlinx.nodejs)
-}
-
 kotlin {
     js(IR) {
         nodejs()
         binaries.executable()
+    }
+
+    sourceSets {
+        named("jsMain") {
+            dependencies {
+                implementation(projects.core)
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(npm("discord.js", "14.7.1"))
+                implementation(libs.kotlinx.nodejs)
+            }
+        }
     }
 }

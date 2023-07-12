@@ -11,19 +11,11 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "1.8.20"
+    val kotlinVersion = "1.9.0"
     implementation(kotlin("gradle-plugin", kotlinVersion))
     implementation(kotlin("serialization", kotlinVersion))
     implementation(kotlin("gradle-plugin-api", kotlinVersion))
-    implementation("org.jetbrains.dokka", "dokka-gradle-plugin", "1.7.20")
+    implementation("org.jetbrains.dokka", "dokka-gradle-plugin", "1.8.20")
     implementation(gradleApi())
     implementation(localGroovy())
-}
-
-tasks {
-    withType<KotlinCompile> {
-        kotlinOptions {
-            languageVersion = "1.5"
-        }
-    }
 }

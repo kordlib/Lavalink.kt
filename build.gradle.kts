@@ -15,6 +15,7 @@ allprojects {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
         maven("https://oss.sonatype.org/content/repositories/snapshots")
+        maven("https://maven.arbjerg.dev/snapshots")
     }
 }
 
@@ -39,14 +40,14 @@ tasks {
 }
 
 configure<GitPublishExtension> {
-    repoUri.set("https://github.com/DRSchlaubi/lavakord.git")
-    branch.set("gh-pages")
+    repoUri = "https://github.com/DRSchlaubi/lavakord.git"
+    branch = "gh-pages"
 
     contents {
         from(file("docs"))
     }
 
-    commitMessage.set("Update Docs")
+    commitMessage = "Update Docs"
 }
 
 subprojects {
@@ -59,21 +60,8 @@ subprojects {
                     includeNonPublic.set(false)
 
                     perPackageOption {
-                        matchingRegex.set(".*\\.internal.*") // will match all .internal packages and sub-packages
-                        suppress.set(true)
-                    }
-                }
-
-                if (asMap.containsKey("jsMain")) {
-                    named("jsMain") {
-                        displayName.set("JS")
-                    }
-                }
-
-                if (asMap.containsKey("jvmMain")) {
-                    named("jvmMain") {
-                        jdkVersion.set(8)
-                        displayName.set("JVM")
+                        matchingRegex = ".*\\.internal.*" // will match all .internal packages and sub-packages
+                        suppress = true
                     }
                 }
             }

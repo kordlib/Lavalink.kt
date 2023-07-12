@@ -12,7 +12,8 @@ Lavalink download: [https://github.com/freyacodes/Lavalink](https://github.com/f
 
 # Download
 
-You can get Lavakord from here: https://search.maven.org/search?q=dev.schlaubi.lavakord
+For now you also need this repo: https://maven.arbjerg.dev/snapshots
+You can get Lavakord from here: https://central.sonatype.com/search?namespace=dev.schlaubi.lavakord
 
 # Usage
 
