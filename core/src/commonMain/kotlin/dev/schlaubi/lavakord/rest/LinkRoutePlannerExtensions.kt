@@ -1,16 +1,15 @@
 package dev.schlaubi.lavakord.rest
 
+import dev.arbjerg.lavalink.protocol.v4.RoutePlannerFreeAddress
+import dev.arbjerg.lavalink.protocol.v4.RoutePlannerStatus
 import dev.schlaubi.lavakord.NoRoutePlannerException
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.RestNode
-import dev.schlaubi.lavakord.rest.routes.V3Api
+import dev.schlaubi.lavakord.rest.routes.V4Api
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.decodeFromJsonElement
 
 /**
  * Retrieves the current address status of the route planner api. Can be null if no Route planner is set
@@ -18,7 +17,7 @@ import kotlinx.serialization.json.decodeFromJsonElement
  * @see RoutePlannerStatus
  * @see Node.addressStatusOrNull
  */
-public suspend fun Link.addressStatusOrNull(): RoutePlannerStatus<out RoutePlannerStatus.Data>? =
+public suspend fun Link.addressStatusOrNull(): RoutePlannerStatus? =
     node.addressStatusOrNull()
 
 /**
@@ -27,17 +26,8 @@ public suspend fun Link.addressStatusOrNull(): RoutePlannerStatus<out RoutePlann
  *
  * @see RoutePlannerStatus
  */
-public suspend fun RestNode.addressStatusOrNull(): RoutePlannerStatus<out RoutePlannerStatus.Data>? {
-    return try {
-        val response = get<JsonElement, _>(V3Api.RoutePlanner.Status())
-        // Due to a bug in ktor kx.ser doesn't get the correct info on K/JS and fails
-        json.decodeFromJsonElement<RoutePlannerStatus<out RoutePlannerStatus.Data>>(response)
-    } catch (e: SerializationException) {
-        if (e.message?.endsWith("{}") == true) { // {} means no route planer is not set
-            return null
-        } else throw e
-    }
-}
+public suspend fun RestNode.addressStatusOrNull(): RoutePlannerStatus? =
+    get(V4Api.RoutePlanner.Status())
 
 /**
  * Retrieves the current address status of the route planner api.
@@ -48,7 +38,7 @@ public suspend fun RestNode.addressStatusOrNull(): RoutePlannerStatus<out RouteP
  * @see NoRoutePlannerException
  * @see RoutePlannerStatus
  */
-public suspend fun Link.addressStatus(): RoutePlannerStatus<out RoutePlannerStatus.Data> = node.addressStatus()
+public suspend fun Link.addressStatus(): RoutePlannerStatus = node.addressStatus()
 
 /**
  * Retrieves the current address status of the route planner api.
@@ -59,7 +49,7 @@ public suspend fun Link.addressStatus(): RoutePlannerStatus<out RoutePlannerStat
  * @see NoRoutePlannerException
  * @see RoutePlannerStatus
  */
-public suspend fun RestNode.addressStatus(): RoutePlannerStatus<out RoutePlannerStatus.Data> =
+public suspend fun RestNode.addressStatus(): RoutePlannerStatus =
     addressStatusOrNull() ?: throw NoRoutePlannerException()
 
 /**
@@ -72,7 +62,7 @@ public suspend fun Link.unmarkAllAddresses(): Unit = node.unmarkAllAddresses()
 /**
  * Unmarks all failed route planner addresses.
  */
-public suspend fun RestNode.unmarkAllAddresses(): Unit = post(V3Api.RoutePlanner.Free.All())
+public suspend fun RestNode.unmarkAllAddresses(): Unit = post(V4Api.RoutePlanner.Free.All())
 
 /**
  * Unmarks the route planner [address].
@@ -85,11 +75,8 @@ public suspend fun Link.unmarkAddress(address: String): Unit = node.unmarkAddres
  * Unmarks the route planner [address].
  */
 public suspend fun RestNode.unmarkAddress(address: String) {
-    return post(V3Api.RoutePlanner.Free.Address()) {
+    return post(V4Api.RoutePlanner.Free.Address()) {
         contentType(ContentType.Application.Json)
-        setBody(UnmarkAddressBody(address))
+        setBody(RoutePlannerFreeAddress(address))
     }
 }
-
-@Serializable
-private class UnmarkAddressBody(@Suppress("unused") val address: String)

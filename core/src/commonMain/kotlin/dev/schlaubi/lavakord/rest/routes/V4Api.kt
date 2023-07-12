@@ -1,22 +1,22 @@
 package dev.schlaubi.lavakord.rest.routes
 
 import dev.schlaubi.lavakord.UnsafeRestApi
-import dev.schlaubi.lavakord.rest.routes.V3Api.Sessions.Specific
+import dev.schlaubi.lavakord.rest.routes.V4Api.Sessions.Specific
 import io.ktor.resources.*
 
 @Resource("version")
 @UnsafeRestApi
 internal class Version
 
-@Resource("/v3")
+@Resource("/v4")
 @UnsafeRestApi
-internal class V3Api {
+internal class V4Api {
 
     @Resource("websocket")
-    data class WebSocket(val api: V3Api = V3Api())
+    data class WebSocket(val api: V4Api = V4Api())
 
     @Resource("sessions")
-    data class Sessions(val api: V3Api = V3Api()) {
+    data class Sessions(val api: V4Api = V4Api()) {
 
         @Resource("{sessionId}")
         data class Specific(val sessionId: String, val sessions: Sessions = Sessions()) {
@@ -37,19 +37,19 @@ internal class V3Api {
     }
 
     @Resource("loadtracks")
-    data class LoadTracks(val identifier: String, val api: V3Api = V3Api())
+    data class LoadTracks(val identifier: String, val api: V4Api = V4Api())
 
     @Resource("decodetrack")
-    data class DecodeTrack(val encodedTrack: String? = null, val api: V3Api = V3Api())
+    data class DecodeTrack(val encodedTrack: String? = null, val api: V4Api = V4Api())
 
     @Resource("info")
-    data class Info(val api: V3Api = V3Api())
+    data class Info(val api: V4Api = V4Api())
 
     @Resource("stats")
-    data class Stats(val stats: V3Api = V3Api())
+    data class Stats(val stats: V4Api = V4Api())
 
     @Resource("routeplanner")
-    data class RoutePlanner(val api: V3Api = V3Api()) {
+    data class RoutePlanner(val api: V4Api = V4Api()) {
         @Resource("status")
         data class Status(val routePlanner: RoutePlanner = RoutePlanner())
 

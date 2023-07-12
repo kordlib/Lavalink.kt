@@ -2,9 +2,9 @@
 
 package dev.schlaubi.lavakord.interop
 
+import dev.arbjerg.lavalink.protocol.v4.RoutePlannerStatus
 import dev.schlaubi.lavakord.NoRoutePlannerException
 import dev.schlaubi.lavakord.audio.Node
-import dev.schlaubi.lavakord.rest.RoutePlannerStatus
 import dev.schlaubi.lavakord.rest.addressStatusOrNull
 import dev.schlaubi.lavakord.rest.unmarkAddress
 import dev.schlaubi.lavakord.rest.unmarkAllAddresses
@@ -21,7 +21,7 @@ private fun Node.javaAddressStatusOrNull() =
  * @see RoutePlannerStatus
  * @see Node.addressStatusOrNull
  */
-public fun addressStatusOrNull(node: Node): CompletableFuture<RoutePlannerStatus<out RoutePlannerStatus.Data>?> =
+public fun addressStatusOrNull(node: Node): CompletableFuture<RoutePlannerStatus?> =
     node.javaAddressStatusOrNull()
 
 /**
@@ -33,7 +33,7 @@ public fun addressStatusOrNull(node: Node): CompletableFuture<RoutePlannerStatus
  * @see RoutePlannerStatus
  * @see Node.addressStatusOrNull
  */
-public fun addressStatus(node: Node): CompletableFuture<RoutePlannerStatus<out RoutePlannerStatus.Data>> =
+public fun addressStatus(node: Node): CompletableFuture<RoutePlannerStatus> =
     node.javaAddressStatusOrNull().thenApply { it ?: throw NoRoutePlannerException() }
 
 private fun Node.javaUnmarkAllAddresses() = lavakord.run { unmarkAllAddresses() }

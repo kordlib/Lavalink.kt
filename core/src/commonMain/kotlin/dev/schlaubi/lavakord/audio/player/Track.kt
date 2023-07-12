@@ -21,7 +21,7 @@ import kotlin.time.toDuration
  * @property source the Lavaplayer source of this track (e.g. youtube)
  * @property position the current position of the track (normally 0 or [length]) (See [Player.position]; On Java please use `TrackUtil` instead)
  */
-public data class Track constructor(
+public data class LavaplayerTrack(
     public val version: Byte,
     public val track: String,
     public val title: String,
@@ -40,7 +40,7 @@ public data class Track constructor(
          *
          * @see Track.track
          */
-        public suspend fun fromLavalink(encoded: String): Track {
+        public suspend fun fromLavalink(encoded: String): LavaplayerTrack {
             val bytes = encoded.decodeBase64Bytes()
             val reader = ByteReadChannel(bytes)
 
@@ -57,7 +57,7 @@ public data class Track constructor(
             val source = reader.readUTF()
             val position = reader.readLong()
 
-            return Track(
+            return LavaplayerTrack(
                 version,
                 encoded,
                 title,

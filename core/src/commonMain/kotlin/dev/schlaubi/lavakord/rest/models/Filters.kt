@@ -2,14 +2,11 @@ package dev.schlaubi.lavakord.rest.models
 
 import dev.schlaubi.lavakord.audio.player.Equalizer
 import dev.schlaubi.lavakord.audio.player.Filters
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
-@Serializable
-@SerialName("filters")
 @PublishedApi
 internal data class FiltersObject(
-    @SerialName("equalizer")
     override val equalizers: MutableList<Equalizer> = mutableListOf(),
     override var volume: Float? = null,
     override var karaoke: Karaoke? = null,
@@ -19,7 +16,8 @@ internal data class FiltersObject(
     override var rotation: Rotation? = null,
     override var distortion: Distortion? = null,
     override var channelMix: ChannelMix? = null,
-    override var lowPass: LowPass? = null
+    override var lowPass: LowPass? = null,
+    override val pluginFilters: MutableMap<String, JsonElement> = mutableMapOf()
 ) : Filters {
 
     override fun reset() {
@@ -88,105 +86,92 @@ internal data class FiltersObject(
         }
     }
 
-    @Serializable
-    data class Timescale(
-        @SerialName("speed")
-        private var _speed: Float,
-        @SerialName("pitch")
-        private var _pitch: Float,
-        @SerialName("rate")
-        private var _rate: Float
+    class Timescale(
+        speed: Double,
+        pitch: Double,
+        rate: Double
     ) : Filters.Timescale {
-        constructor() : this(1F, 1F, 1F)
+        constructor() : this(1.0, 1.0, 1.0)
 
-        override var speed: Float
-            get() = _speed
+        override var speed: Double = speed
             set(value) {
                 require(value > 0) { "Speed must be greater than 0" }
-                _speed = value
+                field = value
             }
 
-        override var pitch: Float
-            get() = _pitch
+        override var pitch: Double = pitch
             set(value) {
                 require(value > 0) { "Pitch must be greater than 0" }
-                _pitch = value
+                field = value
             }
 
-        override var rate: Float
-            get() = _rate
+        override var rate: Double = rate
             set(value) {
                 require(value > 0) { "Rate must be greater than 0" }
-                _rate = value
+                field = value
             }
 
         override fun reset() {
-            _speed = 1F
-            _pitch = 1F
-            _rate = 1F
+            speed = 1.0
+            pitch = 1.0
+            rate = 1.0
         }
     }
 
-    @Serializable
-    data class Tremolo(
-        @SerialName("frequency") private var _frequency: Float,
-        @SerialName("depth") private var _depth: Float
+    class Tremolo(
+        frequency: Float,
+        depth: Float
     ) : Filters.Tremolo {
         constructor() : this(2F, .5F)
 
-        override var frequency: Float
-            get() = _frequency
+        override var frequency: Float = frequency
             set(value) {
                 require(value > 0) { "Frequency must be greater than 0" }
-                _frequency = value
+                field = value
             }
 
-        override var depth: Float
-            get() = _depth
+        override var depth: Float = depth
             set(value) {
                 require(value > 0 && value <= 1) { "Frequency must be between 0 and 1" }
-                _depth = value
+                field = value
             }
 
         override fun reset() {
-            _frequency = 2F
-            _depth = .5F
+            frequency = 2F
+            depth = .5F
         }
     }
 
-    @Serializable
-    data class Vibrato(
-        @SerialName("frequency") private var _frequency: Float,
-        @SerialName("depth") private var _depth: Float
+    class Vibrato(
+        frequency: Float,
+        depth: Float
     ) : Filters.Vibrato {
         constructor() : this(2F, .5F)
 
-        override var frequency: Float
-            get() = _frequency
+        override var frequency: Float = frequency
             set(value) {
                 require(value > 0 && value <= 14) { "Frequency must be between 0 and 14" }
-                _frequency = value
+                field = value
             }
 
-        override var depth: Float
-            get() = _depth
+        override var depth: Float = depth
             set(value) {
                 require(value > 0 && value <= 1) { "Frequency must be between 0 and 1" }
-                _depth = value
+                field = value
             }
 
         override fun reset() {
-            _frequency = 2F
-            _depth = .5F
+            frequency = 2F
+            depth = .5F
         }
     }
 
     @Serializable
-    data class Rotation(override var rotationHz: Float) : Filters.Rotation {
-        constructor() : this(0.0f)
+    data class Rotation(override var rotationHz: Double) : Filters.Rotation {
+        constructor() : this(0.0)
 
         override fun reset() {
-            rotationHz = 0.0f
+            rotationHz = 0.0
         }
     }
 

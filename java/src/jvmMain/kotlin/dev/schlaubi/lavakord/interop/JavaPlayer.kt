@@ -1,8 +1,7 @@
 package dev.schlaubi.lavakord.interop
 
+import dev.arbjerg.lavalink.protocol.v4.Track
 import dev.schlaubi.lavakord.audio.player.Player
-import dev.schlaubi.lavakord.audio.player.Track
-import dev.schlaubi.lavakord.rest.models.PartialTrack
 import kotlinx.coroutines.CoroutineScope
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
@@ -33,13 +32,7 @@ public class JavaPlayer(internal val suspendingPlayer: Player) : CoroutineScope 
     /**
      * Changes the currently playing track to [track].
      */
-    public fun playTrack(track: Track): CompletableFuture<Void> = playTrack(track.track)
-
-
-    /**
-     * Changes the currently playing track to [track].
-     */
-    public fun playTrack(track: PartialTrack): CompletableFuture<Void> = playTrack(track.encoded)
+    public fun playTrack(track: Track): CompletableFuture<Void> = playTrack(track.encoded)
 
     /**
      * Changes the currently playing track to [track].

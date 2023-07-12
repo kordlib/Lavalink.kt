@@ -1,10 +1,20 @@
 package dev.schlaubi.lavakord.audio.internal
 
-import dev.schlaubi.lavakord.audio.*
-import dev.schlaubi.lavakord.audio.player.*
+import dev.arbjerg.lavalink.protocol.v4.PlayerState
+import dev.arbjerg.lavalink.protocol.v4.PlayerUpdate
+import dev.arbjerg.lavalink.protocol.v4.Track
+import dev.arbjerg.lavalink.protocol.v4.toOmissible
+import dev.schlaubi.lavakord.audio.Event
+import dev.schlaubi.lavakord.audio.TrackEndEvent
+import dev.schlaubi.lavakord.audio.TrackStartEvent
+import dev.schlaubi.lavakord.audio.on
+import dev.schlaubi.lavakord.audio.player.Equalizer
+import dev.schlaubi.lavakord.audio.player.Filters
+import dev.schlaubi.lavakord.audio.player.PlayOptions
+import dev.schlaubi.lavakord.audio.player.Player
 import dev.schlaubi.lavakord.rest.destroyPlayer
 import dev.schlaubi.lavakord.rest.models.FiltersObject
-import dev.schlaubi.lavakord.rest.models.UpdatePlayerRequest
+import dev.schlaubi.lavakord.rest.models.toLavalink
 import dev.schlaubi.lavakord.rest.updatePlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -64,22 +74,22 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     ) {
         val options = PlayOptions().apply(playOptionsBuilder)
         node.updatePlayer(
-            guildId, options.noReplace, UpdatePlayerRequest(
-                encodedTrack = track,
-                identifier = identifier,
-                position = options.position?.inWholeMilliseconds,
-                endTime = options.end?.inWholeMilliseconds,
-                volume = options.volume,
-                paused = options.pause,
-                filters = options.filters
+            guildId, options.noReplace, PlayerUpdate(
+                encodedTrack = track.toOmissible(),
+                identifier = identifier.toOmissible(),
+                position = options.position?.inWholeMilliseconds.toOmissible(),
+                endTime = options.end?.inWholeMilliseconds.toOmissible(),
+                volume = options.volume.toOmissible(),
+                paused = options.pause.toOmissible(),
+                filters = options.filters?.toLavalink().toOmissible()
             )
         )
     }
 
     private suspend fun handleNewTrack(event: TrackStartEvent) {
         updateTime = Clock.System.now()
-        val track = event.getTrack()
-        lastPosition = track.position
+        val track = event.track
+        lastPosition = 0.milliseconds
         playingTrack = track
     }
 
@@ -95,19 +105,24 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
 
     override suspend fun pause(doPause: Boolean) {
         if (paused == doPause) return
-        node.updatePlayer(guildId, request = UpdatePlayerRequest(paused = doPause))
+        node.updatePlayer(
+            guildId,
+            request = PlayerUpdate(paused = doPause.toOmissible())
+        )
         paused = doPause
     }
 
     override suspend fun seekTo(position: Long) {
         checkNotNull(playingTrack) { "Not currently playing anything" }
-        check(playingTrack?.isSeekable == true) { "Current track is not seekable" }
 
-        node.updatePlayer(guildId, request = UpdatePlayerRequest(position = position))
+        node.updatePlayer(
+            guildId,
+            request = PlayerUpdate(position = position.toOmissible())
+        )
     }
 
-    internal fun provideState(state: GatewayPayload.PlayerUpdateEvent.State) {
+    internal fun provideState(state: PlayerState) {
         updateTime = Instant.fromEpochMilliseconds(state.time)
-        lastPosition = state.position?.milliseconds ?: 0.milliseconds
+        lastPosition = state.position.milliseconds
     }
 }

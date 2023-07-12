@@ -1,5 +1,6 @@
 package dev.schlaubi.lavakord.kord
 
+import dev.arbjerg.lavalink.protocol.v4.VoiceState
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.event.gateway.DisconnectEvent
@@ -7,7 +8,6 @@ import dev.kord.core.event.guild.VoiceServerUpdateEvent
 import dev.kord.core.event.user.VoiceStateUpdateEvent
 import dev.kord.core.on
 import dev.schlaubi.lavakord.LavaKordOptions
-import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
@@ -72,11 +72,13 @@ internal class KordLavaKord(
         require(link is KordLink)
         val guild = event.getGuild()
 
+        val sessionId = guild.getMember(event.kord.selfId).getVoiceState().sessionId
+        val endpoint = event.endpoint ?: error("Missing voice endpoint")
+
         forwardVoiceEvent(
             link,
             guild.id.value,
-            guild.getMember(event.kord.selfId).getVoiceState().sessionId,
-            DiscordVoiceServerUpdateData(event.token, event.guildId.toString(), event.endpoint)
+            VoiceState(event.token, endpoint, sessionId)
         )
     }
 }

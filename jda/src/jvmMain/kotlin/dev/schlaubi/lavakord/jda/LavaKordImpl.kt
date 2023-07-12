@@ -1,7 +1,7 @@
 package dev.schlaubi.lavakord.jda
 
+import dev.arbjerg.lavalink.protocol.v4.VoiceState
 import dev.schlaubi.lavakord.LavaKordOptions
-import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.internal.AbstractLavakord
@@ -31,11 +31,10 @@ internal class JDALavakord(
             forwardVoiceEvent(
                 link,
                 update.guildIdLong.toULong(),
-                update.sessionId,
-                DiscordVoiceServerUpdateData(
+                VoiceState(
                     update.token,
-                    update.guildId,
-                    update.endpoint
+                    update.endpoint,
+                    update.sessionId
                 )
             )
         }

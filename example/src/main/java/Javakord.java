@@ -54,18 +54,18 @@ public class Javakord extends ListenerAdapter {
                 link.connectAudio(voiceState.getChannel().getIdLong());
             }
             case "destroy" -> link.disconnectAudio();
-            case "play" -> {
-                var query = event.getOption("query").getAsString();
-                TrackUtil.loadItem(link, query).thenAccept(track -> {
-                    switch (track.getLoadType()) {
-                        case TRACK_LOADED -> player.playTrack(track.getTrack());
-                        case PLAYLIST_LOADED, SEARCH_RESULT -> player.playTrack(track.getTracks().get(0));
-                        case NO_MATCHES -> event.getChannel().sendMessage("No tracks found!").queue();
-                        case LOAD_FAILED ->
-                                event.getChannel().sendMessage("Load failed: %s".formatted(track.getException().getMessage())).queue();
-                    }
-                });
-            }
+//            case "play" -> {
+//                var query = event.getOption("query").getAsString();
+//                TrackUtil.loadItem(link, query).thenAccept(track -> {
+//                    switch (track.getLoadType()) {
+//                        case TRACK_LOADED -> player.playTrack(track.getTrack());
+//                        case PLAYLIST_LOADED, SEARCH_RESULT -> player.playTrack(track.getTracks().get(0));
+//                        case NO_MATCHES -> event.getChannel().sendMessage("No tracks found!").queue();
+//                        case LOAD_FAILED ->
+//                                event.getChannel().sendMessage("Load failed: %s".formatted(track.getException().getMessage())).queue();
+//                    }
+//                });
+//            }
             case "pause" -> player.pause(!player.getPaused());
             case "seek" -> {
                 var lng = event.getOption("position").getAsLong() * 1000;

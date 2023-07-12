@@ -21,23 +21,7 @@ public interface LavaKordOptions {
 
     public val loadBalancer: LoadBalancingConfig
     public val link: LinkConfig
-
-    /**
-     * @see LinkConfig.autoReconnect
-     */
-    @Deprecated("Use link { autoReconnect = false } instead", ReplaceWith("link"))
-    public var autoReconnect: Boolean
-        get() = link.autoReconnect
-        set(value) {
-            when (link) {
-                is ImmutableLavaKordOptions.LinkConfig -> throw UnsupportedOperationException("This options object has already been sealed")
-                is MutableLavaKordOptions.LinkConfig -> {
-                    (link as MutableLavaKordOptions.LinkConfig).autoReconnect = value
-                }
-
-                else -> error("Unknown implementation")
-            }
-        }
+    public val plugins: PluginsConfig
 
     /**
      * Configuration for the load balancer.
@@ -62,6 +46,14 @@ public interface LavaKordOptions {
         public val retry: Retry
         public val showTrace: Boolean
     }
+
+    /**
+     * Configuration regarding to plugins.
+     * @property plugins a list of installed [Plugins][Plugin]
+     */
+    public interface PluginsConfig {
+        public val plugins: List<Plugin>
+    }
 }
 
 /**
@@ -72,7 +64,8 @@ public interface LavaKordOptions {
  */
 public data class MutableLavaKordOptions(
     override val loadBalancer: LoadBalancingConfig = LoadBalancingConfig(),
-    override val link: LinkConfig = LinkConfig()
+    override val link: LinkConfig = LinkConfig(),
+    override val plugins: PluginsConfig = PluginsConfig()
 ) : LavaKordOptions {
 
     /**
@@ -100,7 +93,7 @@ public data class MutableLavaKordOptions(
     /**
      * Makes this configuration immutable.
      */
-    public fun seal(): LavaKordOptions = ImmutableLavaKordOptions(loadBalancer.seal(), link.seal())
+    public fun seal(): LavaKordOptions = ImmutableLavaKordOptions(loadBalancer.seal(), link.seal(), plugins.seal())
 
     /**
      * Mutable implementation of [LavaKordOptions.LoadBalancingConfig].
@@ -122,7 +115,7 @@ public data class MutableLavaKordOptions(
     /**
      * Mutable implementation of [LavaKordOptions.LinkConfig].
      */
-    public data class LinkConfig constructor(
+    public data class LinkConfig(
         override var autoReconnect: Boolean = true,
         override var resumeTimeout: Int = 60,
         override var retry: Retry = LinearRetry(2.seconds, 60.seconds, 10),
@@ -149,6 +142,28 @@ public data class MutableLavaKordOptions(
         public fun linear(firstBackoff: Long, maxBackoff: Long, maxTries: Int): Retry =
             LinearRetry(firstBackoff.milliseconds, maxBackoff.milliseconds, maxTries)
     }
+
+    /**
+     * Configuration for plugins.
+     *
+     * @property plugins A list of installed [Plugins][Plugin]
+     * @see install
+     */
+    public data class PluginsConfig(
+        override var plugins: MutableList<Plugin> = mutableListOf()
+    ) : LavaKordOptions.PluginsConfig {
+        /**
+         * Installs [plugin].
+         *
+         * @see Plugin
+         */
+        public fun install(plugin: Plugin) {
+            plugins += plugin
+        }
+
+        internal fun seal(): LavaKordOptions.PluginsConfig =
+            ImmutableLavaKordOptions.PluginsConfig(plugins)
+    }
 }
 
 /**
@@ -156,17 +171,18 @@ public data class MutableLavaKordOptions(
  */
 private data class ImmutableLavaKordOptions(
     override val loadBalancer: LavaKordOptions.LoadBalancingConfig,
-    override val link: LavaKordOptions.LinkConfig
+    override val link: LavaKordOptions.LinkConfig,
+    override val plugins: LavaKordOptions.PluginsConfig
 ) : LavaKordOptions {
 
     /**
-     * Mutable implementation of [LavaKordOptions.LoadBalancingConfig].
+     * Immutable implementation of [LavaKordOptions.LoadBalancingConfig].
      */
     data class LoadBalancingConfig(override val penaltyProviders: List<PenaltyProvider>) :
         LavaKordOptions.LoadBalancingConfig
 
     /**
-     * Mutable implementation of [LavaKordOptions.LinkConfig].
+     * Immutable implementation of [LavaKordOptions.LinkConfig].
      */
     data class LinkConfig(
         override val autoReconnect: Boolean,
@@ -174,4 +190,10 @@ private data class ImmutableLavaKordOptions(
         override val retry: Retry,
         override val showTrace: Boolean
     ) : LavaKordOptions.LinkConfig
+
+    /**
+     * Immutable implementation of [LavaKordOptions.PluginsConfig]
+     */
+    data class PluginsConfig(override val plugins: List<Plugin>) :
+        LavaKordOptions.PluginsConfig
 }

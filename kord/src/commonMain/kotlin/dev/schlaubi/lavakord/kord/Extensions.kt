@@ -1,5 +1,7 @@
 package dev.schlaubi.lavakord.kord
 
+import dev.arbjerg.lavalink.protocol.v4.Player
+import dev.arbjerg.lavalink.protocol.v4.PlayerUpdate
 import dev.kord.common.entity.Permissions
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.GuildBehavior
@@ -13,8 +15,6 @@ import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.RestNode
 import dev.schlaubi.lavakord.rest.destroyPlayer
 import dev.schlaubi.lavakord.rest.getPlayer
-import dev.schlaubi.lavakord.rest.models.Player
-import dev.schlaubi.lavakord.rest.models.UpdatePlayerRequest
 import dev.schlaubi.lavakord.rest.updatePlayer
 
 /**
@@ -65,7 +65,7 @@ public suspend fun RestNode.updatePlayer(
     guildId: Snowflake,
     sessionId: String,
     noReplace: Boolean? = null,
-    request: UpdatePlayerRequest
+    request: PlayerUpdate
 ): Player = updatePlayer(guildId.value, sessionId, noReplace, request)
 
 /**
@@ -75,7 +75,7 @@ public suspend fun RestNode.updatePlayer(
 public suspend fun Node.updatePlayer(
     guildId: Snowflake,
     noReplace: Boolean? = null,
-    request: UpdatePlayerRequest
+    request: PlayerUpdate
 ): Player = updatePlayer(guildId.value, noReplace, request)
 
 /**

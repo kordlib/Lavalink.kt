@@ -2,10 +2,10 @@
 
 package dev.schlaubi.lavakord.audio
 
-import dev.schlaubi.lavakord.Exception
+import dev.arbjerg.lavalink.protocol.v4.Exception
+import dev.arbjerg.lavalink.protocol.v4.Message
+import dev.arbjerg.lavalink.protocol.v4.Track
 import dev.schlaubi.lavakord.audio.StatsEvent.*
-import dev.schlaubi.lavakord.audio.TrackEndEvent.EndReason
-import dev.schlaubi.lavakord.audio.player.Track
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.serialization.Serializable
@@ -25,15 +25,10 @@ public interface Event {
  * Base class for events for a Track.
  *
  * @property guildId the id of the guild the even got fired on
- * @property encodedTrack the base64 encoded track
+ * @property track the base64 encoded track
  */
 public interface TrackEvent : Event {
-    public val encodedTrack: String
-
-    /**
-     * Converts [encodedTrack] into a [Track].
-     */
-    public suspend fun getTrack(): Track = Track.fromLavalink(encodedTrack)
+    public val track: Track
 }
 
 /**
@@ -50,46 +45,7 @@ public interface TrackStartEvent : TrackEvent
  * @see TrackEvent
  */
 public interface TrackEndEvent : TrackEvent {
-    public val reason: EndReason
-
-    /**
-     * Representation of a Track end reason.
-     *
-     *  @param mayStartNext Indicates whether a new track should be started on receiving this event.
-     *  If this is false, either this event is already triggered because another track started (REPLACED)
-     *  or because the player is stopped (STOPPED, CLEANUP).
-     *
-     *  Credit to lavaplayer: https://github.com/sedmelluq/lavaplayer/blob/master/main/src/main/java/com/sedmelluq/discord/lavaplayer/track/AudioTrackEndReason.java
-     */
-    public enum class EndReason(public val mayStartNext: Boolean) {
-        /**
-         * The Track finished playing.
-         */
-        FINISHED(true),
-
-        /**
-         * This means that the track failed to start, throwing an exception before providing any audio.
-         */
-        LOAD_FAILED(true),
-
-        /**
-         * The track was stopped due to the player being stopped by either calling stop() or playTrack(null).
-         */
-        STOPPED(false),
-
-        /**
-         * The track stopped playing because a new track started playing. Note that with this reason, the old track will still
-         * play until either its buffer runs out or audio from the new track is available.
-         */
-        REPLACED(false),
-
-        /**
-         * The track was stopped because the cleanup threshold for the audio player was reached. This triggers when the amount
-         * of time passed since the last call to AudioPlayer#provide() has reached the threshold specified in player manager
-         * configuration. This may also indicate either a leaked audio player which was discarded, but not stopped.
-         */
-        CLEANUP(false);
-    }
+    public val reason: Message.EmittedEvent.TrackEndEvent.AudioTrackEndReason
 }
 
 /**

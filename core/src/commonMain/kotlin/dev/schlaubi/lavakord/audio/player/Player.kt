@@ -1,10 +1,9 @@
 package dev.schlaubi.lavakord.audio.player
 
+import dev.arbjerg.lavalink.protocol.v4.Track
 import dev.schlaubi.lavakord.audio.Event
 import dev.schlaubi.lavakord.audio.EventSource
-import dev.schlaubi.lavakord.rest.models.PartialTrack
 import dev.schlaubi.lavakord.rest.loadItem
-import dev.schlaubi.lavakord.rest.models.TrackResponse
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
@@ -32,15 +31,7 @@ public interface Player : EventSource<Event> {
      * Changes the currently playing track to [track].
      */
     public suspend fun playTrack(track: Track, playOptionsBuilder: PlayOptions.() -> Unit = {}): Unit =
-        playTrack(track.track, playOptionsBuilder)
-
-    /**
-     * Changes the currently playing track to [track].
-     */
-    public suspend fun playTrack(
-        track: PartialTrack,
-        playOptionsBuilder: PlayOptions.() -> Unit = {}
-    ): Unit = playTrack(track.encoded, playOptionsBuilder)
+        playTrack(track.encoded, playOptionsBuilder)
 
     /**
      * Changes the currently playing track to [track].

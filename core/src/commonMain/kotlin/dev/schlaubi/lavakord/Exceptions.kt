@@ -1,5 +1,6 @@
 package dev.schlaubi.lavakord
 
+import dev.arbjerg.lavalink.protocol.v4.Error
 import dev.schlaubi.lavakord.audio.Link
 import io.ktor.client.request.*
 
@@ -23,4 +24,4 @@ public class NoRoutePlannerException : RuntimeException("No route planner was se
  * @property error the [RestError] response
  * @property request the [HttpRequest] which failed
  */
-public data class RestException(val error: RestError, val request: HttpRequest) : RuntimeException(error.message)
+public data class RestException(val error: Error, val request: HttpRequest) : RuntimeException(error.message)

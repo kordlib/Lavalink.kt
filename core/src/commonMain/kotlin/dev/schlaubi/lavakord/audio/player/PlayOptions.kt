@@ -5,8 +5,6 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.time.Duration
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 
 /**
  * Options for playing a new track.
@@ -19,42 +17,42 @@ import kotlin.time.toDuration
  * @property filters the new filters to apply. This will override all previously applied filters
  */
 public class PlayOptions {
-    public var position: Duration? = null
-
     /**
      * The position where the track is supposed to start in milliseconds
      *
      * @see position
      */
-    @Deprecated("Replaced by position", ReplaceWith("position.?inWholeMilliseconds"))
-    public var startTime: Long?
-        get() = position?.inWholeMilliseconds
-        set(value) {
-            position = value?.toDuration(DurationUnit.MILLISECONDS)
-        }
+    public var position: Duration? = null
 
     /**
      * The position where the track is supposed to end in milliseconds
      *
      * @see end
      */
-    @Deprecated("Replaced by position", ReplaceWith("end.?inWholeMilliseconds"))
-
-    public var endTime: Long?
-        get() = end?.inWholeMilliseconds
-        set(value) {
-            end = value?.toDuration(DurationUnit.MILLISECONDS)
-        }
-
     public var end: Duration? = null
 
+    /**
+     * The volume to start the new track with.
+     */
     public var volume: Int? = null
         set(value) {
             require(value == null || value in 1..1000) { "Volume needs to be within 1 and 1000   " }
             field = value
         }
+
+    /**
+     * Whether to replace the currently playing track or not.
+     */
     public var noReplace: Boolean? = null
+
+    /**
+     * Whether to pause the player or not.
+     */
     public var pause: Boolean? = null
+
+    /**
+     * The [Filters] to start this track with.
+     */
     public var filters: Filters? = null
 
     /**

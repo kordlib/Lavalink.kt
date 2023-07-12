@@ -1,14 +1,15 @@
 package dev.schlaubi.lavakord.audio.player
 
+import dev.arbjerg.lavalink.protocol.v4.PlayerUpdate
+import dev.arbjerg.lavalink.protocol.v4.toOmissible
+import dev.schlaubi.lavakord.UnsafeRestApi
 import dev.schlaubi.lavakord.checkImplementation
 import dev.schlaubi.lavakord.rest.models.FiltersObject
-import dev.schlaubi.lavakord.rest.models.UpdatePlayerRequest
+import dev.schlaubi.lavakord.rest.models.toLavalink
 import dev.schlaubi.lavakord.rest.updatePlayer
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObjectBuilder
+import kotlinx.serialization.json.buildJsonObject
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -17,7 +18,6 @@ import kotlin.contracts.contract
  * Representation of the filter configuration.
  */
 @Suppress("KDocMissingDocumentation", "KDocMissingDocumentation") // I don't know anything about music
-@Serializable(with = Filters.Serializer::class)
 public interface Filters : EqualizerBuilder {
     public var volume: Float?
     public val karaoke: Karaoke?
@@ -28,6 +28,7 @@ public interface Filters : EqualizerBuilder {
     public val distortion: Distortion?
     public val channelMix: ChannelMix?
     public val lowPass: LowPass?
+    public val pluginFilters: MutableMap<String, JsonElement>
 
     /**
      * Root interface for a resettable filter.
@@ -64,9 +65,9 @@ public interface Filters : EqualizerBuilder {
      * @property rate must be greater than 0
      */
     public interface Timescale : Filter {
-        public var speed: Float
-        public var pitch: Float
-        public var rate: Float
+        public var speed: Double
+        public var pitch: Double
+        public var rate: Double
     }
 
     /**
@@ -91,7 +92,7 @@ public interface Filters : EqualizerBuilder {
      * @property rotationHz The frequency of the audio rotating around the listener in Hz. 0.2 is similar to the example video above.
      */
     public interface Rotation : Filter {
-        public var rotationHz: Float
+        public var rotationHz: Double
     }
 
     /**
@@ -166,20 +167,18 @@ public interface Filters : EqualizerBuilder {
      * Unsets the [LowPass] filter, this disables the filter
      */
     public fun unsetLowPass()
+}
 
-    public companion object Serializer : KSerializer<Filters> {
-        private val delegate = FiltersObject.serializer()
-        override val descriptor: SerialDescriptor
-            get() = delegate.descriptor
-
-        override fun deserialize(decoder: Decoder): Filters =
-            delegate.deserialize(decoder)
-
-        override fun serialize(encoder: Encoder, value: Filters) {
-            require(value is FiltersObject) { "serialize() only supports default implementation" }
-            return delegate.serialize(encoder, value)
-        }
+/**
+ * Registers a plugin based filter with [name].
+ */
+@UnsafeRestApi
+@OptIn(ExperimentalContracts::class)
+public inline fun Filters.pluginFilter(name: String, builder: JsonObjectBuilder.() -> Unit) {
+    contract {
+        callsInPlace(builder, InvocationKind.EXACTLY_ONCE)
     }
+    pluginFilters[name] = buildJsonObject(builder)
 }
 
 
@@ -203,7 +202,10 @@ public suspend fun Player.applyFilters(block: Filters.() -> Unit) {
     val filters = filters
     filters.apply(block)
 
-    node.updatePlayer(guildId, request = UpdatePlayerRequest(filters = filters))
+    node.updatePlayer(
+        guildId,
+        request = PlayerUpdate(filters = filters.toLavalink().toOmissible())
+    )
 }
 
 /**

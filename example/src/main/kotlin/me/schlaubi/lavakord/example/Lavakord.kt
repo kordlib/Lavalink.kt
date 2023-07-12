@@ -2,6 +2,7 @@
 
 package me.schlaubi.lavakord.example
 
+import dev.arbjerg.lavalink.protocol.v4.LoadResult
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.event.message.MessageCreateEvent
@@ -13,7 +14,6 @@ import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.on
 import dev.schlaubi.lavakord.kord.lavakord
 import dev.schlaubi.lavakord.rest.loadItem
-import dev.schlaubi.lavakord.rest.models.TrackResponse
 
 lateinit var lavalink: LavaKord
 
@@ -23,7 +23,7 @@ suspend fun main() {
     val listenedGuilds = mutableListOf<Snowflake>()
     lavalink = kord.lavakord()
 
-    lavalink.addNode("wss://schlaubi.eu.ngrok.io", "youshallnotpass")
+    lavalink.addNode("wss://05cd8798f37e.ngrok.app/", "youshallnotpass")
 
     kord.on<MessageCreateEvent> {
         val args = message.content.split(" ")
@@ -77,19 +77,27 @@ suspend fun main() {
                     return@on
                 }
 
-                val item = link.loadItem(search)
+                when (val item = link.loadItem(search)) {
+                    is LoadResult.TrackLoaded -> {
+                        player.playTrack(track = item.data)
+                    }
 
-                when (item.loadType) {
-                    TrackResponse.LoadType.TRACK_LOADED,
-                    TrackResponse.LoadType.PLAYLIST_LOADED,
-                    TrackResponse.LoadType.SEARCH_RESULT -> player.playTrack(
-                        item.tracks.first()
+                    is LoadResult.PlaylistLoaded -> {
+                        player.playTrack(track = item.data.tracks.first())
+                    }
+
+                    is LoadResult.SearchResult -> player.playTrack(
+                        item.data.tracks.first()
                     )
 
-                    TrackResponse.LoadType.NO_MATCHES -> message.channel.createMessage("No matches")
-                    TrackResponse.LoadType.LOAD_FAILED -> message.channel.createMessage(
-                        item.exception?.message ?: "Exception"
+                    is LoadResult.NoMatches -> message.channel.createMessage("No matches")
+                    is LoadResult.LoadFailed -> message.channel.createMessage(
+                        item.data.message ?: "Exception"
                     )
+
+                    else -> {
+                        error("Unknown result: $item")
+                    }
                 }
             }
         }

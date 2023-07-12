@@ -39,6 +39,8 @@ dependencyResolutionManagement {
 
             library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("18.16.12-pre.594")
 
+            library("lavalink-protocol", "dev.arbjerg.lavalink", "protocol").version("4.0.0-beta.1")
+
             plugin("kotlinx-atomicfu", "kotlinx-atomicfu").version("0.21.0")
             plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.0")
         }

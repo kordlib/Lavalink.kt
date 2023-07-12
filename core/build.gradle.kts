@@ -16,6 +16,7 @@ kotlin {
                 api(libs.kotlinx.coroutines.core)
                 api(libs.kotlinx.serialization.json)
                 api(libs.kotlinx.datetime)
+                api(libs.lavalink.protocol)
 
                 implementation(libs.ktor.io)
                 implementation(libs.ktor.utils)

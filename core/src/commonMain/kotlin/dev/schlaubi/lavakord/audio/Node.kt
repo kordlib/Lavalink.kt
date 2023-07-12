@@ -1,5 +1,6 @@
 package dev.schlaubi.lavakord.audio
 
+import dev.arbjerg.lavalink.protocol.v4.Stats
 import dev.schlaubi.lavakord.LavaKord
 import io.ktor.http.*
 import io.ktor.utils.io.core.*
@@ -47,7 +48,7 @@ public interface Node : RestNode, EventSource<Event>, Closeable {
     /**
      * The last [StatsEvent] received from this node or null if no event has been received yet.
      */
-    public val lastStatsEvent: StatsEvent?
+    public val lastStatsEvent: Stats?
 
     /**
      * The id of the current websocket session.

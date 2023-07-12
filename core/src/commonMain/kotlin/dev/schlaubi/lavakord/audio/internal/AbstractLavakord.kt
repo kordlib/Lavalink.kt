@@ -1,15 +1,15 @@
 package dev.schlaubi.lavakord.audio.internal
 
-import dev.schlaubi.lavakord.*
-import dev.schlaubi.lavakord.audio.DiscordVoiceServerUpdateData
+import dev.arbjerg.lavalink.protocol.v4.*
+import dev.schlaubi.lavakord.LavaKord
+import dev.schlaubi.lavakord.LavaKordOptions
+import dev.schlaubi.lavakord.RestException
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.RestNode
+import dev.schlaubi.lavakord.computeIfAbsent
 import dev.schlaubi.lavakord.internal.HttpEngine
 import dev.schlaubi.lavakord.internal.RestNodeImpl
-import dev.schlaubi.lavakord.rest.RoutePlannerModule
-import dev.schlaubi.lavakord.rest.models.UpdatePlayerRequest
-import dev.schlaubi.lavakord.rest.models.VoiceState
 import dev.schlaubi.lavakord.rest.updatePlayer
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -19,13 +19,20 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.plugins.resources.*
 import io.ktor.client.plugins.websocket.*
-import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.launch
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.modules.plus
+import kotlin.collections.List
+import kotlin.collections.Map
+import kotlin.collections.MutableMap
+import kotlin.collections.mutableMapOf
+import kotlin.collections.set
+import kotlin.collections.toList
 
 /**
  * Abstract implementation of [LavaKord].
@@ -56,7 +63,9 @@ public abstract class AbstractLavakord internal constructor(
 
     internal val json = kotlinx.serialization.json.Json {
         ignoreUnknownKeys = true
-        serializersModule = GatewayModule + RoutePlannerModule
+        serializersModule = LavalinkSerializersModule + SerializersModule {
+            contextual(Message.Serializer)
+        }
     }
 
     private fun HttpClientConfig<*>.commonConfig() {
@@ -93,7 +102,7 @@ public abstract class AbstractLavakord internal constructor(
         HttpResponseValidator {
             handleResponseExceptionWithRequest { cause, request ->
                 if (cause is ResponseException) {
-                    val error = cause.response.body<RestError>()
+                    val error = cause.response.body<Error>()
 
                     throw RestException(error, request)
                 }
@@ -141,6 +150,7 @@ public abstract class AbstractLavakord internal constructor(
             NodeImpl(serverUri, finalName, password, this)
         nodesMap[finalName] = node
         launch {
+            node.checkPlugins()
             node.connect()
         }
     }
@@ -164,17 +174,10 @@ public abstract class AbstractLavakord internal constructor(
     protected suspend fun forwardVoiceEvent(
         link: Link,
         guildId: ULong,
-        sessionId: String,
-        event: DiscordVoiceServerUpdateData
+        event: VoiceState
     ) {
         link.node.updatePlayer(
-            guildId, request = UpdatePlayerRequest(
-                voice = VoiceState(
-                    event.token,
-                    event.endpoint,
-                    sessionId
-                )
-            )
+            guildId, request = PlayerUpdate(voice = event.toOmissible())
         )
     }
 
