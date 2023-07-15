@@ -9,7 +9,6 @@ kotlin {
     sourceSets {
         all {
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
-            languageSettings.optIn("dev.schlaubi.lavakord.UnsafeRestApi")
         }
         commonMain {
             dependencies {

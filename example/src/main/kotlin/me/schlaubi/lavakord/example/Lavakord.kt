@@ -13,6 +13,10 @@ import dev.schlaubi.lavakord.LavaKord
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.on
 import dev.schlaubi.lavakord.kord.lavakord
+import dev.schlaubi.lavakord.plugins.lavasrc.LavaSrc
+import dev.schlaubi.lavakord.plugins.sponsorblock.Sponsorblock
+import dev.schlaubi.lavakord.plugins.sponsorblock.model.Category
+import dev.schlaubi.lavakord.plugins.sponsorblock.rest.putSponsorblockCategories
 import dev.schlaubi.lavakord.rest.loadItem
 
 lateinit var lavalink: LavaKord
@@ -21,15 +25,21 @@ lateinit var lavalink: LavaKord
 suspend fun main() {
     val kord = Kord(System.getenv("token"))
     val listenedGuilds = mutableListOf<Snowflake>()
-    lavalink = kord.lavakord()
+    lavalink = kord.lavakord {
+        plugins {
+            install(LavaSrc)
+            install(Sponsorblock)
+        }
+    }
 
-    lavalink.addNode("wss://05cd8798f37e.ngrok.app/", "youshallnotpass")
+    lavalink.addNode("wss://3bc979254994.ngrok.app", "youshallnotpass")
 
     kord.on<MessageCreateEvent> {
         val args = message.content.split(" ")
 
         val link = lavalink.getLink(guildId?.toString() ?: return@on)
         val player = link.player
+        player.putSponsorblockCategories(Category.MusicOfftopic)
         val guildId = guildId ?: return@on
 
         if (guildId !in listenedGuilds) {

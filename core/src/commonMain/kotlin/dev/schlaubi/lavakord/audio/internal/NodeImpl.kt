@@ -25,6 +25,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import mu.KotlinLogging
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -62,8 +66,11 @@ internal class NodeImpl(
     override val events: SharedFlow<Event>
         get() = eventPublisher.asSharedFlow()
 
-    internal suspend fun checkPlugins() {
-        val (_, _, _, _, _, _, _, plugins) = getInfo()
+    internal suspend fun check() {
+        val (version, _, _, _, _, _, _, plugins) = getInfo()
+        if(version.major != 4) {
+            error("Unsupported Lavalink version (${version.major} on node $name")
+        }
         val pluginMap = plugins.plugins.associate { (name, version) -> name to version }
         val installedPlugins = lavakord.options.plugins.plugins
         val installedPluginNames = lavakord.options.plugins
@@ -131,9 +138,26 @@ internal class NodeImpl(
         }
     }
 
-    private suspend fun onEvent(event: Message) {
-        LOG.trace { "Received event: $event" }
-        when (event) {
+    private suspend fun onEvent(eventRaw: JsonElement) {
+        LOG.trace { "Received event: $eventRaw" }
+        @Suppress("ReplaceNotNullAssertionWithElvisReturn")
+        val op = eventRaw.jsonObject["op"]!!.jsonPrimitive.content
+        val eventType = eventRaw.jsonObject["type"]?.jsonPrimitive?.content
+        val providingPlugin = lavakord.options.plugins.plugins.firstOrNull {
+            if (op == "event") {
+                eventType in it.eventTypes
+            } else {
+                op in it.opCodes
+            }
+        }
+        if (providingPlugin != null) {
+            val event = with(providingPlugin) {
+                eventRaw.decodeToEvent()
+            }
+            eventPublisher.tryEmit(event)
+            return
+        }
+        when (val event = lavakord.json.decodeFromJsonElement<Message>(eventRaw)) {
             is Message.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer).provideState(
                 event.state
             )
@@ -163,15 +187,6 @@ internal class NodeImpl(
     override fun close() {
         lavakord.launch {
             session.close(CloseReason(CloseReason.Codes.NORMAL, "Close requested by client"))
-        }
-    }
-
-    internal companion object {
-        private fun generateResumeKey(): String {
-            val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
-            return (1..25)
-                .map { allowedChars.random() }
-                .joinToString("")
         }
     }
 

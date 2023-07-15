@@ -1,8 +1,13 @@
 package dev.schlaubi.lavakord.audio.player
 
+import dev.arbjerg.lavalink.protocol.v4.LoadResult
 import dev.arbjerg.lavalink.protocol.v4.Track
+import dev.schlaubi.lavakord.PluginApi
 import dev.schlaubi.lavakord.audio.Event
 import dev.schlaubi.lavakord.audio.EventSource
+import dev.schlaubi.lavakord.audio.Node
+import dev.schlaubi.lavakord.audio.RestNode
+import dev.schlaubi.lavakord.checkImplementation
 import dev.schlaubi.lavakord.rest.loadItem
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
@@ -43,7 +48,7 @@ public interface Player : EventSource<Event> {
     /**
      * Directly plays a single track.
      *
-     * **Important:** This only works if [loadItem] would return with [TrackResponse.LoadType.TRACK_LOADED], for search
+     * **Important:** This only works if [loadItem] would return with [LoadResult.TrackLoaded], for search
      * and playlists use [loadItem]
      */
     public suspend fun searchAndPlayTrack(identifier: String, playOptionsBuilder: PlayOptions.() -> Unit)
@@ -84,3 +89,23 @@ public interface Player : EventSource<Event> {
      */
     public val filters: Filters
 }
+
+/**
+ * Retrieves the [RestNode] behind a [Player].
+ */
+@PluginApi
+public val Player.node: Node
+    get() {
+        checkImplementation()
+        return node
+    }
+
+/**
+ * Returns the [guildId] for a [Player].
+ */
+@PluginApi
+public val Player.guildId: ULong
+    get() {
+        checkImplementation()
+        return guildId
+    }

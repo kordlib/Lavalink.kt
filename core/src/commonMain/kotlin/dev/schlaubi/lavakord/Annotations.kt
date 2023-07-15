@@ -8,3 +8,12 @@ package dev.schlaubi.lavakord
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
 public annotation class UnsafeRestApi
+
+/**
+ * Marks a declaration as part of the plugin api.
+ */
+@RequiresOptIn("This API is only intended to be used by plugins")
+@MustBeDocumented
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS, AnnotationTarget.PROPERTY)
+public annotation class PluginApi

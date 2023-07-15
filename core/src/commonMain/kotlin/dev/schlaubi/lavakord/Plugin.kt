@@ -1,9 +1,8 @@
 package dev.schlaubi.lavakord
 
-import dev.arbjerg.lavalink.protocol.v4.Info
-import dev.arbjerg.lavalink.protocol.v4.Plugin as RestPlugin
 import dev.schlaubi.lavakord.audio.Event
 import kotlinx.serialization.json.JsonElement
+import dev.arbjerg.lavalink.protocol.v4.Plugin as RestPlugin
 
 /**
  * Interface for a Lavalink plugin.
@@ -21,12 +20,21 @@ public interface Plugin {
     public val version: String
 
     /**
-     * Op codes of events supported by this plugin.
+     * Op codes of events supported by [decodeToEvent].
      */
     public val opCodes: List<String>
+        get() = emptyList()
+
+    /**
+     * Event types handled by [decodeToEvent].
+     */
+    public val eventTypes: List<String>
+        get() = emptyList()
 
     /**
      * Converts a [JsonElement] to an event specific plugin.
      */
-    public fun JsonElement.decodeToEvent(): Event
+    public fun JsonElement.decodeToEvent(): Event {
+        throw UnsupportedOperationException("Plugin was registered for op code but does not provide a deserializer")
+    }
 }

@@ -16,6 +16,7 @@ import kotlin.time.Duration.Companion.seconds
  *
  * @property loadBalancer configuration for the load balancer
  * @property link configuration for links between lavalink and guilds
+ * @property plugins configuration for plugins
  */
 public interface LavaKordOptions {
 
@@ -61,6 +62,7 @@ public interface LavaKordOptions {
  *
  * @property loadBalancer [LavaKordOptions.LoadBalancingConfig]
  * @property link [LavaKordOptions.LinkConfig]
+ * @property plugins [LavaKordOptions.PluginsConfig]
  */
 public data class MutableLavaKordOptions(
     override val loadBalancer: LoadBalancingConfig = LoadBalancingConfig(),
@@ -88,6 +90,17 @@ public data class MutableLavaKordOptions(
             callsInPlace(block, InvocationKind.EXACTLY_ONCE)
         }
         return link.apply(block)
+    }
+
+    /**
+     * Applies [block] to [plugins].
+     */
+    public inline fun plugins(block: PluginsConfig.() -> Unit): PluginsConfig {
+        contract {
+            callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+        }
+
+        return plugins.apply(block)
     }
 
     /**

@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/intellij+iml,gradle,kotlin
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij+iml,gradle,kotlin
 
@@ -110,7 +109,6 @@ hs_err_pid*
 
 ### Gradle ###
 .gradle
-build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -125,7 +123,7 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 ### Gradle Patch ###
-**/build/
+**/build/*
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+iml,gradle,kotlin
 
@@ -134,3 +132,4 @@ docs/
 !docs/index.html
 
 .idea/artifacts
+!**/build/generated/

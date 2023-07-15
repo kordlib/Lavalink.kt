@@ -17,6 +17,8 @@ repositories {
 dependencies {
     implementation(projects.kord)
     implementation(projects.jdaJava)
+    implementation(projects.plugins.lavasrc)
+    implementation(projects.plugins.sponsorblock)
     implementation(libs.sl4fj.simple)
     implementation(libs.kord.core)
 

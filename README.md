@@ -71,7 +71,7 @@ player.on<TrackStartEvent> {
 # Documentation
 
 For more info please use the [example](https://github.com/DRSchlaubi/Lavakord/blob/main/example)
-or [Dokka docs](https://l.mik.wtf/)
+or [Dokka docs](https://lavalink.kord.dev/)
 
 # Multiplatform
 

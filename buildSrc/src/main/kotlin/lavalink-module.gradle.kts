@@ -36,6 +36,9 @@ kotlin {
                 optIn("kotlin.RequiresOptIn")
                 optIn("kotlin.time.ExperimentalTime")
                 optIn("kotlinx.serialization.ExperimentalSerializationApi")
+                optIn("kotlin.contracts.ExperimentalContracts")
+                optIn("dev.schlaubi.lavakord.PluginApi")
+                optIn("dev.schlaubi.lavakord.UnsafeRestApi")
             }
         }
     }

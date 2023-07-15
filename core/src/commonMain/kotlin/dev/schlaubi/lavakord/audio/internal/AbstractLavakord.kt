@@ -150,7 +150,7 @@ public abstract class AbstractLavakord internal constructor(
             NodeImpl(serverUri, finalName, password, this)
         nodesMap[finalName] = node
         launch {
-            node.checkPlugins()
+            node.check()
             node.connect()
         }
     }
