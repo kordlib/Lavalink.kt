@@ -15,7 +15,7 @@ import dev.schlaubi.lavakord.plugins.sponsorblock.model.Event as LavakordEvent
 internal sealed interface Event : SponsorblockEvent {
     val op: String
 
-    @SerialName("SegmentsLoading")
+    @SerialName("SegmentsLoaded")
     @Serializable
     data class SegmentLoaded(
         override val op: String,
