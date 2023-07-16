@@ -23,7 +23,7 @@ public object Sponsorblock : Plugin {
     override val version: String
         get() = "3.0.0-beta.1"
 
-    override val eventTypes: List<String> = listOf("SegmentsLoading", "SegmentSkipped")
+    override val eventTypes: List<String> = listOf("SegmentsLoaded", "SegmentSkipped")
 
     override fun JsonElement.decodeToEvent(): Event =
         Json.decodeFromJsonElement<SponsorblockRestEvent>(this)
