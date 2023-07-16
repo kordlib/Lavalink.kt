@@ -20,21 +20,11 @@ allprojects {
 
 tasks {
     dokkaHtmlMultiModule {
-        outputDirectory.set(rootProject.file("docs"))
-    }
-
-    val docs = task<Copy>("createDocsIndex") {
-        dependsOn(dokkaHtmlMultiModule)
-        val outputDirectory = dokkaHtmlMultiModule.get().outputDirectory.get()
-        from(outputDirectory, rootProject.projectDir)
-        include("CNAME", "-modules.html")
-        into(outputDirectory)
-
-        rename("-modules.html", "index.html")
+        outputDirectory = rootProject.file("docs")
     }
 
     gitPublishPush {
-        dependsOn(docs)
+        dependsOn(dokkaHtmlMultiModule)
     }
 }
 
@@ -56,7 +46,7 @@ subprojects {
         withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
             dokkaSourceSets {
                 configureEach {
-                    includeNonPublic.set(false)
+                    includeNonPublic = false
 
                     perPackageOption {
                         matchingRegex = ".*\\.internal.*" // will match all .internal packages and sub-packages
