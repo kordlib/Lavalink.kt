@@ -57,7 +57,9 @@ private fun GenerateQueryHelper.generateHelpers(addTo: FileSpec.Builder) {
 
     with(addTo) {
         addKotlinDefaultImports(includeJvm = false, includeJs = false)
-        addFunction(searchAndPlay(builderName))
+        if(generateSearchAndPlayFunction) {
+            addFunction(searchAndPlay(builderName))
+        }
         addFunction(search(builderName))
         if (builderOptions.isNotEmpty()) {
             addType(generateBuilder(builderName))

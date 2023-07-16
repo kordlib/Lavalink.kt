@@ -35,6 +35,7 @@ internal annotation class GenerateQueryHelper(
         enum class Type {
             STRING,
             INT,
+            DOUBLE,
             ENUM
         }
     }
@@ -56,6 +57,21 @@ internal fun taggedQuery(vararg parameters: Pair<String, Any?>): String = buildS
         }
         if (iterator.hasNext() && value != null) {
             append("%20")
+        }
+    }
+}
+
+internal fun query(vararg parameters: Pair<String, Any?>) = buildString {
+    val iterator = parameters.iterator()
+    while (iterator.hasNext()) {
+        val (name, value) = iterator.next()
+        if (name.isEmpty()) {
+            append(value)
+        } else if (value != null) {
+            append("$name:${value.toString().replace(" ", "%20")}")
+        }
+        if (iterator.hasNext() && value != null) {
+            append('&')
         }
     }
 }

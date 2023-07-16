@@ -2,10 +2,7 @@
 
 package dev.schlaubi.lavakord.ksp
 
-import com.squareup.kotlinpoet.INT
-import com.squareup.kotlinpoet.MemberName
-import com.squareup.kotlinpoet.STRING
-import com.squareup.kotlinpoet.TypeName
+import com.squareup.kotlinpoet.*
 import dev.schlaubi.lavakord.internal.GenerateQueryHelper
 import java.util.*
 import kotlin.reflect.KFunction
@@ -19,6 +16,7 @@ internal fun String.capitalize() = replaceFirstChar {
 internal fun GenerateQueryHelper.Parameter.Type.toType() = when (this) {
     GenerateQueryHelper.Parameter.Type.STRING -> STRING
     GenerateQueryHelper.Parameter.Type.INT -> INT
+    GenerateQueryHelper.Parameter.Type.DOUBLE -> DOUBLE
     else -> error("Unsupported type: $this")
 }
 
