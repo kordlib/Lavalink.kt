@@ -8,6 +8,7 @@ import dev.schlaubi.lavakord.Plugin
 import dev.schlaubi.lavakord.audio.Event
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.rest.getInfo
+import dev.schlaubi.lavakord.rest.getVersion
 import dev.schlaubi.lavakord.rest.routes.V4Api
 import dev.schlaubi.lavakord.rest.updateSession
 import io.ktor.client.plugins.*
@@ -67,9 +68,15 @@ internal class NodeImpl(
         get() = eventPublisher.asSharedFlow()
 
     internal suspend fun check() {
-        val (version, _, _, _, _, _, _, plugins) = getInfo()
-        if(version.major != 4) {
-            error("Unsupported Lavalink version (${version.major} on node $name")
+        val version = getVersion()
+        val (_, _, _, _, _, _, _, plugins) = getInfo()
+        if(version.startsWith("4")) {
+            val message = "Unsupported Lavalink version (${version} on node $name"
+            if ("SNAPSHOT" in message){
+                LOG.warn { message }
+            } else {
+                error(message)
+            }
         }
         val pluginMap = plugins.plugins.associate { (name, version) -> name to version }
         val installedPlugins = lavakord.options.plugins.plugins
