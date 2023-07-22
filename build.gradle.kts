@@ -24,7 +24,7 @@ tasks {
         outputDirectory = rootProject.file("docs")
     }
 
-    gitPublishPush {
+    gitPublishCopy {
         dependsOn(dokkaHtmlMultiModule)
     }
 }
