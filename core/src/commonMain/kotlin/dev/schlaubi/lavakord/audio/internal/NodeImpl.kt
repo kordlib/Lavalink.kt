@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
@@ -164,7 +165,12 @@ internal class NodeImpl(
             eventPublisher.tryEmit(event)
             return
         }
-        when (val event = lavakord.json.decodeFromJsonElement<Message>(eventRaw)) {
+        val event = try {
+            lavakord.json.decodeFromJsonElement<Message>(eventRaw)
+        } catch (e: SerializationException) {
+            LOG.warn(e) {"Could not parse event"}
+        }
+        when (event) {
             is Message.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer).provideState(
                 event.state
             )

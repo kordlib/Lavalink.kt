@@ -18,12 +18,12 @@ import dev.schlaubi.lavakord.plugins.sponsorblock.model.Event as SponsorblockRes
  */
 public object Sponsorblock : Plugin {
     override val name: String
-        // Topi messed up :rolling_eyes:
-        get() = "lavasrc-plugin"
+        get() = "sponsorblock-plugin"
     override val version: String
         get() = "3.0.0-beta.1"
 
-    override val eventTypes: List<String> = listOf("SegmentsLoaded", "SegmentSkipped")
+    override val eventTypes: List<String> =
+        listOf("SegmentsLoaded", "SegmentSkipped", "ChaptersLoaded", "ChapterStarted")
 
     override fun JsonElement.decodeToEvent(): Event =
         Json.decodeFromJsonElement<SponsorblockRestEvent>(this)

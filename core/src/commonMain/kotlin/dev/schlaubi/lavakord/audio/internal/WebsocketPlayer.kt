@@ -86,7 +86,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
         )
     }
 
-    private suspend fun handleNewTrack(event: TrackStartEvent) {
+    private fun handleNewTrack(event: TrackStartEvent) {
         updateTime = Clock.System.now()
         val track = event.track
         lastPosition = 0.milliseconds

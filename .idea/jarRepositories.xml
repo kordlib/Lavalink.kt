@@ -71,5 +71,10 @@
       <option name="name" value="maven3" />
       <option name="url" value="https://maven.arbjerg.dev/snapshots" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven3" />
+      <option name="name" value="maven3" />
+      <option name="url" value="https://maven.topi.wtf/snapshots" />
+    </remote-repository>
   </component>
 </project>

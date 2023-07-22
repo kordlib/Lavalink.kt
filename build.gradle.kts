@@ -8,13 +8,14 @@ plugins {
 }
 
 group = "dev.schlaubi.lavakord"
-version = "5.0.3"
+version = "5.1.0"
 
 allprojects {
     repositories {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
         maven("https://oss.sonatype.org/content/repositories/snapshots")
+        maven("https://maven.topi.wtf/snapshots")
     }
 }
 

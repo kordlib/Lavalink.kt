@@ -32,7 +32,7 @@ suspend fun main() {
         }
     }
 
-    lavalink.addNode("wss://3bc979254994.ngrok.app", "youshallnotpass")
+    lavalink.addNode("ws://localhost:2333", "youshallnotpass")
 
     kord.on<MessageCreateEvent> {
         val args = message.content.split(" ")
