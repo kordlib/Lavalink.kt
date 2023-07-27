@@ -12,11 +12,10 @@ import io.ktor.client.request.*
  * Updates the current session.
  */
 @UnsafeRestApi
-public suspend fun RestNode.updateSession(sessionId: String, request: SessionUpdate): Session = patch(
-    V4Api.Sessions.Specific(sessionId)
-) {
-    setBody(request)
-}
+public suspend fun RestNode.updateSession(sessionId: String, request: SessionUpdate): Session =
+    patch(V4Api.Sessions.Specific(sessionId)) {
+        setBody(request)
+    }
 
 /**
  * Updates the current session.

@@ -117,7 +117,6 @@ internal class NodeImpl(
         }
 
         retry.reset()
-        available = true
 
         LOG.debug { "Successfully connected to node: $name ($host)" }
 
@@ -185,6 +184,7 @@ internal class NodeImpl(
             }
 
             is Message.ReadyEvent -> {
+                available = true
                 sessionId = event.sessionId
                 updateSession(
                     SessionUpdate(

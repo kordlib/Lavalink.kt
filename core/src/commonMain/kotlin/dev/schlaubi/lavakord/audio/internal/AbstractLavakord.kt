@@ -7,7 +7,6 @@ import dev.schlaubi.lavakord.RestException
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.RestNode
-import dev.schlaubi.lavakord.computeIfAbsent
 import dev.schlaubi.lavakord.internal.HttpEngine
 import dev.schlaubi.lavakord.internal.RestNodeImpl
 import dev.schlaubi.lavakord.rest.updatePlayer
@@ -27,12 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.modules.plus
-import kotlin.collections.List
-import kotlin.collections.Map
-import kotlin.collections.MutableMap
-import kotlin.collections.mutableMapOf
 import kotlin.collections.set
-import kotlin.collections.toList
 
 /**
  * Abstract implementation of [LavaKord].
@@ -135,7 +129,7 @@ public abstract class AbstractLavakord internal constructor(
     internal fun removeDestroyedLink(link: Link) = linksMap.remove(link.guildId)
 
     override fun getLink(guildId: ULong): Link {
-        return linksMap.computeIfAbsent(guildId) {
+        return linksMap.getOrPut(guildId) {
             val node = loadBalancer.determineBestNode(guildId) as NodeImpl
             buildNewLink(guildId, node)
         }

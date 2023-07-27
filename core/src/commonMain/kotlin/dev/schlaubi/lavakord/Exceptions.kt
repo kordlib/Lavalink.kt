@@ -4,19 +4,18 @@ import dev.arbjerg.lavalink.protocol.v4.Error
 import dev.schlaubi.lavakord.audio.Link
 import io.ktor.client.request.*
 
-
 /**
  * Exception thrown when there is no permission to perform a certain action.
  *
  * @property permission the required but missing permission
  */
 public class InsufficientPermissionException(@Suppress("MemberVisibilityCanBePrivate") public val permission: String) :
-    RuntimeException("Action cannot be performed due to lack of $permission")
+    IllegalStateException("Action cannot be performed due to lack of $permission")
 
 /**
  * Exception thrown on [Link.addressStatus] when there is no route planner set in Lavalink configuration.
  */
-public class NoRoutePlannerException : RuntimeException("No route planner was set")
+public class NoRoutePlannerException : IllegalStateException("No route planner was set")
 
 /**
  * Exception indicating a REST request failed.
@@ -24,4 +23,4 @@ public class NoRoutePlannerException : RuntimeException("No route planner was se
  * @property error the [RestError] response
  * @property request the [HttpRequest] which failed
  */
-public data class RestException(val error: Error, val request: HttpRequest) : RuntimeException(error.message)
+public data class RestException(val error: Error, val request: HttpRequest) : IllegalStateException(error.message)
