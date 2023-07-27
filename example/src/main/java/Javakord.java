@@ -1,3 +1,4 @@
+import dev.arbjerg.lavalink.protocol.v4.LoadResult;
 import dev.schlaubi.lavakord.interop.JavaInterop;
 import dev.schlaubi.lavakord.interop.JavaLavakord;
 import dev.schlaubi.lavakord.interop.TrackUtil;
@@ -54,18 +55,21 @@ public class Javakord extends ListenerAdapter {
                 link.connectAudio(voiceState.getChannel().getIdLong());
             }
             case "destroy" -> link.disconnectAudio();
-//            case "play" -> {
-//                var query = event.getOption("query").getAsString();
-//                TrackUtil.loadItem(link, query).thenAccept(track -> {
-//                    switch (track.getLoadType()) {
-//                        case TRACK_LOADED -> player.playTrack(track.getTrack());
-//                        case PLAYLIST_LOADED, SEARCH_RESULT -> player.playTrack(track.getTracks().get(0));
-//                        case NO_MATCHES -> event.getChannel().sendMessage("No tracks found!").queue();
-//                        case LOAD_FAILED ->
-//                                event.getChannel().sendMessage("Load failed: %s".formatted(track.getException().getMessage())).queue();
-//                    }
-//                });
-//            }
+            case "play" -> {
+                var query = event.getOption("query").getAsString();
+                TrackUtil.loadItem(link, query).thenAccept(track -> {
+                    switch (track) {
+                        case LoadResult.TrackLoaded trackLoaded -> player.playTrack(trackLoaded.getData());
+                        case LoadResult.PlaylistLoaded playlistLoaded -> player.playTrack(playlistLoaded.getData().getTracks().get(0));
+                        case LoadResult.SearchResult searchResult -> player.playTrack(searchResult.getData().getTracks().get(0));
+                        case LoadResult.NoMatches ignored -> event.getChannel().sendMessage("No tracks found!").queue();
+                        case LoadResult.LoadFailed loadFailed ->
+                                event.getChannel().sendMessage("Load failed: %s".formatted(loadFailed.getData().getMessage())).queue();
+                        // Even though this is sealed it doesn't work
+                        default -> throw new IllegalStateException("Unexpected value: " + track);
+                    }
+                });
+            }
             case "pause" -> player.pause(!player.getPaused());
             case "seek" -> {
                 var lng = event.getOption("position").getAsLong() * 1000;
