@@ -55,6 +55,10 @@ kotlin {
     }
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_20
+}
+
 tasks {
     withType<JavaCompile> {
         options.compilerArgs.add("--enable-preview")
