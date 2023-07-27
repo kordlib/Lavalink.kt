@@ -34,7 +34,7 @@
     <div class="library-name">
 <a href="../../../index.html">
 <span>lavakord</span>            </a>    </div>
-    <div>3.8.0
+    <div>5.1.0
     </div>
     <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section">
@@ -49,27 +49,29 @@
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageids="core::dev.schlaubi.lavakord.audio.internal/PenaltyProvider///PointingToDeclaration//-2011752812">
+<div class="main-content" data-page-type="classlike" id="content" pageids="core::dev.schlaubi.lavakord.audio.internal/PenaltyProvider///PointingToDeclaration//-2011752812">
   <div class="breadcrumbs"><a href="../../index.html">core</a><span class="delimiter">/</span><a href="../index.html">dev.schlaubi.lavakord.audio.internal</a><span class="delimiter">/</span><span class="current">PenaltyProvider</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Penalty</span><wbr><span><span>Provider</span></span></h1>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token keyword">interface </span><a href="index.html">PenaltyProvider</a></div><p class="paragraph">Interface to accept custom penalties for <a href="../../dev.schlaubi.lavakord.audio/-node/index.html">Node</a>s.</p></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
-      <h2 class="">Functions</h2>
-      <div class="table" data-togglable="Functions"><a data-name="1517226138%2FFunctions%2F-2011752812" anchor-label="getPenalty" id="1517226138%2FFunctions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
-        <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="get-penalty.html"><span>get</span><wbr><span><span>Penalty</span></span></a></div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1517226138%2FFunctions%2F-2011752812" anchor-label="getPenalty" id="1517226138%2FFunctions%2F-2011752812" data-filterable-set=":core:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":core:dokkaHtmlPartial/commonMain" data-filterable-set=":core:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-penalty.html"><span>get</span><wbr><span><span>Penalty</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1517226138%2FFunctions%2F-2011752812"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-penalty.html"><span class="token function">getPenalty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">node<span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.audio/-node/index.html">Node</a><span class="token punctuation">, </span></span><span class="parameter ">guildId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">This method allows for adding custom penalties to {@link LavalinkSocket nodes}, making it possible to change how the node selection system works on a per-guild per-node basis. By using the provided {@link LavalinkLoadBalancer.Penalties Penalties} class you can fetch default penalties like CPU or Players.</p></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-penalty.html"><span class="token function">getPenalty</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">node<span class="token operator">: </span><a href="../../dev.schlaubi.lavakord.audio/-node/index.html">Node</a><span class="token punctuation">, </span></span><span class="parameter ">guildId<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-u-long/index.html">ULong</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">This method allows for adding custom penalties to {@link LavalinkSocket nodes}, making it possible to change how the node selection system works on a per-guild per-node basis. By using the provided {@link LavalinkLoadBalancer.Penalties Penalties} class you can fetch default penalties like CPU or Players.</p></div></div></div>
+                </div>
               </div>
             </div>
           </div>
@@ -83,6 +85,6 @@
       </div>
     </div>
 </div>
-
-</body></html>
+</body>
+</html>
 
