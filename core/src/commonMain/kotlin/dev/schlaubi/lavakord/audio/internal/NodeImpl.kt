@@ -170,9 +170,8 @@ internal class NodeImpl(
             LOG.warn(e) {"Could not parse event"}
         }
         when (event) {
-            is Message.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer).provideState(
-                event.state
-            )
+            is Message.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer)
+                .provideState(event.state)
 
             is Message.StatsEvent -> {
                 LOG.debug { "Received node statistics for $name: $event" }

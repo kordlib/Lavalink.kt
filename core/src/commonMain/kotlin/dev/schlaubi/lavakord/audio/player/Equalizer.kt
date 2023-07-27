@@ -72,9 +72,7 @@ public interface EqualizerBuilder {
 /**
  * Resets the gain of this band to default.
  */
-public fun EqualizerBuilder.BandConfigurator.reset() {
-    gain(DEFAULT_GAIN)
-}
+public fun EqualizerBuilder.BandConfigurator.reset(): Unit = gain(DEFAULT_GAIN)
 
 /**
  * Sets the gain of this band to [gain].
@@ -84,33 +82,4 @@ public fun EqualizerBuilder.BandConfigurator.reset() {
 public infix fun EqualizerBuilder.BandConfigurator.gain(gain: Float) {
     require(gain in -.25F..1F) { "Gain needs to be between -0.25 (muted) and 1. 0 = normal; 0.25 = double" }
     builder.equalizers.add(Equalizer(id, gain))
-}
-
-/**
- * Resets all Bands of this player.
- */
-@Deprecated(
-    "Replaced by filters api",
-    ReplaceWith("applyFilters { equalizers.clear() }", "dev.schlaubi.lavakord.audio.player.applyFilters")
-)
-public suspend fun Player.resetEqualizer() {
-    applyFilters { equalizers.clear() }
-}
-
-/**
- * Applies the [EqualizerBuilder] to this player.
- *
- * @see EqualizerBuilder
- * @see EqualizerBuilder.BandConfigurator
- * @see EqualizerBuilder.BandConfigurator.gain
- */
-@OptIn(ExperimentalContracts::class)
-@Deprecated(
-    "Replaced by filters api",
-    ReplaceWith("applyFilters(builder)", "dev.schlaubi.lavakord.audio.player.applyFilters")
-)
-public suspend fun Player.applyEqualizer(builder: EqualizerBuilder.() -> Unit) {
-    applyFilters {
-        builder()
-    }
 }

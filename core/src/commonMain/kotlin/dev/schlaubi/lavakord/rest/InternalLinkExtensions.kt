@@ -1,5 +1,3 @@
-@file:Suppress("KDocMissingDocumentation")
-
 package dev.schlaubi.lavakord.rest
 
 import dev.schlaubi.lavakord.PluginApi

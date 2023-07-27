@@ -14,7 +14,7 @@ private val LOG = KotlinLogging.logger { }
  * @property maxBackoff the max delay
  * @property maxTries the maximal amount of tries before giving up
  */
-internal class LinearRetry constructor(
+internal class LinearRetry(
     private val firstBackoff: Duration,
     private val maxBackoff: Duration,
     private val maxTries: Int

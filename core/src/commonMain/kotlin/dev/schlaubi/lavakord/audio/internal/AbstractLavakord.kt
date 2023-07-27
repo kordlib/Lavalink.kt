@@ -170,9 +170,7 @@ public abstract class AbstractLavakord internal constructor(
         guildId: ULong,
         event: VoiceState
     ) {
-        link.node.updatePlayer(
-            guildId, request = PlayerUpdate(voice = event.toOmissible())
-        )
+        link.node.updatePlayer(guildId, request = PlayerUpdate(voice = event.toOmissible()))
     }
 
     /**
