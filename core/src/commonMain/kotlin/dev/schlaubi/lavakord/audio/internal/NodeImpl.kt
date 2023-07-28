@@ -71,7 +71,7 @@ internal class NodeImpl(
     internal suspend fun check() {
         val version = getVersion()
         val (_, _, _, _, _, _, _, plugins) = getInfo()
-        if(version.startsWith("4")) {
+        if(!version.startsWith("4")) {
             val message = "Unsupported Lavalink version (${version} on node $name"
             if ("SNAPSHOT" in message){
                 LOG.warn { message }
