@@ -18,11 +18,11 @@ jobs:
       - run: export GRADLE_USER_HOME=`pwd`/.gradle
       - run: echo "name=RELEASE_TAG::${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       - uses: actions/checkout@v3
-      - name: Setup Java JDK 20
+      - name: Setup Java JDK 19
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 19
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
@@ -45,11 +45,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Set up JDK 20
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 19
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
