@@ -14,7 +14,7 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(19)
+    jvmToolchain(20)
     jvm {
         withJava()
     }
@@ -53,10 +53,6 @@ kotlin {
             }
         }
     }
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_20
 }
 
 tasks {
