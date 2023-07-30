@@ -153,4 +153,4 @@ public interface StatsEvent {
 public inline fun <reified T : TrackEvent> EventSource<TrackEvent>.on(
     scope: CoroutineScope = coroutineScope,
     noinline consumer: suspend T.() -> Unit
-): Job = defaultOn<TrackEvent, T>(scope, consumer)
+): Job = defaultOn<_, T>(scope, consumer)
