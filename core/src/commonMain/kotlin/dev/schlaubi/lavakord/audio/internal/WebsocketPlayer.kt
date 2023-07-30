@@ -1,9 +1,6 @@
 package dev.schlaubi.lavakord.audio.internal
 
-import dev.arbjerg.lavalink.protocol.v4.PlayerState
-import dev.arbjerg.lavalink.protocol.v4.PlayerUpdate
-import dev.arbjerg.lavalink.protocol.v4.Track
-import dev.arbjerg.lavalink.protocol.v4.toOmissible
+import dev.arbjerg.lavalink.protocol.v4.*
 import dev.schlaubi.lavakord.audio.Event
 import dev.schlaubi.lavakord.audio.TrackEndEvent
 import dev.schlaubi.lavakord.audio.TrackStartEvent
@@ -12,7 +9,6 @@ import dev.schlaubi.lavakord.audio.player.Equalizer
 import dev.schlaubi.lavakord.audio.player.Filters
 import dev.schlaubi.lavakord.audio.player.PlayOptions
 import dev.schlaubi.lavakord.audio.player.Player
-import dev.schlaubi.lavakord.rest.destroyPlayer
 import dev.schlaubi.lavakord.rest.models.FiltersObject
 import dev.schlaubi.lavakord.rest.models.toLavalink
 import dev.schlaubi.lavakord.rest.updatePlayer
@@ -99,7 +95,10 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     }
 
     override suspend fun stopTrack() {
-        node.destroyPlayer(guildId)
+        node.updatePlayer(
+            guildId,
+            request = PlayerUpdate(encodedTrack = Omissible(null))
+        )
         playingTrack = null
     }
 
