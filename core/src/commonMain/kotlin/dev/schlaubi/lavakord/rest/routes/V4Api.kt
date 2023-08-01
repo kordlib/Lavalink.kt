@@ -44,6 +44,9 @@ public class V4Api {
     @Resource("decodetrack")
     public data class DecodeTrack(val encodedTrack: String? = null, val api: V4Api = V4Api())
 
+    @Resource("decodetracks")
+    public data class DecodeTracks(val api: V4Api = V4Api())
+
     @Resource("info")
     public data class Info(val api: V4Api = V4Api())
 
