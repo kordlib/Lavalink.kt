@@ -48,5 +48,5 @@ public suspend fun RestNode.decodeTrack(base64: String): Track = get(V4Api.Decod
  * **Note:** This makes an API call, if you want to do this locally use [LavaplayerTrack.fromLavalink]
  */
 public suspend fun RestNode.decodeTracks(tracks: Iterable<String>): List<Track> = post(V4Api.DecodeTrack()) {
-    setBody(tracks)
+    setBody(tracks.toList())
 }

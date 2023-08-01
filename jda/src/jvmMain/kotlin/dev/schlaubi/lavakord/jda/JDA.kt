@@ -14,6 +14,11 @@ import net.dv8tion.jda.api.sharding.ShardManager
  */
 public interface LavakordJdaBase {
     public val lavakord: LavaKord
+
+    /**
+     * Destructuring accessor for [lavakord].
+     */
+    public operator fun component1(): LavaKord = lavakord
 }
 
 /**
@@ -23,6 +28,11 @@ public interface LavakordJdaBase {
  */
 public interface LJDA : LavakordJdaBase {
     public val jda: JDA
+
+    /**
+     * Destructuring accessor for [jda].
+     */
+    public operator fun component2(): JDA = jda
 }
 
 /**
@@ -32,6 +42,11 @@ public interface LJDA : LavakordJdaBase {
  */
 public interface LShardManager : LavakordJdaBase {
     public val shardManager: ShardManager
+
+    /**
+     * Destructuring accessor for [shardManager].
+     */
+    public operator fun component2(): ShardManager = shardManager
 }
 
 /**

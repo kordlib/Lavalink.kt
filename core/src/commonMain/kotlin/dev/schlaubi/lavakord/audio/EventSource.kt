@@ -16,10 +16,8 @@ import kotlinx.coroutines.launch
  * @see EventSource.on
  */
 public interface EventSource<T> {
-
     public val events: Flow<T>
     public val coroutineScope: CoroutineScope
-
 }
 
 /**

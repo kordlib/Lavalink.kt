@@ -34,7 +34,7 @@ public interface Link {
     /**
      * Connects this link to the voice channel with the specified [voiceChannelId].
      */
-    public suspend fun Link.connect(voiceChannelId: String): Unit = connectAudio(voiceChannelId.toULong())
+    public suspend fun connect(voiceChannelId: String): Unit = connectAudio(voiceChannelId.toULong())
 
     /**
      * Disconnects from the currently connected voice channel.

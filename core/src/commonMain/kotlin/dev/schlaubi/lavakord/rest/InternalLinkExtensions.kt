@@ -76,7 +76,8 @@ public suspend inline fun <reified T, reified Resource : Any> RestNode.request(
 @PublishedApi
 internal val RestNode.restClient: HttpClient
     get() {
-        val lavakord = this.lavakord as? AbstractLavakord ?: error("Only supported on default implementation")
+        val lavakord = this.lavakord as? AbstractLavakord
+            ?: error("Only supported on default implementation")
         return lavakord.restClient
     }
 

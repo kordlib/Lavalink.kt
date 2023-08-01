@@ -55,6 +55,7 @@ public data class LavaplayerTrack(
             val isSeekable = !isStream
             val uri = if (reader.readBoolean()) reader.readUTF() else null
             val source = reader.readUTF()
+            reader.discard((reader.availableForRead - Long.SIZE_BYTES).toLong())
             val position = reader.readLong()
 
             return LavaplayerTrack(
