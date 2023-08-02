@@ -13,6 +13,7 @@ import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import dev.kord.rest.builder.interaction.string
+import dev.schlaubi.lavakord.audio.Event
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.on
 import dev.schlaubi.lavakord.kord.getLink
@@ -59,7 +60,7 @@ suspend fun main() {
             val followUpCreator = FollowupPermittingInteractionResponseBehavior(
                 interaction.applicationId, interaction.token, interaction.kord, interaction.supplier
             )
-            player.on {
+            player.on<Event> {
                 followUpCreator.createEphemeralFollowup { content = "Event: $this" }
             }
             listenedGuilds.add(interaction.guildId)
