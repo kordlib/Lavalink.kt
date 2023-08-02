@@ -150,7 +150,7 @@ public interface StatsEvent {
  *
  * @see defaultOn
  */
-public inline fun <reified T : TrackEvent> EventSource<TrackEvent>.on(
+public inline fun <reified T : Event> EventSource<Event>.on(
     scope: CoroutineScope = coroutineScope,
     noinline consumer: suspend T.() -> Unit
 ): Job = defaultOn<_, T>(scope, consumer)

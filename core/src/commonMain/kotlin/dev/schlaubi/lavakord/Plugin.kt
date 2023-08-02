@@ -1,6 +1,9 @@
 package dev.schlaubi.lavakord
 
 import dev.schlaubi.lavakord.audio.Event
+import dev.schlaubi.lavakord.audio.TrackStartEvent
+import dev.schlaubi.lavakord.audio.on
+import dev.schlaubi.lavakord.audio.player.Player
 import kotlinx.serialization.json.JsonElement
 import dev.arbjerg.lavalink.protocol.v4.Plugin as RestPlugin
 
