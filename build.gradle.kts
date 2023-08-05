@@ -35,6 +35,7 @@ configure<GitPublishExtension> {
 
     contents {
         from(file("docs"))
+        from(file("CNAME"))
     }
 
     commitMessage = "Update Docs"
