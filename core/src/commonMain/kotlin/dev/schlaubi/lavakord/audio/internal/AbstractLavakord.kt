@@ -27,6 +27,7 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.modules.plus
 import kotlin.collections.set
+import kotlin.time.Duration.Companion.seconds
 
 /**
  * Abstract implementation of [LavaKord].
@@ -111,6 +112,7 @@ public abstract class AbstractLavakord internal constructor(
     internal val gatewayClient = HttpClient(HttpEngine) {
         install(WebSockets) {
             contentConverter = KotlinxWebsocketSerializationConverter(json)
+            pingInterval = 30.seconds.inWholeMilliseconds
         }
 
         expectSuccess = true
