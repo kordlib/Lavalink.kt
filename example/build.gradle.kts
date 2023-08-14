@@ -7,10 +7,10 @@ group = "me.schlaubi.lavakord"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    mavenCentral()
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://jitpack.io")
     maven("https://m2.dv8tion.net/releases")
-    mavenCentral()
 }
 
 kotlin {
@@ -41,7 +41,7 @@ kotlin {
                 implementation("org.apache.groovy:groovy-all:4.0.7")
                 implementation("org.jetbrains.kotlinx:atomicfu:0.20.2")
 
-                implementation("net.dv8tion:JDA:v5.0.0-beta.12") {
+                implementation("net.dv8tion:JDA:5.0.0-beta.12") {
                     exclude(module = "opus-java")
                 }
             }

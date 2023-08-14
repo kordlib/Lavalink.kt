@@ -60,6 +60,7 @@ dependencyResolutionManagement {
 
             plugin("kotlinx-atomicfu", "kotlinx-atomicfu").version("0.21.0")
             plugin("git-publish", "org.ajoberstar.git-publish").version("3.0.0")
+            plugin("git-version", "com.palantir.git-version").version("3.0.0")
         }
     }
 }

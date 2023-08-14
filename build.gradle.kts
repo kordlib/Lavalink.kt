@@ -1,10 +1,16 @@
+import com.palantir.gradle.gitversion.GitVersionPlugin
+import com.palantir.gradle.gitversion.VersionDetails
+import groovy.lang.Closure
 import org.ajoberstar.gradle.git.publish.GitPublishExtension
+import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.utils.`is`
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("org.jetbrains.dokka")
     alias(libs.plugins.kotlinx.atomicfu) apply false
     alias(libs.plugins.git.publish)
+    alias(libs.plugins.git.version) apply false
 }
 
 group = "dev.schlaubi.lavakord"
@@ -42,10 +48,18 @@ configure<GitPublishExtension> {
 }
 
 subprojects {
+    apply<GitVersionPlugin>()
+    val versionDetails: Closure<VersionDetails> by extra
+    val details = versionDetails()
+    version = if(details.isCleanTag) {
+        details.version
+    } else {
+        details.branchName + "-SNAPSHOT"
+    }
     group = rootProject.group
 
     tasks {
-        withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+        withType<DokkaTask>().configureEach {
             dokkaSourceSets {
                 configureEach {
                     includeNonPublic = false
