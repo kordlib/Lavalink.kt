@@ -10,7 +10,6 @@ import dev.schlaubi.lavakord.rest.loadItem
 import java.time.Duration
 import java.util.concurrent.CompletableFuture
 import kotlin.time.ExperimentalTime
-import kotlin.time.toJavaDuration
 
 /**
  * Converts [Track.length] to a [Duration] because the Kotlin duration doesn't work in Java.

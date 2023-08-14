@@ -5,7 +5,6 @@ import org.ajoberstar.gradle.git.publish.GitPublishExtension
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.utils.`is`
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("org.jetbrains.dokka")
     alias(libs.plugins.kotlinx.atomicfu) apply false
