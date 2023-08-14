@@ -1,4 +1,4 @@
-name: CI
+github acname: CI
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
     name: Publish artifacts
     runs-on: ubuntu-20.04
     needs: build
-    if: startsWith(github.ref, 'refs/tags/')
+    if: github.event_name != 'pull_request'
     env:
       ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_KEY }}
       ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_USER }}
