@@ -16,13 +16,17 @@ public val Track.lavaSrcInfo: ExtendedAudioTrack
  * The extended audio track provided by LavaSrc.
  *
  * @property albumName The name of the album of the track
- * @property artistArtworkUrl the url to the song's artist's artowrk
+ * @property albumUrl The url to the album on the provider's page
+ * @property artistUrl The url to the artist on the provider's page
+ * @property artistArtworkUrl the url to the song's artist's artowork
  * @property previewUrl the url of a preview of the song
  * @property isPreview if this song is a preview
  */
 @Serializable
 public data class ExtendedAudioTrack(
     val albumName: String,
+    val albumUrl: String?,
+    val artistUrl: String?,
     val artistArtworkUrl: String,
     val previewUrl: String,
     val isPreview: Boolean
