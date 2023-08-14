@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "dev.schlaubi.lavakord"
-version = "5.1.7"
+version = "feature-new-lavasrc-fields-SNAPSHOT"
 
 allprojects {
     repositories {

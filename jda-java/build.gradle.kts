@@ -1,3 +1,6 @@
+import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.KotlinJvm
+
 plugins {
     `lavalink-jvm-module`
     `lavalink-publishing`
@@ -6,4 +9,8 @@ plugins {
 dependencies {
     api(projects.jda)
     api(projects.java)
+}
+
+mavenPublishing {
+    configure(KotlinJvm(JavadocJar.Dokka("dokkaHtml")))
 }
