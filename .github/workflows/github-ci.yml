@@ -1,4 +1,4 @@
-github acname: CI
+name: CI
 
 on:
   push:
