@@ -24,10 +24,10 @@ public val Track.lavaSrcInfo: ExtendedAudioTrack
  */
 @Serializable
 public data class ExtendedAudioTrack(
-    val albumName: String,
+    val albumName: String?,
     val albumUrl: String?,
     val artistUrl: String?,
-    val artistArtworkUrl: String,
-    val previewUrl: String,
+    val artistArtworkUrl: String?,
+    val previewUrl: String?,
     val isPreview: Boolean
 )
