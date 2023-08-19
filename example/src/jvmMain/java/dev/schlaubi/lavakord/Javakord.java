@@ -1,4 +1,7 @@
+package dev.schlaubi.lavakord;
+
 import dev.arbjerg.lavalink.protocol.v4.LoadResult;
+import dev.schlaubi.lavakord.audio.TrackEndEvent;
 import dev.schlaubi.lavakord.interop.JavaInterop;
 import dev.schlaubi.lavakord.interop.JavaLavakord;
 import dev.schlaubi.lavakord.interop.TrackUtil;

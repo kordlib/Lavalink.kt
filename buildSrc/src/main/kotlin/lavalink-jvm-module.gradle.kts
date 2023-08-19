@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     kotlin("jvm")
     id("org.jetbrains.dokka")
@@ -13,7 +15,6 @@ repositories {
 
 kotlin {
     explicitApi()
-    jvmToolchain(8)
 
     sourceSets {
         all {
@@ -27,6 +28,14 @@ kotlin {
             }
         }
     }
+
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_1_8
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
 }
 
 tasks {

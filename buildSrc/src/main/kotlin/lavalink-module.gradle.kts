@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.dokka")
@@ -14,11 +16,10 @@ repositories {
 kotlin {
     explicitApi()
 
-    jvmToolchain(8)
     jvm {
-        tasks {
-            withType<Test> {
-                useJUnitPlatform()
+        compilations.all {
+            compilerOptions.configure {
+                jvmTarget = JvmTarget.JVM_1_8
             }
         }
     }
@@ -41,5 +42,11 @@ kotlin {
                 optIn("dev.schlaubi.lavakord.UnsafeRestApi")
             }
         }
+    }
+}
+
+tasks {
+    withType<Test> {
+        useJUnitPlatform()
     }
 }

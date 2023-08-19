@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  *
  * @see EventSource.on
  */
-public interface EventSource<T> {
+public interface EventSource<T : Any> {
     public val events: Flow<T>
     public val coroutineScope: CoroutineScope
 }
@@ -31,7 +31,7 @@ public interface EventSource<T> {
  * The returned [Job] is a reference to the created coroutine, call [Job.cancel] to cancel the processing of any further
  * events.
  */
-public inline fun <T, reified E : T> EventSource<T>.on(
+public inline fun <T : Any, reified E : T> EventSource<T>.on(
     scope: CoroutineScope = coroutineScope,
     noinline consumer: suspend E.() -> Unit
 ): Job =

@@ -13,8 +13,9 @@ import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import dev.kord.rest.builder.interaction.string
-import dev.schlaubi.lavakord.audio.Event
+import dev.schlaubi.lavakord.plugins.lavasrc.lavaSrcInfo
 import dev.schlaubi.lavakord.audio.Link
+import dev.schlaubi.lavakord.audio.TrackEvent
 import dev.schlaubi.lavakord.audio.on
 import dev.schlaubi.lavakord.kord.getLink
 import dev.schlaubi.lavakord.kord.lavakord
@@ -49,7 +50,7 @@ suspend fun main() {
         }
     }
 
-    lavalink.addNode("ws://localhost:2333", "youshallnotpass")
+    lavalink.addNode("wss://joachim.lava-hosts.schlaubi.net", "jcdrNb7Y8D8TTo6D64x&msiA3CzD")
 
     kord.on<GuildChatInputCommandInteractionCreateEvent> {
         val ack = interaction.deferPublicResponse()
@@ -60,8 +61,12 @@ suspend fun main() {
             val followUpCreator = FollowupPermittingInteractionResponseBehavior(
                 interaction.applicationId, interaction.token, interaction.kord, interaction.supplier
             )
-            player.on<Event> {
-                followUpCreator.createEphemeralFollowup { content = "Event: $this" }
+            player.on<TrackEvent> {
+                try {
+                    followUpCreator.createEphemeralFollowup { content = "Event: ${this@on.track.lavaSrcInfo}" }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
             listenedGuilds.add(interaction.guildId)
         }

@@ -2,6 +2,8 @@ package dev.schlaubi.lavakord.interop
 
 import dev.schlaubi.lavakord.InsufficientPermissionException
 import dev.schlaubi.lavakord.LavaKord
+import dev.schlaubi.lavakord.audio.Event
+import dev.schlaubi.lavakord.audio.EventSource
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Link.State
 import dev.schlaubi.lavakord.audio.Node
@@ -20,9 +22,11 @@ import kotlin.coroutines.CoroutineContext
  * @property guildId the id of the Guild this [Link] is connected to
  * @property lastChannelId the id of the last channel this Link is connected to
  */
-public class JavaLink(internal val suspendingLink: Link) : CoroutineScope {
+public class JavaLink(internal val suspendingLink: Link) : CoroutineScope, JavaEventSource<Event> {
     override val coroutineContext: CoroutineContext
         get() = suspendingLink.lavakord.coroutineContext
+    override val suspendingEventSource: EventSource<Event>
+        get() = suspendingLink.node
     public val node: Node
         get() = suspendingLink.node
     public val player: JavaPlayer by lazy { JavaPlayer(suspendingLink.player) }

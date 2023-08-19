@@ -1,6 +1,8 @@
 package dev.schlaubi.lavakord.interop
 
 import dev.arbjerg.lavalink.protocol.v4.Track
+import dev.schlaubi.lavakord.audio.Event
+import dev.schlaubi.lavakord.audio.EventSource
 import dev.schlaubi.lavakord.audio.player.Player
 import kotlinx.coroutines.CoroutineScope
 import java.time.Duration
@@ -16,9 +18,11 @@ import kotlin.coroutines.CoroutineContext
  * @property volume the current volume of this player
  * @property position the position of the current song the player is at (-1 if [playingTrack] is null)
  */
-public class JavaPlayer(internal val suspendingPlayer: Player) : CoroutineScope {
+public class JavaPlayer(internal val suspendingPlayer: Player) : CoroutineScope, JavaEventSource<Event> {
     override val coroutineContext: CoroutineContext
         get() = suspendingPlayer.coroutineScope.coroutineContext
+    override val suspendingEventSource: EventSource<Event>
+        get() = suspendingPlayer
     public val playingTrack: Track?
         get() = suspendingPlayer.playingTrack
     public val paused: Boolean
