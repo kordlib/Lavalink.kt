@@ -28,7 +28,9 @@ public interface JavaEventSource<T : Any> {
      */
     public fun <E : T> on(eventType: Class<E>, handler: Consumer<E>) {
         events.subscribe(object : Subscriber<T> {
-            override fun onSubscribe(subscription: Flow.Subscription) = Unit
+            override fun onSubscribe(subscription: Flow.Subscription) {
+                subscription.request(Long.MAX_VALUE)
+            }
 
             override fun onError(throwable: Throwable) {
                 // This in theory should never happen
