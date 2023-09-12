@@ -23,7 +23,7 @@ kotlin {
                 implementation(libs.ktor.io)
                 implementation(libs.ktor.utils)
                 implementation(libs.ktor.client.websockets)
-                implementation(libs.ktor.client.core)
+                api(libs.ktor.client.core)
                 implementation(libs.ktor.client.resources)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.ktor.client.content.negotiation)
