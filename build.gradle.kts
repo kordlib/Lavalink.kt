@@ -1,5 +1,7 @@
 import org.ajoberstar.gradle.git.publish.GitPublishExtension
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 
 plugins {
     id("org.jetbrains.dokka")
@@ -58,5 +60,12 @@ subprojects {
                 }
             }
         }
+    }
+}
+
+// Use system Node.Js on NixOS
+if (System.getenv("NIX_PROFILES") != null) {
+    rootProject.plugins.withType<NodeJsRootPlugin> {
+        rootProject.the<NodeJsRootExtension>().download = false
     }
 }
