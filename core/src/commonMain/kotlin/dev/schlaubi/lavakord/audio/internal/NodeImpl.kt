@@ -22,6 +22,7 @@ import io.ktor.websocket.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -118,30 +119,37 @@ internal class NodeImpl(
 
         retry.reset()
 
-        LOG.debug { "Successfully connected to node: $name ($host)" }
+        LOG.info { "Successfully connected to node: $name ($host)" }
 
         while (!session.incoming.isClosedForReceive) {
             try {
                 onEvent(session.receiveDeserialized())
-            } catch (e: WebsocketDeserializeException) {
-                LOG.warn(e) { "An error occurred whilst decoding incoming websocket packet" }
+            } catch (e: ClosedReceiveChannelException) {
+                break
+            } catch (e: Exception) {
+                LOG.warn(e) { "An exception occurred whilst decoding incoming websocket packet" }
             }
         }
-        val reason = session.closeReason.await()
-        if (reason?.knownReason == CloseReason.Codes.NORMAL) return
+
         available = false
-        LOG.warn { "Disconnected from websocket for: $reason. Music will continue playing if we can reconnect within the next $resumeTimeout seconds" }
-        reconnect(resume = true)
+        val reason = session.closeReason.await()
+        val resumeAgain = resume && reason?.knownReason != CloseReason.Codes.NORMAL
+        if (resumeAgain) {
+            LOG.warn { "Disconnected from websocket for: $reason. Music will continue playing if we can reconnect within the next $resumeTimeout seconds" }
+        } else {
+            LOG.warn { "Disconnected from websocket for: $reason. Not resuming." }
+        }
+        reconnect(resume = resumeAgain)
     }
 
     private suspend fun reconnect(e: Throwable? = null, resume: Boolean = false) {
-        LOG.error(e) { "Exception whilst trying to connect. Reconnecting" }
         if (retry.hasNext) {
+            LOG.error(e) { "Exception whilst trying to connect. Reconnecting" }
             retry.retry()
             connect(resume)
         } else {
             lavakord.removeNode(this)
-            error("Could not reconnect to websocket after to many attempts")
+            throw RuntimeException("Could not reconnect to websocket after to many attempts", e)
         }
     }
 
