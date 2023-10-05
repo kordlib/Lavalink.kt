@@ -144,7 +144,7 @@ internal class NodeImpl(
 
     private suspend fun reconnect(e: Throwable? = null, resume: Boolean = false) {
         if (retry.hasNext) {
-            LOG.error(e) { "Exception whilst trying to connect. Reconnecting" }
+            LOG.error { "Exception whilst trying to connect: '${e?.message}'. Reconnecting" }
             retry.retry()
             connect(resume)
         } else {
@@ -181,6 +181,14 @@ internal class NodeImpl(
             is Message.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer)
                 .provideState(event.state)
 
+            is Message.EmittedEvent.WebSocketClosedEvent -> {
+                // These codes represent an invalid session
+                // See https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes
+                if (event.code == 4004 || event.code == 4006 || event.code == 4009 || event.code == 4014) {
+                    lavakord.getLink(event.guildId).onDisconnected()
+                }
+            }
+
             is Message.StatsEvent -> {
                 LOG.debug { "Received node statistics for $name: $event" }
                 lastStatsEvent = event
@@ -193,6 +201,7 @@ internal class NodeImpl(
             is Message.ReadyEvent -> {
                 available = true
                 sessionId = event.sessionId
+                lavakord.onNewSession(this)
                 updateSession(
                     SessionUpdate(
                         resuming = true.toOmissible(),
