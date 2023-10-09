@@ -18,8 +18,10 @@ import kotlin.time.DurationUnit
  * @property playingTrack the currently playing [Track]
  * @property paused whether the playback is currently paused or not
  * @property volume the current volume of this player
- * @property position the position of the current song the player is at (-1 if [playingTrack] is null)
- * @property positionDuration the position of the current song the player is at (-1 if [playingTrack] is null)
+ * @property position the position of the current song the player is at (or negative if [playingTrack] is null).
+ * Capped at the track length.
+ * @property positionDuration the position of the current song the player is at (or negative if [playingTrack] is null).
+ * Capped at the track length.
  * @property equalizers the applied equalizers in this player
  */
 public interface Player : EventSource<Event> {

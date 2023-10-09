@@ -29,10 +29,11 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     private var updateTime: Instant = Instant.DISTANT_PAST
     override val positionDuration: Duration
         get() {
+            val trackLength = playingTrack?.info?.length?.milliseconds ?: return (-1).milliseconds
             val now = Clock.System.now()
             val elapsedSinceUpdate = now - updateTime
 
-            return lastPosition + elapsedSinceUpdate
+            return (lastPosition + elapsedSinceUpdate).coerceAtMost(trackLength)
         }
 
     override val volume: Int
