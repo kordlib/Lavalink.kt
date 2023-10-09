@@ -6,6 +6,7 @@ import dev.arbjerg.lavalink.protocol.v4.toOmissible
 import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.player.Player
+import dev.schlaubi.lavakord.audio.player.node
 import dev.schlaubi.lavakord.rest.destroyPlayer
 import dev.schlaubi.lavakord.rest.updatePlayer
 
@@ -29,10 +30,14 @@ public abstract class AbstractLink(node: Node, final override val guildId: ULong
         cachedVoiceState = null
     }
 
-    override suspend fun onNewSession() {
+    override suspend fun onNewSession(node: Node) {
+        this.node = node
+        player.node
+
         cachedVoiceState?.let {
             node.updatePlayer(guildId, request = PlayerUpdate(voice = it.toOmissible()))
         }
+        (player as WebsocketPlayer).recreatePlayer(node as NodeImpl)
     }
 
     override suspend fun destroy() {
