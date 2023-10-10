@@ -4,6 +4,7 @@ import dev.arbjerg.lavalink.protocol.v4.PlayerUpdate
 import dev.arbjerg.lavalink.protocol.v4.VoiceState
 import dev.arbjerg.lavalink.protocol.v4.toOmissible
 import dev.schlaubi.lavakord.audio.Link
+import dev.schlaubi.lavakord.audio.Link.State
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.player.Player
 import dev.schlaubi.lavakord.audio.player.node
@@ -21,11 +22,11 @@ public abstract class AbstractLink(node: Node, final override val guildId: ULong
     override val player: Player = WebsocketPlayer(node as NodeImpl, guildId)
     abstract override val lavakord: AbstractLavakord
     override var lastChannelId: ULong? = null
-    override var state: Link.State = Link.State.NOT_CONNECTED
+    override var state: State = State.NOT_CONNECTED
     private var cachedVoiceState: VoiceState? = null
 
     override suspend fun onDisconnected() {
-        state = Link.State.NOT_CONNECTED
+        state = State.NOT_CONNECTED
         node.destroyPlayer(guildId)
         cachedVoiceState = null
     }
@@ -33,22 +34,29 @@ public abstract class AbstractLink(node: Node, final override val guildId: ULong
     override suspend fun onNewSession(node: Node) {
         this.node = node
         player.node
+        state = State.CONNECTING
 
-        cachedVoiceState?.let {
-            node.updatePlayer(guildId, request = PlayerUpdate(voice = it.toOmissible()))
+        try {
+            cachedVoiceState?.let {
+                node.updatePlayer(guildId, request = PlayerUpdate(voice = it.toOmissible()))
+            }
+        } catch (e: Exception) {
+            state = State.NOT_CONNECTED
+            throw e
         }
+        state = State.CONNECTED
         (player as WebsocketPlayer).recreatePlayer(node as NodeImpl)
     }
 
     override suspend fun destroy() {
-        val shouldDisconnect = state !== Link.State.DISCONNECTING && state !== Link.State.NOT_CONNECTED
-        state = Link.State.DESTROYING
+        val shouldDisconnect = state !== State.DISCONNECTING && state !== State.NOT_CONNECTED
+        state = State.DESTROYING
         if (shouldDisconnect) {
             disconnectAudio()
         }
         node.destroyPlayer(guildId)
         lavakord.removeDestroyedLink(this)
-        state = Link.State.DESTROYED
+        state = State.DESTROYED
     }
 
     internal suspend fun onVoiceServerUpdate(update: VoiceState) {

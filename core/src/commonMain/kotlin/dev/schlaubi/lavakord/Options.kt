@@ -37,12 +37,16 @@ public interface LavaKordOptions {
      * Configuration for Links and Nodes.
      *
      * @property autoReconnect Whether to auto-reconnect links or not
+     * @property autoMigrateOnDisconnect Whether to try to migrate links from a disconnected node onto a new one.
+     * This option has no effect if [autoReconnect] is false. If the node is trying to resume, the migration will only
+     * take place after the node gives up on resuming as per [retry].
      * @property resumeTimeout amount of seconds Lavalink will wait to kill all players if the client fails to resume it's connection
      * @property retry retry strategy (See [Retry] and [LinearRetry])
      * @property showTrace whether [RestError.trace] should be populated
      */
     public interface LinkConfig {
         public val autoReconnect: Boolean
+        public val autoMigrateOnDisconnect: Boolean
         public val resumeTimeout: Int
         public val retry: Retry
         public val showTrace: Boolean
@@ -130,12 +134,13 @@ public data class MutableLavaKordOptions(
      */
     public data class LinkConfig(
         override var autoReconnect: Boolean = true,
+        override var autoMigrateOnDisconnect: Boolean = true,
         override var resumeTimeout: Int = 60,
         override var retry: Retry = LinearRetry(2.seconds, 60.seconds, 10),
         override val showTrace: Boolean = false
     ) : LavaKordOptions.LinkConfig {
         internal fun seal(): LavaKordOptions.LinkConfig =
-            ImmutableLavaKordOptions.LinkConfig(autoReconnect, resumeTimeout, retry, showTrace)
+            ImmutableLavaKordOptions.LinkConfig(autoReconnect, autoMigrateOnDisconnect, resumeTimeout, retry, showTrace)
 
         /**
          * Creates a linear [Retry] strategy.
@@ -199,6 +204,7 @@ private data class ImmutableLavaKordOptions(
      */
     data class LinkConfig(
         override val autoReconnect: Boolean,
+        override val autoMigrateOnDisconnect: Boolean,
         override val resumeTimeout: Int,
         override val retry: Retry,
         override val showTrace: Boolean

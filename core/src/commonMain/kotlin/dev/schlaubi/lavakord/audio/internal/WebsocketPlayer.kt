@@ -12,6 +12,8 @@ import dev.schlaubi.lavakord.audio.player.Player
 import dev.schlaubi.lavakord.rest.models.FiltersObject
 import dev.schlaubi.lavakord.rest.models.toLavalink
 import dev.schlaubi.lavakord.rest.updatePlayer
+import kotlinx.atomicfu.AtomicBoolean
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
@@ -38,6 +40,7 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
             return (lastPosition + elapsedSinceUpdate).coerceAtMost(trackLength)
         }
     private var specifiedEndTime: Duration? = null
+    private val isRecreating = atomic(false)
 
     override val volume: Int
         get() = ((filters.volume ?: 1.0f) * 100).toInt()
@@ -90,7 +93,7 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
     private fun handleNewTrack(event: TrackStartEvent) {
         updateTime = Clock.System.now()
         val track = event.track
-        lastPosition = 0.milliseconds
+        lastPosition = event.track.info.position.milliseconds
         playingTrack = track
     }
 
@@ -127,22 +130,31 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
     }
 
     internal fun provideState(state: PlayerState) {
+        // After migrating the player to a new node, the new node may send a position of 0 as we are starting a new track.
+        // This may cause a race condition where the migrated track starts at close to 0:00 even if the start time should
+        // be later. Ignoring the first player update if it is zero fixes this issue.
+        if (isRecreating.getAndSet(true) && state.position == 0L) return
         updateTime = Instant.fromEpochMilliseconds(state.time)
         lastPosition = state.position.milliseconds
     }
 
     internal suspend fun recreatePlayer(node: NodeImpl) {
         this.node = node
-        val position = if (playingTrack == null) Omissible.omitted() else positionDuration.inWholeMilliseconds.toOmissible()
-        node.updatePlayer(guildId, noReplace = false, PlayerUpdate(
+        val position = if (playingTrack == null) null else positionDuration.inWholeMilliseconds
+
+        isRecreating.value = true
+        node.updatePlayer(
+            guildId, noReplace = false, PlayerUpdate(
                 encodedTrack = playingTrack?.encoded.toOmissible(),
                 identifier = Omissible.omitted(),
-                position = position,
+                position = position.toOmissible(),
                 endTime = specifiedEndTime?.inWholeMilliseconds.toOmissible(),
                 volume = volume.toOmissible(),
                 paused = paused.toOmissible(),
                 filters = filters.toLavalink().toOmissible()
             )
         )
+        updateTime = Clock.System.now()
+        lastPosition = position?.milliseconds ?: 0.milliseconds
     }
 }

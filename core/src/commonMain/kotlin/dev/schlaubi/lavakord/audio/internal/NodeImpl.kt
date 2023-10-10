@@ -135,9 +135,12 @@ internal class NodeImpl(
         val reason = session.closeReason.await()
         val resumeAgain = resume && reason?.knownReason != CloseReason.Codes.NORMAL
         if (resumeAgain) {
-            LOG.warn { "Disconnected from websocket for: $reason. Music will continue playing if we can reconnect within the next $resumeTimeout seconds" }
+            LOG.warn { "$name disconnected from websocket for: $reason. Music will continue playing if we can reconnect within the next $resumeTimeout seconds" }
         } else {
-            LOG.warn { "Disconnected from websocket for: $reason. Not resuming." }
+            LOG.warn { "$name disconnected from websocket for: $reason. Not resuming." }
+            if (lavakord.options.link.autoReconnect && lavakord.options.link.autoMigrateOnDisconnect) {
+                lavakord.migrateFromDisconnectedNode(this)
+            }
         }
         reconnect(resume = resumeAgain)
     }
@@ -214,8 +217,12 @@ internal class NodeImpl(
     }
 
     override fun close() {
+        available = false
         lavakord.launch {
             session.close(CloseReason(CloseReason.Codes.NORMAL, "Close requested by client"))
+            if (lavakord.options.link.autoReconnect && lavakord.options.link.autoMigrateOnDisconnect) {
+                lavakord.migrateFromDisconnectedNode(this@NodeImpl)
+            }
         }
     }
 

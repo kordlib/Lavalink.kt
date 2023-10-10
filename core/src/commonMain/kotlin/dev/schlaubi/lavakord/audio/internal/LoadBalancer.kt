@@ -9,18 +9,12 @@ internal class LoadBalancer(
     private val lavakord: LavaKord
 ) {
 
-    fun determineBestNode(guildId: ULong): Node {
-        val leastPenalty = lavakord.nodes
-            .asSequence()
-            .filter(Node::available)
-            .minByOrNull { calculatePenalties(it, penaltyProviders, guildId) }
+    fun determineBestNode(guildId: ULong): Node? = lavakord.nodes
+        .asSequence()
+        .filter(Node::available)
+        .minByOrNull { calculatePenalties(it, penaltyProviders, guildId) }
 
-        checkNotNull(leastPenalty) { "No nodes available" }
-
-        return leastPenalty
-    }
-
-    // Inspired by: https://github.com/Frederikam/Lavalink-Client/blob/master/src/main/java/lavalink/client/io/LavalinkLoadBalancer.java#L111
+    // Inspired by: https://github.com/freyacodes/Lavalink-Client/blob/master/src/main/java/lavalink/client/io/LavalinkLoadBalancer.java#L111
     private fun calculatePenalties(
         node: Node,
         penaltyProviders: List<PenaltyProvider>,
