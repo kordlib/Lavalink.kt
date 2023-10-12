@@ -172,11 +172,21 @@ public abstract class AbstractLavakord internal constructor(
         guildId: ULong,
         event: VoiceState
     ) {
-        link.node.updatePlayer(guildId, request = PlayerUpdate(voice = event.toOmissible()))
+        (link as AbstractLink).onVoiceServerUpdate(event)
     }
 
     /**
      * Abstract function to create a new [Link] for this [guild][guildId] using this [node].
      */
     protected abstract fun buildNewLink(guildId: ULong, node: Node): Link
+
+    /** Called on websocket connect without resuming */
+    internal suspend fun onNewSession(node: Node) {
+        if (!options.link.autoReconnect) return
+        linksMap.values.filter { it.node == node }.forEach {
+            launch {
+                it.onNewSession()
+            }
+        }
+    }
 }

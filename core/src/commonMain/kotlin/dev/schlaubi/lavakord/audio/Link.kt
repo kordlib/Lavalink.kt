@@ -47,6 +47,12 @@ public interface Link {
     public suspend fun onDisconnected()
 
     /**
+     * Called internally when this link is connected or reconnected to a new node without resuming, thereby creating a
+     * new session.
+     */
+    public suspend fun onNewSession()
+
+    /**
      * Destroys this link (will no longer be usable).
      */
     public suspend fun destroy()
