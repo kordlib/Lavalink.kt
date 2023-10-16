@@ -33,6 +33,7 @@ import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import mu.KotlinLogging
+import kotlin.concurrent.Volatile
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -58,7 +59,9 @@ internal class NodeImpl(
     private val retry = lavakord.options.link.retry
 
     override var sessionId: String by SessionIdContainer()
-    override var available: Boolean = true
+
+    @Volatile
+    override var available: Boolean = false
     override var lastStatsEvent: Stats? = null
     private var eventPublisher: MutableSharedFlow<Event> =
         MutableSharedFlow(extraBufferCapacity = Channel.UNLIMITED)
