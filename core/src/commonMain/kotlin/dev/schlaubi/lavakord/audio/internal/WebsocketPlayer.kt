@@ -20,7 +20,9 @@ import kotlinx.datetime.Instant
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
-internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId: ULong) : Player {
+internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Player {
+    internal var node: NodeImpl = node
+        private set
     override var playingTrack: Track? = null
     override val coroutineScope: CoroutineScope
         get() = node.coroutineScope
@@ -35,6 +37,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
 
             return (lastPosition + elapsedSinceUpdate).coerceAtMost(trackLength)
         }
+    private var specifiedEndTime: Duration? = null
 
     override val volume: Int
         get() = ((filters.volume ?: 1.0f) * 100).toInt()
@@ -81,6 +84,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
                 filters = options.filters?.toLavalink().toOmissible()
             )
         )
+        specifiedEndTime = options.end
     }
 
     private fun handleNewTrack(event: TrackStartEvent) {
@@ -93,6 +97,7 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     private fun handleTrackEnd(@Suppress("UNUSED_PARAMETER") event: TrackEndEvent) {
         playingTrack = null
         lastPosition = 0.milliseconds
+        specifiedEndTime = null
     }
 
     override suspend fun stopTrack() {
@@ -124,5 +129,20 @@ internal class WebsocketPlayer(internal val node: NodeImpl, internal val guildId
     internal fun provideState(state: PlayerState) {
         updateTime = Instant.fromEpochMilliseconds(state.time)
         lastPosition = state.position.milliseconds
+    }
+
+    internal suspend fun recreatePlayer(node: NodeImpl) {
+        this.node = node
+        val position = if (playingTrack == null) Omissible.omitted() else positionDuration.inWholeMilliseconds.toOmissible()
+        node.updatePlayer(guildId, noReplace = false, PlayerUpdate(
+                encodedTrack = playingTrack?.encoded.toOmissible(),
+                identifier = Omissible.omitted(),
+                position = position,
+                endTime = specifiedEndTime?.inWholeMilliseconds.toOmissible(),
+                volume = volume.toOmissible(),
+                paused = paused.toOmissible(),
+                filters = filters.toLavalink().toOmissible()
+            )
+        )
     }
 }

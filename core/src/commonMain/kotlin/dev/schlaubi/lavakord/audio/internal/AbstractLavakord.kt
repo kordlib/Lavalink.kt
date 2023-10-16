@@ -185,7 +185,7 @@ public abstract class AbstractLavakord internal constructor(
         if (!options.link.autoReconnect) return
         linksMap.values.filter { it.node == node }.forEach {
             launch {
-                it.onNewSession()
+                it.onNewSession(node)
             }
         }
     }
