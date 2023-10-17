@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.modules.plus
+import kotlin.Exception
 import kotlin.collections.set
 import kotlin.time.Duration.Companion.seconds
 
@@ -146,7 +147,11 @@ public abstract class AbstractLavakord internal constructor(
             NodeImpl(serverUri, finalName, password, this)
         nodesMap[finalName] = node
         launch {
-            node.check()
+            try {
+                node.check()
+            } catch (e: Exception) {
+                LOG.warn(e) { "Failed to perform version and plugin checks on ${node.host}. Adding anyways..." }
+            }
             node.connect()
         }
     }
