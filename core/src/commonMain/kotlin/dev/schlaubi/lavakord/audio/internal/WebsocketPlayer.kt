@@ -138,7 +138,7 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
         lastPosition = state.position.milliseconds
     }
 
-    internal suspend fun recreatePlayer(node: NodeImpl) {
+    internal suspend fun recreatePlayer(node: NodeImpl, voiceState: VoiceState?) {
         this.node = node
         val position = if (playingTrack == null) null else positionDuration.inWholeMilliseconds
 
@@ -151,9 +151,11 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
                 endTime = specifiedEndTime?.inWholeMilliseconds.toOmissible(),
                 volume = volume.toOmissible(),
                 paused = paused.toOmissible(),
-                filters = filters.toLavalink().toOmissible()
+                filters = filters.toLavalink().toOmissible(),
+                voice = voiceState.toOmissible()
             )
         )
+
         updateTime = Clock.System.now()
         lastPosition = position?.milliseconds ?: 0.milliseconds
     }
