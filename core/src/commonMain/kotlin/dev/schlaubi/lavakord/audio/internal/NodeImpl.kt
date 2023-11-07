@@ -236,4 +236,6 @@ internal class NodeImpl(
             href(resources.resourcesFormat, V4Api.WebSocket(), this)
         }
     }
+
+    override fun toString() = "Node($name)"
 }
