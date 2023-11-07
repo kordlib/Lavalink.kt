@@ -33,12 +33,9 @@ public abstract class AbstractLink(node: Node, final override val guildId: ULong
 
     override suspend fun onNewSession(node: Node) {
         this.node = node
-        state = State.CONNECTING
         val voiceState = cachedVoiceState
 
-        if (voiceState != null) {
-            state = State.CONNECTING
-        }
+        state = if (voiceState != null) State.CONNECTING else State.NOT_CONNECTED
 
         try {
             (player as WebsocketPlayer).recreatePlayer(node as NodeImpl, voiceState)
