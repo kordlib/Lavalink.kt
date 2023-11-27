@@ -23,11 +23,15 @@ public abstract class AbstractLink(node: Node, final override val guildId: ULong
     abstract override val lavakord: AbstractLavakord
     override var lastChannelId: ULong? = null
     override var state: State = State.NOT_CONNECTED
+        set(value) {
+            if (field == value) return
+            LOG.debug { "$this: $state -> $value" }
+            field = value
+        }
     private var cachedVoiceState: VoiceState? = null
 
     override suspend fun onDisconnected() {
         state = State.NOT_CONNECTED
-        node.destroyPlayer(guildId)
         cachedVoiceState = null
     }
 
@@ -39,9 +43,7 @@ public abstract class AbstractLink(node: Node, final override val guildId: ULong
 
         try {
             (player as WebsocketPlayer).recreatePlayer(node as NodeImpl, voiceState)
-            if (voiceState != null) {
-                state = State.CONNECTED
-            }
+            LOG.debug { "$this: recreated player on $node" }
         } catch (e: Exception) {
             state = State.NOT_CONNECTED
             throw e

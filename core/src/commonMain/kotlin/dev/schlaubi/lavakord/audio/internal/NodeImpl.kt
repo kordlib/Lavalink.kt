@@ -6,6 +6,7 @@ import dev.arbjerg.lavalink.protocol.v4.Stats
 import dev.arbjerg.lavalink.protocol.v4.toOmissible
 import dev.schlaubi.lavakord.Plugin
 import dev.schlaubi.lavakord.audio.Event
+import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.rest.getInfo
 import dev.schlaubi.lavakord.rest.getVersion
@@ -184,13 +185,23 @@ internal class NodeImpl(
             LOG.warn(e) {"Could not parse event"}
         }
         when (event) {
-            is Message.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer)
-                .provideState(event.state)
+            is Message.PlayerUpdateEvent -> {
+                val link = lavakord.getLink(event.guildId) as AbstractLink
+
+                if (event.state.connected && link.state == Link.State.CONNECTING) {
+                    link.state = Link.State.CONNECTING
+                } else if (!event.state.connected && link.state == Link.State.DISCONNECTING) {
+                    link.state = Link.State.NOT_CONNECTED
+                }
+
+                (link.player as WebsocketPlayer).provideState(event.state)
+            }
 
             is Message.EmittedEvent.WebSocketClosedEvent -> {
                 // These codes represent an invalid session
                 // See https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes
                 if (event.code == 4004 || event.code == 4006 || event.code == 4009 || event.code == 4014) {
+                    LOG.debug { "Node $name received close code ${event.code} for guild ${event.guildId}" }
                     lavakord.getLink(event.guildId).onDisconnected()
                 }
             }
