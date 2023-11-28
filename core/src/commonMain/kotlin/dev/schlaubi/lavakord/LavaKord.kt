@@ -1,10 +1,9 @@
 package dev.schlaubi.lavakord
 
-import dev.schlaubi.lavakord.audio.Link
-import dev.schlaubi.lavakord.audio.Node
-import dev.schlaubi.lavakord.audio.RestNode
+import dev.schlaubi.lavakord.audio.*
 import io.ktor.http.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Representation of a Lavalink cluster.
@@ -13,10 +12,16 @@ import kotlinx.coroutines.CoroutineScope
  * @property userId the id of the Discord bot user
  * @property options Configuration options (See [LavaKordOptions]
  */
-public interface LavaKord : CoroutineScope {
+public interface LavaKord : CoroutineScope, EventSource<Event> {
     public val nodes: List<Node>
     public val userId: ULong
     public val options: LavaKordOptions
+
+    /** A merged [Flow] of [Event]s produced by this instance's [Node]s */
+    public override val events: Flow<Event>
+
+    /** This simply returns [this][LavaKord]. It is required for implementations of [EventSource]*/
+    public override val coroutineScope: CoroutineScope get() = this
 
     /**
      * Returns the corresponding [Link] for the [guildId].
