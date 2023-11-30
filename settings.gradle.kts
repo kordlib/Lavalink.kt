@@ -9,6 +9,7 @@ include(
     ":plugins:kspProcessor",
     ":plugins:sponsorblock",
     ":plugins:lavasrc",
+    ":plugins:lavasearch",
     "java",
     "jda",
     "jda-java"
@@ -54,6 +55,7 @@ dependencyResolutionManagement {
             library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("18.16.12-pre.594")
 
             library("lavalink-protocol", "dev.arbjerg.lavalink", "protocol").version("4.0.0-beta.5")
+            library("lavasearch-protocol", "com.github.topi314.lavasearch", "lavasearch-protocol").version("1.0.0-beta.3")
 
             library("kotlinpoet", "com.squareup", "kotlinpoet-ksp")
                 .version("1.14.2")

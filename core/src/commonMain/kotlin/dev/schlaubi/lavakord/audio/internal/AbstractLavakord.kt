@@ -1,13 +1,15 @@
 package dev.schlaubi.lavakord.audio.internal
 
-import dev.arbjerg.lavalink.protocol.v4.*
+import dev.arbjerg.lavalink.protocol.v4.Error
+import dev.arbjerg.lavalink.protocol.v4.LavalinkSerializersModule
+import dev.arbjerg.lavalink.protocol.v4.Message
+import dev.arbjerg.lavalink.protocol.v4.VoiceState
 import dev.schlaubi.lavakord.LavaKord
 import dev.schlaubi.lavakord.LavaKordOptions
 import dev.schlaubi.lavakord.RestException
 import dev.schlaubi.lavakord.audio.*
 import dev.schlaubi.lavakord.internal.HttpEngine
 import dev.schlaubi.lavakord.internal.RestNodeImpl
-import dev.schlaubi.lavakord.rest.updatePlayer
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.*
