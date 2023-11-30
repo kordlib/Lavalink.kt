@@ -200,9 +200,14 @@ internal class NodeImpl(
             is Message.EmittedEvent.WebSocketClosedEvent -> {
                 // These codes represent an invalid session
                 // See https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes
-                if (event.code == 4004 || event.code == 4006 || event.code == 4009 || event.code == 4014) {
-                    LOG.debug { "Node $name received close code ${event.code} for guild ${event.guildId}" }
-                    lavakord.getLink(event.guildId).onDisconnected()
+                try {
+                    if (event.code == 4004 || event.code == 4006 || event.code == 4009 || event.code == 4014) {
+                        LOG.debug { "Node $name received close code ${event.code} for guild ${event.guildId}" }
+                        lavakord.getLink(event.guildId).onDisconnected()
+                    }
+                } finally {
+                    // Must still be emitted
+                    eventPublisher.tryEmit(event.toEvent())
                 }
             }
 
