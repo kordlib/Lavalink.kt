@@ -16,7 +16,7 @@ kotlin {
             languageSettings.optIn("dev.schlaubi.lavakord.UnsafeRestApi")
         }
         commonMain {
-            kotlin.srcDir("$buildDir/generated/ksp/metadata/commonMain/kotlin")
+            kotlin.srcDir(layout.buildDirectory.dir("generated/ksp/metadata/commonMain/kotlin"))
             dependencies {
                 api(projects.core)
             }
