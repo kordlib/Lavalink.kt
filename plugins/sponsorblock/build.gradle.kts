@@ -11,7 +11,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain {
-            kotlin.srcDir("$buildDir/generated/ksp/metadata/commonMain/kotlin")
+            kotlin.srcDir(layout.buildDirectory.dir("generated/ksp/metadata/commonMain/kotlin"))
             dependencies {
                 api(projects.core)
                 implementation(libs.ktor.client.resources)

@@ -4,9 +4,7 @@ import dev.arbjerg.lavalink.protocol.v4.*
 import dev.schlaubi.lavakord.LavaKord
 import dev.schlaubi.lavakord.LavaKordOptions
 import dev.schlaubi.lavakord.RestException
-import dev.schlaubi.lavakord.audio.Link
-import dev.schlaubi.lavakord.audio.Node
-import dev.schlaubi.lavakord.audio.RestNode
+import dev.schlaubi.lavakord.audio.*
 import dev.schlaubi.lavakord.internal.HttpEngine
 import dev.schlaubi.lavakord.internal.RestNodeImpl
 import dev.schlaubi.lavakord.rest.updatePlayer
@@ -22,6 +20,10 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
@@ -55,6 +57,10 @@ public abstract class AbstractLavakord internal constructor(
     private val nodeCounter = atomic(0)
     private val nodesMap = mutableMapOf<String, Node>()
     protected val linksMap: MutableMap<ULong, Link> = mutableMapOf()
+
+    private val eventPublisher: MutableSharedFlow<Event> = MutableSharedFlow(extraBufferCapacity = Channel.UNLIMITED)
+    override val events: SharedFlow<Event>
+        get() = eventPublisher.asSharedFlow()
 
     internal val json = kotlinx.serialization.json.Json {
         ignoreUnknownKeys = true
@@ -144,6 +150,7 @@ public abstract class AbstractLavakord internal constructor(
         val finalName = name ?: "Lavalink_Node_#${nodeCounter.incrementAndGet()}"
         val node =
             NodeImpl(serverUri, finalName, password, this)
+        node.on<Event> { eventPublisher.tryEmit(this) }
         nodesMap[finalName] = node
         launch {
             node.check()
