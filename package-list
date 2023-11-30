@@ -18,6 +18,9 @@ module:jda-java
 dev.schlaubi.lavakord.interop.jda
 module:kord
 dev.schlaubi.lavakord.kord
+module:lavasearch
+dev.schlaubi.lavakord.plugins.lavasearch
+dev.schlaubi.lavakord.plugins.lavasearch.rest
 module:lavasrc
 dev.schlaubi.lavakord.plugins.lavasrc
 module:sponsorblock
