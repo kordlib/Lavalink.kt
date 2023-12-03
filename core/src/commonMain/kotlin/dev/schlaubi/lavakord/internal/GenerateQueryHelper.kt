@@ -1,11 +1,14 @@
 package dev.schlaubi.lavakord.internal
 
+import dev.kord.codegen.ksp.annotations.ProcessorAnnotation
+
 /**
  * Annotation to generate utility functions for search queries.
  */
 @Target(AnnotationTarget.FILE)
 @Retention(AnnotationRetention.SOURCE)
 @Repeatable
+@ProcessorAnnotation("dev.schlaubi.lavakord.internal.processing")
 internal annotation class GenerateQueryHelper(
     val serviceName: String,
     val serviceWebsite: String,
@@ -19,6 +22,7 @@ internal annotation class GenerateQueryHelper(
 ) {
     @Target(AnnotationTarget.FILE)
     @Retention(AnnotationRetention.SOURCE)
+    @ProcessorAnnotation("dev.schlaubi.lavakord.internal.processing")
     annotation class Parameter(
         val name: String,
         val queryName: String = "",
@@ -26,6 +30,8 @@ internal annotation class GenerateQueryHelper(
         val type: Type = Type.STRING,
         val enumTypes: Array<EnumType> = []
     ) {
+
+        @ProcessorAnnotation("dev.schlaubi.lavakord.internal.processing")
         annotation class EnumType(
             val name: String,
             val value: String,

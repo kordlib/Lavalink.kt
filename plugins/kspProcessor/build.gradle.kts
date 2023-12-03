@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     implementation(projects.core)
+    implementation(libs.codegen)
     implementation(libs.kotlinpoet)
     implementation(libs.ksp.api)
     implementation(kotlin("reflect"))

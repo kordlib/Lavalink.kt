@@ -4,13 +4,14 @@
 package dev.schlaubi.lavakord.ksp.generator
 
 import com.squareup.kotlinpoet.*
+import dev.kord.codegen.kotlinpoet.*
 import dev.schlaubi.lavakord.internal.GenerateQueryHelper
 import dev.schlaubi.lavakord.ksp.*
 
-
+@OptIn(DelicateKotlinPoetApi::class)
 @Suppress("EQUALS_MISSING")
-internal fun GenerateQueryHelper.generateBuilder(name: ClassName) = TypeSpec.classBuilder(name).apply {
-    addAnnotation(AnnotationSpec.get(Suppress("MemberVisibilityCanBePrivate")))
+internal fun GenerateQueryHelper.generateBuilder(name: ClassName) = TypeSpec.`class`(name) {
+    addAnnotation(Suppress("MemberVisibilityCanBePrivate"))
     addSuperinterface(QUERY_BUILDER)
     builderOptions.forEach {
         val type = if (it.type == GenerateQueryHelper.Parameter.Type.ENUM) {
@@ -22,21 +23,20 @@ internal fun GenerateQueryHelper.generateBuilder(name: ClassName) = TypeSpec.cla
         } else {
             it.type.toType()
         }
-        val spec = PropertySpec.builder(it.name, type.asNullable()).apply {
-            mutable(true)
+        addProperty(it.name, type.asNullable()) {
             addKdoc(it.kDoc)
+            mutable(true)
             initializer("null")
-        }.build()
-
-        addProperty(spec)
+        }
     }
-    val buildFunction = FunSpec.builder("toQuery").apply {
+
+    addFunction("toQuery") {
         this@generateBuilder.parameters.forEach { parameter ->
             addParameter(parameter.name, parameter.type.toType())
         }
         addModifiers(KModifier.INTERNAL)
-        addAnnotation(AnnotationSpec.get(PublishedApi()))
-        returns(STRING)
+        addAnnotation(PublishedApi())
+        returns<String>()
 
         val allParameters = this@generateBuilder.parameters + this@generateBuilder.builderOptions
         val parameters = allParameters
@@ -46,22 +46,17 @@ internal fun GenerateQueryHelper.generateBuilder(name: ClassName) = TypeSpec.cla
         val packageName = builderFunction.substringBeforeLast('.')
         val functionName = builderFunction.substringAfterLast('.')
         val function = MemberName(packageName, functionName)
-        addAnnotation(AnnotationSpec.get(Suppress("INVISIBLE_MEMBER")))
+        addAnnotation(Suppress("INVISIBLE_MEMBER"))
         addStatement("return·%M(%L)", function, parameters)
-    }.build()
-    addFunction(buildFunction)
+    }
     addKdoc("Builder for $serviceName $operationName queries.")
-    val companion = TypeSpec.companionObjectBuilder()
-        .apply {
-            val property = PropertySpec.builder("Default", name)
-                .initializer("%T()", name)
-                .addKdoc("An instance of the builder with default values")
-                .build()
-            addProperty(property)
+    addCompanionObject {
+        addProperty("Default", name) {
+            initializer("%T()", name)
+            addKdoc("An instance of the builder with default values")
         }
-        .build()
-    addType(companion)
-}.build()
+    }
+}
 
 /**
  * Generated an enum like this:
@@ -86,35 +81,28 @@ internal fun GenerateQueryHelper.generateBuilder(name: ClassName) = TypeSpec.cla
  *  }
  *```
  */
-private fun generateEnum(className: ClassName, parameter: GenerateQueryHelper.Parameter): TypeSpec {
-    val enumSpec = TypeSpec.enumBuilder(className).apply {
+private fun generateEnum(className: ClassName, parameter: GenerateQueryHelper.Parameter): TypeSpec =
+    TypeSpec.enum(className) {
         val constructor = FunSpec.constructorBuilder().addParameter("value", STRING).build()
         primaryConstructor(constructor)
-        addProperty(
-            PropertySpec.builder("value", STRING)
-                .addKdoc("The value used in queries")
-                .initializer("value")
-                .build()
-        )
+        addProperty<String>("value") {
+            addKdoc("The value used in queries")
+            initializer("value")
+        }
         parameter.enumTypes.forEach { constant ->
-            val constructorCall =
-                TypeSpec.anonymousClassBuilder()
-                    .addSuperclassConstructorParameter("%S", constant.value)
-                    .addKdoc(constant.kDoc)
-                    .build()
-            addEnumConstant(constant.name, constructorCall)
+            addEnumConstant(constant.name) {
+                addSuperclassConstructorParameter("%S", constant.value)
+                addKdoc(constant.kDoc)
+            }
         }
 
-        val toString = FunSpec.builder("toString")
-            .returns(STRING)
-            .addModifiers(KModifier.OVERRIDE)
-            .addCode("""return·value""")
-            .build()
-        addFunction(toString)
+        addFunction("toString") {
+            returns<String>()
+            addModifiers(KModifier.OVERRIDE)
+            addCode("""return·value""")
+        }
         addKdoc("Type of [%T].", className)
-    }.build()
-    return enumSpec
-}
+    }
 
 /**
  * Generates a function like this.
@@ -133,13 +121,14 @@ internal fun generateBuilderFunction(builderName: ClassName): FunSpec {
     val functionName = builderName.simpleName.replaceFirstChar { it.lowercase() }.substringBefore("Builder")
     val applyFunction = LambdaTypeName.get(receiver = builderName, returnType = UNIT)
 
-    val parameter = ParameterSpec.builder("builder", applyFunction).build()
+    val parameter = ParameterSpec("builder", applyFunction)
 
-    return FunSpec.builder(functionName)
-        .addModifiers(KModifier.INLINE)
-        .addParameter(parameter).returns(builderName)
-        .addBuilderContract(parameter)
-        .addStatement("""return %T().apply(%N)""", builderName, parameter)
-        .addKdoc("Creates a new [%T] and applies [%N] to it", builderName, parameter)
-        .build()
+    return FunSpec(functionName) {
+        addModifiers(KModifier.INLINE)
+        addParameter(parameter)
+        returns(builderName)
+        addBuilderContract(parameter)
+        addStatement("""return %T().apply(%N)""", builderName, parameter)
+        addKdoc("Creates a new [%T] and applies [%N] to it", builderName, parameter)
+    }
 }

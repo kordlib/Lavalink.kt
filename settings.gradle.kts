@@ -34,6 +34,7 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
+            val codegen = version("codegen", "main-SNAPSHOT")
             kotlinx()
             ktor()
             ksp()
@@ -66,8 +67,12 @@ dependencyResolutionManagement {
                 "protocol"
             ).version("4.0.0")
 
-            library("kotlinpoet", "com.squareup", "kotlinpoet-ksp")
-                .version("1.14.2")
+            library("kotlinpoet", "com.squareup", "kotlinpoet-ksp").version("1.15.2")
+
+            library("codegen", "dev.kord.codegen", "kotlinpoet").versionRef(codegen)
+            library("codegen-ksp", "dev.kord.codegen", "ksp").versionRef(codegen)
+            library("codegen-ksp-annotations", "dev.kord.codegen", "ksp-annotations").versionRef(codegen)
+            library("codegen-ksp-processor", "dev.kord.codegen", "ksp-processor").versionRef(codegen)
 
             plugin("kotlinx-atomicfu", "kotlinx-atomicfu").version("0.23.1")
             plugin("git-publish", "org.ajoberstar.git-publish").version("4.2.1")

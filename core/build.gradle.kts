@@ -6,6 +6,7 @@ plugins {
     `lavalink-publishing`
     kotlin("plugin.serialization")
     id("kotlinx-atomicfu")
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -14,6 +15,7 @@ kotlin {
             languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
         }
         commonMain {
+            kotlin.srcDir(layout.buildDirectory.dir("generated/ksp/metadata/commonMain/kotlin"))
             dependencies {
                 api(libs.kotlinx.coroutines.core)
                 api(libs.kotlinx.serialization.json)
@@ -30,6 +32,8 @@ kotlin {
                 implementation(libs.ktor.client.logging)
 
                 implementation(libs.kotlinlogging)
+
+                compileOnly(libs.codegen.ksp.annotations)
             }
         }
 
@@ -68,6 +72,10 @@ kotlin {
             }
         }
     }
+}
+
+dependencies {
+    //kspJvm(libs.codegen.ksp.processor)
 }
 
 mavenPublishing {

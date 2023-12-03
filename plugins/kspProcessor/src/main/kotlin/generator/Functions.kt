@@ -4,6 +4,8 @@ package dev.schlaubi.lavakord.ksp.generator
 
 import com.squareup.kotlinpoet.*
 import dev.arbjerg.lavalink.protocol.v4.LoadResult
+import dev.kord.codegen.kotlinpoet.ParameterSpec
+import dev.kord.codegen.kotlinpoet.addParameter
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.player.Player
 import dev.schlaubi.lavakord.internal.GenerateQueryHelper
@@ -31,10 +33,9 @@ import dev.schlaubi.lavakord.ksp.*
  * ```
  */
 internal fun GenerateQueryHelper.searchAndPlay(builderName: ClassName): FunSpec {
-    val playOptionsBuilder = ParameterSpec
-        .builder("playOptionsBuilder", PLAY_OPTIONS_BUILDER)
-        .defaultValue("""{}""")
-        .build()
+    val playOptionsBuilder = ParameterSpec("playOptionsBuilder", PLAY_OPTIONS_BUILDER) {
+        defaultValue("""{}""")
+    }
     val builderParameterName = "options"
 
     return generateFunction("${operationName}AndPlayUsing${functionName}", builderParameterName) { context ->
@@ -43,10 +44,9 @@ internal fun GenerateQueryHelper.searchAndPlay(builderName: ClassName): FunSpec 
         addKdoc("""Performs a track search and plays the result using [$serviceName]($serviceWebsite).""".trim())
         addBuilderContract(playOptionsBuilder)
         if (builderOptions.isNotEmpty()) {
-            val parameter = ParameterSpec.builder("options", builderName)
-                .defaultValue("%T.Default", builderName)
-                .build()
-            addParameter(parameter)
+            addParameter("options", builderName) {
+                defaultValue("%T.Default", builderName)
+            }
         }
         addParameter(playOptionsBuilder)
         addStatement("""searchAndPlayTrack(${context.queryString}, %N)""", playOptionsBuilder)
