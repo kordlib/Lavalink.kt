@@ -31,6 +31,14 @@ kotlin {
         // Apart from that why would you need Lavalink in your browser?
     }
 
+    targets.all {
+        compilations.all {
+            compilerOptions.configure {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
+        }
+    }
+
     sourceSets {
         all {
             languageSettings {

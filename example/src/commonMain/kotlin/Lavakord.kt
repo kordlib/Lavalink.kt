@@ -60,9 +60,9 @@ suspend fun main() {
             val followUpCreator = FollowupPermittingInteractionResponseBehavior(
                 interaction.applicationId, interaction.token, interaction.kord, interaction.supplier
             )
-            player.on<Event> {
+            player.on<Event> event@{
                 try {
-                    followUpCreator.createEphemeralFollowup { content = "Event: ${this@on}" }
+                    followUpCreator.createEphemeralFollowup { content = "Event: ${this@event}" }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

@@ -2,6 +2,7 @@ package dev.schlaubi.lavakord.kord
 
 import dev.arbjerg.lavalink.protocol.v4.Player
 import dev.arbjerg.lavalink.protocol.v4.PlayerUpdate
+import dev.kord.common.DiscordBitSet
 import dev.kord.common.entity.Permissions
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.GuildBehavior
@@ -43,7 +44,7 @@ public suspend fun Link.connectAudio(snowflake: Snowflake): Unit = connectAudio(
  * The [Permissions] that were missing.
  */
 public val InsufficientPermissionException.kordPermission: Permissions
-    get() = Permissions(permission)
+    get() = Permissions.Builder(DiscordBitSet(permission)).build()
 
 
 /**

@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     `lavalink-module`
@@ -9,6 +10,13 @@ plugins {
 }
 
 kotlin {
+    jvm {
+        compilations.all {
+            compilerOptions.configure {
+                jvmTarget = JvmTarget.JVM_11
+            }
+        }
+    }
     sourceSets {
         all {
             languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
@@ -19,13 +27,17 @@ kotlin {
             kotlin.srcDir(layout.buildDirectory.dir("generated/ksp/metadata/commonMain/kotlin"))
             dependencies {
                 api(projects.core)
+                api(libs.lavasearch.protocol)
+
+                implementation(libs.ktor.client.resources)
+                implementation(libs.kord.ksp.annotations)
             }
         }
     }
 }
 
 dependencies {
-    kspCommonMainMetadata(projects.plugins.kspProcessor)
+    kspCommonMainMetadata(libs.kord.ksp.processors)
 }
 
 tasks {

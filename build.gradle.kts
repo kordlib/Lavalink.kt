@@ -18,6 +18,7 @@ allprojects {
         maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
         maven("https://oss.sonatype.org/content/repositories/snapshots")
         maven("https://maven.topi.wtf/snapshots")
+        maven("https://maven.topi.wtf/releases")
     }
 }
 
