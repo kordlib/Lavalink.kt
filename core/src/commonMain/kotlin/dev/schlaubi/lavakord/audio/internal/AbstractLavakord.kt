@@ -22,11 +22,13 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.newCoroutineContext
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.modules.plus
@@ -140,7 +142,7 @@ public abstract class AbstractLavakord internal constructor(
 
     override fun getLink(guildId: ULong): Link {
         return linksMap.getOrPut(guildId) {
-            val node = loadBalancer.determineBestNode(guildId) as NodeImpl
+            val node = loadBalancer.determineBestNode(guildId) ?: error("No nodes are available")
             buildNewLink(guildId, node)
         }
     }
@@ -169,7 +171,7 @@ public abstract class AbstractLavakord internal constructor(
 
     override fun removeNode(name: String) {
         val node = nodesMap.remove(name)
-        requireNotNull(node) { "There is no node with that name" }
+        requireNotNull(node) { "There is no node with name $name" }
         node.close()
     }
 
@@ -188,6 +190,15 @@ public abstract class AbstractLavakord internal constructor(
      * Abstract function to create a new [Link] for this [guild][guildId] using this [node].
      */
     protected abstract fun buildNewLink(guildId: ULong, node: Node): Link
+
+    internal suspend fun migrateFromDisconnectedNode(disconnectedNode: NodeImpl) {
+        linksMap.filterValues { it.node == disconnectedNode }.mapNotNull { (guild, link) ->
+            val newNode = loadBalancer.determineBestNode(guild) ?: return@mapNotNull null
+            launch {
+                link.onNewSession(newNode)
+            }
+        }.joinAll()
+    }
 
     /** Called on websocket connect without resuming */
     internal suspend fun onNewSession(node: Node) {

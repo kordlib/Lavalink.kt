@@ -48,7 +48,7 @@ public interface Link {
 
     /**
      * Called internally when this link is connected or reconnected to a new node without resuming, thereby creating a
-     * new session.
+     * new session. This function may also be used if the link is moved to a new session.
      * @param node The node that was connected to, which may be potentially different from the previously connected node
      */
     public suspend fun onNewSession(node: Node)

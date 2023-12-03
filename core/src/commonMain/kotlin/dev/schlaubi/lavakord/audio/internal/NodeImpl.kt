@@ -6,6 +6,7 @@ import dev.arbjerg.lavalink.protocol.v4.Stats
 import dev.arbjerg.lavalink.protocol.v4.toOmissible
 import dev.schlaubi.lavakord.Plugin
 import dev.schlaubi.lavakord.audio.Event
+import dev.schlaubi.lavakord.audio.Link
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.rest.getInfo
 import dev.schlaubi.lavakord.rest.getVersion
@@ -33,6 +34,7 @@ import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import mu.KotlinLogging
+import kotlin.concurrent.Volatile
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -58,7 +60,9 @@ internal class NodeImpl(
     private val retry = lavakord.options.link.retry
 
     override var sessionId: String by SessionIdContainer()
-    override var available: Boolean = true
+
+    @Volatile
+    override var available: Boolean = false
     override var lastStatsEvent: Stats? = null
     private var eventPublisher: MutableSharedFlow<Event> =
         MutableSharedFlow(extraBufferCapacity = Channel.UNLIMITED)
@@ -135,9 +139,12 @@ internal class NodeImpl(
         val reason = session.closeReason.await()
         val resumeAgain = resume && reason?.knownReason != CloseReason.Codes.NORMAL
         if (resumeAgain) {
-            LOG.warn { "Disconnected from websocket for: $reason. Music will continue playing if we can reconnect within the next $resumeTimeout seconds" }
+            LOG.warn { "$name disconnected from websocket for: $reason. Music will continue playing if we can reconnect within the next $resumeTimeout seconds" }
         } else {
-            LOG.warn { "Disconnected from websocket for: $reason. Not resuming." }
+            LOG.warn { "$name disconnected from websocket for: $reason. Not resuming." }
+            if (lavakord.options.link.autoReconnect && lavakord.options.link.autoMigrateOnDisconnect) {
+                lavakord.migrateFromDisconnectedNode(this)
+            }
         }
         reconnect(resume = resumeAgain)
     }
@@ -178,14 +185,29 @@ internal class NodeImpl(
             LOG.warn(e) {"Could not parse event"}
         }
         when (event) {
-            is Message.PlayerUpdateEvent -> (lavakord.getLink(event.guildId).player as WebsocketPlayer)
-                .provideState(event.state)
+            is Message.PlayerUpdateEvent -> {
+                val link = lavakord.getLink(event.guildId) as AbstractLink
+
+                if (event.state.connected && link.state == Link.State.CONNECTING) {
+                    link.state = Link.State.CONNECTING
+                } else if (!event.state.connected && link.state == Link.State.DISCONNECTING) {
+                    link.state = Link.State.NOT_CONNECTED
+                }
+
+                (link.player as WebsocketPlayer).provideState(event.state)
+            }
 
             is Message.EmittedEvent.WebSocketClosedEvent -> {
                 // These codes represent an invalid session
                 // See https://discord.com/developers/docs/topics/opcodes-and-status-codes#voice-voice-close-event-codes
-                if (event.code == 4004 || event.code == 4006 || event.code == 4009 || event.code == 4014) {
-                    lavakord.getLink(event.guildId).onDisconnected()
+                try {
+                    if (event.code == 4004 || event.code == 4006 || event.code == 4009 || event.code == 4014) {
+                        LOG.debug { "Node $name received close code ${event.code} for guild ${event.guildId}" }
+                        lavakord.getLink(event.guildId).onDisconnected()
+                    }
+                } finally {
+                    // Must still be emitted
+                    eventPublisher.tryEmit(event.toEvent())
                 }
             }
 
@@ -214,8 +236,12 @@ internal class NodeImpl(
     }
 
     override fun close() {
+        available = false
         lavakord.launch {
             session.close(CloseReason(CloseReason.Codes.NORMAL, "Close requested by client"))
+            if (lavakord.options.link.autoReconnect && lavakord.options.link.autoMigrateOnDisconnect) {
+                lavakord.migrateFromDisconnectedNode(this@NodeImpl)
+            }
         }
     }
 
@@ -226,4 +252,6 @@ internal class NodeImpl(
             href(resources.resourcesFormat, V4Api.WebSocket(), this)
         }
     }
+
+    override fun toString() = "Node($name)"
 }
