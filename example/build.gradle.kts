@@ -14,7 +14,7 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(20)
+    jvmToolchain(21)
     jvm {
         withJava()
     }
@@ -58,5 +58,9 @@ kotlin {
 tasks {
     withType<JavaCompile> {
         options.compilerArgs.add("--enable-preview")
+    }
+
+    withType<JavaExec> {
+        args!!.add("--enable-preview")
     }
 }
