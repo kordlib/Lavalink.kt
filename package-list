@@ -23,6 +23,9 @@ dev.schlaubi.lavakord.plugins.lavasearch
 dev.schlaubi.lavakord.plugins.lavasearch.rest
 module:lavasrc
 dev.schlaubi.lavakord.plugins.lavasrc
+module:lyrics
+dev.schlaubi.lavakord.plugins.lyrics
+dev.schlaubi.lavakord.plugins.lyrics.rest
 module:sponsorblock
 dev.schlaubi.lavakord.plugins.sponsorblock
 dev.schlaubi.lavakord.plugins.sponsorblock.model
