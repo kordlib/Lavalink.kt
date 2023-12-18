@@ -132,8 +132,11 @@ public abstract class AbstractLavakord internal constructor(
     }
 
 
-    @Suppress("LeakingThis")
-    private val loadBalancer: LoadBalancer = LoadBalancer(options.loadBalancer.penaltyProviders, this)
+    /**
+     * The load balancer used to select nodes
+     */
+    @Suppress("LeakingThis", "MemberVisibilityCanBePrivate")
+    public val loadBalancer: LoadBalancer = LoadBalancer(options.loadBalancer.penaltyProviders, this)
 
     override val nodes: List<Node>
         get() = nodesMap.values.toList()
