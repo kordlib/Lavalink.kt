@@ -4,22 +4,24 @@ import dev.schlaubi.lavakord.LavaKord
 import dev.schlaubi.lavakord.audio.Node
 import kotlin.math.pow
 
-internal class LoadBalancer(
+public class LoadBalancer(
     private val penaltyProviders: List<PenaltyProvider>,
     private val lavakord: LavaKord
 ) {
 
-    fun determineBestNode(guildId: ULong): Node? = lavakord.nodes
+    internal fun determineBestNode(guildId: ULong): Node? = lavakord.nodes
         .asSequence()
         .filter(Node::available)
-        .minByOrNull { calculatePenalties(it, penaltyProviders, guildId) }
+        .minByOrNull { calculatePenalties(it, guildId).sum }
 
-    // Inspired by: https://github.com/freyacodes/Lavalink-Client/blob/master/src/main/java/lavalink/client/io/LavalinkLoadBalancer.java#L111
-    private fun calculatePenalties(
+    /**
+     * Calculate the penalties for a given guild
+     * Adapted from https://github.com/freyacodes/Lavalink-Client/blob/master/src/main/java/lavalink/client/io/LavalinkLoadBalancer.java#L111
+     */
+    public fun calculatePenalties(
         node: Node,
-        penaltyProviders: List<PenaltyProvider>,
         guildId: ULong
-    ): Int {
+    ): Penalties {
         val playerPenalty: Int
         val cpuPenalty: Int
         val deficitFramePenalty: Int
@@ -36,18 +38,43 @@ internal class LoadBalancer(
             playerPenalty = stats.playingPlayers
 
             cpuPenalty = 1.05.pow(100 * stats.cpu.systemLoad).toInt() * 10 - 10
-            if ((stats.frameStats != null) && stats.frameStats?.deficit != 1) {
+            val frameStats = stats.frameStats
+            if (frameStats != null) {
+                val frameDeficit = frameStats.deficit.coerceAtLeast(0).toFloat()
+                val frameNulls = frameStats.nulled.coerceAtLeast(0).toFloat()
+
                 deficitFramePenalty =
-                    (1.03.pow(((500f * (stats.frameStats?.deficit?.toFloat() ?: (0 / 3000f)))).toDouble()) * 600 - 600).toInt()
+                    (1.03.pow(
+                        ((500f * frameDeficit / 3000f)).toDouble()
+                    ) * 600 - 600).toInt()
                 nullFramePenalty =
-                    (1.03.pow(((500f * (stats.frameStats?.nulled?.toFloat() ?: (0 / 3000f)))).toDouble()) * 300 - 300).toInt() * 2
+                    (1.03.pow(
+                        ((500f * frameNulls / 3000f)).toDouble()
+                    ) * 300 - 300).toInt() * 2
             } else {
                 deficitFramePenalty = 0
                 nullFramePenalty = 0
             }
         }
-        return playerPenalty + cpuPenalty + deficitFramePenalty + nullFramePenalty + customPenalties
+        return Penalties(playerPenalty, cpuPenalty, deficitFramePenalty, nullFramePenalty, customPenalties)
     }
+}
+
+/** Result of penalties used for load balancing */
+public data class Penalties(
+    /** Penalty due to number of players */
+    val playerPenalty: Int,
+    /** Penalty due to high CPU */
+    val cpuPenalty: Int,
+    /** Penalty due to Lavalink struggling to send frames */
+    val deficitFramePenalty: Int,
+    /** Penalty due to Lavaplayer struggling to provide frames */
+    val nullFramePenalty: Int,
+    /** Penalties from [PenaltyProvider]*/
+    val customPenalties: Int
+) {
+    /** The sum of all penalties */
+    val sum: Int = playerPenalty + cpuPenalty + deficitFramePenalty + nullFramePenalty + customPenalties
 }
 
 /**
