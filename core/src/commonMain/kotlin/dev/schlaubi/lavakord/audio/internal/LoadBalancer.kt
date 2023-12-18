@@ -38,11 +38,19 @@ public class LoadBalancer(
             playerPenalty = stats.playingPlayers
 
             cpuPenalty = 1.05.pow(100 * stats.cpu.systemLoad).toInt() * 10 - 10
-            if ((stats.frameStats != null) && stats.frameStats?.deficit != 1) {
+            val frameStats = stats.frameStats
+            if (frameStats != null) {
+                val frameDeficit = frameStats.deficit.coerceAtLeast(0).toFloat()
+                val frameNulls = frameStats.nulled.coerceAtLeast(0).toFloat()
+
                 deficitFramePenalty =
-                    (1.03.pow(((500f * (stats.frameStats?.deficit?.toFloat() ?: (0 / 3000f)))).toDouble()) * 600 - 600).toInt()
+                    (1.03.pow(
+                        ((500f * frameDeficit / 3000f)).toDouble()
+                    ) * 600 - 600).toInt()
                 nullFramePenalty =
-                    (1.03.pow(((500f * (stats.frameStats?.nulled?.toFloat() ?: (0 / 3000f)))).toDouble()) * 300 - 300).toInt() * 2
+                    (1.03.pow(
+                        ((500f * frameNulls / 3000f)).toDouble()
+                    ) * 300 - 300).toInt() * 2
             } else {
                 deficitFramePenalty = 0
                 nullFramePenalty = 0
