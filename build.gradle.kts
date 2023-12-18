@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "dev.schlaubi.lavakord"
-version = "6.1.0"
+version = "6.1.1"
 
 allprojects {
     repositories {
