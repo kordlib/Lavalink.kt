@@ -8,7 +8,7 @@ import io.ktor.resources.*
 @Resource("lyrics")
 internal data class LyricsRoute(val parent: V4Api = V4Api()) {
 
-    @Resource("lyrics/search/{query}")
+    @Resource("search/{query}")
     data class Search(val query: String, val parent: LyricsRoute = LyricsRoute())
 
     @Resource("{videoId}")
