@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     kotlin("jvm")
 }
@@ -14,4 +16,12 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xcontext-receivers")
     }
+
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_21
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
 }
