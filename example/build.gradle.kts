@@ -20,6 +20,7 @@ kotlin {
     }
     js(IR) {
         nodejs()
+        useCommonJs()
     }
 
     sourceSets {

@@ -3,7 +3,7 @@ package dev.schlaubi.lavakord.audio.retry
 import kotlinx.atomicfu.atomic
 import kotlinx.atomicfu.update
 import kotlinx.coroutines.delay
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.time.Duration
 
 private val LOG = KotlinLogging.logger { }

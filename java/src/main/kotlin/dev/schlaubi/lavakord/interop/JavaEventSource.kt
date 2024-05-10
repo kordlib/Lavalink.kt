@@ -2,7 +2,7 @@ package dev.schlaubi.lavakord.interop
 
 import dev.schlaubi.lavakord.audio.EventSource
 import kotlinx.coroutines.jdk9.asPublisher
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.concurrent.Flow
 import java.util.concurrent.Flow.Subscriber
 import java.util.function.Consumer

@@ -17,20 +17,17 @@ jobs:
     steps:
       - run: export GRADLE_USER_HOME=`pwd`/.gradle
       - run: echo "name=RELEASE_TAG::${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Java JDK 20
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 22
+      - uses: gradle/actions/setup-gradle@v3
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: assemble
+        run: ./gradlew assemble
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: jvmTest
+        run: ./gradlew jvmTest
   release:
     name: Publish artifacts
     runs-on: ubuntu-20.04
@@ -42,15 +39,14 @@ jobs:
       ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.signingKey }}
       ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.signingPassword }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Set up JDK 20
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 22
+      - uses: gradle/actions/setup-gradle@v3
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: publishAllPublicationsToMavenRepository
+        run: ./gradlew publishAllPublicationsToMavenRepository

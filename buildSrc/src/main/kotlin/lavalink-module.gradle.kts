@@ -29,6 +29,7 @@ kotlin {
         nodejs()
         // browser() doesn't work because the js websocket client does not allowed you to set headers
         // Apart from that why would you need Lavalink in your browser?
+        useCommonJs()
     }
 
     targets.all {

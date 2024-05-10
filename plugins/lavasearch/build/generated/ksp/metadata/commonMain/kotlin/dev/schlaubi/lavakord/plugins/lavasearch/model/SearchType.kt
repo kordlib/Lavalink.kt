@@ -47,16 +47,28 @@ public sealed class SearchType(
         `value`: String,
     ) : SearchType(value)
 
+    /**
+     * Tracks.
+     */
     public object Track : SearchType("track")
 
+    /**
+     * Album.
+     */
     public object Album : SearchType("album")
 
+    /**
+     * Artists.
+     */
     public object Artist : SearchType("artist")
 
+    /**
+     * Playlists.
+     */
     public object Playlist : SearchType("playlist")
 
     /**
-     * Search suggestions
+     * Search suggestions.
      */
     public object Text : SearchType("text")
 

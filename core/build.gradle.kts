@@ -48,7 +48,7 @@ kotlin {
 
         jvmMain {
             dependencies {
-                implementation(libs.ktor.client.cio)
+                implementation(libs.ktor.client.okhttp)
             }
         }
 
@@ -63,6 +63,7 @@ kotlin {
         jsMain {
             dependencies {
                 implementation(libs.ktor.client.js)
+                implementation(libs.codegen.ksp.annotations)
             }
         }
 

@@ -9,11 +9,11 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "1.9.21"
+    val kotlinVersion = "1.9.24"
     implementation(kotlin("gradle-plugin", kotlinVersion))
     implementation(kotlin("serialization", kotlinVersion))
     implementation(kotlin("gradle-plugin-api", kotlinVersion))
-    implementation("com.vanniktech:gradle-maven-publish-plugin:0.25.3")
+    implementation("com.vanniktech:gradle-maven-publish-plugin:0.28.0")
     implementation("org.jetbrains.dokka", "dokka-gradle-plugin", "1.9.10")
     implementation(gradleApi())
     implementation(localGroovy())

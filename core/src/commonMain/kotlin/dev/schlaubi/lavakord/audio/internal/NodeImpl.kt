@@ -12,13 +12,13 @@ import dev.schlaubi.lavakord.rest.getInfo
 import dev.schlaubi.lavakord.rest.getVersion
 import dev.schlaubi.lavakord.rest.routes.V4Api
 import dev.schlaubi.lavakord.rest.updateSession
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.resources.Resources
 import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.resources.*
-import io.ktor.serialization.*
 import io.ktor.websocket.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -33,7 +33,6 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import mu.KotlinLogging
 import kotlin.concurrent.Volatile
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -76,9 +75,9 @@ internal class NodeImpl(
     internal suspend fun check() {
         val version = getVersion()
         val (_, _, _, _, _, _, _, plugins) = getInfo()
-        if(!version.startsWith("4")) {
+        if (!version.startsWith("4")) {
             val message = "Unsupported Lavalink version (${version} on node $name"
-            if ("SNAPSHOT" in message){
+            if ("SNAPSHOT" in message) {
                 LOG.warn { message }
             } else {
                 error(message)
@@ -182,7 +181,7 @@ internal class NodeImpl(
         val event = try {
             lavakord.json.decodeFromJsonElement<Message>(eventRaw)
         } catch (e: SerializationException) {
-            LOG.warn(e) {"Could not parse event"}
+            LOG.warn(e) { "Could not parse event" }
         }
         when (event) {
             is Message.PlayerUpdateEvent -> {
