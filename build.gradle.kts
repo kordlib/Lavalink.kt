@@ -29,7 +29,9 @@ tasks {
 }
 
 subprojects {
-    apply<KordGradlePlugin>()
+    afterEvaluate {
+        apply<KordGradlePlugin>()
+    }
     group = rootProject.group
 
     tasks {
