@@ -134,3 +134,4 @@ docs/
 .idea/artifacts
 !**/build/generated/
 core/gradle.properties
+.kotlin

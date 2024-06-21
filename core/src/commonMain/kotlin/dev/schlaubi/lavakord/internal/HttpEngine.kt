@@ -5,4 +5,6 @@ import io.ktor.client.engine.*
 /**
  * This is the internally used Http Engine
  */
-public expect object HttpEngine : HttpClientEngineFactory<HttpClientEngineConfig>
+public expect object HttpEngine : HttpClientEngineFactory<HttpClientEngineConfig> {
+    override fun create(block: HttpClientEngineConfig.() -> Unit): HttpClientEngine
+}

@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -12,11 +13,14 @@ plugins {
 kotlin {
     jvm {
         compilations.all {
-            compilerOptions.configure {
-                jvmTarget = JvmTarget.JVM_11
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget = JvmTarget.JVM_11
+                }
             }
         }
     }
+
     sourceSets {
         all {
             languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
@@ -41,7 +45,14 @@ dependencies {
 }
 
 tasks {
-    listOf("sourcesJar", "jsSourcesJar", "jvmSourcesJar", "compileKotlinJs", "compileKotlinJvm", "dokkaHtml").forEach {
+    listOf(
+        "sourcesJar",
+        "jsSourcesJar",
+        "jvmSourcesJar",
+        "compileKotlinJs",
+        "compileKotlinJvm",
+        "dokkaHtml"
+    ).forEach {
         named(it) {
             dependsOn("kspCommonMainKotlinMetadata")
         }

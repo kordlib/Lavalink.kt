@@ -14,5 +14,5 @@ import kotlinx.serialization.json.Json
  */
 public object Lyrics : Plugin {
     override val name: String = "lyrics"
-    override val version: String = "2.0.0"
+    override val version: String = "2.4.8"
 }

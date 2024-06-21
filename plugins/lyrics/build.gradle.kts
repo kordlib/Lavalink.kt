@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -11,8 +12,10 @@ plugins {
 kotlin {
     jvm {
         compilations.all {
-            compilerOptions.configure {
-                jvmTarget = JvmTarget.JVM_17
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget = JvmTarget.JVM_11
+                }
             }
         }
     }

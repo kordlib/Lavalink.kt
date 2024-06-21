@@ -32,7 +32,7 @@ import dev.schlaubi.lavakord.ksp.*
  * }
  * ```
  */
-internal fun GenerateQueryHelper.searchAndPlay(builderName: ClassName): FunSpec {
+internal fun dev.schlaubi.lavakord.internal.processing.GenerateQueryHelper.searchAndPlay(builderName: ClassName): FunSpec {
     val playOptionsBuilder = ParameterSpec("playOptionsBuilder", PLAY_OPTIONS_BUILDER) {
         defaultValue("""{}""")
     }
@@ -64,7 +64,7 @@ internal fun GenerateQueryHelper.searchAndPlay(builderName: ClassName): FunSpec 
  *     loadItem("{prefix}:$query")
  *```
  */
-internal fun GenerateQueryHelper.search(builderName: ClassName): FunSpec {
+internal fun dev.schlaubi.lavakord.internal.processing.GenerateQueryHelper.search(builderName: ClassName): FunSpec {
     val optionsParameterName = "options"
     val builderLambda = LambdaTypeName.get(builderName, returnType = UNIT)
     val builderParameter = ParameterSpec.builder("builder", builderLambda)

@@ -8,10 +8,11 @@ import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ksp.writeTo
 import dev.kord.codegen.kotlinpoet.FileSpec
 import dev.kord.codegen.kotlinpoet.ParameterSpec
+import dev.schlaubi.lavakord.PluginApi
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.player.PlayOptions
-import dev.schlaubi.lavakord.internal.GenerateQueryHelper
 import dev.schlaubi.lavakord.internal.QueryBuilder
+import dev.schlaubi.lavakord.internal.processing.GenerateQueryHelper
 import dev.schlaubi.lavakord.ksp.generator.generateBuilder
 import dev.schlaubi.lavakord.ksp.generator.generateBuilderFunction
 import dev.schlaubi.lavakord.ksp.generator.search
@@ -70,6 +71,7 @@ private fun GenerateQueryHelper.generateHelpers(addTo: FileSpec.Builder) {
     }
 }
 
+@OptIn(PluginApi::class)
 internal fun GenerateQueryHelper.generateFunction(
     name: String, builderParameterName: String, builder: FunSpec.Builder.(QueryFunctionContext) -> Unit
 ): FunSpec = FunSpec.builder(name).apply {

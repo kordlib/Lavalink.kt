@@ -47,8 +47,11 @@ kotlin {
         }
 
         jvmMain {
+            kotlin.srcDir("build/generated/ksp/jvm/jvmMain")
             dependencies {
                 implementation(libs.ktor.client.okhttp)
+                compileOnly(libs.ksp.api)
+                compileOnly(libs.codegen.ksp)
             }
         }
 
@@ -76,7 +79,7 @@ kotlin {
 }
 
 dependencies {
-    //kspJvm(libs.codegen.ksp.processor)
+//    kspJvm(libs.codegen.ksp.processor)
 }
 
 mavenPublishing {

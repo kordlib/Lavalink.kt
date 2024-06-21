@@ -3,6 +3,7 @@
 package dev.schlaubi.lavakord.ksp
 
 import com.squareup.kotlinpoet.*
+import dev.schlaubi.lavakord.PluginApi
 import dev.schlaubi.lavakord.internal.GenerateQueryHelper
 import java.util.*
 import kotlin.reflect.KFunction
@@ -13,6 +14,7 @@ internal fun String.capitalize() = replaceFirstChar {
     if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
 }
 
+@PluginApi
 internal fun GenerateQueryHelper.Parameter.Type.toType() = when (this) {
     GenerateQueryHelper.Parameter.Type.STRING -> STRING
     GenerateQueryHelper.Parameter.Type.INT -> INT
