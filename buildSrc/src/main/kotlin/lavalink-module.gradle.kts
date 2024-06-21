@@ -17,12 +17,7 @@ repositories {
 kotlin {
     explicitApi()
 
-    jvm {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_1_8
-        }
-    }
+    jvm()
 
     // See https://github.com/DRSchlaubi/Lavakord/issues/2
     js(IR) {

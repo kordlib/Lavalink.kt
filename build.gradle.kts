@@ -1,7 +1,9 @@
+import dev.kord.gradle.tools.KordExtension
 import dev.kord.gradle.tools.KordGradlePlugin
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("org.jetbrains.dokka")
@@ -31,6 +33,10 @@ tasks {
 subprojects {
     afterEvaluate {
         apply<KordGradlePlugin>()
+        configure<KordExtension> {
+            publicationName = "mavenCentral"
+            jvmTarget = JvmTarget.JVM_17
+        }
     }
     group = rootProject.group
 

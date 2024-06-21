@@ -11,16 +11,6 @@ plugins {
 }
 
 kotlin {
-    jvm {
-        compilations.all {
-            compileTaskProvider.configure {
-                compilerOptions {
-                    jvmTarget = JvmTarget.JVM_11
-                }
-            }
-        }
-    }
-
     sourceSets {
         all {
             languageSettings.optIn("kotlin.contracts.ExperimentalContracts")
