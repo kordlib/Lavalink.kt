@@ -1,26 +1,12 @@
-# This workflow will upload docs to the gh-pages branch whenever something is pushed to main.
-
-name: Docs
+name: Documentation CI
 on:
   push:
-    branches:
-      - main
+  pull_request:
+
+permissions:
+  id-token: write
+  pages: write
 
 jobs:
-  upload_docs:
-    name: upload docs
-    runs-on: ubuntu-20.04
-    env:
-      GRGIT_USER: ${{ secrets.GRGIT_USER }}
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 20
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 22
-      - uses: gradle/actions/setup-gradle@v3
-      - name: Publish docs with Gradle
-        run: gradle gitPublishPush
+  docs:
+    uses: kordlib/.teamcity/.github/workflows/documentation.yml@main

@@ -1,6 +1,7 @@
 package dev.schlaubi.lavakord.internal
 
 import dev.kord.codegen.ksp.annotations.ProcessorAnnotation
+import dev.schlaubi.lavakord.PluginApi
 
 /**
  * Annotation to generate utility functions for search queries.
@@ -9,7 +10,8 @@ import dev.kord.codegen.ksp.annotations.ProcessorAnnotation
 @Retention(AnnotationRetention.SOURCE)
 @Repeatable
 @ProcessorAnnotation("dev.schlaubi.lavakord.internal.processing")
-internal annotation class GenerateQueryHelper(
+@PluginApi
+public annotation class GenerateQueryHelper(
     val serviceName: String,
     val serviceWebsite: String,
     val generateSearchAndPlayFunction: Boolean,
@@ -23,7 +25,7 @@ internal annotation class GenerateQueryHelper(
     @Target(AnnotationTarget.FILE)
     @Retention(AnnotationRetention.SOURCE)
     @ProcessorAnnotation("dev.schlaubi.lavakord.internal.processing")
-    annotation class Parameter(
+    public annotation class Parameter(
         val name: String,
         val queryName: String = "",
         val kDoc: String = "",
@@ -32,13 +34,13 @@ internal annotation class GenerateQueryHelper(
     ) {
 
         @ProcessorAnnotation("dev.schlaubi.lavakord.internal.processing")
-        annotation class EnumType(
+        public annotation class EnumType(
             val name: String,
             val value: String,
             val kDoc: String
         )
 
-        enum class Type {
+        public enum class Type {
             STRING,
             INT,
             DOUBLE,

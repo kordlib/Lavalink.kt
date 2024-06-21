@@ -5,58 +5,61 @@ package dev.schlaubi.lavakord.ksp.generator
 
 import com.squareup.kotlinpoet.*
 import dev.kord.codegen.kotlinpoet.*
-import dev.schlaubi.lavakord.internal.GenerateQueryHelper
+import dev.schlaubi.lavakord.PluginApi
+import dev.schlaubi.lavakord.internal.processing.GenerateQueryHelper
+import dev.schlaubi.lavakord.internal.GenerateQueryHelper as Annotation
 import dev.schlaubi.lavakord.ksp.*
 
-@OptIn(DelicateKotlinPoetApi::class)
+@OptIn(DelicateKotlinPoetApi::class, PluginApi::class)
 @Suppress("EQUALS_MISSING")
-internal fun GenerateQueryHelper.generateBuilder(name: ClassName) = TypeSpec.`class`(name) {
-    addAnnotation(Suppress("MemberVisibilityCanBePrivate"))
-    addSuperinterface(QUERY_BUILDER)
-    builderOptions.forEach {
-        val type = if (it.type == GenerateQueryHelper.Parameter.Type.ENUM) {
-            val enumName = name.nestedClass(it.name.capitalize())
-            val enumSpec = generateEnum(enumName, it)
+internal fun GenerateQueryHelper.generateBuilder(name: ClassName) =
+    TypeSpec.`class`(name) {
+        addAnnotation(Suppress("MemberVisibilityCanBePrivate"))
+        addSuperinterface(QUERY_BUILDER)
+        builderOptions.forEach {
+            val type = if (it.type == Annotation.Parameter.Type.ENUM) {
+                val enumName = name.nestedClass(it.name.capitalize())
+                val enumSpec = generateEnum(enumName, it)
 
-            addType(enumSpec)
-            enumName
-        } else {
-            it.type.toType()
+                addType(enumSpec)
+                enumName
+            } else {
+                it.type.toType()
+            }
+            addProperty(it.name, type.asNullable()) {
+                addKdoc(it.kDoc)
+                mutable(true)
+                initializer("null")
+            }
         }
-        addProperty(it.name, type.asNullable()) {
-            addKdoc(it.kDoc)
-            mutable(true)
-            initializer("null")
+
+        addFunction("toQuery") {
+            this@generateBuilder.parameters.forEach { parameter ->
+                addParameter(parameter.name, parameter.type.toType())
+            }
+            addModifiers(KModifier.INTERNAL)
+            addAnnotation(PublishedApi())
+            returns<String>()
+
+            val allParameters = this@generateBuilder.parameters + this@generateBuilder.builderOptions
+            val parameters = allParameters
+                .map {
+                    CodeBlock.of("%S·to·%L", it.queryName, it.name)
+                }.joinToCode(", ")
+            val packageName = builderFunction.substringBeforeLast('.')
+            val functionName = builderFunction.substringAfterLast('.')
+            val function = MemberName(packageName, functionName)
+            addAnnotation(Suppress("INVISIBLE_MEMBER"))
+            addStatement("return·%M(%L)", function, parameters)
+        }
+        addKdoc("Builder for $serviceName $operationName queries.")
+        addCompanionObject {
+            addProperty("Default", name) {
+                initializer("%T()", name)
+                addKdoc("An instance of the builder with default values")
+            }
         }
     }
-
-    addFunction("toQuery") {
-        this@generateBuilder.parameters.forEach { parameter ->
-            addParameter(parameter.name, parameter.type.toType())
-        }
-        addModifiers(KModifier.INTERNAL)
-        addAnnotation(PublishedApi())
-        returns<String>()
-
-        val allParameters = this@generateBuilder.parameters + this@generateBuilder.builderOptions
-        val parameters = allParameters
-            .map {
-                CodeBlock.of("%S·to·%L", it.queryName, it.name)
-            }.joinToCode(", ")
-        val packageName = builderFunction.substringBeforeLast('.')
-        val functionName = builderFunction.substringAfterLast('.')
-        val function = MemberName(packageName, functionName)
-        addAnnotation(Suppress("INVISIBLE_MEMBER"))
-        addStatement("return·%M(%L)", function, parameters)
-    }
-    addKdoc("Builder for $serviceName $operationName queries.")
-    addCompanionObject {
-        addProperty("Default", name) {
-            initializer("%T()", name)
-            addKdoc("An instance of the builder with default values")
-        }
-    }
-}
 
 /**
  * Generated an enum like this:

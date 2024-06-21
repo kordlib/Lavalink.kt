@@ -6,6 +6,7 @@
     packageName = PACKAGE_NAME,
     prefix = "spsearch",
     builderFunction = "dev.schlaubi.lavakord.internal.taggedQuery",
+    parameters = [GenerateQueryHelper.Parameter("query", "", "", GenerateQueryHelper.Parameter.Type.STRING, [])],
     builderOptions = [
         GenerateQueryHelper.Parameter(
             "artist",
@@ -62,6 +63,7 @@
     serviceWebsite = "https://music.yandex.ru",
     generateSearchAndPlayFunction = true,
     packageName = PACKAGE_NAME,
+    parameters = [GenerateQueryHelper.Parameter("query", "", "", GenerateQueryHelper.Parameter.Type.STRING, [])],
     prefix = "ymsearch"
 )
 
@@ -70,6 +72,7 @@
     serviceWebsite = "https://music.apple.com",
     generateSearchAndPlayFunction = true,
     packageName = PACKAGE_NAME,
+    parameters = [GenerateQueryHelper.Parameter("query", "", "", GenerateQueryHelper.Parameter.Type.STRING, [])],
     prefix = "amsearch"
 )
 
@@ -78,6 +81,7 @@
     serviceWebsite = "https://deezer.com",
     generateSearchAndPlayFunction = true,
     packageName = PACKAGE_NAME,
+    parameters = [GenerateQueryHelper.Parameter("query", "", "", GenerateQueryHelper.Parameter.Type.STRING, [])],
     prefix = "dzsearch"
 )
 
@@ -99,15 +103,15 @@ private const val PACKAGE_NAME = "dev.schlaubi.lavakord.plugins.lavasrc"
 private const val isrcDoc =
     "The [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code) of the song you want to play"
 
-/**
- * Searches for items in the year range from [start] end [end].
- */
-public fun SpotifySearchQueryBuilder.fromYear(start: Int, end: Int? = null) {
-    year = buildString {
-        append(start)
-        if (end != null) {
-            append('-')
-            append(end)
-        }
-    }
-}
+///**
+// * Searches for items in the year range from [start] end [end].
+// */
+//public fun SpotifySearchQueryBuilder.fromYear(start: Int, end: Int? = null) {
+//    year = buildString {
+//        append(start)
+//        if (end != null) {
+//            append('-')
+//            append(end)
+//        }
+//    }
+//}

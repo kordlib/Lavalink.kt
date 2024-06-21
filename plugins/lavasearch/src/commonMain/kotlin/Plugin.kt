@@ -13,5 +13,5 @@ import dev.schlaubi.lavakord.Plugin
  */
 public object LavaSearch : Plugin {
     override val name: String = "lavasearch-plugin"
-    override val version: String = "4.0.0-beta.3"
+    override val version: String = "1.0.0"
 }

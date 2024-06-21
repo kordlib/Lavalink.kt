@@ -1,5 +1,6 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -11,8 +12,10 @@ plugins {
 kotlin {
     jvm {
         compilations.all {
-            compilerOptions.configure {
-                jvmTarget = JvmTarget.JVM_11
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget = JvmTarget.JVM_11
+                }
             }
         }
     }
@@ -34,16 +37,16 @@ kotlin {
 }
 
 dependencies {
-    kspCommonMainMetadata(projects.plugins.kspProcessor)
+//    kspCommonMainMetadata(projects.plugins.kspProcessor)
 }
 
-tasks {
-    listOf("sourcesJar", "jsSourcesJar", "jvmSourcesJar", "compileKotlinJs", "compileKotlinJvm", "dokkaHtml").forEach {
-        named(it) {
-            dependsOn("kspCommonMainKotlinMetadata")
-        }
-    }
-}
+//tasks {
+//    listOf("sourcesJar", "jsSourcesJar", "jvmSourcesJar", "compileKotlinJs", "compileKotlinJvm", "dokkaHtml").forEach {
+//        named(it) {
+//            dependsOn("kspCommonMainKotlinMetadata")
+//        }
+//    }
+//}
 
 mavenPublishing {
     configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaHtml")))

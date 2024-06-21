@@ -18,5 +18,5 @@ internal val json = Json {
  */
 public object LavaSrc : Plugin {
     override val name: String = "lavasrc-plugin"
-    override val version: String = "4.0.0-beta.3"
+    override val version: String = "4.1.1"
 }

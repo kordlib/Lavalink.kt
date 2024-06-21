@@ -1,4 +1,4 @@
-import org.ajoberstar.gradle.git.publish.GitPublishExtension
+import dev.kord.gradle.tools.KordGradlePlugin
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
@@ -6,11 +6,11 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 plugins {
     id("org.jetbrains.dokka")
     alias(libs.plugins.kotlinx.atomicfu) apply false
-    alias(libs.plugins.git.publish)
+    alias(libs.plugins.gradle.tools) apply false
 }
 
 group = "dev.schlaubi.lavakord"
-version = "6.2.0"
+version = "6.3.0"
 
 allprojects {
     repositories {
@@ -26,26 +26,10 @@ tasks {
     dokkaHtmlMultiModule {
         outputDirectory = rootProject.file("docs")
     }
-
-    gitPublishCopy {
-        dependsOn(dokkaHtmlMultiModule)
-    }
-}
-
-configure<GitPublishExtension> {
-    repoUri = "https://github.com/DRSchlaubi/lavakord.git"
-    branch = "gh-pages"
-
-    contents {
-        from(file("docs"))
-        from(file("CNAME"))
-    }
-
-    commitMessage = "Update Docs"
 }
 
 subprojects {
-    version = libraryVersion
+    apply<KordGradlePlugin>()
     group = rootProject.group
 
     tasks {
