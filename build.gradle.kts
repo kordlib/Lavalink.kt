@@ -24,12 +24,6 @@ allprojects {
     }
 }
 
-tasks {
-    dokkaHtmlMultiModule {
-        outputDirectory = rootProject.file("docs")
-    }
-}
-
 subprojects {
     afterEvaluate {
         apply<KordGradlePlugin>()
