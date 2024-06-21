@@ -10,3 +10,5 @@ permissions:
 jobs:
   docs:
     uses: kordlib/.teamcity/.github/workflows/documentation.yml@main
+    with:
+      java-version: 17
