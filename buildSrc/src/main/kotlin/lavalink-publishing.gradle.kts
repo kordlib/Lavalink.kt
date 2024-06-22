@@ -7,7 +7,7 @@ plugins {
 
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.S01, true)
-//    signAllPublications()
+    signAllPublications()
 
     pom {
         name = project.name
