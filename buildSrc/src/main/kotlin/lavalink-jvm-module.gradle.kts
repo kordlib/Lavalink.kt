@@ -43,4 +43,8 @@ tasks {
     withType<Test> {
         useJUnitPlatform()
     }
+
+    task("publishForCurrentOs") {
+        dependsOn("publishAllPublicationsToMavenCentralRepository")
+    }
 }
