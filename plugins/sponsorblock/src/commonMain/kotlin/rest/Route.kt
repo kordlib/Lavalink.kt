@@ -7,20 +7,20 @@ import io.ktor.resources.*
 
 @Resource("sponsorblock")
 public data class SponsorblockRoute(val player: V4Api.Sessions.Specific.Players.Specific) {
-    public constructor(guildId: ULong, sessionId: String, noReplace: Boolean? = false) : this(
+    public constructor(guildId: ULong, sessionId: String) : this(
         V4Api.Sessions.Specific.Players.Specific(
             guildId,
-            noReplace,
+            null,
             V4Api.Sessions.Specific.Players(sessionId)
         )
     )
 
     @Resource("categories")
     public data class Categories(val parent: SponsorblockRoute) {
-        public constructor(guildId: ULong, sessionId: String, noReplace: Boolean? = false) : this(
+        public constructor(guildId: ULong, sessionId: String) : this(
             SponsorblockRoute(
                 guildId,
-                sessionId, noReplace
+                sessionId
             )
         )
     }
