@@ -127,10 +127,13 @@ internal class NodeImpl(
         while (!session.incoming.isClosedForReceive) {
             try {
                 onEvent(session.receiveDeserialized())
-            } catch (e: ClosedReceiveChannelException) {
+            } catch (ignored: ClosedReceiveChannelException) {
                 break
             } catch (e: Exception) {
                 LOG.warn(e) { "An exception occurred whilst decoding incoming websocket packet" }
+                if (e::class.simpleName == "EOFException") {
+                    reconnect(e, resume)
+                }
             }
         }
 
