@@ -42,11 +42,11 @@ internal class LinearRetry(
         if (!hasNext) error("max retries exceeded")
 
         // tries/maxTries ratio * (backOffDiff) = retryProgress
-        val retryProgress =
-            (tries.incrementAndGet() / maxTries) * (maxBackoff.inWholeMilliseconds - firstBackoff.inWholeMilliseconds)
-        val diff = firstBackoff.inWholeMilliseconds + retryProgress
+        val ratio = tries.getAndIncrement() / (maxTries - 1).toDouble()
+        val retryProgress = (maxBackoff - firstBackoff) * ratio
+        val diff = firstBackoff + retryProgress
 
-        LOG.info { "retry attempt ${tries.value}/$maxTries, delaying for $diff ms." }
+        LOG.trace { "retry attempt ${tries.value}, delaying for $diff" }
         delay(diff)
     }
 }
