@@ -20,7 +20,7 @@ public object Sponsorblock : Plugin {
     override val name: String
         get() = "sponsorblock-plugin"
     override val version: String
-        get() = "3.0.0"
+        get() = "3.0.1"
 
     override val eventTypes: List<String> =
         listOf("SegmentsLoaded", "SegmentSkipped", "ChaptersLoaded", "ChapterStarted")

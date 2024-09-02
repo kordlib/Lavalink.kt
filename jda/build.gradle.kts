@@ -14,7 +14,7 @@ dependencies {
     api(projects.core)
     api(libs.kotlinlogging)
     api(libs.kotlinx.coroutines.jdk8)
-    api("net.dv8tion:JDA:5.0.0-beta.24") {
+    api("net.dv8tion:JDA:5.1.0") {
         exclude(module = "opus-java")
     }
 }

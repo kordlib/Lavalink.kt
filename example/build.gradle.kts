@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     java
     kotlin("multiplatform")
+    alias(libs.plugins.gradle.tools)
 }
 
 group = "me.schlaubi.lavakord"
@@ -56,12 +59,6 @@ kotlin {
     }
 }
 
-tasks {
-    withType<JavaCompile> {
-        options.compilerArgs.add("--enable-preview")
-    }
-
-    withType<JavaExec> {
-        args!!.add("--enable-preview")
-    }
+kord {
+    jvmTarget = JvmTarget.JVM_21
 }

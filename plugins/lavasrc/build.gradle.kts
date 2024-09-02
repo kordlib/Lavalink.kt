@@ -1,7 +1,5 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     `lavalink-module`
@@ -27,7 +25,7 @@ kotlin {
 }
 
 dependencies {
-//    kspCommonMainMetadata(projects.plugins.kspProcessor)
+    kspCommonMainMetadata(projects.plugins.kspProcessor)
 }
 
 //tasks {

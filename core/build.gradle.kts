@@ -5,7 +5,7 @@ plugins {
     `lavalink-module`
     `lavalink-publishing`
     kotlin("plugin.serialization")
-    id("kotlinx-atomicfu")
+    alias(libs.plugins.kotlinx.atomicfu)
     alias(libs.plugins.ksp)
 }
 

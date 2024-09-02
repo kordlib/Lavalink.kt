@@ -74,7 +74,7 @@ public sealed class AbstractLavakordJda : VoiceDispatchInterceptor, EventListene
      * @see VoiceDispatchInterceptor.onVoiceServerUpdate
      */
     override fun onVoiceStateUpdate(update: VoiceDispatchInterceptor.VoiceStateUpdate): Boolean =
-        internalLavakord?.onVoiceStateUpdate(update) ?: false
+        internalLavakord?.onVoiceStateUpdate(update) == true
 }
 
 /**

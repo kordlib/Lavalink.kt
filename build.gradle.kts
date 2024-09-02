@@ -29,7 +29,9 @@ subprojects {
         apply<KordGradlePlugin>()
         configure<KordExtension> {
             publicationName = "mavenCentral"
-            jvmTarget = JvmTarget.JVM_17
+            if (jvmTarget.get() <= JvmTarget.JVM_17) {
+                jvmTarget = JvmTarget.JVM_17
+            }
         }
     }
     group = rootProject.group
