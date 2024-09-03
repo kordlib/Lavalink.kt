@@ -31,23 +31,23 @@ kotlin {
 }
 
 dependencies {
-    kspCommonMainMetadata(libs.kord.ksp.processors)
+//    kspCommonMainMetadata(libs.kord.ksp.processors)
 }
 
-tasks {
-    listOf(
-        "sourcesJar",
-        "jsSourcesJar",
-        "jvmSourcesJar",
-        "compileKotlinJs",
-        "compileKotlinJvm",
-        "dokkaHtml"
-    ).forEach {
-        named(it) {
-            dependsOn("kspCommonMainKotlinMetadata")
-        }
-    }
-}
+//tasks {
+//    listOf(
+//        "sourcesJar",
+//        "jsSourcesJar",
+//        "jvmSourcesJar",
+//        "compileKotlinJs",
+//        "compileKotlinJvm",
+//        "dokkaHtml"
+//    ).forEach {
+//        named(it) {
+//            dependsOn("kspCommonMainKotlinMetadata")
+//        }
+//    }
+//}
 
 mavenPublishing {
     configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaHtml")))

@@ -25,7 +25,7 @@ kotlin {
 }
 
 dependencies {
-    kspCommonMainMetadata(projects.plugins.kspProcessor)
+//    kspCommonMainMetadata(projects.plugins.kspProcessor)
 }
 
 //tasks {

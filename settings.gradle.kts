@@ -6,7 +6,7 @@ include(
     "kord", // GitHub Actions gets mad about this and I can't reproduce this locally
     "jsExample",
     "core",
-    ":plugins:kspProcessor",
+//    ":plugins:kspProcessor",
     ":plugins:sponsorblock",
     ":plugins:lavasrc",
     ":plugins:lavasearch",

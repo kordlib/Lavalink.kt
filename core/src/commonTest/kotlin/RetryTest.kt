@@ -14,9 +14,11 @@ class RetryTest {
     @JsName("testRetryMaxFail")
     @Test
     fun `check whether retry exits correctly after exceeding max`() {
-        val retry = LinearRetry(1.seconds, 5.seconds, 1)
+        val retry = LinearRetry(1.seconds, 5.seconds, 2)
         Tests.runBlocking {
-            retry.retry()
+            repeat(2) {
+                retry.retry()
+            }
 
             assertFalse(retry.hasNext, "Retry::hasNext has to be false when maxTries has been exceeded")
             assertFailsWith<IllegalStateException>("Retry is supposed to throw illegalStateException when retrying after max was exceeded") { retry.retry() }

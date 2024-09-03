@@ -43,6 +43,7 @@ internal class LinearRetry(
 
         // tries/maxTries ratio * (backOffDiff) = retryProgress
         val ratio = tries.getAndIncrement() / (maxTries - 1).toDouble()
+        if (ratio.isNaN()) return
         val retryProgress = (maxBackoff - firstBackoff) * ratio
         val diff = firstBackoff + retryProgress
 
