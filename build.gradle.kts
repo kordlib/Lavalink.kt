@@ -1,9 +1,8 @@
 import dev.kord.gradle.tools.KordExtension
 import dev.kord.gradle.tools.KordGradlePlugin
-import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("org.jetbrains.dokka")
@@ -12,7 +11,7 @@ plugins {
 }
 
 group = "dev.schlaubi.lavakord"
-version = "7.1.0"
+version = "8.0.0"
 
 allprojects {
     repositories {
@@ -24,6 +23,18 @@ allprojects {
     }
 }
 
+dependencies {
+    dokka(projects.core)
+    dokka(projects.java)
+    dokka(projects.jda)
+    dokka(projects.jdaJava)
+    dokka(projects.kord)
+    dokka(projects.plugins.lavasearch)
+    dokka(projects.plugins.lavasrc)
+    dokka(projects.plugins.lyrics)
+    dokka(projects.plugins.sponsorblock)
+}
+
 subprojects {
     afterEvaluate {
         apply<KordGradlePlugin>()
@@ -33,23 +44,23 @@ subprojects {
                 jvmTarget = JvmTarget.JVM_17
             }
         }
-    }
-    group = rootProject.group
 
-    tasks {
-        withType<DokkaTask>().configureEach {
-            dokkaSourceSets {
-                configureEach {
-                    includeNonPublic = false
-
-                    perPackageOption {
-                        matchingRegex = ".*\\.internal.*" // will match all .internal packages and sub-packages
-                        suppress = true
+        if (plugins.hasPlugin("org.jetbrains.dokka")) {
+            dokka {
+                dokkaSourceSets {
+                    configureEach {
+                        perPackageOption {
+                            matchingRegex = ".*\\.internal.*" // will match all .internal packages and sub-packages
+                            suppress = true
+                        }
                     }
                 }
             }
         }
     }
+
+    group = rootProject.group
+
 }
 
 // Use system Node.Js on NixOS

@@ -79,3 +79,5 @@ private suspend fun ByteReadChannel.readUTF(): String {
     val length = readShort().toInt()
     return readPacket(length).readText()
 }
+
+private suspend fun ByteReadChannel.readBoolean(): Boolean = readByte() != 0.toByte()

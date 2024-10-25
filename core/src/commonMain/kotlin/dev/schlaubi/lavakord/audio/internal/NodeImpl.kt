@@ -106,7 +106,7 @@ internal class NodeImpl(
             connect(resume) {
                 addUrl()
                 timeout {
-                    requestTimeoutMillis = HttpTimeout.INFINITE_TIMEOUT_MS
+                    requestTimeoutMillis = HttpTimeoutConfig.INFINITE_TIMEOUT_MS
                 }
                 header("Authorization", authenticationHeader)
                 header("User-Id", lavakord.userId)

@@ -26,7 +26,7 @@ dependencies {
 }
 
 tasks {
-    listOf("sourcesJar", "jsSourcesJar", "jvmSourcesJar", "compileKotlinJs", "compileKotlinJvm", "dokkaHtml").forEach {
+    listOf("sourcesJar", "jsSourcesJar", "jvmSourcesJar", "compileKotlinJs", "compileKotlinJvm", "dokkaGeneratePublicationHtml").forEach {
         named(it) {
             dependsOn("kspCommonMainKotlinMetadata")
         }
@@ -34,5 +34,5 @@ tasks {
 }
 
 mavenPublishing {
-    configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaHtml")))
+    configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaGeneratePublicationHtml")))
 }

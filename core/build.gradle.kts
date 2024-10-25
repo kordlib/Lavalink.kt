@@ -83,5 +83,5 @@ dependencies {
 }
 
 mavenPublishing {
-    configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaHtml")))
+    configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaGeneratePublicationHtml")))
 }

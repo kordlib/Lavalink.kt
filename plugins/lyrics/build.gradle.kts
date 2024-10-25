@@ -1,7 +1,5 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     `lavalink-module`
@@ -27,5 +25,5 @@ kotlin {
 }
 
 mavenPublishing {
-    configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaHtml")))
+    configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaGeneratePublicationHtml")))
 }

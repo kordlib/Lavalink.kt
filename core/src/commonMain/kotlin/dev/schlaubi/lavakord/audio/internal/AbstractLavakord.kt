@@ -22,13 +22,12 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.atomicfu.atomic
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.newCoroutineContext
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.modules.plus
@@ -122,7 +121,7 @@ public abstract class AbstractLavakord internal constructor(
     internal val gatewayClient = HttpClient(HttpEngine) {
         install(WebSockets) {
             contentConverter = KotlinxWebsocketSerializationConverter(json)
-            pingInterval = 30.seconds.inWholeMilliseconds
+            pingInterval = 30.seconds
         }
 
         expectSuccess = true

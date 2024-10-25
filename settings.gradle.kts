@@ -34,7 +34,7 @@ dependencyResolutionManagement {
             kotlinx()
             ktor()
             ksp()
-            library("kord-core", "dev.kord", "kord-core").version("0.14.0")
+            library("kord-core", "dev.kord", "kord-core").version("0.15.0")
             library(
                 "kord-ksp-annotations",
                 "dev.kord",
@@ -45,13 +45,13 @@ dependencyResolutionManagement {
                 "dev.kord",
                 "kord-ksp-processors"
             ).version("feature-publish-processor-SNAPSHOT")
-            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.11.0")
+            library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.11.3")
             library("kotlinlogging", "io.github.oshai", "kotlin-logging").version("7.0.0")
             library("sl4fj-simple", "org.slf4j", "slf4j-simple").version("2.0.16")
 
-            library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("20.14.10-pre.800")
+            library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("22.5.4-pre.820")
 
-            library("lavalink-protocol", "dev.arbjerg.lavalink", "protocol").version("4.0.7")
+            library("lavalink-protocol", "dev.arbjerg.lavalink", "protocol").version("4.0.8")
             library("lyrics-protocol", "dev.schlaubi.lyrics", "protocol").version("2.5.0")
             library(
                 "lavasearch-protocol",
@@ -62,7 +62,7 @@ dependencyResolutionManagement {
                 "lavasrc-protocol",
                 "com.github.topi314.lavasrc",
                 "protocol"
-            ).version("4.2.0")
+            ).version("4.3.0")
 
             library("kotlinpoet", "com.squareup", "kotlinpoet-ksp").version("1.18.1")
 
@@ -80,13 +80,13 @@ fun VersionCatalogBuilder.kotlinx() {
     library("kotlinx-coroutines-jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     library("kotlinx-coroutines-jdk9", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk9").versionRef(coroutines)
     library("kotlinx-coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
-    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.7.2")
+    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.7.3")
     library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.6.1")
-    plugin("kotlinx-atomicfu", "org.jetbrains.kotlinx.atomicfu").version("0.25.0")
+    plugin("kotlinx-atomicfu", "org.jetbrains.kotlinx.atomicfu").version("0.26.0")
 }
 
 fun VersionCatalogBuilder.ktor() {
-    val ktor = version("ktor", "2.3.12")
+    val ktor = version("ktor", "3.0.0")
     library("ktor-io", "io.ktor", "ktor-io").versionRef(ktor)
     library("ktor-utils", "io.ktor", "ktor-utils").versionRef(ktor)
     library("ktor-client-websockets", "io.ktor", "ktor-client-websockets").versionRef(ktor)
@@ -101,8 +101,8 @@ fun VersionCatalogBuilder.ktor() {
 }
 
 fun VersionCatalogBuilder.ksp() {
-    val ksp = version("ksp", "2.0.20-1.0.24")
+    val ksp = version("ksp", "2.0.21-1.0.26")
     library("ksp-api", "com.google.devtools.ksp", "symbol-processing-api").versionRef(ksp)
     plugin("ksp", "com.google.devtools.ksp").versionRef(ksp)
-    plugin("gradle-tools", "dev.kord.gradle-tools").version("1.6.3")
+    plugin("gradle-tools", "dev.kord.gradle-tools").version("1.7.1")
 }
