@@ -52,7 +52,7 @@ internal class NodeImpl(
     override val host: Url,
     override val name: String,
     override val authenticationHeader: String,
-    override val lavakord: AbstractLavakord,
+    override val lavakord: AbstractLavakord
 ) : Node {
 
     private val resumeTimeout = lavakord.options.link.resumeTimeout
@@ -101,9 +101,11 @@ internal class NodeImpl(
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    internal suspend fun connect(resume: Boolean = false) {
+    internal suspend fun connect(doResume: Boolean = false, initialSessionId: String? = null) {
+        val resume = doResume || initialSessionId != null
+        sessionId = initialSessionId ?: sessionId
         session = try {
-            connect(resume) {
+            connect(resume || initialSessionId != null) {
                 addUrl()
                 timeout {
                     requestTimeoutMillis = HttpTimeoutConfig.INFINITE_TIMEOUT_MS

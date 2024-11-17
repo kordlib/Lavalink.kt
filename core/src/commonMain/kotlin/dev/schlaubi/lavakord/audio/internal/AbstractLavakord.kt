@@ -149,7 +149,7 @@ public abstract class AbstractLavakord internal constructor(
         }
     }
 
-    override fun addNode(serverUri: Url, password: String, name: String?) {
+    override fun addNode(serverUri: Url, password: String, name: String?, session: String?) {
         if (name != null) {
             check(!nodesMap.containsKey(name)) { "Name is already in use" }
         }
@@ -160,7 +160,7 @@ public abstract class AbstractLavakord internal constructor(
         nodesMap[finalName] = node
         launch {
             node.check()
-            node.connect()
+            node.connect(initialSessionId = session)
         }
     }
 
@@ -178,7 +178,7 @@ public abstract class AbstractLavakord internal constructor(
     }
 
     /**
-     * Forwards an voice server update event to Lavalink.
+     * Forwards a voice server update event to Lavalink.
      */
     protected suspend fun forwardVoiceEvent(
         link: Link,
@@ -203,7 +203,7 @@ public abstract class AbstractLavakord internal constructor(
     }
 
     /** Called on websocket connect without resuming */
-    internal suspend fun onNewSession(node: Node) {
+    internal fun onNewSession(node: Node) {
         if (!options.link.autoReconnect) return
         linksMap.values.filter { it.node == node }.forEach {
             launch {

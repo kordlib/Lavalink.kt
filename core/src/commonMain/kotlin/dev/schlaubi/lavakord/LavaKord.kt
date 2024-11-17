@@ -38,19 +38,20 @@ public interface LavaKord : CoroutineScope, EventSource<Event> {
      *
      * @param serverUri the uri to connect to
      * @param password the lavalink node password
-     * @param name a optional name for the node
+     * @param name an optional name for the node
      */
-    public fun addNode(serverUri: String, password: String, name: String? = null): Unit =
-        addNode(Url(serverUri), password, name)
+    public fun addNode(serverUri: String, password: String, name: String? = null, session: String? = null): Unit =
+        addNode(Url(serverUri), password, name, session)
 
     /**
      * Adds a new node to this cluster.
      *
      * @param serverUri the uri to connect to
      * @param password the lavalink node password
-     * @param name a optional name for the node
+     * @param name an optional name for the node
+     * @param session an optional session to resume
      */
-    public fun addNode(serverUri: Url, password: String, name: String? = null)
+    public fun addNode(serverUri: Url, password: String, name: String? = null, session: String? = null)
 
     /**
      * Creates and returns a new [rest-only node][RestNode].
@@ -62,7 +63,7 @@ public interface LavaKord : CoroutineScope, EventSource<Event> {
     public fun createRestNode(serverUri: Url, password: String, name: String? = null): RestNode
 
     /**
-     * Removes a node from the cluster by it's [name].
+     * Removes a node from the cluster by its [name].
      */
     public fun removeNode(name: String)
 
