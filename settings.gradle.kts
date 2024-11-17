@@ -52,7 +52,7 @@ dependencyResolutionManagement {
             library("kotlinx-nodejs", "org.jetbrains.kotlin-wrappers", "kotlin-node").version("22.5.4-pre.820")
 
             library("lavalink-protocol", "dev.arbjerg.lavalink", "protocol").version("4.0.8")
-            library("lyrics-protocol", "dev.schlaubi.lyrics", "protocol").version("2.5.0")
+            library("lyrics-protocol", "dev.schlaubi.lyrics", "protocol").version("2.6.1")
             library(
                 "lavasearch-protocol",
                 "com.github.topi314.lavasearch",
@@ -64,7 +64,7 @@ dependencyResolutionManagement {
                 "protocol"
             ).version("4.3.0")
 
-            library("kotlinpoet", "com.squareup", "kotlinpoet-ksp").version("1.18.1")
+            library("kotlinpoet", "com.squareup", "kotlinpoet-ksp").version("2.0.0")
 
             library("codegen", "dev.kord.codegen", "kotlinpoet").versionRef(codegen)
             library("codegen-ksp", "dev.kord.codegen", "ksp").versionRef(codegen)
@@ -86,7 +86,7 @@ fun VersionCatalogBuilder.kotlinx() {
 }
 
 fun VersionCatalogBuilder.ktor() {
-    val ktor = version("ktor", "3.0.0")
+    val ktor = version("ktor", "3.0.1")
     library("ktor-io", "io.ktor", "ktor-io").versionRef(ktor)
     library("ktor-utils", "io.ktor", "ktor-utils").versionRef(ktor)
     library("ktor-client-websockets", "io.ktor", "ktor-client-websockets").versionRef(ktor)
@@ -101,7 +101,7 @@ fun VersionCatalogBuilder.ktor() {
 }
 
 fun VersionCatalogBuilder.ksp() {
-    val ksp = version("ksp", "2.0.21-1.0.26")
+    val ksp = version("ksp", "2.0.21-1.0.28")
     library("ksp-api", "com.google.devtools.ksp", "symbol-processing-api").versionRef(ksp)
     plugin("ksp", "com.google.devtools.ksp").versionRef(ksp)
     plugin("gradle-tools", "dev.kord.gradle-tools").version("1.7.1")
