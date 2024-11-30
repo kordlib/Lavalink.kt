@@ -54,7 +54,6 @@ internal class NodeImpl(
     override val authenticationHeader: String,
     override val lavakord: AbstractLavakord
 ) : Node {
-
     private val resumeTimeout = lavakord.options.link.resumeTimeout
     private val retry = lavakord.options.link.retry
 
@@ -193,7 +192,7 @@ internal class NodeImpl(
                 val link = lavakord.getLink(event.guildId) as AbstractLink
 
                 if (event.state.connected && link.state == Link.State.CONNECTING) {
-                    link.state = Link.State.CONNECTING
+                    link.state = Link.State.CONNECTED
                 } else if (!event.state.connected && link.state == Link.State.DISCONNECTING) {
                     link.state = Link.State.NOT_CONNECTED
                 }
