@@ -1,8 +1,8 @@
 import dev.kord.gradle.tools.KordExtension
 import dev.kord.gradle.tools.KordGradlePlugin
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 
 plugins {
     id("org.jetbrains.dokka")
@@ -65,7 +65,7 @@ subprojects {
 
 // Use system Node.Js on NixOS
 if (System.getenv("NIX_PROFILES") != null) {
-    rootProject.plugins.withType<NodeJsRootPlugin> {
-        rootProject.the<NodeJsRootExtension>().download = false
+    rootProject.plugins.withType<NodeJsPlugin> {
+        rootProject.the<NodeJsEnvSpec>().download = false
     }
 }

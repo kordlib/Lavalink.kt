@@ -198,6 +198,7 @@ internal class NodeImpl(
                 }
 
                 (link.player as WebsocketPlayer).provideState(event.state)
+                eventPublisher.tryEmit(event.toEvent())
             }
 
             is Message.EmittedEvent.WebSocketClosedEvent -> {

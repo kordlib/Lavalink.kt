@@ -4,12 +4,21 @@ import dev.arbjerg.lavalink.protocol.v4.*
 import dev.schlaubi.lavakord.audio.*
 import kotlin.time.Duration
 
-internal fun Message.EmittedEvent.toEvent(): Event = when (this) {
+internal fun Message.toEvent(): Event = when (this) {
     is Message.EmittedEvent.TrackEndEvent -> TrackEndEvent(this)
     is Message.EmittedEvent.TrackExceptionEvent -> TrackExceptionEvent(this)
     is Message.EmittedEvent.TrackStartEvent -> TrackStartEvent(this)
     is Message.EmittedEvent.TrackStuckEvent -> TrackStuckEvent(this)
     is Message.EmittedEvent.WebSocketClosedEvent -> WebSocketClosedEvent(this)
+    is Message.PlayerUpdateEvent -> PlayerUpdateEvent(this)
+    else -> error("Unsupported event: $this")
+}
+
+private fun PlayerUpdateEvent(delegate: Message.PlayerUpdateEvent) = object : PlayerUpdateEvent {
+    override val state: PlayerState
+        get() = delegate.state
+    override val guildId: ULong
+        get() = delegate.guildId.toULong()
 }
 
 private fun TrackEndEvent(delegate: Message.EmittedEvent.TrackEndEvent) = object : TrackEndEvent {

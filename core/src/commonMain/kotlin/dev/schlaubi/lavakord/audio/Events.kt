@@ -4,6 +4,7 @@ package dev.schlaubi.lavakord.audio
 
 import dev.arbjerg.lavalink.protocol.v4.Exception
 import dev.arbjerg.lavalink.protocol.v4.Message
+import dev.arbjerg.lavalink.protocol.v4.PlayerState
 import dev.arbjerg.lavalink.protocol.v4.Track
 import dev.schlaubi.lavakord.audio.StatsEvent.*
 import kotlinx.coroutines.CoroutineScope
@@ -143,6 +144,15 @@ public interface StatsEvent {
         @Suppress("SpellCheckingInspection") val nulled: Int,
         val deficit: Int
     )
+}
+
+/**
+ * Event fired when a player gets updated.
+ *
+ * @property state the new [PlayerState]
+ */
+public interface PlayerUpdateEvent : Event {
+    public val state: PlayerState
 }
 
 /**

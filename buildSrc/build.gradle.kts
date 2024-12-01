@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = "2.0.21"
+    val kotlinVersion = "2.1.0"
     implementation(kotlin("gradle-plugin", kotlinVersion))
     implementation(kotlin("serialization", kotlinVersion))
     implementation(kotlin("gradle-plugin-api", kotlinVersion))

@@ -75,7 +75,7 @@ dependencyResolutionManagement {
 }
 
 fun VersionCatalogBuilder.kotlinx() {
-    val coroutines = version("coroutines", "1.9.0-RC")
+    val coroutines = version("coroutines", "1.9.0")
     library("kotlinx-coroutines-core", "org.jetbrains.kotlinx", "kotlinx-coroutines-core").versionRef(coroutines)
     library("kotlinx-coroutines-jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     library("kotlinx-coroutines-jdk9", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk9").versionRef(coroutines)
@@ -101,8 +101,8 @@ fun VersionCatalogBuilder.ktor() {
 }
 
 fun VersionCatalogBuilder.ksp() {
-    val ksp = version("ksp", "2.0.21-1.0.28")
+    val ksp = version("ksp", "2.1.0-1.0.28")
     library("ksp-api", "com.google.devtools.ksp", "symbol-processing-api").versionRef(ksp)
     plugin("ksp", "com.google.devtools.ksp").versionRef(ksp)
-    plugin("gradle-tools", "dev.kord.gradle-tools").version("1.7.1")
+    plugin("gradle-tools", "dev.kord.gradle-tools").version("1.9.2")
 }
