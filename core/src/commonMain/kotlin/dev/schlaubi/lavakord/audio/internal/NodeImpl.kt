@@ -102,7 +102,9 @@ internal class NodeImpl(
     @OptIn(DelicateCoroutinesApi::class)
     internal suspend fun connect(doResume: Boolean = false, initialSessionId: String? = null) {
         val resume = doResume || initialSessionId != null
-        sessionId = initialSessionId ?: sessionId
+        if (initialSessionId != null) {
+            sessionId = initialSessionId
+        }
         session = try {
             connect(resume || initialSessionId != null) {
                 addUrl()
