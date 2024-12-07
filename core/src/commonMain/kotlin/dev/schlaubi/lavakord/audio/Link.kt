@@ -3,6 +3,7 @@ package dev.schlaubi.lavakord.audio
 import dev.schlaubi.lavakord.LavaKord
 import dev.schlaubi.lavakord.audio.Link.State
 import dev.schlaubi.lavakord.audio.player.Player
+import kotlinx.coroutines.CoroutineScope
 
 /**
  * Representation of a link between a Guild and a Lavalink node.
@@ -14,7 +15,7 @@ import dev.schlaubi.lavakord.audio.player.Player
  * @property guildId the id of the Guild this [Link] is connected to
  * @property lastChannelId the id of the last channel this Link is connected to
  */
-public interface Link {
+public interface Link : CoroutineScope {
     public val node: Node
     public val player: Player
     public val lavakord: LavaKord

@@ -1,10 +1,7 @@
 package dev.schlaubi.lavakord.audio.internal
 
 import dev.arbjerg.lavalink.protocol.v4.*
-import dev.schlaubi.lavakord.audio.Event
-import dev.schlaubi.lavakord.audio.TrackEndEvent
-import dev.schlaubi.lavakord.audio.TrackStartEvent
-import dev.schlaubi.lavakord.audio.on
+import dev.schlaubi.lavakord.audio.*
 import dev.schlaubi.lavakord.audio.player.Equalizer
 import dev.schlaubi.lavakord.audio.player.Filters
 import dev.schlaubi.lavakord.audio.player.PlayOptions
@@ -12,7 +9,6 @@ import dev.schlaubi.lavakord.audio.player.Player
 import dev.schlaubi.lavakord.rest.models.FiltersObject
 import dev.schlaubi.lavakord.rest.models.toLavalink
 import dev.schlaubi.lavakord.rest.updatePlayer
-import kotlinx.atomicfu.AtomicBoolean
 import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -22,13 +18,11 @@ import kotlinx.datetime.Instant
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
-internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Player {
-    internal var node: NodeImpl = node
-        private set
+internal class WebsocketPlayer(private val link: Link, internal val guildId: ULong) : Player, CoroutineScope by link {
     override var playingTrack: Track? = null
-    override val coroutineScope: CoroutineScope
-        get() = node.coroutineScope
     override var paused: Boolean = false
+    override val coroutineScope: CoroutineScope
+        get() = this
     private var lastPosition: Duration = 0.milliseconds
     private var updateTime: Instant = Instant.DISTANT_PAST
     override val positionDuration: Duration
@@ -57,7 +51,7 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
             }
 
     override val events: Flow<Event>
-        get() = node.events.filter { it.guildId == guildId }
+        get() = link.lavakord.events.filter { it.guildId == guildId }
 
     init {
         on(consumer = ::handleNewTrack)
@@ -76,7 +70,7 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
         playOptionsBuilder: PlayOptions.() -> Unit
     ) {
         val options = PlayOptions().apply(playOptionsBuilder)
-        node.updatePlayer(
+        link.node.updatePlayer(
             guildId, options.noReplace, PlayerUpdate(
                 encodedTrack = track.toOmissible(),
                 identifier = identifier.toOmissible(),
@@ -104,7 +98,7 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
     }
 
     override suspend fun stopTrack() {
-        node.updatePlayer(
+        link.node.updatePlayer(
             guildId,
             request = PlayerUpdate(encodedTrack = Omissible(null))
         )
@@ -113,7 +107,7 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
 
     override suspend fun pause(doPause: Boolean) {
         if (paused == doPause) return
-        node.updatePlayer(
+        link.node.updatePlayer(
             guildId,
             request = PlayerUpdate(paused = doPause.toOmissible())
         )
@@ -123,7 +117,7 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
     override suspend fun seekTo(position: Long) {
         checkNotNull(playingTrack) { "Not currently playing anything" }
 
-        node.updatePlayer(
+        link.node.updatePlayer(
             guildId,
             request = PlayerUpdate(position = position.toOmissible())
         )
@@ -138,12 +132,11 @@ internal class WebsocketPlayer(node: NodeImpl, internal val guildId: ULong) : Pl
         lastPosition = state.position.milliseconds
     }
 
-    internal suspend fun recreatePlayer(node: NodeImpl, voiceState: VoiceState?) {
-        this.node = node
+    internal suspend fun recreatePlayer(voiceState: VoiceState?) {
         val position = if (playingTrack == null) null else positionDuration.inWholeMilliseconds
 
         isRecreating.value = true
-        node.updatePlayer(
+        link.node.updatePlayer(
             guildId, noReplace = false, PlayerUpdate(
                 encodedTrack = playingTrack?.encoded.toOmissible(),
                 identifier = Omissible.omitted(),
