@@ -1,12 +1,25 @@
 @file:Suppress("KDocMissingDocumentation")
 
+pluginManagement {
+    resolutionStrategy {
+        repositories {
+            gradlePluginPortal()
+            maven("https://europe-west3-maven.pkg.dev/mik-music/kord")
+        }
+    }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+
 rootProject.name = "lavakord"
 include(
     "example",
     "kord", // GitHub Actions gets mad about this and I can't reproduce this locally
 //    "jsExample",
     "core",
-//    ":plugins:kspProcessor",
+    ":plugins:kspProcessor",
     ":plugins:sponsorblock",
     ":plugins:lavasrc",
     ":plugins:lavasearch",
@@ -18,19 +31,10 @@ include(
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-pluginManagement {
-    resolutionStrategy {
-        repositories {
-            gradlePluginPortal()
-            maven("https://europe-west3-maven.pkg.dev/mik-music/kord")
-        }
-    }
-}
-
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            val codegen = version("codegen", "main-SNAPSHOT")
+            val codegen = version("codegen", "1.0.0")
             kotlinx()
             ktor()
             ksp()
@@ -39,12 +43,12 @@ dependencyResolutionManagement {
                 "kord-ksp-annotations",
                 "dev.kord",
                 "kord-ksp-annotations"
-            ).version("feature-publish-processor-SNAPSHOT")
+            ).version("feature-native-SNAPSHOT")
             library(
                 "kord-ksp-processors",
                 "dev.kord",
                 "kord-ksp-processors"
-            ).version("feature-publish-processor-SNAPSHOT")
+            ).version("feature-native-SNAPSHOT")
             library("junit-jupiter-engine", "org.junit.jupiter", "junit-jupiter-engine").version("5.13.4")
             library("kotlinlogging", "io.github.oshai", "kotlin-logging").version("7.0.13")
             library("sl4fj-simple", "org.slf4j", "slf4j-simple").version("2.0.17")
@@ -80,7 +84,7 @@ fun VersionCatalogBuilder.kotlinx() {
     library("kotlinx-coroutines-jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8").versionRef(coroutines)
     library("kotlinx-coroutines-jdk9", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk9").versionRef(coroutines)
     library("kotlinx-coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
-    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.90.3")
+    library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.9.0")
     library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.6.1")
     plugin("kotlinx-atomicfu", "org.jetbrains.kotlinx.atomicfu").version("0.29.0")
 }

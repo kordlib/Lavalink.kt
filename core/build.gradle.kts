@@ -79,7 +79,7 @@ kotlin {
 }
 
 dependencies {
-//    kspJvm(libs.codegen.ksp.processor)
+    kspJvm(libs.codegen.ksp.processor)
 }
 
 mavenPublishing {

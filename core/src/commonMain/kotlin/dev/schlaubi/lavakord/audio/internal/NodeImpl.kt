@@ -106,7 +106,7 @@ internal class NodeImpl(
             sessionId = initialSessionId
         }
         session = try {
-            connect(resume || initialSessionId != null) {
+            connect(resume) {
                 addUrl()
                 timeout {
                     requestTimeoutMillis = HttpTimeoutConfig.INFINITE_TIMEOUT_MS

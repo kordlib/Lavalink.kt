@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    java
     kotlin("multiplatform")
     alias(libs.plugins.gradle.tools)
 }
@@ -18,9 +17,7 @@ repositories {
 
 kotlin {
     jvmToolchain(21)
-    jvm {
-        withJava()
-    }
+    jvm()
     js(IR) {
         nodejs()
         useCommonJs()

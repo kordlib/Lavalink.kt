@@ -1,29 +1,29 @@
-@file:GenerateKordEnum(
+@file:Generate(
+    Generate.EntityType.STRING_KORD_ENUM,
     "SearchType",
-    GenerateKordEnum.ValueType.STRING,
     docUrl = "https://github.com/topi314/LavaSearch?tab=readme-ov-file#api",
     entries = [
-        GenerateKordEnum.Entry(
+        Generate.Entry(
             "Track",
             stringValue = "track",
             kDoc = "Tracks."
         ),
-        GenerateKordEnum.Entry(
+        Generate.Entry(
             "Album",
             stringValue = "album",
             kDoc = "Album."
         ),
-        GenerateKordEnum.Entry(
+        Generate.Entry(
             "Artist",
             stringValue = "artist",
             kDoc = "Artists."
         ),
-        GenerateKordEnum.Entry(
+        Generate.Entry(
             "Playlist",
             stringValue = "playlist",
             kDoc = "Playlists."
         ),
-        GenerateKordEnum.Entry(
+        Generate.Entry(
             "Text",
             stringValue = "text",
             kDoc = "Search suggestions."
@@ -33,4 +33,4 @@
 
 package dev.schlaubi.lavakord.plugins.lavasearch.model
 
-import dev.kord.ksp.GenerateKordEnum
+import dev.kord.ksp.Generate

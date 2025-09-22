@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 
 plugins {
-    id("org.jetbrains.dokka")
+    org.jetbrains.dokka
     alias(libs.plugins.kotlinx.atomicfu) apply false
     alias(libs.plugins.gradle.tools) apply false
 }
@@ -15,10 +15,20 @@ group = "dev.schlaubi.lavakord"
 allprojects {
     repositories {
         mavenCentral()
+        maven("https://snapshots.kord.dev")
         maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
         maven("https://oss.sonatype.org/content/repositories/snapshots")
         maven("https://maven.topi.wtf/snapshots")
         maven("https://maven.topi.wtf/releases")
+    }
+
+    configurations.all {
+        val conf = this
+        conf.resolutionStrategy.eachDependency {
+            if (requested.group == "dev.kord.codegen") {
+                useVersion("1.0.0")
+            }
+        }
     }
 }
 
@@ -40,7 +50,7 @@ subprojects {
         configure<KordExtension> {
             publicationName = "mavenCentral"
             if (jvmTarget.get() <= JvmTarget.JVM_17) {
-                jvmTarget = JvmTarget.JVM_17
+                jvmTarget = JvmTarget.JVM_21
             }
         }
 

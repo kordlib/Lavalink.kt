@@ -88,7 +88,7 @@ private fun generateEnum(className: ClassName, parameter: GenerateQueryHelper.Pa
     TypeSpec.enum(className) {
         val constructor = FunSpec.constructorBuilder().addParameter("value", STRING).build()
         primaryConstructor(constructor)
-        addProperty<String>("value") {
+        addProperty("value", STRING) {
             addKdoc("The value used in queries")
             initializer("value")
         }

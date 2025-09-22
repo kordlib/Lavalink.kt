@@ -24,7 +24,6 @@ public annotation class GenerateQueryHelper(
 ) {
     @Target(AnnotationTarget.FILE)
     @Retention(AnnotationRetention.SOURCE)
-    @ProcessorAnnotation("dev.schlaubi.lavakord.internal.processing")
     public annotation class Parameter(
         val name: String,
         val queryName: String = "",
@@ -33,7 +32,6 @@ public annotation class GenerateQueryHelper(
         val enumTypes: Array<EnumType> = []
     ) {
 
-        @ProcessorAnnotation("dev.schlaubi.lavakord.internal.processing")
         public annotation class EnumType(
             val name: String,
             val value: String,
