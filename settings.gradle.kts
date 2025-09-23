@@ -108,5 +108,4 @@ fun VersionCatalogBuilder.ksp() {
     val ksp = version("ksp", "2.2.20-2.0.3")
     library("ksp-api", "com.google.devtools.ksp", "symbol-processing-api").versionRef(ksp)
     plugin("ksp", "com.google.devtools.ksp").versionRef(ksp)
-    plugin("gradle-tools", "dev.kord.gradle-tools").version("1.9.2")
 }

@@ -7,7 +7,6 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
 plugins {
     org.jetbrains.dokka
     alias(libs.plugins.kotlinx.atomicfu) apply false
-    alias(libs.plugins.gradle.tools) apply false
 }
 
 group = "dev.schlaubi.lavakord"
@@ -48,7 +47,6 @@ subprojects {
     afterEvaluate {
         apply<KordGradlePlugin>()
         configure<KordExtension> {
-            publicationName = "mavenCentral"
             if (jvmTarget.get() <= JvmTarget.JVM_17) {
                 jvmTarget = JvmTarget.JVM_21
             }

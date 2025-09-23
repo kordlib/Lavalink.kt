@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform")
-    alias(libs.plugins.gradle.tools)
+    dev.kord.`gradle-tools`
 }
 
 group = "me.schlaubi.lavakord"

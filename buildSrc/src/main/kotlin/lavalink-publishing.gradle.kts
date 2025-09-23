@@ -2,6 +2,7 @@
 plugins {
     id("com.vanniktech.maven.publish.base")
     `maven-publish`
+    dev.kord.`gradle-tools`
 }
 
 mavenPublishing {
