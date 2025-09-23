@@ -35,7 +35,7 @@ tasks {
         "jvmSourcesJar",
         "compileKotlinJs",
         "compileKotlinJvm",
-        "dokkaGenerateModuleHtml"
+        "dokkaGeneratePublicationHtml"
     ).forEach {
         named(it) {
             dependsOn("kspCommonMainKotlinMetadata")

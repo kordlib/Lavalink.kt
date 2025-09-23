@@ -26,7 +26,14 @@ dependencies {
 }
 
 tasks {
-    listOf("sourcesJar", "jsSourcesJar", "jvmSourcesJar", "compileKotlinJs", "compileKotlinJvm", "dokkaGeneratePublicationHtml").forEach {
+    listOf(
+        "sourcesJar",
+        "jsSourcesJar",
+        "jvmSourcesJar",
+        "compileKotlinJs",
+        "compileKotlinJvm",
+        "dokkaGeneratePublicationHtml"
+    ).forEach {
         named(it) {
             dependsOn("kspCommonMainKotlinMetadata")
         }
