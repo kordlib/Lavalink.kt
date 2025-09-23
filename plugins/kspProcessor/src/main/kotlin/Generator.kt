@@ -5,14 +5,15 @@ package dev.schlaubi.lavakord.ksp
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.symbol.KSFile
 import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.MemberName.Companion.member
 import com.squareup.kotlinpoet.ksp.writeTo
 import dev.kord.codegen.kotlinpoet.FileSpec
 import dev.kord.codegen.kotlinpoet.ParameterSpec
 import dev.schlaubi.lavakord.PluginApi
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.player.PlayOptions
+import dev.schlaubi.lavakord.internal.GenerateQueryHelper
 import dev.schlaubi.lavakord.internal.QueryBuilder
-import dev.schlaubi.lavakord.internal.processing.GenerateQueryHelper
 import dev.schlaubi.lavakord.ksp.generator.generateBuilder
 import dev.schlaubi.lavakord.ksp.generator.generateBuilderFunction
 import dev.schlaubi.lavakord.ksp.generator.search
@@ -28,7 +29,7 @@ private val EXACTLY_ONCE = MemberName(InvocationKind::class.asClassName(), "EXAC
 private val PLAY_OPTIONS = typeNameOf<PlayOptions>()
 internal val PLAY_OPTIONS_BUILDER = LambdaTypeName.get(PLAY_OPTIONS, returnType = UNIT)
 internal val QUERY_BUILDER = typeNameOf<QueryBuilder>()
-internal val loadItem = Node::loadItem.asMemberName()
+internal val loadItem = MemberName("dev.schlaubi.lavakord.rest", "loadItem")
 
 internal val GenerateQueryHelper.functionName: String
     get() = serviceName.replace("\\s+".toRegex(), "")
@@ -56,7 +57,7 @@ internal fun generateHelpers(
 }
 
 private fun GenerateQueryHelper.generateHelpers(addTo: FileSpec.Builder) {
-    val builderName = ClassName(packageName, "${functionName}${operationName.capitalize()}QueryBuilder")
+    val builderName = ClassName(packageName, "${functionName}${operationNameSafe.capitalize()}QueryBuilder")
 
     with(addTo) {
         addKotlinDefaultImports(includeJvm = false, includeJs = false)
@@ -64,7 +65,7 @@ private fun GenerateQueryHelper.generateHelpers(addTo: FileSpec.Builder) {
             addFunction(searchAndPlay(builderName))
         }
         addFunction(search(builderName))
-        if (builderOptions.isNotEmpty()) {
+        if (builderOptionsSafe.isNotEmpty()) {
             addType(generateBuilder(builderName))
             addFunction(generateBuilderFunction(builderName))
         }
@@ -76,7 +77,7 @@ internal fun GenerateQueryHelper.generateFunction(
     name: String, builderParameterName: String, builder: FunSpec.Builder.(QueryFunctionContext) -> Unit
 ): FunSpec = FunSpec.builder(name).apply {
     this@generateFunction.parameters.forEach { parameter ->
-        val spec = ParameterSpec(parameter.name, parameter.type.toType()) { addKdoc(parameter.kDoc) }
+        val spec = ParameterSpec(parameter.name, parameter.typeSafe.toType()) { addKdoc(parameter.kDoc) }
         addParameter(spec)
     }
     val queryString = buildParameters(builderParameterName)
@@ -84,7 +85,7 @@ internal fun GenerateQueryHelper.generateFunction(
 }.build()
 
 internal fun GenerateQueryHelper.buildParameters(builderParameterName: String): CodeBlock {
-    return if (builderOptions.isNotEmpty()) {
+    return if (builderOptionsSafe.isNotEmpty()) {
         buildBuilderParameters(builderParameterName)
     } else {
         buildStringParameters()
@@ -102,14 +103,14 @@ internal fun GenerateQueryHelper.buildStringParameters(): CodeBlock {
     var isFirstParam = true
     val prefix = CodeBlock.of("%L:", prefix)
     val parameters = listOf(prefix) + parameters.map { parameter ->
-        if (parameter.queryName.isNotEmpty()) {
+        if (parameter.queryNameSafe.isNotEmpty()) {
             val separator = if (isFirstParam) {
                 isFirstParam = false
                 "?"
             } else {
                 "&"
             }
-            CodeBlock.of("""$separator%L=$%N""", parameter.queryName, parameter.name)
+            CodeBlock.of("""$separator%L=$%N""", parameter.queryNameSafe, parameter.name)
         } else {
             CodeBlock.of("""$%N""", parameter.name)
         }

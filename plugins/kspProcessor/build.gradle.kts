@@ -18,6 +18,7 @@ dependencies {
 
 kotlin {
     compilerOptions {
+        optIn.add("dev.schlaubi.lavakord.PluginApi")
         freeCompilerArgs.add("-Xcontext-receivers")
     }
 

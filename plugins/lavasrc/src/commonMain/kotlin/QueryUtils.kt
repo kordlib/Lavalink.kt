@@ -1,4 +1,3 @@
-@file:Suppress("INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
 @file:GenerateQueryHelper(
     serviceName = "Spotify",
     serviceWebsite = "https://spotify.com",
@@ -103,15 +102,15 @@ private const val PACKAGE_NAME = "dev.schlaubi.lavakord.plugins.lavasrc"
 private const val isrcDoc =
     "The [ISRC](https://en.wikipedia.org/wiki/International_Standard_Recording_Code) of the song you want to play"
 
-///**
-// * Searches for items in the year range from [start] end [end].
-// */
-//public fun SpotifySearchQueryBuilder.fromYear(start: Int, end: Int? = null) {
-//    year = buildString {
-//        append(start)
-//        if (end != null) {
-//            append('-')
-//            append(end)
-//        }
-//    }
-//}
+/**
+ * Searches for items in the year range from [start] end [end].
+ */
+public fun SpotifySearchQueryBuilder.fromYear(start: Int, end: Int? = null) {
+    year = buildString {
+        append(start)
+        if (end != null) {
+            append('-')
+            append(end)
+        }
+    }
+}

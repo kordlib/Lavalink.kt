@@ -25,23 +25,23 @@ kotlin {
 }
 
 dependencies {
-//    kspCommonMainMetadata(projects.plugins.kspProcessor)
+    kspCommonMainMetadata(projects.plugins.kspProcessor)
 }
 
-//tasks {
-//    listOf(
-//        "sourcesJar",
-//        "jsSourcesJar",
-//        "jvmSourcesJar",
-//        "compileKotlinJs",
-//        "compileKotlinJvm",
-//        "dokkaGenerateModuleHtml"
-//    ).forEach {
-//        named(it) {
-//            dependsOn("kspCommonMainKotlinMetadata")
-//        }
-//    }
-//}
+tasks {
+    listOf(
+        "sourcesJar",
+        "jsSourcesJar",
+        "jvmSourcesJar",
+        "compileKotlinJs",
+        "compileKotlinJvm",
+        "dokkaGenerateModuleHtml"
+    ).forEach {
+        named(it) {
+            dependsOn("kspCommonMainKotlinMetadata")
+        }
+    }
+}
 
 mavenPublishing {
     configure(KotlinMultiplatform(JavadocJar.Dokka("dokkaGeneratePublicationHtml")))

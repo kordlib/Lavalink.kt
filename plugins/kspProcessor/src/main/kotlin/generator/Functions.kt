@@ -32,18 +32,18 @@ import dev.schlaubi.lavakord.ksp.*
  * }
  * ```
  */
-internal fun dev.schlaubi.lavakord.internal.processing.GenerateQueryHelper.searchAndPlay(builderName: ClassName): FunSpec {
+internal fun GenerateQueryHelper.searchAndPlay(builderName: ClassName): FunSpec {
     val playOptionsBuilder = ParameterSpec("playOptionsBuilder", PLAY_OPTIONS_BUILDER) {
         defaultValue("""{}""")
     }
     val builderParameterName = "options"
 
-    return generateFunction("${operationName}AndPlayUsing${functionName}", builderParameterName) { context ->
+    return generateFunction("${operationNameSafe}AndPlayUsing${functionName}", builderParameterName) { context ->
         receiver(Player::class)
         addModifiers(KModifier.SUSPEND)
         addKdoc("""Performs a track search and plays the result using [$serviceName]($serviceWebsite).""".trim())
         addBuilderContract(playOptionsBuilder)
-        if (builderOptions.isNotEmpty()) {
+        if (builderOptionsSafe.isNotEmpty()) {
             addParameter("options", builderName) {
                 defaultValue("%T.Default", builderName)
             }
@@ -64,18 +64,18 @@ internal fun dev.schlaubi.lavakord.internal.processing.GenerateQueryHelper.searc
  *     loadItem("{prefix}:$query")
  *```
  */
-internal fun dev.schlaubi.lavakord.internal.processing.GenerateQueryHelper.search(builderName: ClassName): FunSpec {
+internal fun GenerateQueryHelper.search(builderName: ClassName): FunSpec {
     val optionsParameterName = "options"
     val builderLambda = LambdaTypeName.get(builderName, returnType = UNIT)
     val builderParameter = ParameterSpec.builder("builder", builderLambda)
         .defaultValue("{}")
         .build()
-    return generateFunction("${operationName}Using${functionName}", optionsParameterName) { context ->
+    return generateFunction("${operationNameSafe}Using${functionName}", optionsParameterName) { context ->
         addModifiers(KModifier.SUSPEND)
         receiver(Node::class)
         returns(LoadResult::class)
         addKdoc("""Performs a track search using [$serviceName]($serviceWebsite).""")
-        if (builderOptions.isNotEmpty()) {
+        if (builderOptionsSafe.isNotEmpty()) {
             addModifiers(KModifier.INLINE)
             addParameter(builderParameter)
             addBuilderContract(builderParameter)
