@@ -35,15 +35,16 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             val codegen = version("codegen", "1.0.0")
+            val kord = version("kord", "0.17.0")
             kotlinx()
             ktor()
             ksp()
-            library("kord-core", "dev.kord", "kord-core").version("0.17.0-SNAPSHOT")
+            library("kord-core", "dev.kord", "kord-core").versionRef(kord)
             library(
                 "kord-ksp-annotations",
                 "dev.kord",
                 "kord-ksp-annotations"
-            ).version("feature-native-SNAPSHOT")
+            ).versionRef("kord")
             library(
                 "kord-ksp-processors",
                 "dev.kord",
