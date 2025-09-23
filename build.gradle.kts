@@ -3,6 +3,7 @@ import dev.kord.gradle.tools.KordGradlePlugin
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin
+import org.jetbrains.kotlin.konan.target.Family
 
 plugins {
     org.jetbrains.dokka
@@ -50,6 +51,8 @@ subprojects {
             if (jvmTarget.get() <= JvmTarget.JVM_17) {
                 jvmTarget = JvmTarget.JVM_21
             }
+
+            commonHost = Family.LINUX
         }
 
         if (plugins.hasPlugin("org.jetbrains.dokka")) {
