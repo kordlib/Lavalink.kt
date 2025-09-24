@@ -19,7 +19,6 @@ kotlin {
             dependencies {
                 api(libs.kotlinx.coroutines.core)
                 api(libs.kotlinx.serialization.json)
-                api(libs.kotlinx.datetime)
                 api(libs.lavalink.protocol)
 
                 implementation(libs.ktor.io)
@@ -80,6 +79,12 @@ kotlin {
 
 dependencies {
     kspJvm(libs.codegen.ksp.processor)
+    commonMainApi(libs.kotlinx.datetime) {
+        version {
+            strictly(libs.kotlinx.datetime.get().version.toString())
+        }
+    }
+
 }
 
 mavenPublishing {

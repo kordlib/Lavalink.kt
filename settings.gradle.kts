@@ -86,7 +86,7 @@ fun VersionCatalogBuilder.kotlinx() {
     library("kotlinx-coroutines-jdk9", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk9").versionRef(coroutines)
     library("kotlinx-coroutines-test", "org.jetbrains.kotlinx", "kotlinx-coroutines-test").versionRef(coroutines)
     library("kotlinx-serialization-json", "org.jetbrains.kotlinx", "kotlinx-serialization-json").version("1.9.0")
-    library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.6.1")
+    library("kotlinx-datetime", "org.jetbrains.kotlinx", "kotlinx-datetime").version("0.7.1-0.6.x-compat")
     plugin("kotlinx-atomicfu", "org.jetbrains.kotlinx.atomicfu").version("0.29.0")
 }
 
