@@ -1,7 +1,8 @@
 package dev.schlaubi.lavakord.audio.player
 
-import io.ktor.util.*
+import dev.arbjerg.lavalink.protocol.v4.Track
 import io.ktor.utils.io.*
+import kotlin.io.encoding.Base64
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
@@ -36,12 +37,12 @@ public data class LavaplayerTrack(
 ) {
     public companion object {
         /**
-         * Converts a lavalink encoded track to a [Track].
+         * Converts a lavalink [encoded] track to a [Track].
          *
-         * @see Track.track
+         * @see Track.encoded
          */
         public suspend fun fromLavalink(encoded: String): LavaplayerTrack {
-            val bytes = encoded.decodeBase64Bytes()
+            val bytes = Base64.decode(encoded)
             val reader = ByteReadChannel(bytes)
 
             val flags = (reader.readInt() and 0xC0000000.toInt()) shr 30

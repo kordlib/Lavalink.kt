@@ -7,6 +7,7 @@ import dev.schlaubi.lavakord.audio.Event
 import dev.schlaubi.lavakord.audio.EventSource
 import dev.schlaubi.lavakord.audio.Node
 import dev.schlaubi.lavakord.audio.RestNode
+import dev.schlaubi.lavakord.audio.internal.WebsocketPlayer
 import dev.schlaubi.lavakord.checkImplementation
 import dev.schlaubi.lavakord.rest.loadItem
 import kotlin.time.Duration

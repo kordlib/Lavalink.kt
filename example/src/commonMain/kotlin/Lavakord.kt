@@ -3,6 +3,7 @@
 package dev.schlaubi.lavakord
 
 import dev.arbjerg.lavalink.protocol.v4.LoadResult
+import dev.kord.common.entity.ApplicationCommandType
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.response.FollowupPermittingInteractionResponseBehavior
@@ -23,6 +24,7 @@ import dev.schlaubi.lavakord.plugins.sponsorblock.Sponsorblock
 import dev.schlaubi.lavakord.plugins.sponsorblock.model.Category
 import dev.schlaubi.lavakord.plugins.sponsorblock.rest.putSponsorblockCategories
 import dev.schlaubi.lavakord.rest.loadItem
+import kotlinx.coroutines.flow.toList
 
 lateinit var lavalink: LavaKord
 
@@ -31,6 +33,11 @@ expect fun getEnv(name: String): String?
 @OptIn(PrivilegedIntent::class)
 suspend fun main() {
     val kord = Kord(getEnv("token") ?: error("Missing token"))
+    kord.getGlobalApplicationCommands().collect {
+        if (it.type is ApplicationCommandType.Unknown) {
+            it.delete()
+        }
+    }
     kord.createGlobalApplicationCommands {
         input("connect", "Connects to your channel")
         input("pause", "Pauses the player")
@@ -39,7 +46,7 @@ suspend fun main() {
         input("play", "Starts playing a track") {
             string("query", "The query you want to play")
         }
-    }
+    }.toList()
 
     val listenedGuilds = mutableListOf<Snowflake>()
     lavalink = kord.lavakord {

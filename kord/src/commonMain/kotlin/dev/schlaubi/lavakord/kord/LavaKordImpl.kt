@@ -74,11 +74,12 @@ internal class KordLavaKord(
 
         val sessionId = guild.getMember(event.kord.selfId).getVoiceState().sessionId
         val endpoint = event.endpoint ?: error("Missing voice endpoint")
+        val channelId = link.lastChannelId ?: error("Received voice server update for not connected link")
 
         forwardVoiceEvent(
             link,
             guild.id.value,
-            VoiceState(event.token, endpoint, sessionId)
+            VoiceState(event.token, endpoint, sessionId, channelId.toString())
         )
     }
 }

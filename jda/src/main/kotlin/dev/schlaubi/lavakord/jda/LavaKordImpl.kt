@@ -26,6 +26,7 @@ internal class JDALavakord(
 
     override fun onVoiceServerUpdate(update: VoiceDispatchInterceptor.VoiceServerUpdate) {
         val link = getLink(update.guildIdLong.toULong())
+        val channel = link.lastChannelId ?: error("Received voice server update for not connected link")
 
         launch {
             forwardVoiceEvent(
@@ -34,7 +35,8 @@ internal class JDALavakord(
                 VoiceState(
                     update.token,
                     update.endpoint,
-                    update.sessionId
+                    update.sessionId,
+                    channel.toString()
                 )
             )
         }

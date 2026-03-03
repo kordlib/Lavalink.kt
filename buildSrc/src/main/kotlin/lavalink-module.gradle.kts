@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform")
@@ -24,12 +23,15 @@ kotlin {
         nodejs()
         // browser() doesn't work because the js websocket client does not allowed you to set headers
         // Apart from that why would you need Lavalink in your browser?
-        useCommonJs()
+        useEsModules()
+        compilerOptions {
+            target = "es2015"
+        }
     }
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
-        freeCompilerArgs.add("-Xexpect-actual-classes")
+        freeCompilerArgs.addAll("-Xexpect-actual-classes", "-Xdont-warn-on-error-suppression")
     }
 
     sourceSets {

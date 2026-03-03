@@ -13,12 +13,14 @@ import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
 internal class WebsocketPlayer(private val link: Link, internal val guildId: ULong) : Player, CoroutineScope by link {
+    val node: Node
+        get() = link.node
     override var playingTrack: Track? = null
     override var paused: Boolean = false
     override val coroutineScope: CoroutineScope
@@ -27,7 +29,7 @@ internal class WebsocketPlayer(private val link: Link, internal val guildId: ULo
     private var updateTime: Instant = Instant.DISTANT_PAST
     override val positionDuration: Duration
         get() {
-            val trackLength = playingTrack?.info?.length?.milliseconds ?: return -1.milliseconds
+            val trackLength = playingTrack?.info?.length?.milliseconds ?: return (-1).milliseconds
             val now = Clock.System.now()
             val elapsedSinceUpdate = now - updateTime
 
